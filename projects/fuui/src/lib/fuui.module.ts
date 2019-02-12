@@ -1,9 +1,13 @@
+import { ButtonComponent } from './components/button/button.component';
 import { NgModule } from '@angular/core';
 
 @NgModule({
-  declarations: [],
-  imports: [
+  imports: [ ],
+  declarations: [
+    ButtonComponent
   ],
-  exports: []
+  exports: [
+    ButtonComponent
+  ]
 })
 export class FuuiModule { }
