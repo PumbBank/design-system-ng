@@ -134,6 +134,41 @@
           }
         }
       }
+    },
+    "fuui": {
+      "root": "projects/fuui",
+      "sourceRoot": "projects/fuui/src",
+      "projectType": "library",
+      "prefix": "lib",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "projects/fuui/tsconfig.lib.json",
+            "project": "projects/fuui/ng-package.json"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/fuui/src/test.ts",
+            "tsConfig": "projects/fuui/tsconfig.spec.json",
+            "karmaConfig": "projects/fuui/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/fuui/tsconfig.lib.json",
+              "projects/fuui/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "fuui-angular-test"
