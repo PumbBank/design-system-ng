@@ -11,7 +11,7 @@
   },
   "private": true,
   "dependencies": {
-    "fuui-style-lib": "file:../fuib-universal-user-interface/dist/bundle",
+    "fuui-style-lib": "file:../fuib-universal-user-interface/dist/build",
     "@angular/animations": "~7.2.0",
     "@angular/common": "~7.2.0",
     "@angular/compiler": "~7.2.0",
