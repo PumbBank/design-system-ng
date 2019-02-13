@@ -1,7 +1,7 @@
-<button class="fuui-button" [ngClass]="varietyClass">
+<div class="fuui-button" [ngClass]="varietyClass">
   <ng-content select=".fuui-icon, fuui-icon"></ng-content>
 
   <span [class.hidden]="!showText" #content>
     <ng-content></ng-content>
   </span>
-</button>
+</div>

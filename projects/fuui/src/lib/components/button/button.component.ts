@@ -1,28 +1,33 @@
 import { ButtonVariety } from './button-variety';
-import { Component, Input, ViewChild, ElementRef } from '@angular/core';
+import { Component, Input, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'fuui-button',
   templateUrl: './button.component.html',
   styleUrls: ['./button.component.scss']
 })
-export class ButtonComponent {
+export class ButtonComponent implements OnChanges {
   @Input() variety: ButtonVariety = ButtonVariety.BASIC;
-
 
   @ViewChild('content') content: ElementRef;
 
-  get varietyClass(): string {
-    switch (this.variety) {
-      case ButtonVariety.BASIC:
-        return '';
-      case ButtonVariety.CONTAINED:
-        return 'fuui-button_contained';
-    }
-  }
+  varietyClass: string;
 
   get showText(): boolean {
     return this.content && !!this.content.nativeElement.innerText.trim();
+  }
+
+  ngOnChanges(changes: SimpleChanges) {
+    if (changes.variety) {
+      this.onVarietyChange();
+    }
+  }
+
+  private onVarietyChange(): void {
+    switch (this.variety) {
+      case ButtonVariety.CONTAINED:
+        this.varietyClass = 'fuui-button_contained';
+        break;
+    }
   }
 }

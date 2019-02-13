@@ -1,0 +1,4 @@
+<label class="fuui-input" [class.fuui-input_filled]="!!value">
+  <div class="fuui-input__caption">{{ title }}</div>
+  <input [type]="type" class="fuui-input__input" [value]="value" (focus)="onFocus($event)" (input)="onInput($event, input.value)" #input>
+</label>
