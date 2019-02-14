@@ -8,6 +8,7 @@ import { Component, Input, ViewChild, ElementRef, OnChanges, SimpleChanges } fro
 })
 export class ButtonComponent implements OnChanges {
   @Input() variety: ButtonVariety = ButtonVariety.BASIC;
+  @Input() form: string;
 
   @ViewChild('content') content: ElementRef;
 
