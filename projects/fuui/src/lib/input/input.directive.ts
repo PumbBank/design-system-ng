@@ -1,6 +1,6 @@
 import { FuuiInput } from './fuui-input';
 import { Directive, Renderer2, ElementRef, forwardRef, Injector, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor, FormControl, NgControl } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor, NgControl, FormControlDirective } from '@angular/forms';
 
 @Directive({
   selector: '[fuuiInput]',
@@ -19,7 +19,7 @@ import { NG_VALUE_ACCESSOR, NG_VALIDATORS, ControlValueAccessor, FormControl, Ng
 })
 export class InputDirective implements ControlValueAccessor, OnInit {
   internalValue: string;
-  control: NgControl;
+  control: FormControlDirective ;
   fuuiInput: FuuiInput;
 
   get value(): string {
@@ -33,10 +33,20 @@ export class InputDirective implements ControlValueAccessor, OnInit {
   ) { }
 
   ngOnInit() {
-    this.control = this.injector.get(NgControl);
+    this.control = this.injector.get(FormControlDirective );
     this.fuuiInput = new FuuiInput(this.inputElementRef.nativeElement, this.renderer);
 
     console.log(this.control);
+
+    this.fuuiInput.value.subscribe((value: string) => {
+      this.onChangeCallback(value);
+    });
+
+    // this.control
+
+    this.control.update.subscribe(() => {
+      this.fuuiInput.updateValidationState(this.control.invalid);
+    });
   }
 
   writeValue(value: string) {
@@ -51,6 +61,6 @@ export class InputDirective implements ControlValueAccessor, OnInit {
     this.onTouchedCallback = fn;
   }
 
-  onChangeCallback: Function = () => { };
+  onChangeCallback: Function = (value: string) => { };
   onTouchedCallback: Function = () => { };
 }
