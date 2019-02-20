@@ -1,5 +1,5 @@
 {
-  "name": "@fuui/angular",
+  "name": "@honey/ng",
   "version": "0.0.1",
   "dependencies": {
     "@angular/common": "^7.2.0",
@@ -7,10 +7,7 @@
     "@angular/forms": "~7.2.0",
     "@fuui/stylesheets": "../../../fuib-universal-user-interface"
   },
-  "description": "This library was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.2.0.",
-  "main": "./lib/test",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
   "license": "ISC"

@@ -1,8 +1,7 @@
 {
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
-  "dest": "../../dist/fuui",
+  "dest": "../../dist/honey-ng",
   "lib": {
     "entryFile": "src/public_api.ts"
-  },
-  "whitelistedNonPeerDependencies": ["."]
+  }
 }

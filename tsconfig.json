@@ -24,6 +24,12 @@
       ],
       "fuui/*": [
         "dist/fuui/*"
+      ],
+      "honey-ng": [
+        "dist/honey-ng"
+      ],
+      "honey-ng/*": [
+        "dist/honey-ng/*"
       ]
     }
   }
