@@ -4,10 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4300",
-    "build": "ng build",
-    "test": "ng test",
-    "lint": "ng lint",
-    "e2e": "ng e2e"
+    "build": "ng build honey-ng"
   },
   "private": true,
   "dependencies": {
@@ -25,7 +22,6 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@fuui/stylesheets": "../fuib-universal-user-interface",
     "@angular-devkit/build-angular": "~0.13.0",
     "@angular-devkit/build-ng-packagr": "~0.13.0",
     "@angular/cli": "~7.3.0",
