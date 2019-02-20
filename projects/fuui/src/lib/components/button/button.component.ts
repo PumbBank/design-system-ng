@@ -3,12 +3,17 @@ import { Component, Input, ViewChild, ElementRef, OnChanges, SimpleChanges } fro
 
 @Component({
   selector: 'fuui-button',
-  templateUrl: './button.component.html',
-  styleUrls: ['./button.component.scss']
+  templateUrl: './button.component.html'
 })
 export class ButtonComponent implements OnChanges {
   @Input() variety: ButtonVariety = ButtonVariety.BASIC;
+
+  /* START: HTML attributes: */
+  @Input() type: 'button' | 'reset' | 'submit' = 'button';
   @Input() form: string;
+  @Input() disabled: boolean = false;
+  @Input() autofocus: boolean = false;
+  /* END: HTML attributes: */
 
   @ViewChild('content') content: ElementRef;
 

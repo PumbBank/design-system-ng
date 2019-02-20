@@ -2,8 +2,7 @@ import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'fuui-dialog',
-  templateUrl: './dialog.component.html',
-  styleUrls: ['./dialog.component.scss']
+  templateUrl: './dialog.component.html'
 })
 export class DialogComponent {
   @Input() backgropClose: boolean = false;

@@ -11,7 +11,8 @@
 
 <br>
 
-<fuui-input-control style="width: 500px"></fuui-input-control>
+<input type="text" fuuiInput placeholder="Directive inp" [formControl]="control">
+
 
 <fuui-dialog [(active)]="dialog">
   <fuui-dialog-header>
@@ -19,9 +20,6 @@
   </fuui-dialog-header>
 
   <fuui-dialog-body>
-    <fuui-input title="First name"></fuui-input>
-    <fuui-input title="Middle name"></fuui-input>
-    <fuui-input title="Last name"></fuui-input>
   </fuui-dialog-body>
 
   <fuui-dialog-footer>

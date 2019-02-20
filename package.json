@@ -1,6 +1,6 @@
 {
-  "name": "fuui-angular-test",
-  "version": "0.0.0",
+  "name": "angular-lib",
+  "version": "0.0.1",
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4300",
@@ -11,7 +11,6 @@
   },
   "private": true,
   "dependencies": {
-    "fuui-style-lib": "file:../fuib-universal-user-interface/dist/build",
     "@angular/animations": "~7.2.0",
     "@angular/common": "~7.2.0",
     "@angular/compiler": "~7.2.0",
@@ -26,6 +25,7 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
+    "@fuui/stylesheets": "../fuib-universal-user-interface",
     "@angular-devkit/build-angular": "~0.13.0",
     "@angular-devkit/build-ng-packagr": "~0.13.0",
     "@angular/cli": "~7.3.0",
@@ -49,5 +49,13 @@
     "tslib": "^1.9.0",
     "tslint": "~5.11.0",
     "typescript": "~3.2.2"
-  }
+  },
+  "description": "This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 7.3.0.",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git@gitlab.fuib.com:creditoid/fuib-universal-user-interface-angular.git"
+  },
+  "author": "",
+  "license": "ISC"
 }
