@@ -33,7 +33,6 @@ export class InputTextDirective implements ControlValueAccessor, OnInit, OnDestr
   ngOnInit() {
     this.control = this.injector.get(FormControlDirective);
     this.fuuiInput = new FuuiInput(this.inputElementRef.nativeElement, this.renderer);
-
     this.synchromizeControlAndInputValue();
     this.synchromizeValidationState();
   }
