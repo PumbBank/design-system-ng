@@ -1,0 +1,13 @@
+project:
+  build:
+    type: npm
+    npm_publish_dir_path: "dist/honey-ng"
+  steps:
+    release:
+      publish: true
+docker:
+  build:
+    snapshot: false
+    release: false
+auto_deploy:
+  enable: false
