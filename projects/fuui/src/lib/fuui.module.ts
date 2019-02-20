@@ -8,18 +8,18 @@ import { DialogBodyComponent } from './components/dialog/dialog-body/dialog-body
 import { DialogFooterComponent } from './components/dialog/dialog-footer/dialog-footer.component';
 import { DialogHeaderComponent } from './components/dialog/dialog-header/dialog-header.component';
 import { FabComponent } from './components/fab/fab.component';
-import { InputDirective } from './input/input.directive';
 import { IconComponent } from './components/icon/icon.component';
+import { InputModule } from './modules/input/input.module';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    InputModule
   ],
   declarations: [
     ButtonComponent,
     FabComponent,
     IconComponent,
-    InputDirective,
     NavigationItemComponent,
 
     DialogComponent,
@@ -28,10 +28,11 @@ import { IconComponent } from './components/icon/icon.component';
     DialogFooterComponent
   ],
   exports: [
+    InputModule,
+
     ButtonComponent,
     FabComponent,
     IconComponent,
-    InputDirective,
     NavigationItemComponent,
 
     DialogComponent,
