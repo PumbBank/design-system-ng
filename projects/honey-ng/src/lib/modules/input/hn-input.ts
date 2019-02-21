@@ -22,11 +22,6 @@ export class HnInput {
     renderer.addClass(input, 'hn-input__input');
     renderer.addClass(this.caption, 'hn-input__caption');
 
-    input.addEventListener('input', () => {
-      this.value.next(this.input.value);
-      this.updateCaptionState();
-    });
-
     this.watchInputValueChanges();
     this.updateCaptionState();
   }
