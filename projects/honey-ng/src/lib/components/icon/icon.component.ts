@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 
 @Component({
-  selector: 'fuui-icon',
+  selector: 'hn-icon',
   templateUrl: './icon.component.html',
   styleUrls: ['./icon.component.scss']
 })

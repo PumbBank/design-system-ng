@@ -19,12 +19,6 @@
       "dom"
     ],
     "paths": {
-      "fuui": [
-        "dist/fuui"
-      ],
-      "fuui/*": [
-        "dist/fuui/*"
-      ],
       "honey-ng": [
         "dist/honey-ng"
       ],

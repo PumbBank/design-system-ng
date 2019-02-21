@@ -2,7 +2,7 @@ import { ButtonVariety } from './button-variety';
 import { Component, Input, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
 
 @Component({
-  selector: 'fuui-button',
+  selector: 'hn-button',
   templateUrl: './button.component.html'
 })
 export class ButtonComponent implements OnChanges {
@@ -32,7 +32,7 @@ export class ButtonComponent implements OnChanges {
   private onVarietyChange(): void {
     switch (this.variety) {
       case ButtonVariety.CONTAINED:
-        this.varietyClass = 'fuui-button_contained';
+        this.varietyClass = 'hn-button_contained';
         break;
     }
   }

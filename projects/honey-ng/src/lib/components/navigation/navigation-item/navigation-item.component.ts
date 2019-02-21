@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'fuui-navigation-item',
+  selector: 'hn-navigation-item',
   templateUrl: './navigation-item.component.html'
 })
 export class NavigationItemComponent {

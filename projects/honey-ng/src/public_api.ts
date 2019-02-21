@@ -1,5 +1,5 @@
 /*
- * Public API Surface of fuui
+ * Public API Surface of hn
  */
 
-export * from './lib/fuui.module';
+export * from './lib/hn.module';

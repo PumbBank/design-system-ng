@@ -1,7 +1,7 @@
 import { Renderer2 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
-export class FuuiInput {
+export class HnInput {
   wrapper: HTMLElement;
   caption: HTMLElement;
 
@@ -18,9 +18,9 @@ export class FuuiInput {
     renderer.appendChild(this.wrapper, input);
     renderer.appendChild(this.caption, captionText);
 
-    renderer.addClass(this.wrapper, 'fuui-input');
-    renderer.addClass(input, 'fuui-input__input');
-    renderer.addClass(this.caption, 'fuui-input__caption');
+    renderer.addClass(this.wrapper, 'hn-input');
+    renderer.addClass(input, 'hn-input__input');
+    renderer.addClass(this.caption, 'hn-input__caption');
 
     input.addEventListener('input', () => {
       this.value.next(this.input.value);
@@ -39,17 +39,17 @@ export class FuuiInput {
 
   updateValidationState(invalid: boolean = false): void {
     if (invalid) {
-      this.renderer.addClass(this.wrapper, 'fuui-input_warn');
+      this.renderer.addClass(this.wrapper, 'hn-input_warn');
     } else {
-      this.renderer.removeClass(this.wrapper, 'fuui-input_warn');
+      this.renderer.removeClass(this.wrapper, 'hn-input_warn');
     }
   }
 
   private updateCaptionState(): void {
     if (this.input.value) {
-      this.renderer.addClass(this.wrapper, 'fuui-input_filled');
+      this.renderer.addClass(this.wrapper, 'hn-input_filled');
     } else {
-      this.renderer.removeClass(this.wrapper, 'fuui-input_filled');
+      this.renderer.removeClass(this.wrapper, 'hn-input_filled');
     }
   }
 

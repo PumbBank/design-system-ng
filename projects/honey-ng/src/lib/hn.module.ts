@@ -41,4 +41,4 @@ import { InputModule } from './modules/input/input.module';
     DialogFooterComponent
   ]
 })
-export class FuuiModule { }
+export class HnModule { }

@@ -1,33 +1,33 @@
-<fuui-button variety="contained" (click)="dialog = true;"><fuui-icon>home</fuui-icon>Open Modal</fuui-button>
-<fuui-button><fuui-icon>close</fuui-icon>Test</fuui-button>
-<fuui-button form="aaa" variety="contained"><fuui-icon>search</fuui-icon></fuui-button>
-<fuui-icon>home</fuui-icon>
+<hn-button variety="contained" (click)="dialog = true;"><hn-icon>home</hn-icon>Open Modal</hn-button>
+<hn-button><hn-icon>close</hn-icon>Test</hn-button>
+<hn-button form="aaa" variety="contained"><hn-icon>search</hn-icon></hn-button>
+<hn-icon>home</hn-icon>
 
 <br>
 
-<fuui-fab icon="android">
+<hn-fab icon="android">
   Android
-</fuui-fab>
+</hn-fab>
 
 <br>
 
-<input type="text" fuuiInput placeholder="Directive inp" [formControl]="control">
+<input type="text" hnInput placeholder="Directive inp" [formControl]="control">
 {{ control.value }}
 
 
-<fuui-dialog [(active)]="dialog">
-  <fuui-dialog-header>
+<hn-dialog [(active)]="dialog">
+  <hn-dialog-header>
     New customer
-  </fuui-dialog-header>
+  </hn-dialog-header>
 
-  <fuui-dialog-body>
+  <hn-dialog-body>
     hi
-  </fuui-dialog-body>
+  </hn-dialog-body>
 
-  <fuui-dialog-footer>
+  <hn-dialog-footer>
     <span></span>
-    <fuui-button (click)="dialog = false;">
+    <hn-button (click)="dialog = false;">
       Done
-    </fuui-button>
-  </fuui-dialog-footer>
-</fuui-dialog>
+    </hn-button>
+  </hn-dialog-footer>
+</hn-dialog>

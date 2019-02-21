@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
-  selector: 'fuui-dialog',
+  selector: 'hn-dialog',
   templateUrl: './dialog.component.html'
 })
 export class DialogComponent {

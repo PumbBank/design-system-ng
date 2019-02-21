@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'fuui-fab',
+  selector: 'hn-fab',
   templateUrl: './fab.component.html'
 })
 export class FabComponent {

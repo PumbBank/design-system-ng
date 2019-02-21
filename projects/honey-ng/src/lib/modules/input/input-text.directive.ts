@@ -1,10 +1,10 @@
-import { FuuiInput } from './fuui-input';
+import { HnInput } from './hn-input';
 import { Directive, Renderer2, ElementRef, forwardRef, Injector, OnInit, OnDestroy } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControlDirective } from '@angular/forms';
 import { Subscription } from 'rxjs/internal/Subscription';
 
 @Directive({
-  selector: '[fuuiInput]',
+  selector: '[hnInput]',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -17,10 +17,10 @@ export class InputTextDirective implements ControlValueAccessor, OnInit, OnDestr
   private subscriptions: Subscription[] = [];
 
   control: FormControlDirective;
-  fuuiInput: FuuiInput;
+  hnInput: HnInput;
 
   get value(): string {
-    return this.fuuiInput.value.value;
+    return this.hnInput.value.value;
   }
 
   constructor(
@@ -36,7 +36,7 @@ export class InputTextDirective implements ControlValueAccessor, OnInit, OnDestr
       console.warn('Can not use input without FormControl');
     }
 
-    this.fuuiInput = new FuuiInput(this.inputElementRef.nativeElement, this.renderer);
+    this.hnInput = new HnInput(this.inputElementRef.nativeElement, this.renderer);
 
     this.synchromizeControlAndInputValue();
     this.synchromizeValidationState();
@@ -49,7 +49,7 @@ export class InputTextDirective implements ControlValueAccessor, OnInit, OnDestr
   }
 
   writeValue(value: string) {
-    this.fuuiInput.writeValue(value);
+    this.hnInput.writeValue(value);
   }
 
   registerOnChange(fn: Function) {
@@ -64,7 +64,7 @@ export class InputTextDirective implements ControlValueAccessor, OnInit, OnDestr
   onTouchedCallback: Function = () => { };
 
   private synchromizeControlAndInputValue(): void {
-    const s = this.fuuiInput.value.subscribe((value: string) => {
+    const s = this.hnInput.value.subscribe((value: string) => {
       this.onChangeCallback(value);
     });
 
@@ -75,7 +75,7 @@ export class InputTextDirective implements ControlValueAccessor, OnInit, OnDestr
     if (!this.control) { return; }
 
     const s = this.control.update.subscribe(() => {
-      this.fuuiInput.updateValidationState(this.control.invalid);
+      this.hnInput.updateValidationState(this.control.invalid);
     });
 
     this.subscriptions.push(s);

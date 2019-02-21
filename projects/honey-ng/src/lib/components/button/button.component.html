@@ -1,14 +1,14 @@
 <button
-  class="fuui-button"
+  class="hn-button"
   [ngClass]="varietyClass"
   [attr.form]="form"
   [attr.type]="type"
   [attr.disabled]="disabled"
   [attr.autofocus]="autofocus">
 
-  <ng-content select=".fuui-icon, fuui-icon"></ng-content>
+  <ng-content select=".hn-icon, hn-icon"></ng-content>
 
-  <span [class.hidden]="!showText" class="fuui-button__text" #content>
+  <span [class.hidden]="!showText" class="hn-button__text" #content>
     <ng-content></ng-content>
   </span>
 </button>

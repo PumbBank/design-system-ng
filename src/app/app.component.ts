@@ -9,7 +9,7 @@ import { FormControl } from '@angular/forms';
 export class AppComponent implements OnInit {
 
   control = new FormControl('hi');
-  title = 'fuui-angular-test';
+  title = 'hn-angular-test';
   dialog = false;
 
   ngOnInit(): void {

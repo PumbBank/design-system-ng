@@ -71,6 +71,6 @@
     "use-pipe-transform-interface": true,
     "component-class-suffix": true,
     "directive-class-suffix": true,
-    "component-selector": [true, "element", "app", "fuui"],
+    "component-selector": [true, "element", "app", "hn"],
   }
 }
