@@ -16,12 +16,11 @@ import { Subscription } from 'rxjs/internal/Subscription';
 export class InputTextDirective implements ControlValueAccessor, OnInit, OnDestroy {
   private subscriptions: Subscription[] = [];
 
-  internalValue: string;
   control: FormControlDirective;
   fuuiInput: FuuiInput;
 
   get value(): string {
-    return this.internalValue;
+    return this.fuuiInput.value.value;
   }
 
   constructor(
@@ -31,8 +30,14 @@ export class InputTextDirective implements ControlValueAccessor, OnInit, OnDestr
   ) { }
 
   ngOnInit() {
-    this.control = this.injector.get(FormControlDirective);
+    try {
+      this.control = this.injector.get(FormControlDirective);
+    } catch (e) {
+      console.warn('Can not use input without FormControl');
+    }
+
     this.fuuiInput = new FuuiInput(this.inputElementRef.nativeElement, this.renderer);
+
     this.synchromizeControlAndInputValue();
     this.synchromizeValidationState();
   }
@@ -67,6 +72,8 @@ export class InputTextDirective implements ControlValueAccessor, OnInit, OnDestr
   }
 
   private  synchromizeValidationState(): void {
+    if (!this.control) { return; }
+
     const s = this.control.update.subscribe(() => {
       this.fuuiInput.updateValidationState(this.control.invalid);
     });
