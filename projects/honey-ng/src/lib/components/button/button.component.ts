@@ -11,8 +11,8 @@ export class ButtonComponent implements OnChanges {
   /* START: HTML attributes: */
   @Input() type: 'button' | 'reset' | 'submit' = 'button';
   @Input() form: string;
-  @Input() disabled: boolean = false;
-  @Input() autofocus: boolean = false;
+  @Input() disabled: boolean;
+  @Input() autofocus: boolean;
   /* END: HTML attributes: */
 
   @ViewChild('content') content: ElementRef;
