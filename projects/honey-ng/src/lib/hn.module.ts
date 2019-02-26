@@ -10,6 +10,7 @@ import { DialogHeaderComponent } from './components/dialog/dialog-header/dialog-
 import { FabComponent } from './components/fab/fab.component';
 import { IconComponent } from './components/icon/icon.component';
 import { InputModule } from './modules/input/input.module';
+import { PageHeaderComponent } from './components/page-header/page-header.component';
 
 @NgModule({
   imports: [
@@ -25,7 +26,8 @@ import { InputModule } from './modules/input/input.module';
     DialogComponent,
     DialogHeaderComponent,
     DialogBodyComponent,
-    DialogFooterComponent
+    DialogFooterComponent,
+    PageHeaderComponent
   ],
   exports: [
     InputModule,
@@ -38,7 +40,8 @@ import { InputModule } from './modules/input/input.module';
     DialogComponent,
     DialogHeaderComponent,
     DialogBodyComponent,
-    DialogFooterComponent
+    DialogFooterComponent,
+    PageHeaderComponent
   ]
 })
 export class HnModule { }
