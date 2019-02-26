@@ -1,37 +1,4 @@
-<hn-button variety="contained" (click)="dialog = true;"><hn-icon>home</hn-icon>Open Modal</hn-button>
-<hn-button><hn-icon>close</hn-icon>Test</hn-button>
-<hn-button form="aaa" variety="contained"><hn-icon>search</hn-icon></hn-button>
-<hn-icon>home</hn-icon>
-
-<br>
-
-<hn-page-header icon="home">
-  Header
-</hn-page-header>
-
-<hn-fab icon="android">
-  Android
-</hn-fab>
-
-<br>
-
-<input type="text" hnInput placeholder="Directive inp" [formControl]="control">
-{{ control.value }}
-
-
-<hn-dialog [(active)]="dialog">
-  <hn-dialog-header>
-    New customer
-  </hn-dialog-header>
-
-  <hn-dialog-body>
-    hi
-  </hn-dialog-body>
-
-  <hn-dialog-footer>
-    <span></span>
-    <hn-button (click)="dialog = false;">
-      Done
-    </hn-button>
-  </hn-dialog-footer>
-</hn-dialog>
+<form [formGroup]="fg">
+  <input hnInput formControlName="name" type="text">
+  <hn-button type="submit">Honey</hn-button>
+</form>

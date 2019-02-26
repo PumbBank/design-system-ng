@@ -1,7 +1,6 @@
 import { HnInput } from './hn-input';
-import { Directive, Renderer2, ElementRef, forwardRef, Injector, OnInit, OnDestroy } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormControlDirective } from '@angular/forms';
-import { Subscription } from 'rxjs/internal/Subscription';
+import { Directive, Renderer2, ElementRef, forwardRef, OnInit } from '@angular/core';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Directive({
   selector: '[hnInput]',
@@ -13,10 +12,7 @@ import { Subscription } from 'rxjs/internal/Subscription';
     }
   ]
 })
-export class InputTextDirective implements ControlValueAccessor, OnInit, OnDestroy {
-  private subscriptions: Subscription[] = [];
-
-  control: FormControlDirective;
+export class InputTextDirective implements ControlValueAccessor, OnInit {
   hnInput: HnInput;
 
   get value(): string {
@@ -25,27 +21,11 @@ export class InputTextDirective implements ControlValueAccessor, OnInit, OnDestr
 
   constructor(
     private renderer: Renderer2,
-    private inputElementRef: ElementRef,
-    private injector: Injector,
+    private inputElementRef: ElementRef
   ) { }
 
   ngOnInit() {
-    try {
-      this.control = this.injector.get(FormControlDirective);
-    } catch (e) {
-      console.warn('Can not use input without FormControl');
-    }
-
     this.hnInput = new HnInput(this.inputElementRef.nativeElement, this.renderer);
-
-    this.synchromizeControlAndInputValue();
-    this.synchromizeValidationState();
-  }
-
-  ngOnDestroy(): void {
-    this.subscriptions.forEach((s: Subscription) => {
-      s.unsubscribe();
-    })
   }
 
   writeValue(value: string) {
@@ -53,31 +33,10 @@ export class InputTextDirective implements ControlValueAccessor, OnInit, OnDestr
   }
 
   registerOnChange(fn: Function) {
-    this.onChangeCallback = fn;
+    this.hnInput.registerOnChange(fn);
   }
 
   registerOnTouched(fn: Function) {
-    this.onTouchedCallback = fn;
-  }
-
-  onChangeCallback: Function = (value: string) => { };
-  onTouchedCallback: Function = () => { };
-
-  private synchromizeControlAndInputValue(): void {
-    const s = this.hnInput.value.subscribe((value: string) => {
-      this.onChangeCallback(value);
-    });
-
-    this.subscriptions.push(s);
-  }
-
-  private  synchromizeValidationState(): void {
-    if (!this.control) { return; }
-
-    const s = this.control.update.subscribe(() => {
-      this.hnInput.updateValidationState(this.control.invalid);
-    });
-
-    this.subscriptions.push(s);
+    this.hnInput.registerOnTouched(fn);
   }
 }

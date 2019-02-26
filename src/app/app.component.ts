@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -12,9 +12,13 @@ export class AppComponent implements OnInit {
   title = 'hn-angular-test';
   dialog = false;
 
+  fg = new FormGroup({
+    name: new FormControl('')
+  });
+
   ngOnInit(): void {
-    this.control.setValidators([(c: FormControl) => {
+    this.fg.controls.name.setValidators([(c: FormControl) => {
       return c.value.length > 3 ? {error: ''} : null;
-    }])
+    }, Validators.required])
   }
 }

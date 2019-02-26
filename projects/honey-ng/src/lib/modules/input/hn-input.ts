@@ -8,31 +8,30 @@ export class HnInput {
   value: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(private input: HTMLInputElement, private renderer: Renderer2) {
-    this.caption = renderer.createElement('div');
-    this.wrapper = renderer.createElement('label');
-
-    const captionText = renderer.createText(input.getAttribute('placeholder') || '');
-
-    renderer.insertBefore(input.parentElement, this.wrapper, input);
-    renderer.appendChild(this.wrapper, this.caption);
-    renderer.appendChild(this.wrapper, input);
-    renderer.appendChild(this.caption, captionText);
-
-    renderer.addClass(this.wrapper, 'hn-input');
-    renderer.addClass(input, 'hn-input__input');
-    renderer.addClass(this.caption, 'hn-input__caption');
-
-    this.watchInputValueChanges();
+    this.createDom();
     this.updateCaptionState();
+    this.watchInputValueChanges();
+    this.watchTouches();
+    this.watchValidationChangesByClassName();
+  }
+
+  registerOnChange(fn: Function) {
+    this.onChangeCallback = fn;
+  }
+
+  registerOnTouched(fn: Function) {
+    this.onTouchedCallback = fn;
   }
 
   writeValue(value: any) {
     this.input.value = value;
-    this.value.next(this.input.value);
     this.updateCaptionState();
   }
 
-  updateValidationState(invalid: boolean = false): void {
+  onChangeCallback: Function = () => { };
+  onTouchedCallback: Function = () => { };
+
+  private updateValidationState(invalid: boolean = false): void {
     if (invalid) {
       this.renderer.addClass(this.wrapper, 'hn-input_warn');
     } else {
@@ -48,11 +47,40 @@ export class HnInput {
     }
   }
 
-
   private watchInputValueChanges(): void {
     this.input.addEventListener('input', () => {
-      this.value.next(this.input.value);
+      this.onChangeCallback(this.input.value);
       this.updateCaptionState();
     });
+  }
+
+  private watchValidationChangesByClassName(): void {
+    const observer = new MutationObserver(() => {
+      this.updateValidationState(this.input.classList.contains('ng-invalid') && this.input.classList.contains('ng-touched'));
+    });
+
+    observer.observe(this.input, { attributes: true });
+  }
+
+  private watchTouches(): void {
+    this.input.addEventListener('blur', () => {
+      this.onTouchedCallback();
+    })
+  }
+
+  private createDom(): void {
+    this.caption = this.renderer.createElement('div');
+    this.wrapper = this.renderer.createElement('label');
+
+    const captionText = this.renderer.createText(this.input.getAttribute('placeholder') || '');
+
+    this.renderer.insertBefore(this.input.parentElement, this.wrapper, this.input);
+    this.renderer.appendChild(this.wrapper, this.caption);
+    this.renderer.appendChild(this.wrapper, this.input);
+    this.renderer.appendChild(this.caption, captionText);
+
+    this.renderer.addClass(this.wrapper, 'hn-input');
+    this.renderer.addClass(this.input, 'hn-input__input');
+    this.renderer.addClass(this.caption, 'hn-input__caption');
   }
 }
