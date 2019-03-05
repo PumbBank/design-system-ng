@@ -1,11 +1,12 @@
-import { InjectionToken } from '@angular/core';
+import { InjectionToken, ViewContainerRef, Injector } from '@angular/core';
 
-export const DIALOG_CONTROLLER = new InjectionToken<IDialogConroller>('DIALOG_CONTROLLER');
+export const DIALOG_CONTROLLER = new InjectionToken<DialogConroller>('DIALOG_CONTROLLER');
 
-export interface IDialogConroller {
-  emitBackdropClick: Function
+export interface DialogConroller {
+  emitBackdropClick: Function,
+  close: Function;
 }
 
-export interface IOpenDialogParams {
-
+export interface OpenDialogParams {
+  injectorSource?: ViewContainerRef | Injector
 }
