@@ -1,10 +1,11 @@
-import { Component } from '@angular/core';
 import { Injectable, ViewContainerRef, ComponentFactoryResolver, ComponentRef, Injector } from '@angular/core';
 import { OverlayComponent } from '../components/overlay/overlay.component';
 import { DIALOG_CONTROLLER, DialogConroller, OpenDialogParams } from '../shared/dialog';
+import { Observable, Subject } from 'rxjs';
 
 interface ActiveDialog {
   componentRef?: ComponentRef<any>;
+  closeObservable?: Subject<void>;
 }
 
 
@@ -25,7 +26,10 @@ export class DialogService {
   }
 
   openDialog<T = any>(component: T, params: OpenDialogParams = {}): DialogConroller {
-    const dialog: ActiveDialog = {};
+    const dialog: ActiveDialog = {
+      closeObservable: new Subject<void>()
+    };
+
     this.activeDialogs.push(dialog);
 
     const controller = this.createController(dialog);
@@ -60,19 +64,26 @@ export class DialogService {
   }
 
   onBackDropClick(): void {
-    this.activeDialogs.pop().componentRef.destroy();
+    const dialog = this.activeDialogs.pop()
+    dialog.componentRef.destroy();
+    dialog.closeObservable.next();
+    dialog.closeObservable.complete();
     this.removeOverlayIfNeed();
   }
 
   private createController(dialog: ActiveDialog): DialogConroller {
+
     return {
       emitBackdropClick: () => { this.onBackDropClick() },
       close: () => {
         const index = this.activeDialogs.indexOf(dialog);
         this.activeDialogs.splice(index, 1);
         dialog.componentRef.destroy();
+        dialog.closeObservable.next();
+        dialog.closeObservable.complete();
         this.removeOverlayIfNeed();
-      }
+      },
+      onClose: dialog.closeObservable
     }
   }
 
