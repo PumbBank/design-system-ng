@@ -67,7 +67,12 @@ export class DialogService {
   private createController(dialog: ActiveDialog): DialogConroller {
     return {
       emitBackdropClick: () => { this.onBackDropClick() },
-      close: () => { dialog.componentRef.destroy(); this.removeOverlayIfNeed(); }
+      close: () => {
+        const index = this.activeDialogs.indexOf(dialog);
+        this.activeDialogs.splice(index, 1);
+        dialog.componentRef.destroy();
+        this.removeOverlayIfNeed();
+      }
     }
   }
 
