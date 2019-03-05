@@ -7,11 +7,13 @@ import { FabComponent } from './components/fab/fab.component';
 import { IconComponent } from './components/icon/icon.component';
 import { InputModule } from './modules/input/input.module';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
+import { ChipModule } from './modules/chip/chip.module';
 
 @NgModule({
   imports: [
     CommonModule,
-    InputModule
+    InputModule,
+    ChipModule
   ],
   declarations: [
     ButtonComponent,
@@ -21,6 +23,7 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
     PageHeaderComponent
   ],
   exports: [
+    ChipModule,
     InputModule,
 
     ButtonComponent,
