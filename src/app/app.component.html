@@ -1,4 +1,6 @@
-<form [formGroup]="fg">
-  <input hnInput formControlName="name" type="text">
-  <hn-button type="submit">Honey</hn-button>
-</form>
+
+
+<hn-button (click)="openDialog()">OPEN DIALOG</hn-button>
+
+
+<hn-portal-for-dialog></hn-portal-for-dialog>

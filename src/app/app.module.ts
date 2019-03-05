@@ -4,19 +4,25 @@ import { NgModule } from '@angular/core';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
-import { HnModule } from 'projects/honey-ng/src/public_api';
+import { HnModule, DialogModule } from 'projects/honey-ng/src/public_api';
+import { TestDialogComponet } from './test-dialog.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    TestDialogComponet
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     HnModule,
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    DialogModule.forRoot()
   ],
   providers: [],
-  bootstrap: [AppComponent]
+  bootstrap: [AppComponent],
+  entryComponents: [
+    TestDialogComponet
+  ]
 })
 export class AppModule { }
