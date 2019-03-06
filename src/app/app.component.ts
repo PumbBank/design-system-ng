@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { DialogService } from 'projects/honey-ng/src/lib/modules/dialog/services/dialog-service';
 import { TestDialogComponet } from './test-dialog.component';
+import { DialogService } from 'projects/honey-ng/src/public_api';
 
 @Component({
   selector: 'app-root',

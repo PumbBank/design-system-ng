@@ -2,9 +2,7 @@
   "$schema": "../../node_modules/ng-packagr/ng-package.schema.json",
   "dest": "../../dist/honey-ng",
   "lib": {
-    "entryFiles": [
-      "src/public_api.ts"
-    ]
+    "entryFile": "src/public_api.ts"
   },
   "whitelistedNonPeerDependencies": ["."]
 }

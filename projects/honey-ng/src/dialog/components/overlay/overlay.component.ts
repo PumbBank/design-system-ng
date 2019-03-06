@@ -1,5 +1,5 @@
 import { Component, Inject } from "@angular/core";
-import { DIALOG_CONTROLLER } from '../../shared/dialog';
+import { DIALOG_SERVICE_CONTROLLER, DialogServiceController } from '../../shared/dialog';
 
 @Component({
   selector: 'aaahn-overlay',
@@ -7,10 +7,10 @@ import { DIALOG_CONTROLLER } from '../../shared/dialog';
 })
 export class OverlayComponent {
   constructor(
-    @Inject(DIALOG_CONTROLLER) private dialogController: any
+    @Inject(DIALOG_SERVICE_CONTROLLER) private dialogServiceController: DialogServiceController
   ) { }
 
   onClick(): void {
-    this.dialogController.emitBackdropClick();
+    this.dialogServiceController.emitBackdropClick();
   }
 }

@@ -5,9 +5,9 @@ import { ButtonComponent } from './components/button/button.component';
 import { NavigationItemComponent } from './components/navigation/navigation-item/navigation-item.component';
 import { FabComponent } from './components/fab/fab.component';
 import { IconComponent } from './components/icon/icon.component';
-import { InputModule } from './modules/input/input.module';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
-import { ChipModule } from './modules/chip/chip.module';
+import { InputModule } from '../input/input.module';
+import { ChipModule } from '../chip/chip.module';
 
 @NgModule({
   imports: [
