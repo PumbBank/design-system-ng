@@ -1,7 +1,13 @@
-
-
 <hn-button (click)="openDialog()">OPEN DIALOG</hn-button>
 
-<hn-chip>Hello</hn-chip>
-
+<form [formGroup]="fg">
+  <label>
+    <input type="radio" name="brand" formControlName="brand" value="APPLE" hidden>
+    <hn-chip [active]="fg.controls.brand.value === 'APPLE'">Apple</hn-chip>
+  </label>
+  <label>
+    <input type="radio" name="brand" formControlName="brand" value="SAMSUNG" hidden>
+    <hn-chip [active]="fg.controls.brand.value === 'SAMSUNG'">Samsung</hn-chip>
+  </label>
+</form>
 <hn-dialog-portal></hn-dialog-portal>

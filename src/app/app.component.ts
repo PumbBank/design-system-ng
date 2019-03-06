@@ -14,7 +14,8 @@ export class AppComponent implements OnInit {
   title = 'hn-angular-test';
 
   fg = new FormGroup({
-    name: new FormControl('')
+    name: new FormControl(''),
+    brand: new FormControl('SAMSUNG')
   });
 
   constructor(
@@ -22,6 +23,7 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.fg.controls.brand.value
     this.fg.controls.name.setValidators([(c: FormControl) => {
       return c.value.length > 3 ? {error: ''} : null;
     }, Validators.required])
