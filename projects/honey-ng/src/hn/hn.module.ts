@@ -8,12 +8,14 @@ import { IconComponent } from './components/icon/icon.component';
 import { PageHeaderComponent } from './components/page-header/page-header.component';
 import { InputModule } from '../input/input.module';
 import { ChipModule } from '../chip/chip.module';
+import { SidebarModule } from '../sidebar/sidebar.module';
 
 @NgModule({
   imports: [
     CommonModule,
     InputModule,
-    ChipModule
+    ChipModule,
+    SidebarModule
   ],
   declarations: [
     ButtonComponent,
@@ -25,6 +27,7 @@ import { ChipModule } from '../chip/chip.module';
   exports: [
     ChipModule,
     InputModule,
+    SidebarModule,
 
     ButtonComponent,
     FabComponent,
