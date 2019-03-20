@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TestDialogComponet } from './test-dialog.component';
+import { TestDialogComponent } from './test-dialog.component';
 import { DialogService } from 'projects/honey-ng/src/public_api';
 
 @Component({
@@ -23,13 +23,13 @@ export class AppComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.fg.controls.brand.value
+    // this.fg.controls.brand.value;
     this.fg.controls.name.setValidators([(c: FormControl) => {
       return c.value.length > 3 ? {error: ''} : null;
-    }, Validators.required])
+    }, Validators.required]);
   }
 
   openDialog() {
-    this.dialog.openDialog(TestDialogComponet);
+    this.dialog.openDialog(TestDialogComponent);
   }
 }

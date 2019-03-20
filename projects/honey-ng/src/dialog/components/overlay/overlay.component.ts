@@ -1,8 +1,8 @@
-import { Component, Inject } from "@angular/core";
+import { Component, Inject } from '@angular/core';
 import { DIALOG_SERVICE_CONTROLLER, DialogServiceController } from '../../shared/dialog';
 
 @Component({
-  selector: 'aaahn-overlay',
+  selector: 'hn-overlay',
   template: '<div class="hn-overlay" (click)="onClick()"></div>'
 })
 export class OverlayComponent {

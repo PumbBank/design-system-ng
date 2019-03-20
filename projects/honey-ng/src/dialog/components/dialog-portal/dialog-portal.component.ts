@@ -6,7 +6,7 @@ import { DialogService } from '../../services/dialog-service';
   selector: 'hn-dialog-portal',
   template: ''
 })
-export class DialogPortal {
+export class DialogPortalComponent {
   constructor(
     dialogService: DialogService,
     viewContainerRef: ViewContainerRef

@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "ng serve --port 4300",
-    "build": "ng build honey-ng",
+    "build": "ng lint && ng build honey-ng",
     "honey:update": "npm i @honey/stylesheets@latest"
   },
   "private": true,

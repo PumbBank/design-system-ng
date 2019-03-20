@@ -1,4 +1,4 @@
-import { Component } from "@angular/core";
+import { Component } from '@angular/core';
 import { DialogService } from 'projects/honey-ng/src/public_api';
 
 @Component({
@@ -11,12 +11,12 @@ import { DialogService } from 'projects/honey-ng/src/public_api';
     </hn-dialog>
   `
 })
-export class TestDialogComponet {
+export class TestDialogComponent {
   constructor(
     public d: DialogService
   ) { }
 
   test(): any {
-    this.d.openDialog(TestDialogComponet);
+    this.d.openDialog(TestDialogComponent);
   }
 }

@@ -1,13 +1,21 @@
 import { Renderer2 } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
+export type CleanFunction = (inputValue: string) => string;
+
+const DEFAULT_CLEN_FUNCTION = (inputValue: string): string => inputValue;
+
 export class HnInput {
   wrapper: HTMLElement;
   caption: HTMLElement;
 
   value: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
-  constructor(private input: HTMLInputElement, private renderer: Renderer2) {
+  constructor(
+    private input: HTMLInputElement,
+    private renderer: Renderer2,
+    private cleanFunction: CleanFunction = DEFAULT_CLEN_FUNCTION
+  ) {
     this.createDom();
     this.updateCaptionState();
     this.watchInputValueChanges();
@@ -17,6 +25,7 @@ export class HnInput {
 
   registerOnChange(fn: Function) {
     this.onChangeCallback = fn;
+    fn(this.input.value);
   }
 
   registerOnTouched(fn: Function) {
@@ -24,7 +33,13 @@ export class HnInput {
   }
 
   writeValue(value: any) {
-    this.input.value = value;
+    const cleanValue = this.cleanFunction(value);
+
+    if (cleanValue !== value) {
+      this.onChangeCallback(cleanValue);
+    }
+
+    this.input.value = cleanValue;
     this.updateCaptionState();
   }
 
@@ -49,7 +64,13 @@ export class HnInput {
 
   private watchInputValueChanges(): void {
     this.input.addEventListener('input', () => {
-      this.onChangeCallback(this.input.value);
+      const cleanValue = this.cleanFunction(this.input.value);
+
+      if (this.input.value !== cleanValue) {
+        this.input.value = cleanValue;
+      }
+
+      this.onChangeCallback(cleanValue);
       this.updateCaptionState();
     });
   }
@@ -65,7 +86,7 @@ export class HnInput {
   private watchTouches(): void {
     this.input.addEventListener('blur', () => {
       this.onTouchedCallback();
-    })
+    });
   }
 
   private createDom(): void {
