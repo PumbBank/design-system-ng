@@ -1,4 +1,4 @@
-<div style="width: 260px">
+<!-- <div style="width: 260px">
   <hn-sidebar>
     <hn-sidebar-header
       avatarUrl="https://images.unsplash.com/photo-1531770905334-3776f5b54831?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
@@ -20,11 +20,19 @@
     <input type="radio" name="brand" formControlName="brand" value="SAMSUNG" hidden>
     <hn-chip [active]="fg.controls.brand.value === 'SAMSUNG'">Samsung</hn-chip>
   </label>
-</form>
+</form> -->
 <hn-dialog-portal></hn-dialog-portal>
 
 <div>
   <label>
-    <input hnInput="Digit" [formControl]="control" name="name" type="text" placeholder="name" /> {{ control.value }}
+    <input hnInput="digit" [formControl]="control" 
+    name="hnInput" 
+    type="text" 
+    errors="{{getErrorMessage(control)}}"
+      value="{{getErrorMessage(control)}}" placeholder="hnInput" /> {{ control.value }}
+    <!-- <label *ngIf="control.touched && control.dirty && control.invalid">
+        some error
+    </label> -->
   </label>
+
 </div>

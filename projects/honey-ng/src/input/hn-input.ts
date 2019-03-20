@@ -8,6 +8,7 @@ const DEFAULT_CLEN_FUNCTION = (inputValue: string): string => inputValue;
 export class HnInput {
   wrapper: HTMLElement;
   caption: HTMLElement;
+  errors: HTMLElement;
 
   value: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
@@ -92,16 +93,21 @@ export class HnInput {
   private createDom(): void {
     this.caption = this.renderer.createElement('div');
     this.wrapper = this.renderer.createElement('label');
+    this.errors = this.renderer.createElement('div');
 
     const captionText = this.renderer.createText(this.input.getAttribute('placeholder') || '');
+    const errorsText = this.renderer.createText(this.input.getAttribute('errors') || '');
 
     this.renderer.insertBefore(this.input.parentElement, this.wrapper, this.input);
     this.renderer.appendChild(this.wrapper, this.caption);
     this.renderer.appendChild(this.wrapper, this.input);
+    this.renderer.appendChild(this.wrapper, this.errors);
     this.renderer.appendChild(this.caption, captionText);
+    this.renderer.appendChild(this.errors, errorsText);
 
     this.renderer.addClass(this.wrapper, 'hn-input');
     this.renderer.addClass(this.input, 'hn-input__input');
     this.renderer.addClass(this.caption, 'hn-input__caption');
+    this.renderer.addClass(this.errors, 'hn-input__error');
   }
 }
