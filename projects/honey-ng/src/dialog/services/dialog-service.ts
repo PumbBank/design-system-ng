@@ -36,7 +36,7 @@ export class DialogService {
       { provide: DIALOG_CONTROLLER, useValue: controller },
       { provide: DIALOG_DATA, useValue: params.data }
     ];
-    const injector = Injector.create({ providers: providers, parent: getInjectorFromSource(params.injectorSource) || this.injector });
+    const injector = Injector.create({ providers, parent: getInjectorFromSource(params.injectorSource) || this.injector });
 
     dialogRef.componentRef = this.createComponent(component, injector);
 
@@ -86,7 +86,7 @@ export class DialogService {
       useValue: this.serviceController
     }];
 
-    const injector = Injector.create({ providers: providers, parent: this.injector });
+    const injector = Injector.create({ providers, parent: this.injector });
 
     this.overlayRef = this.createComponent(OverlayComponent, injector);
   }

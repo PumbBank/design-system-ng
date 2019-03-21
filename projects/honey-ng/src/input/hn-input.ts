@@ -28,6 +28,7 @@ export class HnInput implements OnChanges {
     this.watchInputValueChanges();
     this.watchTouches();
     this.watchValidationChangesByClassName();
+    this.errorsUpdateText();
   }
 
   ngOnChanges(changes: SimpleChanges): void {

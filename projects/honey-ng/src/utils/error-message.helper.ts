@@ -10,7 +10,7 @@ const errorMessages: {
   minlength: (minlength: number) => `Минимально допустимое кол-во знаков ${minlength}`,
   maxlength: (maxlength: number) => `Максимально допустимое кол-во знаков ${maxlength}`,
   pattern: () => `Данные не соответствуют шаблону`,
-  default: (errors: ValidationErrors) => `Нераспознанная ошибка валидации. Обратитесь в службу поддержки.(${errors})`,
+  default: (errors: ValidationErrors) => JSON.stringify(errors)
 };
 
 export class ErrorMessageHelper {
