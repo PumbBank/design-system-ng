@@ -3,9 +3,9 @@ import { BehaviorSubject } from 'rxjs';
 import { ErrorMessageHelper } from '../utils/error-message.helper';
 import { ValidationErrors } from '@angular/forms';
 
-export type CleanFunction = (inputValue: string) => string;
+export type CleanFunction = (inputValue: any) => string;
 
-const DEFAULT_CLEN_FUNCTION = (inputValue: string): string => inputValue;
+const DEFAULT_CLEN_FUNCTION = (inputValue: any): string => inputValue;
 
 export class HnInput implements OnChanges {
   protected cleanFunction: CleanFunction = DEFAULT_CLEN_FUNCTION;
@@ -39,7 +39,7 @@ export class HnInput implements OnChanges {
 
   registerOnChange(fn: Function) {
     this.onChangeCallback = fn;
-    fn(this.input.value);
+    setTimeout(()=> fn(this.input.value));
   }
 
   registerOnTouched(fn: Function) {

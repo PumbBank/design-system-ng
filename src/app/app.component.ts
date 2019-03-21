@@ -11,6 +11,7 @@ import { DialogService } from 'projects/honey-ng/src/public_api';
 export class AppComponent implements OnInit {
 
   control = new FormControl('hi', Validators.pattern('^[0-9]{3,}$'));
+  // control = new FormControl('hi');
   title = 'hn-angular-test';
   errors: string = '';
 
@@ -27,6 +28,10 @@ export class AppComponent implements OnInit {
   }
 
   openDialog() {
+  }
+
+  a(value: any): string {
+    return typeof value;
   }
 
 }
