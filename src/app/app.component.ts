@@ -35,7 +35,7 @@ export class AppComponent implements OnInit {
   }
 
   getErrorMessage(control: FormControl): string {
-    let message = 'any msg'
+    let message = '';
     if (control.touched && control.dirty && control.invalid) {
 
       if (control.errors.required) {

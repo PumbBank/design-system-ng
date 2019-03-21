@@ -1,4 +1,4 @@
-import { Renderer2, OnChanges } from '@angular/core';
+import { Renderer2, OnChanges, SimpleChanges, SimpleChange, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 export type CleanFunction = (inputValue: string) => string;
@@ -6,6 +6,8 @@ export type CleanFunction = (inputValue: string) => string;
 const DEFAULT_CLEN_FUNCTION = (inputValue: string): string => inputValue;
 
 export class HnInput implements OnChanges {
+  @Input()
+  errors: string;
   
   wrapperElement: HTMLElement;
   captionElement: HTMLElement;
@@ -25,9 +27,11 @@ export class HnInput implements OnChanges {
     this.watchValidationChangesByClassName();
   }
 
-  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
-    throw new Error("Method not implemented.");
-  }
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.errors) {
+      this.errorsUpdateText();
+    }
+  }  
 
   registerOnChange(fn: Function) {
     this.onChangeCallback = fn;
@@ -112,5 +116,9 @@ export class HnInput implements OnChanges {
     this.renderer.addClass(this.input, 'hn-input__input');
     this.renderer.addClass(this.captionElement, 'hn-input__caption');
     this.renderer.addClass(this.errorsElement, 'hn-input__hint');
+  }
+
+  private errorsUpdateText() {
+    this.errorsElement.innerText = this.errors ? this.errors : '';
   }
 }

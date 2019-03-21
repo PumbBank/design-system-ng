@@ -16,8 +16,6 @@ export class InputDigitDirective extends HnInput implements ControlValueAccessor
 
   static cleanFunction: CleanFunction = (inputValue: string): string => inputValue.replace(/[^0-9]/g, '');
 
-  @Input()
-  errors: string;
   // hnInput: HnInput;
 
   // get value(): string {

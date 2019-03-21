@@ -26,9 +26,7 @@
 <div>
   <label>
     <input hnInput="digit" [formControl]="control" 
-    name="hnInput" 
-    type="text" 
-    [errors]="getErrorMessage(control)" placeholder="hnInput" /> {{ control.value }}
+    name="hnInput" type="text" [errors]="control.errors" placeholder="hnInput" /> {{ control.value }}
     <!-- <label *ngIf="control.touched && control.dirty && control.invalid">
         some error
     </label> -->
