@@ -1,38 +1,1325 @@
-<!-- <div style="width: 260px">
-  <hn-sidebar>
-    <hn-sidebar-header
-      avatarUrl="https://images.unsplash.com/photo-1531770905334-3776f5b54831?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
-      username="Валерій Мельник">
-    </hn-sidebar-header>
-    <hn-sidebar-title>Основные</hn-sidebar-title>
-    <hn-sidebar-button icon="home">Основные</hn-sidebar-button>
-  </hn-sidebar>
-</div>
-
-<hn-button (click)="openDialog()">OPEN DIALOG</hn-button>
-
-<form [formGroup]="fg">
-  <label>
-    <input type="radio" name="brand" formControlName="brand" value="APPLE" hidden>
-    <hn-chip [active]="fg.controls.brand.value === 'APPLE'">Apple</hn-chip>
-  </label>
-  <label>
-    <input type="radio" name="brand" formControlName="brand" value="SAMSUNG" hidden>
-    <hn-chip [active]="fg.controls.brand.value === 'SAMSUNG'">Samsung</hn-chip>
-  </label>
-</form> -->
-<hn-dialog-portal></hn-dialog-portal>
-
-<div>
-  <label>
-    <input hnInput="digit" [formControl]="control" 
-    name="hnInput" 
-    type="text" 
-    errors="{{getErrorMessage(control)}}"
-      value="{{getErrorMessage(control)}}" placeholder="hnInput" /> {{ control.value }}
-    <!-- <label *ngIf="control.touched && control.dirty && control.invalid">
-        some error
-    </label> -->
-  </label>
-
+<div class="wrap">
+  <table _ngcontent-c4="" class="hn-table hn-table_simple" hnTable>
+    <thead _ngcontent-c4="" hnTableHeader>
+      <tr _ngcontent-c4="">
+        <th _ngcontent-c4="">Technical Merchant ID</th>
+        <th _ngcontent-c4="">Срок грейс (мес.)</th>
+        <th _ngcontent-c4="">Ежем. Ком. % (grace)</th>
+        <th _ngcontent-c4="">Ежемесячная комиссия %</th>
+        <th _ngcontent-c4="">Процентная ставка</th>
+        <th _ngcontent-c4="">Код транзакции</th>
+        <th _ngcontent-c4="">Статус</th>
+        <th _ngcontent-c4="">Создан</th>
+        <th _ngcontent-c4="">Обновлен</th>
+        <th _ngcontent-c4=""></th>
+        <th _ngcontent-c4=""></th>
+      </tr>
+    </thead>
+    <tbody _ngcontent-c4="">
+      <!--bindings={
+  "ng-reflect-ng-for-of": "[object Object],[object Object"
+}-->
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">id</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">tran</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">13.02.2019, TSVIETKOVICH</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">id</td>
+        <td _ngcontent-c4="">10</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">15.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">id</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">tran</td>
+        <td _ngcontent-c4="">NEW</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">18.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">id_one</td>
+        <td _ngcontent-c4="">2</td>
+        <td _ngcontent-c4="">2</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">26</td>
+        <td _ngcontent-c4="">tran_type</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">15.02.2019, TSVIETKOVICH</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">id</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">121</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">26</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">14.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">id</td>
+        <td _ngcontent-c4="">21</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">22</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">14.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">04.03.2019, cc_instmnt_mngr</td>
+        <td _ngcontent-c4="">04.03.2019, cc_instmnt_mngr</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">21</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">04.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">11</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">11</td>
+        <td _ngcontent-c4="">11</td>
+        <td _ngcontent-c4="">17</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">04.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">33</td>
+        <td _ngcontent-c4="">3</td>
+        <td _ngcontent-c4="">31</td>
+        <td _ngcontent-c4="">3</td>
+        <td _ngcontent-c4="">31</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">04.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">04.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">04.03.2019, cc_instmnt_mngr</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">04.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">04.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">3</td>
+        <td _ngcontent-c4="">33</td>
+        <td _ngcontent-c4="">33</td>
+        <td _ngcontent-c4="">33</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">14.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">33</td>
+        <td _ngcontent-c4="">133</td>
+        <td _ngcontent-c4="">33</td>
+        <td _ngcontent-c4="">33</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">04.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">04.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">04.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">04.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">04.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">04.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">19.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">04.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">04.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">12</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">07.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">07.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">123</td>
+        <td _ngcontent-c4="">123</td>
+        <td _ngcontent-c4="">123</td>
+        <td _ngcontent-c4="">123</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">11.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">11.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">99</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">9</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">13.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">76</td>
+        <td _ngcontent-c4="">76</td>
+        <td _ngcontent-c4="">76</td>
+        <td _ngcontent-c4="">76</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">19.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">77</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">15.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">88</td>
+        <td _ngcontent-c4="">88</td>
+        <td _ngcontent-c4="">88</td>
+        <td _ngcontent-c4="">88</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">14.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">14.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">441</td>
+        <td _ngcontent-c4="">44</td>
+        <td _ngcontent-c4="">44</td>
+        <td _ngcontent-c4="">44</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">15.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">8</td>
+        <td _ngcontent-c4="">3</td>
+        <td _ngcontent-c4="">5</td>
+        <td _ngcontent-c4="">2</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">14.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">14.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">10</td>
+        <td _ngcontent-c4="">1</td>
+        <td _ngcontent-c4="">1</td>
+        <td _ngcontent-c4="">11</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">14.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">2</td>
+        <td _ngcontent-c4="">1</td>
+        <td _ngcontent-c4="">10</td>
+        <td _ngcontent-c4="">15</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">14.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">14.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">5</td>
+        <td _ngcontent-c4="">1</td>
+        <td _ngcontent-c4="">15</td>
+        <td _ngcontent-c4="">15</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">14.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">14.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">2</td>
+        <td _ngcontent-c4="">2</td>
+        <td _ngcontent-c4="">2</td>
+        <td _ngcontent-c4="">2</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">14.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">1</td>
+        <td _ngcontent-c4="">10</td>
+        <td _ngcontent-c4="">1</td>
+        <td _ngcontent-c4="">10</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">15.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">5</td>
+        <td _ngcontent-c4="">5</td>
+        <td _ngcontent-c4="">5</td>
+        <td _ngcontent-c4="">20</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">15.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">15.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">5</td>
+        <td _ngcontent-c4="">15</td>
+        <td _ngcontent-c4="">15</td>
+        <td _ngcontent-c4="">5</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">15.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">11</td>
+        <td _ngcontent-c4="">22</td>
+        <td _ngcontent-c4="">1</td>
+        <td _ngcontent-c4="">11</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">15.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="" class="hn-table_simple__row_disabled">
+        <td _ngcontent-c4="">TEST_FR2</td>
+        <td _ngcontent-c4="">10</td>
+        <td _ngcontent-c4="">11.7878</td>
+        <td _ngcontent-c4="">12.487</td>
+        <td _ngcontent-c4="">5.5555</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">CLOSED</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">19.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "false"
+}-->
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">11</td>
+        <td _ngcontent-c4="">11</td>
+        <td _ngcontent-c4="">10</td>
+        <td _ngcontent-c4="">11</td>
+        <td _ngcontent-c4="">AZ</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">19.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">11</td>
+        <td _ngcontent-c4="">11.5</td>
+        <td _ngcontent-c4="">11.5</td>
+        <td _ngcontent-c4="">11.5</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">, </td>
+        <td _ngcontent-c4="">19.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">3</td>
+        <td _ngcontent-c4="">5</td>
+        <td _ngcontent-c4="">5</td>
+        <td _ngcontent-c4="">0</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">19.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">19.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c4="">
+        <td _ngcontent-c4="">TEST_FR</td>
+        <td _ngcontent-c4="">5</td>
+        <td _ngcontent-c4="">5</td>
+        <td _ngcontent-c4="">5</td>
+        <td _ngcontent-c4="">5</td>
+        <td _ngcontent-c4="">AN</td>
+        <td _ngcontent-c4="">ACTIVE</td>
+        <td _ngcontent-c4="">19.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">19.03.2019, anonymousUser</td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+        <td _ngcontent-c4="">
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c4=""><button class="hn-button" ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c4="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
 </div>

@@ -35,15 +35,15 @@ export class AppComponent implements OnInit {
   }
 
   getErrorMessage(control: FormControl): string {
-    let message = 'any msg'
+    const message = 'any msg';
     if (control.touched && control.dirty && control.invalid) {
 
       if (control.errors.required) {
-        return 'control.errors.required'
+        return 'control.errors.required';
       }
 
       if (control.errors.pattern) {
-        return 'control.errors.pattern'
+        return 'control.errors.pattern';
       }
     }
     return message;

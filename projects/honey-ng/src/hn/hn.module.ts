@@ -9,13 +9,15 @@ import { PageHeaderComponent } from './components/page-header/page-header.compon
 import { InputModule } from '../input/input.module';
 import { ChipModule } from '../chip/chip.module';
 import { SidebarModule } from '../sidebar/sidebar.module';
+import { TableModule } from '../table/table.module';
 
 @NgModule({
   imports: [
     CommonModule,
     InputModule,
     ChipModule,
-    SidebarModule
+    SidebarModule,
+    TableModule
   ],
   declarations: [
     ButtonComponent,
@@ -28,6 +30,8 @@ import { SidebarModule } from '../sidebar/sidebar.module';
     ChipModule,
     InputModule,
     SidebarModule,
+    TableModule,
+
 
     ButtonComponent,
     FabComponent,
