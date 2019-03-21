@@ -26,7 +26,7 @@ export class InputDigitDirective extends HnInput implements ControlValueAccessor
     renderer: Renderer2,
     inputElementRef: ElementRef
   ) {
-    super(inputElementRef.nativeElement, renderer, InputDigitDirective.cleanFunction)
+    super(inputElementRef.nativeElement, renderer, InputDigitDirective.cleanFunction);
   }
 
   // writeValue(value: string) {

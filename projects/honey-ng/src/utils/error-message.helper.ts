@@ -11,12 +11,12 @@ const errorMessages: {
   maxlength: (maxlength: number) => `Максимально допустимое кол-во знаков ${maxlength}`,
   pattern: () => `Данные не соответствуют шаблону`,
   default: (errors: ValidationErrors) => `Нераспознанная ошибка валидации. Обратитесь в службу поддержки.(${errors})`,
-}
+};
 
 export class ErrorMessageHelper {
 
   static getMessage(errors: ValidationErrors): string {
-    
+
     if (errors.requred) {
       return errorMessages.requred(errors.requred.pattern);
     }
