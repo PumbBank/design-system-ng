@@ -1,11 +1,12 @@
-import { Renderer2 } from '@angular/core';
+import { Renderer2, OnChanges } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 
 export type CleanFunction = (inputValue: string) => string;
 
 const DEFAULT_CLEN_FUNCTION = (inputValue: string): string => inputValue;
 
-export class HnInput {
+export class HnInput implements OnChanges {
+  
   wrapperElement: HTMLElement;
   captionElement: HTMLElement;
   errorsElement: HTMLElement;
@@ -22,6 +23,10 @@ export class HnInput {
     this.watchInputValueChanges();
     this.watchTouches();
     this.watchValidationChangesByClassName();
+  }
+
+  ngOnChanges(changes: import("@angular/core").SimpleChanges): void {
+    throw new Error("Method not implemented.");
   }
 
   registerOnChange(fn: Function) {

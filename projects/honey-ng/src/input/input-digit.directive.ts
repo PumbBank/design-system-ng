@@ -1,5 +1,5 @@
 import { HnInput, CleanFunction } from './hn-input';
-import { Directive, Renderer2, ElementRef, forwardRef, OnInit } from '@angular/core';
+import { Directive, Renderer2, ElementRef, forwardRef, OnInit, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Directive({
@@ -14,8 +14,11 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 })
 export class InputDigitDirective extends HnInput implements ControlValueAccessor {
 
-  private cleanFunction: CleanFunction = (inputValue: string): string => inputValue.replace(/[^0-9]/g, '');
-  hnInput: HnInput;
+  static cleanFunction: CleanFunction = (inputValue: string): string => inputValue.replace(/[^0-9]/g, '');
+
+  @Input()
+  errors: string;
+  // hnInput: HnInput;
 
   // get value(): string {
   //   return this.hnInput.value.value;
@@ -25,7 +28,7 @@ export class InputDigitDirective extends HnInput implements ControlValueAccessor
     renderer: Renderer2,
     inputElementRef: ElementRef
   ) {
-    super(inputElementRef, renderer, this.cleanFunction)
+    super(inputElementRef.nativeElement, renderer, InputDigitDirective.cleanFunction)
   }
 
   // writeValue(value: string) {
