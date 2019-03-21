@@ -8,6 +8,8 @@ export type CleanFunction = (inputValue: string) => string;
 const DEFAULT_CLEN_FUNCTION = (inputValue: string): string => inputValue;
 
 export class HnInput implements OnChanges {
+  protected cleanFunction: CleanFunction = DEFAULT_CLEN_FUNCTION;
+
   @Input()
   errors: ValidationErrors | null = null;
 
@@ -20,7 +22,6 @@ export class HnInput implements OnChanges {
   constructor(
     private input: HTMLInputElement,
     private renderer: Renderer2,
-    private cleanFunction: CleanFunction = DEFAULT_CLEN_FUNCTION
   ) {
     this.createDom();
     this.updateCaptionState();

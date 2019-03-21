@@ -14,30 +14,14 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 })
 export class InputDigitDirective extends HnInput implements ControlValueAccessor {
 
-  static cleanFunction: CleanFunction = (inputValue: string): string => inputValue.replace(/[^0-9]/g, '');
-
-  // hnInput: HnInput;
-
-  // get value(): string {
-  //   return this.hnInput.value.value;
-  // }
-
   constructor(
     renderer: Renderer2,
     inputElementRef: ElementRef
   ) {
-    super(inputElementRef.nativeElement, renderer, InputDigitDirective.cleanFunction);
+    super(inputElementRef.nativeElement, renderer);
   }
 
-  // writeValue(value: string) {
-  //   this.hnInput.writeValue(value);
-  // }
-
-  // registerOnChange(fn: Function) {
-  //   this.hnInput.registerOnChange(fn);
-  // }
-
-  // registerOnTouched(fn: Function) {
-  //   this.hnInput.registerOnTouched(fn);
-  // }
+  protected cleanFunction: CleanFunction = function (inputValue: string) {
+    return inputValue.replace(/[^0-9]/g, '');
+  };
 }
