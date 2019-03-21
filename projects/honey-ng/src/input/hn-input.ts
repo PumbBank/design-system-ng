@@ -1,5 +1,7 @@
 import { Renderer2, OnChanges, SimpleChanges, SimpleChange, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { ErrorMessageHelper } from '../utils/error-message.helper';
+import { ValidationErrors } from '@angular/forms';
 
 export type CleanFunction = (inputValue: string) => string;
 
@@ -7,8 +9,8 @@ const DEFAULT_CLEN_FUNCTION = (inputValue: string): string => inputValue;
 
 export class HnInput implements OnChanges {
   @Input()
-  errors: string | null = null;
-  
+  errors: ValidationErrors | null = null;
+
   wrapperElement: HTMLElement;
   captionElement: HTMLElement;
   errorsElement: HTMLElement;
@@ -16,9 +18,9 @@ export class HnInput implements OnChanges {
   value: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(
-     private input: HTMLInputElement,
-     private renderer: Renderer2,
-     private cleanFunction: CleanFunction = DEFAULT_CLEN_FUNCTION
+    private input: HTMLInputElement,
+    private renderer: Renderer2,
+    private cleanFunction: CleanFunction = DEFAULT_CLEN_FUNCTION
   ) {
     this.createDom();
     this.updateCaptionState();
@@ -31,7 +33,7 @@ export class HnInput implements OnChanges {
     if (changes.errors) {
       this.errorsUpdateText();
     }
-  }  
+  }
 
   registerOnChange(fn: Function) {
     this.onChangeCallback = fn;
@@ -105,13 +107,13 @@ export class HnInput implements OnChanges {
     this.errorsElement = this.renderer.createElement('div');
 
     const captionText = this.renderer.createText(this.input.getAttribute('placeholder') || '');
-    
+
     this.renderer.insertBefore(this.input.parentElement, this.wrapperElement, this.input);
     this.renderer.appendChild(this.wrapperElement, this.captionElement);
     this.renderer.appendChild(this.wrapperElement, this.input);
     this.renderer.appendChild(this.wrapperElement, this.errorsElement);
     this.renderer.appendChild(this.captionElement, captionText);
-    
+
     this.renderer.addClass(this.wrapperElement, 'hn-input');
     this.renderer.addClass(this.input, 'hn-input__input');
     this.renderer.addClass(this.captionElement, 'hn-input__caption');
@@ -120,6 +122,6 @@ export class HnInput implements OnChanges {
   }
 
   private errorsUpdateText() {
-    this.errorsElement.innerText = this.errors ? this.errors : '';
+    this.errorsElement.innerText = this.errors ? ErrorMessageHelper.getMessage(this.errors) : '';
   }
 }
