@@ -1,5 +1,4 @@
-import { element } from 'protractor';
-import { Component, Directive, ElementRef, Renderer2, Inject, OnInit, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Renderer2, Inject, OnInit, OnDestroy } from '@angular/core';
 import { TableDirective } from '../table/table.directive';
 import { HN_TABLE } from '../../tokens';
 
@@ -9,12 +8,13 @@ import { HN_TABLE } from '../../tokens';
 export class TableHeaderDirective implements OnInit, OnDestroy {
   tableElement: HTMLElement;
   theadElement: HTMLElement;
-  thedRowElement: HTMLElement;
+  theadRowElement: HTMLElement;
   thedRowElementFixed: HTMLElement;
 
   constructor(
     @Inject(HN_TABLE) private tableDirective: TableDirective,
-    private element: ElementRef
+    private element: ElementRef,
+    private renderer: Renderer2
   ) { }
 
   ngOnInit() {
@@ -33,15 +33,14 @@ export class TableHeaderDirective implements OnInit, OnDestroy {
   }
 
   private onScroll = () => {
-    this.thedRowElement = Array.from(this.theadElement.children)[0] as HTMLElement;
+    this.theadRowElement = Array.from(this.theadElement.children)[0] as HTMLElement;
 
     const rect: DOMRect = this.tableElement.getBoundingClientRect() as DOMRect;
     const headerOutOfDisplay: boolean = rect.y < 0;
 
     if (headerOutOfDisplay) {
-      if (!this.thedRowElementFixed) {
-        this.createRowElementFixed();
-      }
+      if (!this.thedRowElementFixed) { this.createRowElementFixed();  }
+
      this.updatePostionOfRowElementFixed();
     } else {
       if (this.thedRowElementFixed) {
@@ -51,32 +50,34 @@ export class TableHeaderDirective implements OnInit, OnDestroy {
   }
 
   private createRowElementFixed() {
-    this.tableElement.classList.add('hn-table_fixed-header');
+    this.thedRowElementFixed = this.theadRowElement.cloneNode(true) as HTMLElement;
 
-    this.thedRowElementFixed = this.thedRowElement.cloneNode(true) as HTMLElement;
-    this.thedRowElementFixed.classList.add('hn-table__header-row_fixed');
-    this.theadElement.appendChild(this.thedRowElementFixed);
+    this.renderer.addClass(this.tableElement, 'hn-table_fixed-header');
+    this.renderer.addClass(this.thedRowElementFixed, 'hn-table__header-row_fixed');
+    this.renderer.addClass(this.tableElement, 'hn-table_fixed-header');
+    this.renderer.appendChild(this.theadElement, this.thedRowElementFixed);
   }
 
   private updatePostionOfRowElementFixed() {
     const rect: DOMRect = this.tableElement.getBoundingClientRect() as DOMRect;
 
-    this.thedRowElementFixed.style.top = `${Math.abs(rect.y)}px`;
+    this.renderer.setStyle(this.thedRowElementFixed, 'top', `${Math.abs(rect.y)}px`);
 
     this.updateWidthOfCellsInRowElementFixed();
   }
 
   private updateWidthOfCellsInRowElementFixed() {
     Array.from(this.thedRowElementFixed.children).forEach((th: HTMLElement, i: number) => {
-      th.style.maxWidth = this.thedRowElement.children[i].clientWidth + 'px';
-      th.style.minWidth = this.thedRowElement.children[i].clientWidth + 'px';
+      const width = this.theadRowElement.children[i].clientWidth + 'px';
+      this.renderer.setStyle(th, 'max-width', width);
+      this.renderer.setStyle(th, 'min-width', width);
     });
   }
 
   private destroyRowElementFixed() {
     if (this.thedRowElementFixed) {
-      this.tableElement.classList.remove('hn-table_fixed-header');
-      this.theadElement.removeChild(this.thedRowElementFixed);
+      this.renderer.removeClass(this.tableElement, 'hn-table_fixed-header');
+      this.renderer.removeChild(this.theadElement, this.thedRowElementFixed);
       this.thedRowElementFixed = null;
     }
   }
