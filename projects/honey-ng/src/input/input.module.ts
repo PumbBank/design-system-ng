@@ -1,12 +1,15 @@
 import { NgModule } from '@angular/core';
+import { InputDigitDirective } from './input-digit.directive';
 import { InputTextDirective } from './input-text.directive';
 
 @NgModule({
   declarations: [
-    InputTextDirective
+    InputTextDirective,
+    InputDigitDirective
   ],
   exports: [
-    InputTextDirective
+    InputTextDirective,
+    InputDigitDirective
   ]
 })
 export class InputModule { }

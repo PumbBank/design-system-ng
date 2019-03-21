@@ -23,12 +23,12 @@ export class DialogRef {
 
   close(...args: any[]): void {
     this.componentRef.destroy();
-    this.onClose.next(args.length == 1 ? args[0] : args);
+    this.onClose.next(args.length === 1 ? args[0] : args);
     this.onClose.complete();
   }
 }
 
 
 export class DialogServiceController {
-  emitBackdropClick: Function
+  emitBackdropClick: Function;
 }

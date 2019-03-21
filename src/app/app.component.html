@@ -1,4 +1,15 @@
-<!-- <hn-button (click)="openDialog()">OPEN DIALOG</hn-button>
+<!-- <div style="width: 260px">
+  <hn-sidebar>
+    <hn-sidebar-header
+      avatarUrl="https://images.unsplash.com/photo-1531770905334-3776f5b54831?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
+      username="Валерій Мельник">
+    </hn-sidebar-header>
+    <hn-sidebar-title>Основные</hn-sidebar-title>
+    <hn-sidebar-button icon="home">Основные</hn-sidebar-button>
+  </hn-sidebar>
+</div>
+
+<hn-button (click)="openDialog()">OPEN DIALOG</hn-button>
 
 <form [formGroup]="fg">
   <label>
@@ -9,16 +20,16 @@
     <input type="radio" name="brand" formControlName="brand" value="SAMSUNG" hidden>
     <hn-chip [active]="fg.controls.brand.value === 'SAMSUNG'">Samsung</hn-chip>
   </label>
-</form>
-<hn-dialog-portal></hn-dialog-portal> -->
+</form> -->
+<hn-dialog-portal></hn-dialog-portal>
 
-<div style="width: 260px">
-  <hn-sidebar>
-    <hn-sidebar-header
-      avatarUrl="https://images.unsplash.com/photo-1531770905334-3776f5b54831?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&w=1000&q=80"
-      username="Валерій Мельник">
-    </hn-sidebar-header>
-    <hn-sidebar-title>Основные</hn-sidebar-title>
-    <hn-sidebar-button icon="home">Основные</hn-sidebar-button>
-  </hn-sidebar>
+<div>
+  <label>
+    <input hnInput="digit" [formControl]="control" 
+    name="hnInput" type="text" [errors]="control.errors" placeholder="hnInput" /> {{ control.value }}
+    <!-- <label *ngIf="control.touched && control.dirty && control.invalid">
+        some error
+    </label> -->
+  </label>
+
 </div>

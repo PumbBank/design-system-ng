@@ -5,12 +5,12 @@ import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HnModule, DialogModule } from 'projects/honey-ng/src/public_api';
-import { TestDialogComponet } from './test-dialog.component';
+import { TestDialogComponent } from './test-dialog.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    TestDialogComponet
+    TestDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -22,7 +22,7 @@ import { TestDialogComponet } from './test-dialog.component';
   providers: [],
   bootstrap: [AppComponent],
   entryComponents: [
-    TestDialogComponet
+    TestDialogComponent
   ]
 })
 export class AppModule { }

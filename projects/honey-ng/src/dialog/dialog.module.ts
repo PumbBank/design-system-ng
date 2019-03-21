@@ -1,4 +1,4 @@
-import { DialogPortal } from './components/dialog-portal/dialog-portal.component';
+import { DialogPortalComponent } from './components/dialog-portal/dialog-portal.component';
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
 import { DialogHeaderComponent } from './components/dialog-header/dialog-header.component';
@@ -17,7 +17,7 @@ import { OverlayComponent } from './components/overlay/overlay.component';
     DialogHeaderComponent,
     DialogBodyComponent,
     DialogFooterComponent,
-    DialogPortal,
+    DialogPortalComponent,
     OverlayComponent
   ],
   entryComponents: [
@@ -28,7 +28,7 @@ import { OverlayComponent } from './components/overlay/overlay.component';
     DialogHeaderComponent,
     DialogBodyComponent,
     DialogFooterComponent,
-    DialogPortal
+    DialogPortalComponent
   ],
   providers: []
 })
@@ -37,6 +37,6 @@ export class DialogModule {
     return {
       ngModule: DialogModule,
       providers: [DialogService],
-    }
+    };
   }
 }

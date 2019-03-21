@@ -5,12 +5,12 @@ import { DomSanitizer } from '@angular/platform-browser';
   selector: 'hn-sidebar-header',
   templateUrl: './sidebar-header.component.html'
 })
-export class SidebarHeader {
+export class SidebarHeaderComponent {
   get avatarStyle() {
-    let style = `
+    const style = `
       background-image: url("${this.avatarUrl}")
     `;
-    return this.sanitizer.bypassSecurityTrustStyle(style)
+    return this.sanitizer.bypassSecurityTrustStyle(style);
   }
   @Input() avatarUrl: string = '';
 

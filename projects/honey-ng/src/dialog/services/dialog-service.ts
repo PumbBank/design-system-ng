@@ -36,7 +36,7 @@ export class DialogService {
       { provide: DIALOG_CONTROLLER, useValue: controller },
       { provide: DIALOG_DATA, useValue: params.data }
     ];
-    const injector = Injector.create(providers, getInjectorFromSource(params.injectorSource) || this.injector);
+    const injector = Injector.create({ providers, parent: getInjectorFromSource(params.injectorSource) || this.injector });
 
     dialogRef.componentRef = this.createComponent(component, injector);
 
@@ -60,9 +60,9 @@ export class DialogService {
 
   private createDialogController(dialogRef: DialogRef): DialogConroller {
     return {
-      close: (...args: any[]) => { this.closeDialog(dialogRef, ...args) },
+      close: (...args: any[]) => { this.closeDialog(dialogRef, ...args); },
       onClose: dialogRef.onClose
-    }
+    };
   }
 
   private onBackDropClick(): void {
@@ -72,7 +72,7 @@ export class DialogService {
   }
 
   private removeOverlayIfNeed(): void {
-    if (this.opended.length == 0) {
+    if (this.opended.length === 0) {
       this.overlayRef.destroy();
       delete this.overlayRef;
     }
@@ -86,7 +86,7 @@ export class DialogService {
       useValue: this.serviceController
     }];
 
-    const injector = Injector.create(providers, this.injector);
+    const injector = Injector.create({ providers, parent: this.injector });
 
     this.overlayRef = this.createComponent(OverlayComponent, injector);
   }
