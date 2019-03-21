@@ -7,7 +7,7 @@ const DEFAULT_CLEN_FUNCTION = (inputValue: string): string => inputValue;
 
 export class HnInput implements OnChanges {
   @Input()
-  errors: string;
+  errors: string | null = null;
   
   wrapperElement: HTMLElement;
   captionElement: HTMLElement;
@@ -116,6 +116,7 @@ export class HnInput implements OnChanges {
     this.renderer.addClass(this.input, 'hn-input__input');
     this.renderer.addClass(this.captionElement, 'hn-input__caption');
     this.renderer.addClass(this.errorsElement, 'hn-input__hint');
+    this.renderer.addClass(this.errorsElement, 'hn-input__hint_warn');
   }
 
   private errorsUpdateText() {
