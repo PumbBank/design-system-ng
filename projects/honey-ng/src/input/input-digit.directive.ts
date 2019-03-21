@@ -1,9 +1,9 @@
 import { HnInput, CleanFunction } from './hn-input';
-import { Directive, Renderer2, ElementRef, forwardRef, OnInit } from '@angular/core';
+import { Directive, Renderer2, ElementRef, forwardRef, OnInit, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Directive({
-  selector: '[hnInput="digit"][type="text"]',
+  selector: '[hnInput="digit"][type="text"], [hnInput="digit"]:not([type])',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -12,36 +12,16 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
     }
   ]
 })
-export class InputDigitDirective implements ControlValueAccessor, OnInit {
-
-
-  hnInput: HnInput;
-
-  get value(): string {
-    return this.hnInput.value.value;
-  }
+export class InputDigitDirective extends HnInput implements ControlValueAccessor {
 
   constructor(
-    private renderer: Renderer2,
-    private inputElementRef: ElementRef
-  ) { }
-
-  ngOnInit() {
-    this.hnInput = new HnInput(this.inputElementRef.nativeElement, this.renderer, this.cleanFunction);
+    renderer: Renderer2,
+    inputElementRef: ElementRef
+  ) {
+    super(inputElementRef.nativeElement, renderer);
   }
 
-  writeValue(value: string) {
-    this.hnInput.writeValue(value);
-  }
-
-  registerOnChange(fn: Function) {
-    this.hnInput.registerOnChange(fn);
-  }
-
-  registerOnTouched(fn: Function) {
-    this.hnInput.registerOnTouched(fn);
-  }
-
-  private cleanFunction: CleanFunction = (inputValue: string): string => inputValue.replace(/[^0-9]/g, '');
-
+  protected cleanFunction: CleanFunction = function (inputValue: string) {
+    return inputValue.replace(/[^0-9]/g, '');
+  };
 }

@@ -3,7 +3,7 @@ import { Directive, Renderer2, ElementRef, forwardRef, OnInit } from '@angular/c
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Directive({
-  selector: '[hnInput="text"][type="text"]',
+  selector: '[hnInput="text"][type="text"], [hnInput="text"]:not([type])',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,

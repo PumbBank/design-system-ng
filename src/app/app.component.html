@@ -1323,3 +1323,28 @@
     </tbody>
   </table>
 </div>
+
+<hn-button (click)="openDialog()">OPEN DIALOG</hn-button>
+
+<form [formGroup]="fg">
+  <label>
+    <input type="radio" name="brand" formControlName="brand" value="APPLE" hidden>
+    <hn-chip [active]="fg.controls.brand.value === 'APPLE'">Apple</hn-chip>
+  </label>
+  <label>
+    <input type="radio" name="brand" formControlName="brand" value="SAMSUNG" hidden>
+    <hn-chip [active]="fg.controls.brand.value === 'SAMSUNG'">Samsung</hn-chip>
+  </label>
+</form> -->
+<hn-dialog-portal></hn-dialog-portal>
+
+<div>
+  <label>
+    <input hnInput="digit" [formControl]="control"
+    name="hnInput" type="text" [errors]="control.errors" placeholder="hnInput" /> {{ control.value }}
+    <!-- <label *ngIf="control.touched && control.dirty && control.invalid">
+        some error
+    </label> -->
+  </label>
+
+</div>

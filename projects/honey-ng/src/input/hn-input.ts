@@ -1,27 +1,40 @@
-import { Renderer2 } from '@angular/core';
+import { Renderer2, OnChanges, SimpleChanges, Input } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
+import { ErrorMessageHelper } from '../utils/error-message.helper';
+import { ValidationErrors } from '@angular/forms';
 
 export type CleanFunction = (inputValue: string) => string;
 
 const DEFAULT_CLEN_FUNCTION = (inputValue: string): string => inputValue;
 
-export class HnInput {
-  wrapper: HTMLElement;
-  caption: HTMLElement;
-  errors: HTMLElement;
+export class HnInput implements OnChanges {
+  protected cleanFunction: CleanFunction = DEFAULT_CLEN_FUNCTION;
+
+  @Input()
+  errors: ValidationErrors | null = null;
+
+  wrapperElement: HTMLElement;
+  captionElement: HTMLElement;
+  errorsElement: HTMLElement;
 
   value: BehaviorSubject<string> = new BehaviorSubject<string>(null);
 
   constructor(
     private input: HTMLInputElement,
     private renderer: Renderer2,
-    private cleanFunction: CleanFunction = DEFAULT_CLEN_FUNCTION
   ) {
     this.createDom();
     this.updateCaptionState();
     this.watchInputValueChanges();
     this.watchTouches();
     this.watchValidationChangesByClassName();
+    this.errorsUpdateText();
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.errors) {
+      this.errorsUpdateText();
+    }
   }
 
   registerOnChange(fn: Function) {
@@ -49,17 +62,17 @@ export class HnInput {
 
   private updateValidationState(invalid: boolean = false): void {
     if (invalid) {
-      this.renderer.addClass(this.wrapper, 'hn-input_warn');
+      this.renderer.addClass(this.wrapperElement, 'hn-input_warn');
     } else {
-      this.renderer.removeClass(this.wrapper, 'hn-input_warn');
+      this.renderer.removeClass(this.wrapperElement, 'hn-input_warn');
     }
   }
 
   private updateCaptionState(): void {
     if (this.input.value) {
-      this.renderer.addClass(this.wrapper, 'hn-input_filled');
+      this.renderer.addClass(this.wrapperElement, 'hn-input_filled');
     } else {
-      this.renderer.removeClass(this.wrapper, 'hn-input_filled');
+      this.renderer.removeClass(this.wrapperElement, 'hn-input_filled');
     }
   }
 
@@ -91,23 +104,26 @@ export class HnInput {
   }
 
   private createDom(): void {
-    this.caption = this.renderer.createElement('div');
-    this.wrapper = this.renderer.createElement('label');
-    this.errors = this.renderer.createElement('div');
+    this.captionElement = this.renderer.createElement('div');
+    this.wrapperElement = this.renderer.createElement('label');
+    this.errorsElement = this.renderer.createElement('div');
 
     const captionText = this.renderer.createText(this.input.getAttribute('placeholder') || '');
-    const errorsText = this.renderer.createText(this.input.getAttribute('errors') || '');
 
-    this.renderer.insertBefore(this.input.parentElement, this.wrapper, this.input);
-    this.renderer.appendChild(this.wrapper, this.caption);
-    this.renderer.appendChild(this.wrapper, this.input);
-    this.renderer.appendChild(this.wrapper, this.errors);
-    this.renderer.appendChild(this.caption, captionText);
-    this.renderer.appendChild(this.errors, errorsText);
+    this.renderer.insertBefore(this.input.parentElement, this.wrapperElement, this.input);
+    this.renderer.appendChild(this.wrapperElement, this.captionElement);
+    this.renderer.appendChild(this.wrapperElement, this.input);
+    this.renderer.appendChild(this.wrapperElement, this.errorsElement);
+    this.renderer.appendChild(this.captionElement, captionText);
 
-    this.renderer.addClass(this.wrapper, 'hn-input');
+    this.renderer.addClass(this.wrapperElement, 'hn-input');
     this.renderer.addClass(this.input, 'hn-input__input');
-    this.renderer.addClass(this.caption, 'hn-input__caption');
-    this.renderer.addClass(this.errors, 'hn-input__error');
+    this.renderer.addClass(this.captionElement, 'hn-input__caption');
+    this.renderer.addClass(this.errorsElement, 'hn-input__hint');
+    this.renderer.addClass(this.errorsElement, 'hn-input__hint_warn');
+  }
+
+  private errorsUpdateText() {
+    this.errorsElement.innerText = this.errors ? ErrorMessageHelper.getMessage(this.errors) : '';
   }
 }
