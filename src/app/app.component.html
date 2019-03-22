@@ -1,6 +1,14 @@
+<!-- <div>
+  <label>
+    <input hnInput="digit" [formControl]="control" name="name" type="text" placeholder="name"
+      [errors]="control.errors" /> {{ control.value }}
+  </label>
+</div> -->
+
 <div>
     <label>
-      <input hnInput="digit" [formControl]="control" name="name" type="text" placeholder="name" [errors]="control.errors" /> {{ control.value }}
+      <input hnInput="number" [formControl]="control" name="name" type="text" placeholder="name"
+        [errors]="control.errors" /> {{ control.value }}
     </label>
   </div>
 
@@ -8,7 +16,12 @@
   <table _ngcontent-c4="" class="hn-table hn-table_simple" hnTable>
     <thead _ngcontent-c4="" hnTableHeader>
       <tr _ngcontent-c4="">
-        <th _ngcontent-c4="">Technical Merchant ID</th>
+        <th _ngcontent-c4="">
+          <div>
+            <div>Technical Merchant ID</div>
+            <hn-page-header icon="keyboard_arrow_up"></hn-page-header>
+          </div>
+        </th>
         <th _ngcontent-c4="">Срок грейс (мес.)</th>
         <th _ngcontent-c4="">Ежем. Ком. % (grace)</th>
         <th _ngcontent-c4="">Ежемесячная комиссия %</th>
@@ -1329,5 +1342,3 @@
     </tbody>
   </table>
 </div>
-
-
