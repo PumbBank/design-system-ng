@@ -22,7 +22,7 @@ export class InputDigitDirective extends HnInput implements ControlValueAccessor
   }
 
   registerOnChange(fn: Function) {
-    super.registerOnChange((value: string) => fn(parseInt(value)));
+    super.registerOnChange((value: string) => fn(parseInt(value, 10)));
   }
 
   protected cleanFunction: CleanFunction = function (inputValue: any) {

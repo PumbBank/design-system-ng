@@ -39,7 +39,7 @@ export class HnInput implements OnChanges {
 
   registerOnChange(fn: Function) {
     this.onChangeCallback = fn;
-    setTimeout(()=> fn(this.input.value));
+    setTimeout(() => fn(this.input.value));
   }
 
   registerOnTouched(fn: Function) {
