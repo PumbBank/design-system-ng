@@ -10,6 +10,7 @@ import { InputModule } from '../input/input.module';
 import { ChipModule } from '../chip/chip.module';
 import { SidebarModule } from '../sidebar/sidebar.module';
 import { TableModule } from '../table/table.module';
+import { SelectModule } from '../select/select.module';
 
 @NgModule({
   imports: [
@@ -17,7 +18,8 @@ import { TableModule } from '../table/table.module';
     InputModule,
     ChipModule,
     SidebarModule,
-    TableModule
+    TableModule,
+    SelectModule
   ],
   declarations: [
     ButtonComponent,
@@ -31,7 +33,7 @@ import { TableModule } from '../table/table.module';
     InputModule,
     SidebarModule,
     TableModule,
-
+    SelectModule,
 
     ButtonComponent,
     FabComponent,
