@@ -34,7 +34,7 @@ export class InputDigitDirective extends HnInput implements ControlValueAccessor
     }
 
     return inputValue
-      .replace(/(?!^)[-]/g, '')
-      .replace(/[^0-9\-\+]/g, '');
+      .replace(/(?!^)-/g, '')
+      .replace(/[^0-9\-]/g, '');
   };
 }
