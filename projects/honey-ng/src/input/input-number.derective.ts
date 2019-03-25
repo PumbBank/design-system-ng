@@ -32,7 +32,7 @@ export class InputNumberDirective extends HnInput implements ControlValueAccesso
     } else {
       inputValue = inputValue ? String(inputValue) : '';
     }
-    
+
     return inputValue.replace(/^[\.\,]/g, '')
       .replace(/(?!^)-/g, '')
       .replace(/[\,]/g, '.')
