@@ -28,10 +28,10 @@ export class InputNumberDirective extends HnInput implements ControlValueAccesso
   protected cleanFunction: CleanFunction = function (inputValue: any) {
 
     if (!isNaN(inputValue)) {
-      inputValue = '' + inputValue ? String(inputValue) : '';
-    } else {
-      inputValue = inputValue ? String(inputValue) : '';
+      return inputValue.toString();
     }
+
+    inputValue = inputValue ? String(inputValue) : '';
 
     return inputValue.replace(/^[\.\,]/g, '')
       .replace(/(?!^)-/g, '')
