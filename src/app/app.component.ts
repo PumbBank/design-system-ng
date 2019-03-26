@@ -11,6 +11,7 @@ import { DialogService } from 'projects/honey-ng/src/public_api';
 export class AppComponent implements OnInit {
 
   control = new FormControl(35, Validators.pattern('^[0-9]{1,}$')); // [^\d+(?:\.{1}\d{1,4})$]/igm,
+  control1 = new FormControl(35, Validators.pattern('^[0-9]{1,}$')); // [^\d+(?:\.{1}\d{1,4})$]/igm,
   // control = new FormControl('hi');
   title = 'hn-angular-test';
   errors: string = '';

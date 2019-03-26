@@ -26,7 +26,7 @@ export class InputDigitDirective extends HnInput implements ControlValueAccessor
   }
 
   protected cleanFunction: CleanFunction = function (inputValue: any) {
-    const inputValueStr = String(inputValue).replace(/\,/g, '.');
+    const inputValueStr = String(inputValue);
     const parsed = parseInt(inputValue, 10);
 
     if (inputValueStr === '-') { return inputValueStr; }
