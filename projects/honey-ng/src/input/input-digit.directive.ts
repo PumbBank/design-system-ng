@@ -26,10 +26,10 @@ export class InputDigitDirective extends HnInput implements ControlValueAccessor
   }
 
   protected cleanFunction: CleanFunction = function (inputValue: any) {
-    const str = String(inputValue).replace(/\,/g, '.');
+    const inputValueStr = String(inputValue).replace(/\,/g, '.');
     const parsed = parseInt(inputValue, 10);
 
-    if (str === '-') { return str; }
+    if (inputValueStr === '-') { return inputValueStr; }
 
     return !Number.isInteger(parsed) ? '' : parsed.toString();
   };
