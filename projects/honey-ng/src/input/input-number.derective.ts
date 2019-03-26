@@ -29,9 +29,11 @@ export class InputNumberDirective extends HnInput implements ControlValueAccesso
     const str = String(inputValue).replace(/\,/g, '.');
     const parsed = parseFloat(inputValue);
 
+    if (str === '-') { return str; }
+
     if (isNaN(parsed) || !Number.isFinite(parsed)) { return ''; }
 
-    if (str[str.length - 1] === '.') { return  parsed.toString() + '.'; }
+    if (str[str.length - 1] === '.') { return parsed.toString() + '.'; }
 
     return parsed.toString();
   };
