@@ -26,15 +26,14 @@ export class InputNumberDirective extends HnInput implements ControlValueAccesso
   }
 
   protected cleanFunction: CleanFunction = function (inputValue: any) {
-    const inputValueStr = String(inputValue).replace(/\,/g, '.');
-    const parsed = parseFloat(inputValueStr);
 
-    if (inputValueStr === '-') { return inputValueStr; }
+    inputValue = inputValue || inputValue === 0 ? String(inputValue) : '';
 
-    if (isNaN(parsed) || !Number.isFinite(parsed)) { return ''; }
+    return inputValue.replace(/^(-{0,1})[\.\,]/g, '$1')
+      .replace(/(?!^)-/g, '')
+      .replace(/[\,]/g, '.')
+      .replace(/(\.+\d{0,})(?:\.)/g, '$1')
+      .replace(/[^0-9\.-]/g, '');
 
-    if (inputValueStr[inputValueStr.length - 1] === '.') { return parsed.toString() + '.'; }
-
-    return parsed.toString();
   };
 }
