@@ -27,6 +27,6 @@ export class InputDigitDirective extends HnInput implements ControlValueAccessor
 
   protected cleanFunction: CleanFunction = function (inputValue: any) {
     const parsed = parseInt(inputValue, 10);
-    return isNaN(parsed) ? '' : inputValue.toString();
+    return !Number.isInteger(parsed) ? '' : parsed.toString();
   };
 }
