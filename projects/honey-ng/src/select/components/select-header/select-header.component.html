@@ -1,6 +1,11 @@
-<div class="hn-select__header">
-  <ng-content></ng-content>
-  <ng-container *ngIf="selected">
-    : {{ selected }}
-  </ng-container>
+<div class="hn-select-header" [class.hn-select-header_filled]="filled" (click)="showOptons()" >
+    <div class="hn-select-header__caption">
+      {{ caption }}
+    </div>
+    <div class="hn-select-header__value">
+      {{ selected }}
+    </div>
+    <div class="hn-icon hn-select-header__icon">
+      arrow_drop_down
+    </div>
 </div>
