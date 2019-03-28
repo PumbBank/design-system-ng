@@ -1,14 +1,18 @@
-<hn-select #select>
-  <hn-select-header>Hello</hn-select-header>
-  <hn-select-body>
-    <hn-select-option [value]="1" caption="Option 1"></hn-select-option>
-    <hn-select-option [value]="2" caption="Option 2"></hn-select-option>
-    <hn-select-option [value]="3" caption="Option 3"></hn-select-option>
-  </hn-select-body>
-</hn-select>
+<!-- <div>
+  <label>
+    <input hnInput="digit" [formControl]="control" name="name" type="text" placeholder="name"
+      [errors]="control.errors" /> {{ control.value }}
+  </label>
+</div> -->
 
-<br>
-<br>
-
-
-Selected: {{ select.selected }}
+<div>
+  <label>
+    <input hnInput="number" [formControl]="control" name="name" type="text" placeholder="name" [errors]="control.errors"
+      value="123" /> {{ control.value }}
+    <input hnInput="digit" [formControl]="control1" name="name" type="text" placeholder="name" [errors]="control.errors"
+      value="123" /> {{ control1.value }}
+  </label>
+  <hn-button class="hn-table__action-button" (click)="openModifyDiaolog()">
+    <hn-icon>edit</hn-icon>
+  </hn-button>
+</div>
