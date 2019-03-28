@@ -27,14 +27,11 @@ export class InputDigitDirective extends HnInput implements ControlValueAccessor
 
   protected cleanFunction: CleanFunction = function (inputValue: any) {
 
-    if (!isNaN(inputValue)) {
-      return inputValue.toString();
-    }
-
-    inputValue = inputValue ? String(inputValue) : '';
+    inputValue = inputValue || inputValue === 0 ? String(inputValue) : '';
 
     return inputValue
       .replace(/(?!^)-/g, '')
       .replace(/[^0-9\-]/g, '');
+
   };
 }
