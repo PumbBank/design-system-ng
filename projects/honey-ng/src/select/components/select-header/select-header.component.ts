@@ -13,6 +13,10 @@ export class SelectHeaderComponent<T = any> implements OnInit {
     return typeof this.selected !== 'undefined' && this.selected !== null;
   }
 
+  get selectedCaption(): string {
+    return this.selectComponent.selectedCaption;
+  }
+
   get selected(): T {
     return this.selectComponent.selected;
   }
@@ -24,7 +28,7 @@ export class SelectHeaderComponent<T = any> implements OnInit {
   ngOnInit() {
   }
 
-  showOptons() {
-
+  onClick() {
+    this.selectComponent.open();
   }
 }

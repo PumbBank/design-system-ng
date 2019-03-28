@@ -8,6 +8,7 @@ import { SelectComponent } from '../select/select.component';
 })
 export class SelectOptionComponent<T = any> implements OnInit {
   @Input() value: T;
+  @Input() caption: string;
 
   get selected(): T {
     return this.selectComponent.selected;
@@ -17,10 +18,10 @@ export class SelectOptionComponent<T = any> implements OnInit {
     private selectComponent: SelectComponent<T>
   ) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() { }
 
   onClick() {
-    this.selectComponent.setSelected(this.value);
+    this.selectComponent.setSelected(this.value, this.caption);
+    this.selectComponent.close();
   }
 }

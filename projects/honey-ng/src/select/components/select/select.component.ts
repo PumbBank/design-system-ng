@@ -1,5 +1,4 @@
 import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
-import { SelectOptionComponent } from '../select-option/select-option.component';
 
 @Component({
   selector: 'hn-select',
@@ -11,13 +10,26 @@ export class SelectComponent<T = any> implements OnInit {
   @Input() selected: T;
   @Output() selectedChange: EventEmitter<T> = new EventEmitter<T>();
 
-  constructor() { }
+  selectedCaption: string;
+  active: boolean = false;
+
+  constructor(
+  ) { }
 
   ngOnInit() {
   }
 
-  setSelected(option: T): void {
+  setSelected(option: T, caption: string): void {
     this.selected = option;
+    this.selectedCaption = caption;
     this.selectedChange.emit(option);
+  }
+
+  open(): void {
+    this.active = true;
+  }
+
+  close(): void {
+    this.active = false;
   }
 }

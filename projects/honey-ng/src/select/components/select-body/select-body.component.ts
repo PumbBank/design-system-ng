@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { SelectComponent } from '../select/select.component';
 
 @Component({
   selector: 'hn-select-body',
@@ -7,7 +8,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SelectBodyComponent implements OnInit {
 
-  constructor() { }
+  get active(): boolean {
+    return this.selectComponent.active;
+  }
+
+  constructor(
+    private selectComponent: SelectComponent
+  ) { }
 
   ngOnInit() {
   }
