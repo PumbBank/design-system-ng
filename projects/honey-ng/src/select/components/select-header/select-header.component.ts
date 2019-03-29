@@ -1,3 +1,4 @@
+import { ValidationErrors } from '@angular/forms';
 import { Component, OnInit, Input } from '@angular/core';
 import { SelectComponent } from '../select/select.component';
 
@@ -19,6 +20,14 @@ export class SelectHeaderComponent<T = any> implements OnInit {
 
   get selected(): T {
     return this.selectComponent.selected;
+  }
+
+  get errors(): null | ValidationErrors {
+    return this.selectComponent.errors;
+  }
+
+  get touched(): boolean {
+    return this.selectComponent.touched;
   }
 
   constructor(

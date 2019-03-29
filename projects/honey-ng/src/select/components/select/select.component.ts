@@ -1,5 +1,5 @@
 import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'hn-select',
@@ -16,7 +16,10 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 export class SelectComponent<T = any> implements ControlValueAccessor {
   private options: Map<any, string> = new Map<any, string>();
 
+  touched: boolean = false;
+
   @Input() selected: T;
+  @Input() errors: ValidationErrors | null = null;
   @Output() selectedChange: EventEmitter<T> = new EventEmitter<T>();
 
   get selectedCaption(): string {
@@ -38,6 +41,7 @@ export class SelectComponent<T = any> implements ControlValueAccessor {
     }
     this.active = true;
     this.onTouched();
+    this.touched = true;
   }
 
   close(): void {
@@ -70,5 +74,9 @@ export class SelectComponent<T = any> implements ControlValueAccessor {
 
   destroyOption(value: any) {
     this.options.delete(value);
+  }
+
+  private errorsUpdateText() {
+    // this.errorsElement.innerText = this.errors ? ErrorMessageHelper.getMessage(this.errors) : '';
   }
 }
