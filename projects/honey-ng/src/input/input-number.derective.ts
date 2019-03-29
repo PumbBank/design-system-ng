@@ -3,16 +3,16 @@ import { Directive, Renderer2, ElementRef, forwardRef, OnInit, Input } from '@an
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 
 @Directive({
-  selector: '[hnInput="digit"][type="text"], [hnInput="digit"]:not([type])',
+  selector: '[hnInput="number"][type="text"], [hnInput="number"]:not([type])',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
-      useExisting: forwardRef(() => InputDigitDirective),
+      useExisting: forwardRef(() => InputNumberDirective),
       multi: true
     }
   ]
 })
-export class InputDigitDirective extends HnInput implements ControlValueAccessor {
+export class InputNumberDirective extends HnInput implements ControlValueAccessor {
 
   constructor(
     renderer: Renderer2,
@@ -22,16 +22,18 @@ export class InputDigitDirective extends HnInput implements ControlValueAccessor
   }
 
   registerOnChange(fn: Function) {
-    super.registerOnChange((value: string) => fn(parseInt(value, 10)));
+    super.registerOnChange((value: string) => fn(parseFloat(value)));
   }
 
   protected cleanFunction: CleanFunction = function (inputValue: any) {
 
     inputValue = inputValue || inputValue === 0 ? String(inputValue) : '';
 
-    return inputValue
+    return inputValue.replace(/^(-{0,1})[\.\,]/g, '$1')
       .replace(/(?!^)-/g, '')
-      .replace(/[^0-9\-]/g, '');
+      .replace(/[\,]/g, '.')
+      .replace(/(\.+\d{0,})(?:\.)/g, '$1')
+      .replace(/[^0-9\.-]/g, '');
 
   };
 }
