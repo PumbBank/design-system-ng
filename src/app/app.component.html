@@ -17,8 +17,8 @@
   </hn-button>
 </div> -->
 
-<form [formGroup]="">
-  <hn-select #select [formControl]="control2" [errors]="control2.errors">
+<form [formGroup]="" >
+   <hn-select #select [formControl]="control2" [errors]="control2.errors" >
     <hn-select-header>Hello</hn-select-header>
     <hn-select-body>
       <hn-select-option [value]="1" caption="Option 1"></hn-select-option>
@@ -26,6 +26,8 @@
       <hn-select-option [value]="3" caption="Option 3"></hn-select-option>
     </hn-select-body>
   </hn-select>
+
+  <button (click)="test()" >dasdas</button>
 </form>
 <br>
 {{control2.value}}

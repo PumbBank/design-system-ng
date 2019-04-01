@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, ElementRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angular/forms';
 
 @Component({
@@ -14,6 +14,10 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angu
   styleUrls: ['./select.component.scss']
 })
 export class SelectComponent<T = any> implements ControlValueAccessor {
+
+  get selectedCaption(): string {
+    return this.options.get(this.selected);
+  }
   private options: Map<any, string> = new Map<any, string>();
 
   touched: boolean = false;
@@ -21,13 +25,12 @@ export class SelectComponent<T = any> implements ControlValueAccessor {
   @Input() selected: T;
   @Input() errors: ValidationErrors | null = null;
   @Output() selectedChange: EventEmitter<T> = new EventEmitter<T>();
-
-  get selectedCaption(): string {
-    return this.options.get(this.selected);
-  }
   active: boolean = false;
 
-  constructor() { }
+  constructor(private element: ElementRef) {
+    console.log();
+    this.watchValidationChangesByClassName();
+  }
 
   setSelected(option: T): void {
     this.selected = option;
@@ -36,12 +39,13 @@ export class SelectComponent<T = any> implements ControlValueAccessor {
   }
 
   open(): void {
-    if (!this.options.has(this.selected)) {
-      this.selected = null;
-    }
+    this.errorsUpdateText();
     this.active = true;
-    this.onTouched();
-    this.touched = true;
+  }
+
+  toggle(): void {
+    this.errorsUpdateText();
+    this.active = !this.active;
   }
 
   close(): void {
@@ -61,6 +65,7 @@ export class SelectComponent<T = any> implements ControlValueAccessor {
   onTouched: any = () => { };
 
   registerOnChange(fn) {
+    fn(this.selected);
     this.onChange = fn;
   }
 
@@ -77,6 +82,19 @@ export class SelectComponent<T = any> implements ControlValueAccessor {
   }
 
   private errorsUpdateText() {
-    // this.errorsElement.innerText = this.errors ? ErrorMessageHelper.getMessage(this.errors) : '';
+    if (!this.options.has(this.selected)) {
+      this.selected = null;
+    }
+    this.onTouched();
+    this.touched = true;
+  }
+
+  private watchValidationChangesByClassName(): void {
+    const observer = new MutationObserver(() => {
+      this.touched = this.element.nativeElement.classList.contains('ng-touched');
+      // this.valid = this.element.nativeElement.classList.contains('ng-invalid');
+    });
+
+    observer.observe(this.element.nativeElement, { attributes: true });
   }
 }

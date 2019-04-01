@@ -38,6 +38,6 @@ export class SelectHeaderComponent<T = any> implements OnInit {
   }
 
   onClick() {
-    this.selectComponent.open();
+    this.selectComponent.toggle();
   }
 }
