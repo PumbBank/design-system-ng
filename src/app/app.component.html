@@ -1,22 +1,3 @@
-<!-- <div>
-  <label>
-    <input hnInput="digit" [formControl]="control" name="name" type="text" placeholder="name"
-      [errors]="control.errors" /> {{ control.value }}
-  </label>
-</div> -->
-
-<div>
-  <label>
-    <input hnInput="number" [formControl]="control" name="name" type="text" placeholder="name" [errors]="control.errors"
-      value="123" /> {{ control.value }}
-    <input hnInput="digit" [formControl]="control1" name="name" type="text" placeholder="name" [errors]="control.errors"
-      value="123" /> {{ control1.value }}
-  </label>
-  <hn-button class="hn-table__action-button" (click)="openModifyDiaolog()">
-    <hn-icon>edit</hn-icon>
-  </hn-button>
-</div>
-
 
 <table class="hn-table hn-table_simple">
   <thead (hnSort)="onSort($event)">

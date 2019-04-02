@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { SelectComponent } from '../select/select.component';
 
 @Component({
@@ -6,7 +6,7 @@ import { SelectComponent } from '../select/select.component';
   templateUrl: './select-option.component.html',
   styleUrls: ['./select-option.component.scss']
 })
-export class SelectOptionComponent<T = any> implements OnInit {
+export class SelectOptionComponent<T = any> implements OnInit, OnDestroy {
   @Input() value: T;
   @Input() caption: string;
 
@@ -18,10 +18,16 @@ export class SelectOptionComponent<T = any> implements OnInit {
     private selectComponent: SelectComponent<T>
   ) { }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.selectComponent.registrateOption(this.value, this.caption);
+  }
+
+  ngOnDestroy() {
+    this.selectComponent.destroyOption(this.value);
+  }
 
   onClick() {
-    this.selectComponent.setSelected(this.value, this.caption);
+    this.selectComponent.setSelected(this.value);
     this.selectComponent.close();
   }
 }

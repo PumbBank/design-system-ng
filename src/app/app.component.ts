@@ -11,7 +11,8 @@ export class AppComponent implements OnInit {
 
   control = new FormControl(undefined, Validators.pattern('^[0-9]{1,}$')); // [^\d+(?:\.{1}\d{1,4})$]/igm,
   control1 = new FormControl(35, Validators.pattern('^[0-9]{1,}$')); // [^\d+(?:\.{1}\d{1,4})$]/igm,
-  // control = new FormControl('hi');
+  control2 = new FormControl('hi', Validators.required);
+
   title = 'hn-angular-test';
   errors: string = '';
 
