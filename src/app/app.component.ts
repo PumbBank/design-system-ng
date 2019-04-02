@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TestDialogComponent } from './test-dialog.component';
 import { DialogService } from 'projects/honey-ng/src/public_api';
 
 @Component({
@@ -35,4 +34,7 @@ export class AppComponent implements OnInit {
     return typeof value;
   }
 
+  onSort(e: any) {
+    console.log(e);
+  }
 }
