@@ -35,8 +35,4 @@ export class AppComponent implements OnInit {
   a(value: any): string {
     return typeof value;
   }
-
-  test() {
-    const pp = this.control2;
-  }
 }
