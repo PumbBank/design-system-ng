@@ -1,8 +1,9 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { ApproveDirective } from './approve.directive';
-import { ApproveComponent } from './approve.component';
-import { HnModule, DialogModule } from 'projects/honey-ng/src/public_api';
+import { ApproveDirective } from './directives/approve.directive';
+import { ApproveComponent } from './components/approve.component';
+import { DialogModule } from 'projects/honey-ng/src/public_api';
+import { ButtonModule } from '../button/button.module';
 
 @NgModule({
   declarations: [
@@ -18,7 +19,7 @@ import { HnModule, DialogModule } from 'projects/honey-ng/src/public_api';
   imports: [
     CommonModule,
     DialogModule,
-    HnModule
+    ButtonModule
   ]
 })
 export class ApproveModule { }

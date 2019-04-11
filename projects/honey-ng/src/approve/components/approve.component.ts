@@ -1,5 +1,5 @@
 import { Component, Inject } from '@angular/core';
-import { DIALOG_DATA } from '../dialog/shared/dialog';
+import { DIALOG_DATA } from '../../dialog/shared/dialog';
 
 
 @Component({

@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
-import { ButtonComponent } from './components/button/button.component';
 import { NavigationItemComponent } from './components/navigation/navigation-item/navigation-item.component';
 import { FabComponent } from './components/fab/fab.component';
 import { IconComponent } from './components/icon/icon.component';
@@ -11,7 +10,7 @@ import { ChipModule } from '../chip/chip.module';
 import { SidebarModule } from '../sidebar/sidebar.module';
 import { TableModule } from '../table/table.module';
 import { SelectModule } from '../select/select.module';
-import { ApproveModule } from '../approve/approve.module';
+import { ButtonModule } from '../button/button.module';
 
 @NgModule({
   imports: [
@@ -21,10 +20,9 @@ import { ApproveModule } from '../approve/approve.module';
     SidebarModule,
     TableModule,
     SelectModule,
-    ApproveModule
+    ButtonModule
   ],
   declarations: [
-    ButtonComponent,
     FabComponent,
     IconComponent,
     NavigationItemComponent,
@@ -36,9 +34,6 @@ import { ApproveModule } from '../approve/approve.module';
     SidebarModule,
     TableModule,
     SelectModule,
-    ApproveModule,
-
-    ButtonComponent,
     FabComponent,
     IconComponent,
     NavigationItemComponent,

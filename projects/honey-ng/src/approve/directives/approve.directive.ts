@@ -1,6 +1,6 @@
 import { Directive, HostListener, EventEmitter, Output, Input } from '@angular/core';
-import { DialogService } from '../dialog/public_api';
-import { ApproveComponent } from './approve.component';
+import { DialogService } from '../../dialog/public_api';
+import { ApproveComponent } from '../components/approve.component';
 
 @Directive({
   selector: '[hnApprove]'
