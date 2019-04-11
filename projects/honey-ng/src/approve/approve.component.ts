@@ -8,7 +8,7 @@ import { DIALOG_DATA } from '../dialog/shared/dialog';
 })
 export class ApproveComponent {
 
-  public dialogBody: string = 'Please setup Dialog Body: [hnApprove]="Your question"';
+  public dialogBody: string = 'Please setup Dialog Body: hnApprove="Your question"';
 
   constructor(
     @Inject(DIALOG_DATA) private data: any
