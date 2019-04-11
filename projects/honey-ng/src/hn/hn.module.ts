@@ -11,6 +11,7 @@ import { ChipModule } from '../chip/chip.module';
 import { SidebarModule } from '../sidebar/sidebar.module';
 import { TableModule } from '../table/table.module';
 import { SelectModule } from '../select/select.module';
+import { ApproveModule } from '../approve/approve.module';
 
 @NgModule({
   imports: [
@@ -19,7 +20,8 @@ import { SelectModule } from '../select/select.module';
     ChipModule,
     SidebarModule,
     TableModule,
-    SelectModule
+    SelectModule,
+    ApproveModule
   ],
   declarations: [
     ButtonComponent,
@@ -34,6 +36,7 @@ import { SelectModule } from '../select/select.module';
     SidebarModule,
     TableModule,
     SelectModule,
+    ApproveModule,
 
     ButtonComponent,
     FabComponent,
