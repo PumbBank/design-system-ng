@@ -1,0 +1,12 @@
+<hn-dialog>
+  <hn-dialog-header>Подтвердите действие</hn-dialog-header>
+  <hn-dialog-body>{{ dialogBody }}</hn-dialog-body>
+  <hn-dialog-footer>
+    <hn-button type="submit" (click)="close()">
+      Отказаться
+    </hn-button>
+    <hn-button type="submit" (click)="submit()">
+      Подтвердить
+    </hn-button>
+  </hn-dialog-footer>
+</hn-dialog>

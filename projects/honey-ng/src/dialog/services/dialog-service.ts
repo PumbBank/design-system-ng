@@ -46,6 +46,9 @@ export class DialogService {
   }
 
   private createComponent<T = any>(component: any, injector: Injector): ComponentRef<T> {
+    if (!this.viewContainerRef) {
+      throw new Error('Add <hn-dialog-portal></hn-dialog-portal> into root component');
+    }
     const factory = this.factoryResolver.resolveComponentFactory<T>(component);
     return this.viewContainerRef.createComponent<T>(factory, null, injector);
   }

@@ -38,4 +38,12 @@ export class AppComponent implements OnInit {
   onSort(e: any) {
     console.log(e);
   }
+
+  ok(value: string) {
+    console.log(value, 'APPROVED');
+  }
+
+  no(value: string) {
+    console.log(value, 'REJECTED');
+  }
 }

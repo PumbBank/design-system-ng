@@ -37,6 +37,9 @@ export class DialogModule {
     return {
       ngModule: DialogModule,
       providers: [DialogService],
+      entryComponents: [
+        OverlayComponent
+      ]
     };
   }
 }
