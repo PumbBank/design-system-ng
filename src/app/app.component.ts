@@ -16,6 +16,8 @@ export class AppComponent implements OnInit {
   title = 'hn-angular-test';
   errors: string = '';
 
+  fc = new FormControl();
+
   fg = new FormGroup({
     name: new FormControl(''),
     brand: new FormControl('SAMSUNG')
