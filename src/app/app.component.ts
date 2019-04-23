@@ -25,7 +25,7 @@ export class AppComponent implements OnInit {
 
   form = new FormGroup({
     grace_term: new FormControl('', Validators.required)
-  })
+  });
 
   constructor(
     private dialog: DialogService
@@ -54,7 +54,7 @@ export class AppComponent implements OnInit {
   }
 
   submit() {
-    if (!this.form.valid){
+    if (!this.form.valid) {
       return;
     }
   }
