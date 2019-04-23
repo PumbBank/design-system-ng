@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef, ElementRef } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, ElementRef, AfterContentInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angular/forms';
 
 @Component({
@@ -13,7 +13,8 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angu
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss']
 })
-export class SelectComponent<T = any> implements ControlValueAccessor {
+export class SelectComponent<T = any> implements ControlValueAccessor, AfterContentInit {
+  private _writedTmp: T;
 
   get selectedCaption(): string {
     return this.options.get(this.selected);
@@ -32,7 +33,14 @@ export class SelectComponent<T = any> implements ControlValueAccessor {
     this.watchValidationChangesByClassName();
   }
 
+  ngAfterContentInit(): void {
+    if (this._writedTmp) {
+      this.setSelected(this._writedTmp);
+    }
+  }
+
   setSelected(option: T): void {
+    this._writedTmp = undefined;
     this.selected = option;
     this.selectedChange.emit(option);
     this.onChange(this.selected);
@@ -54,14 +62,15 @@ export class SelectComponent<T = any> implements ControlValueAccessor {
 
   writeValue(value: any): void {
     if (!this.options.has(value)) {
+      this._writedTmp = value;
       this.selected = null;
       this.onChange(null);
     } else {
-     this.selected = value;
+      this.selected = value;
     }
   }
 
-  onChange: any = () => {};
+  onChange: any = () => { };
   onTouched: any = () => { };
 
   registerOnChange(fn) {

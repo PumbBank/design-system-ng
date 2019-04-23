@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { SelectComponent } from '../select/select.component';
 
 @Component({
@@ -9,6 +9,7 @@ import { SelectComponent } from '../select/select.component';
 export class SelectOptionComponent<T = any> implements OnInit, OnDestroy {
   @Input() value: T;
   @Input() caption: string;
+  @ViewChild('option') optionElementRef: ElementRef;
 
   get selected(): T {
     return this.selectComponent.selected;
@@ -19,7 +20,7 @@ export class SelectOptionComponent<T = any> implements OnInit, OnDestroy {
   ) { }
 
   ngOnInit() {
-    this.selectComponent.registrateOption(this.value, this.caption);
+    this.selectComponent.registrateOption(this.value, this.caption || this.optionElementRef.nativeElement.innerText);
   }
 
   ngOnDestroy() {
