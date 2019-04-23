@@ -21,6 +21,10 @@ export class AppComponent implements OnInit {
     brand: new FormControl('SAMSUNG')
   });
 
+  form = new FormGroup({
+    grace_term: new FormControl('', Validators.required)
+  })
+
   constructor(
     private dialog: DialogService
   ) { }
@@ -45,5 +49,11 @@ export class AppComponent implements OnInit {
 
   no(value: string) {
     console.log(value, 'REJECTED');
+  }
+
+  submit() {
+    if (!this.form.valid){
+      return;
+    }
   }
 }

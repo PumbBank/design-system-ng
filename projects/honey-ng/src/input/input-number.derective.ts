@@ -22,7 +22,7 @@ export class InputNumberDirective extends HnInput implements ControlValueAccesso
   }
 
   registerOnChange(fn: Function) {
-    super.registerOnChange((value: string) => fn(parseFloat(value)));
+    super.registerOnChange((value: string) => !!value ? fn(parseFloat(value)) : fn(value));
   }
 
   protected cleanFunction: CleanFunction = function (inputValue: any) {

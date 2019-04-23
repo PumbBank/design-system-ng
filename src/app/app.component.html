@@ -8,3 +8,23 @@
 
 
 <hn-dialog-portal></hn-dialog-portal>
+
+<hn-dialog>
+  <hn-dialog-header>Добавление "Продукта"</hn-dialog-header>
+  <hn-dialog-body>
+
+    <span *ngIf="error$ | async"> {{ error$ | async }} <br> </span>
+
+    <form class="hn-grid hn-grid_2 hn-grid_fields" [formGroup]="form" (submit)="submit()" id="form">
+      <input hnInput="number" formControlName="grace_term" placeholder="Срок грейс (мес.)" type="text">
+    </form>
+  </hn-dialog-body>
+  <hn-dialog-footer>
+    <hn-button type="submit" (click)="close()">
+      Отмена
+    </hn-button>
+    <hn-button type="submit" variety="contained" form="form">
+      Создать
+    </hn-button>
+  </hn-dialog-footer>
+</hn-dialog>
