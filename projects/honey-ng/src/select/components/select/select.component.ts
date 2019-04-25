@@ -21,17 +21,19 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
   }
   private options: Map<any, string> = new Map<any, string>();
 
-  touched: boolean = false;
+  get touched(): boolean {
+    return this.element.nativeElement.classList.contains('ng-touched');
+  }
+
+  get errors(): boolean {
+    return this.element.nativeElement.classList.contains('ng-invalid');
+  }
 
   @Input() selected: T;
-  @Input() errors: ValidationErrors | null = null;
   @Output() selectedChange: EventEmitter<T> = new EventEmitter<T>();
   active: boolean = false;
 
-  constructor(private element: ElementRef) {
-    console.log();
-    this.watchValidationChangesByClassName();
-  }
+  constructor(private element: ElementRef) { }
 
   ngAfterContentInit(): void {
     if (this._writedTmp) {
@@ -95,15 +97,6 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
       this.selected = null;
     }
     this.onTouched();
-    this.touched = true;
-  }
-
-  private watchValidationChangesByClassName(): void {
-    const observer = new MutationObserver(() => {
-      this.touched = this.element.nativeElement.classList.contains('ng-touched');
-      // this.valid = this.element.nativeElement.classList.contains('ng-invalid');
-    });
-
-    observer.observe(this.element.nativeElement, { attributes: true });
+    // this.touched = true;
   }
 }

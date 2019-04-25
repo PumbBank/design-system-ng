@@ -22,7 +22,7 @@ export class SelectHeaderComponent<T = any> implements OnInit {
     return this.selectComponent.selected;
   }
 
-  get errors(): null | ValidationErrors {
+  get errors(): boolean {
     return this.selectComponent.errors;
   }
 

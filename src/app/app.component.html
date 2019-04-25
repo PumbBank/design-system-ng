@@ -23,7 +23,17 @@
     <span *ngIf="error$ | async"> {{ error$ | async }} <br> </span>
 
     <form class="hn-grid hn-grid_2 hn-grid_fields" [formGroup]="form" (submit)="submit()" id="form">
+
       <input hnInput="number" formControlName="grace_term" placeholder="Срок грейс (мес.)" type="text">
+      
+      <hn-select formControlName="technical_merchant_id" selected="">
+        <hn-select-header caption="Technical Merchant ID">Technical Merchant ID</hn-select-header>
+        <hn-select-body>
+          <hn-select-option [value]="techMerchId" [caption]="techMerchId"
+            *ngFor="let techMerchId of techMerchIds">{{ techMerchId }}
+          </hn-select-option>
+        </hn-select-body>
+      </hn-select>
     </form>
   </hn-dialog-body>
   <hn-dialog-footer>

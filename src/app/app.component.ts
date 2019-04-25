@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { DialogService } from 'projects/honey-ng/src/public_api';
 
 @Component({
@@ -24,8 +24,11 @@ export class AppComponent implements OnInit {
   });
 
   form = new FormGroup({
-    grace_term: new FormControl('', Validators.required)
+    grace_term: new FormControl('', Validators.required),
+    technical_merchant_id: new FormControl('', Validators.required)
   });
+
+  techMerchIds = ['val_1', 'val_2', 'val_3'];
 
   constructor(
     private dialog: DialogService
@@ -55,7 +58,20 @@ export class AppComponent implements OnInit {
 
   submit() {
     if (!this.form.valid) {
+      this.markControlsAsTouched(this.form);
       return;
     }
+  }
+
+  private markControlsAsTouched(formGroup: FormGroup | FormArray) {
+
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsTouched({ onlySelf: true });
+      } else if (control instanceof FormGroup || control instanceof FormArray) {
+        this.markControlsAsTouched(control);
+      }
+    });
   }
 }
