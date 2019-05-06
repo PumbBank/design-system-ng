@@ -17,8 +17,8 @@ export class ErrorMessageHelper {
 
   static getMessage(errors: ValidationErrors): string {
 
-    if (errors.requred) {
-      return errorMessages.requred();
+    if (errors.required) {
+      return errorMessages.required();
     }
 
     if (errors.min) {

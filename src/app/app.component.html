@@ -24,7 +24,7 @@
 
     <form class="hn-grid hn-grid_2 hn-grid_fields" [formGroup]="form" (submit)="submit()" id="form">
 
-      <input hnInput="number" formControlName="grace_term" placeholder="Срок грейс (мес.)" type="text">
+      <input hnInput="number" formControlName="grace_term" placeholder="Срок грейс (мес.)" type="text" [errors]=form.controls.grace_term.errors>
       
       <hn-select formControlName="technical_merchant_id" selected="">
         <hn-select-header caption="Technical Merchant ID">Technical Merchant ID</hn-select-header>
