@@ -5,24 +5,29 @@ import { SelectBodyComponent } from './components/select-body/select-body.compon
 import { SelectOptionComponent } from './components/select-option/select-option.component';
 import { CommonModule } from '@angular/common';
 import { ClickOutsideDirective } from './components/select/select-clickoutside.directive';
+import { SelectBodyFilterComponent } from './components/select-body-filter/select-body-filter.component';
+import { InputModule } from '../input/input.module';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    InputModule
   ],
   declarations: [
     SelectComponent,
     SelectHeaderComponent,
     SelectBodyComponent,
     SelectOptionComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    SelectBodyFilterComponent
   ],
   exports: [
     SelectComponent,
     SelectHeaderComponent,
     SelectBodyComponent,
     SelectOptionComponent,
-    ClickOutsideDirective
+    ClickOutsideDirective,
+    SelectBodyFilterComponent
   ]
 })
 export class SelectModule { }

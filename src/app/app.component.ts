@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { DialogService } from 'projects/honey-ng/src/public_api';
+import { AppService } from './app.service';
 
 @Component({
   selector: 'app-root',
@@ -28,13 +29,23 @@ export class AppComponent implements OnInit {
     technical_merchant_id: new FormControl('', Validators.required)
   });
 
-  techMerchIds = ['val_1', 'val_2', 'val_3'];
-
+  techMerchIds = ['val_1', 'val_2', 'val_3', 'val_4', 'val_5', 'val_6'];
+  source: any;
   constructor(
     private dialog: DialogService
   ) { }
 
   ngOnInit(): void {
+    let i = 1;
+    this.source = {
+      get(params: any) {
+        return ++i;
+      },
+
+      // transform(a: any): IOption {
+
+      // }
+    };
   }
 
   openDialog() {
@@ -61,6 +72,10 @@ export class AppComponent implements OnInit {
       this.markControlsAsTouched(this.form);
       return;
     }
+  }
+
+  filterChanged(value: string) {
+    console.log(value);
   }
 
   private markControlsAsTouched(formGroup: FormGroup | FormArray) {

@@ -1,3 +1,8 @@
 <div class="hn-select-body" [class.hn-select-body_active]="active">
-  <ng-content></ng-content>
+  <div class="hn-select-body__header">
+    <ng-content select="hn-select-body-filter"></ng-content>
+  </div>
+  <div class="hn-select-body__options">
+    <ng-content></ng-content>
+  </div>
 </div>

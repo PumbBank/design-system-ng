@@ -7,7 +7,7 @@
 <hn-select selected="212">
   <hn-select-header></hn-select-header>
   <hn-select-body>
-    <hn-select-option value=12 >121212121212</hn-select-option>
+    <hn-select-option value=12>121212121212</hn-select-option>
     <hn-select-option value=212>12321321</hn-select-option>
     <hn-select-option value=1222>asdasdasdsdasd</hn-select-option>
   </hn-select-body>
@@ -24,13 +24,15 @@
 
     <form class="hn-grid hn-grid_2 hn-grid_fields" [formGroup]="form" (submit)="submit()" id="form">
 
-      <input hnInput="number" formControlName="grace_term" placeholder="Срок грейс (мес.)" type="text" [errors]=form.controls.grace_term.errors>
-      
+      <input hnInput="number" formControlName="grace_term" placeholder="Срок грейс (мес.)" type="text"
+        [errors]=form.controls.grace_term.errors>
+
       <hn-select formControlName="technical_merchant_id" selected="">
         <hn-select-header caption="Technical Merchant ID">Technical Merchant ID</hn-select-header>
         <hn-select-body>
-          <hn-select-option [value]="techMerchId" [caption]="techMerchId"
-            *ngFor="let techMerchId of techMerchIds">{{ techMerchId }}
+          <hn-select-body-filter (valueChange)="filterChanged($event)"></hn-select-body-filter>
+          <hn-select-option [value]="techMerchId" [caption]="techMerchId" *ngFor="let techMerchId of techMerchIds">
+            {{ techMerchId }}
           </hn-select-option>
         </hn-select-body>
       </hn-select>
