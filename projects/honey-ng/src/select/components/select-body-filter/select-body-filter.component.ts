@@ -12,7 +12,7 @@ export class SelectBodyFilterComponent implements OnInit {
   placeholder: string = '';
 
   @Input()
-  dataSource: IDataSource<any>
+  dataSource: IDataSource<any>;
 
   @Output()
   options: IOption<any>[];

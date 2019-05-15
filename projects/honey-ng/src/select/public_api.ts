@@ -1,2 +1,2 @@
 export * from './select.module';
-export * from './models/data-source'
+export * from './models/data-source';

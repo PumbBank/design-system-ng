@@ -5,5 +5,5 @@ export interface IDataSource<T> {
 
 export interface IOption<T> {
   key: T;
-  value: string
+  value: string;
 }
