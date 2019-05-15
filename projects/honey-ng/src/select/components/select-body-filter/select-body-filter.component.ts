@@ -1,4 +1,5 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, ElementRef, ViewChild } from '@angular/core';
+import { IDataSource, IOption } from '../../public_api';
 
 @Component({
   selector: 'hn-select-body-filter',
@@ -10,15 +11,20 @@ export class SelectBodyFilterComponent implements OnInit {
   @Input()
   placeholder: string = '';
 
-  @Output()
-  valueChange: EventEmitter<string> = new EventEmitter<string>();
+  @Input()
+  dataSource: IDataSource<any>
 
-  constructor() { }
+  @Output()
+  options: IOption<any>[];
+
+  constructor(private element: ElementRef) { }
 
   ngOnInit() {
+    this.onValueChange('');
   }
 
   onValueChange(value: string) {
-    this.valueChange.emit(value);
+    this.options = this.dataSource.search(value);
+
   }
 }

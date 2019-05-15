@@ -30,9 +30,9 @@
       <hn-select formControlName="technical_merchant_id" selected="">
         <hn-select-header caption="Technical Merchant ID">Technical Merchant ID</hn-select-header>
         <hn-select-body>
-          <hn-select-body-filter (valueChange)="filterChanged($event)"></hn-select-body-filter>
-          <hn-select-option [value]="techMerchId" [caption]="techMerchId" *ngFor="let techMerchId of techMerchIds">
-            {{ techMerchId }}
+          <hn-select-body-filter [dataSource]="dataSrc" #filter></hn-select-body-filter>
+          <hn-select-option [value]="o.key" [caption]="o.key" *ngFor="let o of filter.options">
+            {{ o.value }}
           </hn-select-option>
         </hn-select-body>
       </hn-select>

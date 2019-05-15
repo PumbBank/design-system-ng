@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
-import { DialogService } from 'projects/honey-ng/src/public_api';
+import { DialogService, IDataSource, IOption } from 'projects/honey-ng/src/public_api';
 import { AppService } from './app.service';
+import { of, Observable } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -29,7 +30,10 @@ export class AppComponent implements OnInit {
     technical_merchant_id: new FormControl('', Validators.required)
   });
 
-  techMerchIds = ['val_1', 'val_2', 'val_3', 'val_4', 'val_5', 'val_6'];
+  techMerchIds = ['val_1', 'val_2', 'val_21', 'val_22', 'val_23', 'val_3', 'val_4', 'val_5', 'val_6'];
+
+  dataSrc = new DataSource(this.techMerchIds) as IDataSource<string>;
+
   source: any;
   constructor(
     private dialog: DialogService
@@ -88,5 +92,26 @@ export class AppComponent implements OnInit {
         this.markControlsAsTouched(control);
       }
     });
+  }
+}
+
+class DataSource implements IDataSource<string>{
+  private data: string[];
+
+  constructor(private inputData: string[]) {
+    this.data = inputData;
+  }
+
+  search(value: string): IOption<string>[] {
+    if (value) {
+      const filteredData = this.data.filter((merch: string) => merch.indexOf(value) !== -1)
+        .map((m: string) => ({ key: m, value: m }));
+      return filteredData;
+    }
+    return this.data.map((m: string) => ({ key: 'k_'+m, value: 'v_' + m }));
+  }
+
+  get(key: string): IOption<string> {
+    throw new Error("Method not implemented.");
   }
 }
