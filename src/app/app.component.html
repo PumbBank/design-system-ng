@@ -4,14 +4,14 @@
   </hn-button>
 </div>
 
-<hn-select selected="212">
+<!-- <hn-select selected="212">
   <hn-select-header></hn-select-header>
   <hn-select-body>
     <hn-select-option value=12>121212121212</hn-select-option>
     <hn-select-option value=212>12321321</hn-select-option>
     <hn-select-option value=1222>asdasdasdsdasd</hn-select-option>
   </hn-select-body>
-</hn-select>
+</hn-select> -->
 
 
 <hn-dialog-portal></hn-dialog-portal>
@@ -30,8 +30,8 @@
       <hn-select formControlName="technical_merchant_id" selected="">
         <hn-select-header caption="Technical Merchant ID">Technical Merchant ID</hn-select-header>
         <hn-select-body>
-          <hn-select-body-filter [dataSource]="dataSrc" #filter></hn-select-body-filter>
-          <hn-select-option [value]="o.key" [caption]="o.key" *ngFor="let o of filter.options">
+          <hn-select-body-filter [dataSource]="dataSrc" #filter [placeholder]="'Find...'"></hn-select-body-filter>
+          <hn-select-option [value]="o.key" [caption]="o.value" *ngFor="let o of filter.options">
             {{ o.value }}
           </hn-select-option>
         </hn-select-body>

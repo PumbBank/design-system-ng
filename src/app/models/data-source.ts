@@ -13,7 +13,7 @@ export class DataSource implements IDataSource<string> {
         .map((m: string) => ({ key: m, value: m }));
       return filteredData;
     }
-    return this.data.map((m: string) => ({ key: 'k_' + m, value: 'v_' + m }));
+    return this.data.map((m: string) => ({ key: 'k_' + m, value: m }));
   }
 
   get(key: string): IOption<string> {

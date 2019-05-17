@@ -17,6 +17,8 @@ export class SelectBodyFilterComponent implements OnInit {
   @Output()
   options: IOption<any>[];
 
+  filled: boolean = false;
+
   constructor(private element: ElementRef) { }
 
   ngOnInit() {
@@ -25,6 +27,10 @@ export class SelectBodyFilterComponent implements OnInit {
 
   onValueChange(value: string) {
     this.options = this.dataSource.search(value);
-
+    if (value) {
+      this.filled = true;
+    } else {
+      this.filled = false;
+    }
   }
 }

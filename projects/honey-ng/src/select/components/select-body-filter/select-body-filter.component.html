@@ -1,4 +1,4 @@
-<label class="hn-input">
+<label class="hn-input" [class.hn-input_filled]="filled">
   <div class="hn-input__caption">{{ placeholder }}</div>
   <input class="hn-input__input" type="text" (input)="onValueChange($event.target.value)" #hnInputFilter />
 </label>
