@@ -10,20 +10,12 @@ import { SelectComponent } from '../select/select.component';
 export class SelectHeaderComponent<T = any> implements OnInit {
   @Input() caption: string = 'Select';
 
-  currentSelectedCaption: string;
-
   get filled(): boolean {
-    // if (this.currentSelectedCaption) {
-    //   return true;
-    // }
-    return (typeof this.selected !== 'undefined' && this.selected !== null) || !!this.currentSelectedCaption;
+    return (typeof this.selected !== 'undefined' && this.selected !== null);
   }
 
   get selectedCaption(): string {
-    if (this.selectComponent.selectedCaption) {
-      this.currentSelectedCaption = this.selectComponent.selectedCaption;
-    }
-    return this.selectComponent.selectedCaption || this.currentSelectedCaption;
+    return this.selectComponent.selectedCaption;
   }
 
   get selected(): T {

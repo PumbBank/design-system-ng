@@ -15,6 +15,7 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angu
 })
 export class SelectComponent<T = any> implements ControlValueAccessor, AfterContentInit {
   private _writedTmp: T;
+  private writeValueInterceptors: [];
 
   get selectedCaption(): string {
     return this.options.get(this.selected);
@@ -32,6 +33,8 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
   @Input() selected: T;
   @Output() selectedChange: EventEmitter<T> = new EventEmitter<T>();
   active: boolean = false;
+
+  writeValueInterceptor: ((value: string) => Promise<void>)[] = [];
 
   constructor(private element: ElementRef) { }
 
@@ -62,7 +65,9 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     this.active = false;
   }
 
-  writeValue(value: any): void {
+  async writeValue(value: any): Promise<void> {
+    await Promise.all(this.writeValueInterceptor.map(fn => fn(value)));
+    
     if (!this.options.has(value)) {
       this._writedTmp = value;
       this.selected = null;
@@ -89,7 +94,9 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
   }
 
   destroyOption(value: any) {
-    this.options.delete(value);
+    if (this.selected !== value) {
+      this.options.delete(value);
+    }
   }
 
   private errorsUpdateText() {
