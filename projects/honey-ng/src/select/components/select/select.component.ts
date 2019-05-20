@@ -67,7 +67,7 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
 
   async writeValue(value: any): Promise<void> {
     await Promise.all(this.writeValueInterceptor.map(fn => fn(value)));
-    
+
     if (!this.options.has(value)) {
       this._writedTmp = value;
       this.selected = null;
