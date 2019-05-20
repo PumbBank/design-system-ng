@@ -5,10 +5,10 @@
     "@angular/common": "^7.2.0",
     "@angular/core": "^7.2.0",
     "@angular/forms": "~7.2.0",
-    "@honey/stylesheets": "latest"
+    "@honey/stylesheets": "latest",
+    "text-mask-core": "^5.1.2"
   },
-  "scripts": {
-  },
+  "scripts": {},
   "author": "",
   "license": "ISC"
 }

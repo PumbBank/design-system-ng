@@ -25,6 +25,5 @@ export class SelectBodyFilterComponent implements OnInit {
 
   onValueChange(value: string) {
     this.options = this.dataSource.search(value);
-
   }
 }
