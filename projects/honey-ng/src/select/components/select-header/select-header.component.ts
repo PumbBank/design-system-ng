@@ -13,10 +13,10 @@ export class SelectHeaderComponent<T = any> implements OnInit {
   currentSelectedCaption: string;
 
   get filled(): boolean {
-    if (this.currentSelectedCaption) {
-      return true;
-    }
-    return typeof this.selected !== 'undefined' && this.selected !== null;
+    // if (this.currentSelectedCaption) {
+    //   return true;
+    // }
+    return (typeof this.selected !== 'undefined' && this.selected !== null) || !!this.currentSelectedCaption;
   }
 
   get selectedCaption(): string {
