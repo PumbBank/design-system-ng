@@ -1,6 +1,5 @@
 import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef } from '@angular/core';
 import { SelectComponent } from '../select/select.component';
-import { IOption, IDataSource } from '../../models/data-source';
 
 @Component({
   selector: 'hn-select-option',

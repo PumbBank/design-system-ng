@@ -15,12 +15,12 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angu
 })
 export class SelectComponent<T = any> implements ControlValueAccessor, AfterContentInit {
   private _writedTmp: T;
-  private writeValueInterceptors: [];
 
   get selectedCaption(): string {
     return this.options.get(this.selected);
   }
   private options: Map<any, string> = new Map<any, string>();
+  private writeValueInterceptors: ((value: string) => Promise<void>)[] = [];
 
   get touched(): boolean {
     return this.element.nativeElement.classList.contains('ng-touched');
@@ -34,7 +34,6 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
   @Output() selectedChange: EventEmitter<T> = new EventEmitter<T>();
   active: boolean = false;
 
-  writeValueInterceptor: ((value: string) => Promise<void>)[] = [];
 
   constructor(private element: ElementRef) { }
 
@@ -42,6 +41,10 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     if (this._writedTmp) {
       this.setSelected(this._writedTmp);
     }
+  }
+
+  eventHookPush( funct: (value: string) => Promise<void>): void {
+    this.writeValueInterceptors.push(funct);
   }
 
   setSelected(option: T): void {
@@ -66,7 +69,7 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
   }
 
   async writeValue(value: any): Promise<void> {
-    await Promise.all(this.writeValueInterceptor.map(fn => fn(value)));
+    await Promise.all(this.writeValueInterceptors.map(fn => fn(value)));
 
     if (!this.options.has(value)) {
       this._writedTmp = value;

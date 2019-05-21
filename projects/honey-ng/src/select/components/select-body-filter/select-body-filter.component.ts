@@ -1,6 +1,8 @@
+import { async } from '@angular/core/testing';
 import { Component, OnInit, Input, Output, ElementRef, ViewChild } from '@angular/core';
 import { IDataSource, IOption } from '../../public_api';
 import { SelectComponent } from '../select/select.component';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 
 @Component({
   selector: 'hn-select-body-filter',
@@ -20,26 +22,30 @@ export class SelectBodyFilterComponent<T = any> implements OnInit {
 
   filled: boolean = false;
 
+  filterForm = new FormGroup({
+    filterField: new FormControl('')
+  });
+
   constructor(private selectComponent: SelectComponent<T>) { }
 
   ngOnInit() {
-    this.selectComponent.writeValueInterceptor.push(
-      async (val: string): Promise<void> => {
-        return new Promise (async (resolve: Function, reject: Function) => {
 
-          const option: IOption<string> = await this.dataSource.get(val);
-          if (option) {
-            this.selectComponent.registrateOption(option.key, option.value);
-          }
-          resolve();
-        });
+    this.filterForm.valueChanges.pipe().subscribe(
+      async (val) => {
+
+        this.options = await this.dataSource.search(val.filterField);
+
       }
     );
-    this.onValueChange('');
-  }
 
-  async onValueChange(value: string) {
-    this.options = await this.dataSource.search(value);
-    this.filled = !!value;
+    this.selectComponent.eventHookPush(
+      async (val: string): Promise<void> => {
+        const option: IOption<string> = await this.dataSource.get(val);
+        if (option) {
+          this.selectComponent.registrateOption(option.key, option.value);
+        }
+        return Promise.resolve();
+      }
+    );
   }
 }

@@ -7,11 +7,14 @@ import { CommonModule } from '@angular/common';
 import { ClickOutsideDirective } from './components/select/select-clickoutside.directive';
 import { SelectBodyFilterComponent } from './components/select-body-filter/select-body-filter.component';
 import { InputModule } from '../input/input.module';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   imports: [
     CommonModule,
-    InputModule
+    InputModule,
+    FormsModule,
+    ReactiveFormsModule
   ],
   declarations: [
     SelectComponent,
