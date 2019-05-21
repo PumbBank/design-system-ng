@@ -43,7 +43,7 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     }
   }
 
-  eventHookPush( funct: (value: string) => Promise<void>): void {
+  addWriteValueInterceptor( funct: (value: string) => Promise<void>): void {
     this.writeValueInterceptors.push(funct);
   }
 

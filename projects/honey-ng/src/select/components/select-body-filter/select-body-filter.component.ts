@@ -22,23 +22,21 @@ export class SelectBodyFilterComponent<T = any> implements OnInit {
 
   filled: boolean = false;
 
-  filterForm = new FormGroup({
-    filterField: new FormControl('')
-  });
+  filterControl = new FormControl('');
 
   constructor(private selectComponent: SelectComponent<T>) { }
 
   ngOnInit() {
 
-    this.filterForm.valueChanges.pipe().subscribe(
+    this.filterControl.valueChanges.pipe().subscribe(
       async (val) => {
 
-        this.options = await this.dataSource.search(val.filterField);
+        this.options = await this.dataSource.search(val);
 
       }
     );
 
-    this.selectComponent.eventHookPush(
+    this.selectComponent.addWriteValueInterceptor(
       async (val: string): Promise<void> => {
         const option: IOption<string> = await this.dataSource.get(val);
         if (option) {
