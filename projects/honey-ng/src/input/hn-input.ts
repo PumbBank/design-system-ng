@@ -108,19 +108,23 @@ export class HnInput implements OnChanges {
     this.wrapperElement = this.renderer.createElement('label');
     this.errorsElement = this.renderer.createElement('div');
 
-    const captionText = this.renderer.createText(this.input.getAttribute('placeholder') || '');
+    this.captionElement.innerHTML = this.input.getAttribute('placeholder') || '';
 
     this.renderer.insertBefore(this.input.parentElement, this.wrapperElement, this.input);
     this.renderer.appendChild(this.wrapperElement, this.captionElement);
     this.renderer.appendChild(this.wrapperElement, this.input);
     this.renderer.appendChild(this.wrapperElement, this.errorsElement);
-    this.renderer.appendChild(this.captionElement, captionText);
 
     this.renderer.addClass(this.wrapperElement, 'hn-input');
     this.renderer.addClass(this.input, 'hn-input__input');
     this.renderer.addClass(this.captionElement, 'hn-input__caption');
     this.renderer.addClass(this.errorsElement, 'hn-input__hint');
     this.renderer.addClass(this.errorsElement, 'hn-input__hint_warn');
+
+    const mutationObserver = new MutationObserver(() => {
+      this.captionElement.innerHTML = this.input.getAttribute('placeholder') || '';
+    });
+    mutationObserver.observe(this.input, {attributes: true});
   }
 
   private errorsUpdateText() {

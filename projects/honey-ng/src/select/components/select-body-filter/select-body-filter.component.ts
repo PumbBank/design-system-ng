@@ -12,7 +12,7 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 export class SelectBodyFilterComponent<T = any> implements OnInit {
 
   @Input()
-  placeholder: string = '';
+  placeholder: string = 'Find...';
 
   @Input()
   dataSource: IDataSource<any>;
