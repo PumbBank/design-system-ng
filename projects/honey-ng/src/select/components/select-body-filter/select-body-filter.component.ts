@@ -38,8 +38,13 @@ export class SelectBodyFilterComponent<T = any> implements OnInit {
     this.onValueChange('');
   }
 
+<<<<<<< HEAD
   async onValueChange(value: string) {
     this.options = await this.dataSource.search(value);
     this.filled = !!value;
+=======
+  onValueChange(value: string) {
+    this.options = this.dataSource.search(value);
+>>>>>>> aa6f694710f5a3911121b72c1ad57917ca225b00
   }
 }
