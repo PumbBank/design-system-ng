@@ -1,39 +1,36 @@
-import { InjectionToken, Directive, Output, EventEmitter, forwardRef, ElementRef } from '@angular/core';
+import { Directive, Output, EventEmitter } from '@angular/core';
+import { SortController, SORT_CONTROLLER, SortDirection, SortEvent, iterations } from './sort.controller';
 
-export type SortDirection = 'ASC' | 'DESC';
-
-export interface SortEvent {
-  sortField: string | null;
-  sortDirection: SortDirection;
-}
 
 @Directive({
-  selector: '[hnSort]'
+  selector: '[hnSort]',
+  providers: [
+    {
+      provide: SORT_CONTROLLER,
+      useExisting: SortDirective
+    }
+  ]
 })
-export class SortDirective {
-  private static iterations: SortDirection[] = ['ASC', 'DESC', null];
+export class SortDirective implements SortController {
 
   sortDirection: SortDirection = null;
   sortField: string;
 
   @Output() hnSort: EventEmitter<SortEvent> = new EventEmitter<SortEvent>();
 
-  constructor(
-    elementRef: ElementRef
-  ) {
-    console.log(elementRef);
+  checkField(fieldName: string): string {
+    return fieldName === this.sortField ? this.sortDirection : null;
   }
 
   nextSortIteration(sortField: string): void {
     if (sortField === this.sortField) {
       // Берем поочереди значения из массива
-      this.sortDirection = SortDirective.iterations[
-        (SortDirective.iterations.indexOf(this.sortDirection) + 1) %
-        SortDirective.iterations.length
+      this.sortDirection = iterations[
+        (iterations.indexOf(this.sortDirection) + 1) % iterations.length
       ];
     } else {
       this.sortField = sortField;
-      this.sortDirection = SortDirective.iterations[0];
+      this.sortDirection = iterations[0];
     }
 
     this.hnSort.emit({ sortField: this.sortField, sortDirection: this.sortDirection });
