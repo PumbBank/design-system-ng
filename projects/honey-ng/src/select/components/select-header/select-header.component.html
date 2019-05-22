@@ -8,4 +8,9 @@
   <div class="hn-icon hn-select-header__icon">
     arrow_drop_down
   </div>
+
+  <div class="hn-input__hint hn-input__hint_warn" >
+    {{ (touched && !!errors) ? errorText : '' }}
+  </div>
+
 </div>

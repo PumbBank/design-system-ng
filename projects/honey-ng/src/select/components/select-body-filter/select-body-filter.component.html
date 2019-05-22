@@ -1,4 +1,1 @@
-<label class="hn-input">
-  <div class="hn-input__caption">{{ placeholder }}</div>
-  <input class="hn-input__input" type="text" (input)="onValueChange($event.target.value)" #hnInputFilter />
-</label>
+  <input hnInput="text" [formControl]="filterControl" placeholder="{{ placeholder }}" >

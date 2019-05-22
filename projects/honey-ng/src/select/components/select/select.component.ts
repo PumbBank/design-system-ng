@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, forwardRef, ElementRef, AfterContentInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angular/forms';
+import { ErrorMessageHelper } from 'projects/honey-ng/src/utils/error-message.helper';
 
 @Component({
   selector: 'hn-select',
@@ -20,18 +21,22 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     return this.options.get(this.selected);
   }
   private options: Map<any, string> = new Map<any, string>();
+  private writeValueInterceptors: ((value: string) => Promise<void>)[] = [];
 
   get touched(): boolean {
     return this.element.nativeElement.classList.contains('ng-touched');
   }
 
-  get errors(): boolean {
+  get isInvalid(): boolean {
     return this.element.nativeElement.classList.contains('ng-invalid');
   }
 
   @Input() selected: T;
+  @Input()
+  errors: ValidationErrors | null = null;
   @Output() selectedChange: EventEmitter<T> = new EventEmitter<T>();
   active: boolean = false;
+
 
   constructor(private element: ElementRef) { }
 
@@ -39,6 +44,10 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     if (this._writedTmp) {
       this.setSelected(this._writedTmp);
     }
+  }
+
+  addWriteValueInterceptor( fn: (value: string) => Promise<void>): void {
+    this.writeValueInterceptors.push(fn);
   }
 
   setSelected(option: T): void {
@@ -62,7 +71,9 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     this.active = false;
   }
 
-  writeValue(value: any): void {
+  async writeValue(value: any): Promise<void> {
+    await Promise.all(this.writeValueInterceptors.map(fn => fn(value)));
+
     if (!this.options.has(value)) {
       this._writedTmp = value;
       this.selected = null;
@@ -89,7 +100,13 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
   }
 
   destroyOption(value: any) {
-    this.options.delete(value);
+    if (this.selected !== value) {
+      this.options.delete(value);
+    }
+  }
+
+  errorsText(): string {
+    return this.errors ? ErrorMessageHelper.getMessage(this.errors) : '';
   }
 
   private errorsUpdateText() {
@@ -97,6 +114,6 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
       this.selected = null;
     }
     this.onTouched();
-    // this.touched = true;
   }
+
 }

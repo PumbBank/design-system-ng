@@ -1,6 +1,6 @@
 export interface IDataSource<T> {
-  search(value: string): IOption<T>[];
-  get(key: T): IOption<T>;
+  search(value: string): Promise<IOption<T>[]>;
+  get(key: T): Promise<IOption<T | null>>;
 }
 
 export interface IOption<T> {

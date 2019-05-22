@@ -1,29 +1,51 @@
-import { Component, OnInit, Input, Output, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy } from '@angular/core';
 import { IDataSource, IOption } from '../../public_api';
+import { SelectComponent } from '../select/select.component';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'hn-select-body-filter',
   templateUrl: './select-body-filter.component.html',
   styleUrls: ['./select-body-filter.component.scss']
 })
-export class SelectBodyFilterComponent implements OnInit {
+export class SelectBodyFilterComponent<T = any> implements OnInit, OnDestroy {
 
   @Input()
-  placeholder: string = '';
+  placeholder: string = 'Find...';
 
   @Input()
   dataSource: IDataSource<any>;
 
   @Output()
-  options: IOption<any>[];
+  options: IOption<T>[];
 
-  constructor(private element: ElementRef) { }
+  filterControl = new FormControl('');
+  subscription: Subscription;
+  constructor(private selectComponent: SelectComponent<T>) { }
 
   ngOnInit() {
-    this.onValueChange('');
+
+    this.subscription = this.filterControl.valueChanges.pipe().subscribe(
+      async (val) => {
+
+        this.options = await this.dataSource.search(val);
+
+      }
+    );
+
+    this.selectComponent.addWriteValueInterceptor(
+      async (val: string): Promise<void> => {
+        const option: IOption<string> = await this.dataSource.get(val);
+        if (option) {
+          this.selectComponent.registrateOption(option.key, option.value);
+        }
+        return Promise.resolve();
+      }
+    );
   }
 
-  onValueChange(value: string) {
-    this.options = this.dataSource.search(value);
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

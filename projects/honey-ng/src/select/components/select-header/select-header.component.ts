@@ -11,7 +11,7 @@ export class SelectHeaderComponent<T = any> implements OnInit {
   @Input() caption: string = 'Select';
 
   get filled(): boolean {
-    return typeof this.selected !== 'undefined' && this.selected !== null;
+    return (typeof this.selected !== 'undefined' && this.selected !== null);
   }
 
   get selectedCaption(): string {
@@ -23,7 +23,11 @@ export class SelectHeaderComponent<T = any> implements OnInit {
   }
 
   get errors(): boolean {
-    return this.selectComponent.errors;
+    return this.selectComponent.isInvalid;
+  }
+
+  get errorText(): string {
+    return this.selectComponent.errorsText();
   }
 
   get touched(): boolean {
