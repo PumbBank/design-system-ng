@@ -1,6 +1,6 @@
 import { Component, Input, Output, EventEmitter, forwardRef, ElementRef, AfterContentInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angular/forms';
-import { ErrorMessageHelper } from 'projects/honey-ng/src/utils/error-message.helper';
+import { ErrorMessageHelper } from './../../../utils/error-message.helper';
 
 @Component({
   selector: 'hn-select',
