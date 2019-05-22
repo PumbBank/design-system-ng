@@ -23,7 +23,11 @@ export class SelectHeaderComponent<T = any> implements OnInit {
   }
 
   get errors(): boolean {
-    return this.selectComponent.errors;
+    return this.selectComponent.isErrors;
+  }
+
+  get errorText(): string {
+    return this.selectComponent.errorsText();
   }
 
   get touched(): boolean {

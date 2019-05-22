@@ -25,10 +25,10 @@
     <form class="hn-grid hn-grid_2 hn-grid_fields" [formGroup]="form" (submit)="submit()" id="form">
 
 
-      <input hnInput="date" formControlName="grace_term" placeholder="Срок грейс (мес.)">
+      <input hnInput="date" formControlName="grace_term" [errors]="true" placeholder="Срок грейс (мес.)">
       {{ form.controls.grace_term.value }}
 
-      <hn-select formControlName="technical_merchant_id" selected="">
+      <hn-select formControlName="technical_merchant_id" selected="" [errors]="form.controls.technical_merchant_id.errors">
         <hn-select-header caption="Technical Merchant ID">Technical Merchant ID</hn-select-header>
         <hn-select-body>
           <hn-select-body-filter [dataSource]="dataSrc" #filter [placeholder]="'Find...'"></hn-select-body-filter>

@@ -1,5 +1,6 @@
 import { Component, Input, Output, EventEmitter, forwardRef, ElementRef, AfterContentInit } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angular/forms';
+import { ErrorMessageHelper } from 'projects/honey-ng/src/utils/error-message.helper';
 
 @Component({
   selector: 'hn-select',
@@ -26,11 +27,13 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     return this.element.nativeElement.classList.contains('ng-touched');
   }
 
-  get errors(): boolean {
+  get isErrors(): boolean {
     return this.element.nativeElement.classList.contains('ng-invalid');
   }
 
   @Input() selected: T;
+  @Input()
+  errors: ValidationErrors | null = null;
   @Output() selectedChange: EventEmitter<T> = new EventEmitter<T>();
   active: boolean = false;
 
@@ -102,6 +105,10 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     }
   }
 
+  errorsText(): string {
+    return this.errors ? ErrorMessageHelper.getMessage(this.errors) : '';
+  }
+
   private errorsUpdateText() {
     if (!this.options.has(this.selected)) {
       this.selected = null;
@@ -109,4 +116,5 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     this.onTouched();
     // this.touched = true;
   }
+
 }
