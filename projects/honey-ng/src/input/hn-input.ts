@@ -126,9 +126,6 @@ export class HnInput implements OnChanges, OnDestroy {
     this.renderer.addClass(this.errorsElement, 'hn-input__hint');
     this.renderer.addClass(this.errorsElement, 'hn-input__hint_warn');
 
-    // const mutationObserver = new MutationObserver(() => {
-    //   this.captionElement.innerHTML = this.input.getAttribute('placeholder') || '';
-    // });
     this.mutationObserver = new MutationObserver(() => {
       this.captionElement.innerHTML = this.input.getAttribute('placeholder') || '';
     });

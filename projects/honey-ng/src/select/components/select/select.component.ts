@@ -114,7 +114,6 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
       this.selected = null;
     }
     this.onTouched();
-    // this.touched = true;
   }
 
 }
