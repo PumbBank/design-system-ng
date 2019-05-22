@@ -1,4 +1,4 @@
-import { SortDirection, SortEvent } from './directives/sort/sort.directive';
+import { SortDirection, SortEvent } from './directives/sort/sort.controller';
 
 export {
   SortDirection as HnSortDirection,

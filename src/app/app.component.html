@@ -48,3 +48,78 @@
     </hn-button>
   </hn-dialog-footer>
 </hn-dialog>
+
+<div _ngcontent-c1="">
+  <table hnTable class="hn-table hn-table_simple">
+    <thead hnTableHeader (hnMultiSort)="onSort($event)">
+      <tr>
+        <th hnThSortble="technical_merchant_id">Technical Merchant ID</th>
+        <th hnThSortble="grace_term">Срок грейс (мес.)</th>
+        <th>Ежем. Ком. % (grace)</th>
+        <th>Ежем. Ком %</th>
+        <th>Процентная ставка</th>
+        <th>Код транзакции</th>
+        <th hnThSortble="created_at">Создан / Создал</th>
+        <th hnThSortble="updated_at">Обновлен / Обновил</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <!--bindings={
+  "ng-reflect-ng-for-of": "[object Object],[object Object"
+}-->
+      <tr _ngcontent-c1="">
+        <td _ngcontent-c1="">Grace_3</td>
+        <td _ngcontent-c1="">2</td>
+        <td _ngcontent-c1="">0.1</td>
+        <td _ngcontent-c1="">5</td>
+        <td _ngcontent-c1="">3</td>
+        <td _ngcontent-c1="">AZ</td>
+        <td _ngcontent-c1="">17.05.2019 14:05:05 , garkun</td>
+        <td _ngcontent-c1="">17.05.2019 14:06:43 , garkun</td>
+        <td _ngcontent-c1="" class="hn-table__actions">
+          <hn-button _ngcontent-c1="" class="hn-table__action-button"><button class="hn-button"
+              ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c1="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c1="" class="hn-table__action-button"
+            ng-reflect-approve-question="Вы действительно хотите закрыт"><button class="hn-button"
+              ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c1="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+      <tr _ngcontent-c1="">
+        <td _ngcontent-c1="">Grace_2</td>
+        <td _ngcontent-c1="">7</td>
+        <td _ngcontent-c1="">29</td>
+        <td _ngcontent-c1="">88</td>
+        <td _ngcontent-c1="">26</td>
+        <td _ngcontent-c1="">AZ</td>
+        <td _ngcontent-c1="">11.05.2019 11:19:45 , garkun</td>
+        <td _ngcontent-c1="">13.05.2019 14:23:03 , cc_instmnt_mngr</td>
+        <td _ngcontent-c1="" class="hn-table__actions">
+          <hn-button _ngcontent-c1="" class="hn-table__action-button"><button class="hn-button"
+              ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c1="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+          <!--bindings={
+  "ng-reflect-ng-if": "true"
+}-->
+          <hn-button _ngcontent-c1="" class="hn-table__action-button"
+            ng-reflect-approve-question="Вы действительно хотите закрыт"><button class="hn-button"
+              ng-reflect-klass="hn-button" type="button">
+              <hn-icon _ngcontent-c1="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
+                class="hn-button__text hidden"></span>
+            </button></hn-button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
