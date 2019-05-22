@@ -1,4 +1,4 @@
-import { Renderer2, OnChanges, SimpleChanges, Input } from '@angular/core';
+import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ErrorMessageHelper } from '../utils/error-message.helper';
 import { ValidationErrors } from '@angular/forms';
@@ -7,7 +7,7 @@ export type CleanFunction = (inputValue: any) => string;
 
 const DEFAULT_CLEN_FUNCTION = (inputValue: any): string => inputValue;
 
-export class HnInput implements OnChanges {
+export class HnInput implements OnChanges, OnDestroy {
   protected cleanFunction: CleanFunction = DEFAULT_CLEN_FUNCTION;
 
   @Input()
@@ -18,6 +18,7 @@ export class HnInput implements OnChanges {
   errorsElement: HTMLElement;
 
   value: BehaviorSubject<string> = new BehaviorSubject<string>(null);
+  mutationObserver: MutationObserver;
 
   constructor(
     private input: HTMLInputElement,
@@ -35,6 +36,10 @@ export class HnInput implements OnChanges {
     if (changes.errors) {
       this.errorsUpdateText();
     }
+  }
+
+  ngOnDestroy(): void {
+    this.mutationObserver.disconnect();
   }
 
   registerOnChange(fn: Function) {
@@ -121,10 +126,13 @@ export class HnInput implements OnChanges {
     this.renderer.addClass(this.errorsElement, 'hn-input__hint');
     this.renderer.addClass(this.errorsElement, 'hn-input__hint_warn');
 
-    const mutationObserver = new MutationObserver(() => {
+    // const mutationObserver = new MutationObserver(() => {
+    //   this.captionElement.innerHTML = this.input.getAttribute('placeholder') || '';
+    // });
+    this.mutationObserver = new MutationObserver(() => {
       this.captionElement.innerHTML = this.input.getAttribute('placeholder') || '';
     });
-    mutationObserver.observe(this.input, {attributes: true});
+    this.mutationObserver.observe(this.input, {attributes: true});
   }
 
   private errorsUpdateText() {

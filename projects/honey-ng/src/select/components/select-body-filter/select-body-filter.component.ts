@@ -1,15 +1,15 @@
-import { async } from '@angular/core/testing';
-import { Component, OnInit, Input, Output, ElementRef, ViewChild } from '@angular/core';
+import { Component, OnInit, Input, Output, OnDestroy } from '@angular/core';
 import { IDataSource, IOption } from '../../public_api';
 import { SelectComponent } from '../select/select.component';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormControl } from '@angular/forms';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'hn-select-body-filter',
   templateUrl: './select-body-filter.component.html',
   styleUrls: ['./select-body-filter.component.scss']
 })
-export class SelectBodyFilterComponent<T = any> implements OnInit {
+export class SelectBodyFilterComponent<T = any> implements OnInit, OnDestroy {
 
   @Input()
   placeholder: string = 'Find...';
@@ -18,17 +18,15 @@ export class SelectBodyFilterComponent<T = any> implements OnInit {
   dataSource: IDataSource<any>;
 
   @Output()
-  options: IOption<any>[];
-
-  filled: boolean = false;
+  options: IOption<T>[];
 
   filterControl = new FormControl('');
-
+  subscription: Subscription;
   constructor(private selectComponent: SelectComponent<T>) { }
 
   ngOnInit() {
 
-    this.filterControl.valueChanges.pipe().subscribe(
+    this.subscription = this.filterControl.valueChanges.pipe().subscribe(
       async (val) => {
 
         this.options = await this.dataSource.search(val);
@@ -45,5 +43,9 @@ export class SelectBodyFilterComponent<T = any> implements OnInit {
         return Promise.resolve();
       }
     );
+  }
+
+  ngOnDestroy(): void {
+    this.subscription.unsubscribe();
   }
 }

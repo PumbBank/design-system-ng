@@ -27,7 +27,7 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     return this.element.nativeElement.classList.contains('ng-touched');
   }
 
-  get isErrors(): boolean {
+  get isInvalid(): boolean {
     return this.element.nativeElement.classList.contains('ng-invalid');
   }
 
@@ -46,8 +46,8 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     }
   }
 
-  addWriteValueInterceptor( funct: (value: string) => Promise<void>): void {
-    this.writeValueInterceptors.push(funct);
+  addWriteValueInterceptor( fn: (value: string) => Promise<void>): void {
+    this.writeValueInterceptors.push(fn);
   }
 
   setSelected(option: T): void {
