@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef, ElementRef, AfterContentInit } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, ElementRef, AfterContentInit, ChangeDetectorRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angular/forms';
 import { ErrorMessageHelper } from './../../../utils/error-message.helper';
 
@@ -32,13 +32,14 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
   }
 
   @Input() selected: T;
-  @Input()
-  errors: ValidationErrors | null = null;
+  @Input() errors: ValidationErrors | null = null;
   @Output() selectedChange: EventEmitter<T> = new EventEmitter<T>();
+
   active: boolean = false;
 
-
-  constructor(private element: ElementRef) { }
+  constructor(private element: ElementRef, private changeDetector: ChangeDetectorRef) {
+    changeDetector.detectChanges();
+  }
 
   ngAfterContentInit(): void {
     if (this._writedTmp) {
@@ -46,20 +47,16 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     }
   }
 
-  addWriteValueInterceptor( fn: (value: string) => Promise<void>): void {
+  addWriteValueInterceptor(fn: (value: string) => Promise<void>): void {
     this.writeValueInterceptors.push(fn);
   }
 
-  setSelected(option: T): void {
+  async setSelected(option: T): Promise<void> {
     this._writedTmp = undefined;
-    this.selected = option;
+    // this.selected = option;
+    await this.writeValue(option);
     this.selectedChange.emit(option);
     this.onChange(this.selected);
-  }
-
-  open(): void {
-    this.errorsUpdateText();
-    this.active = true;
   }
 
   toggle(): void {
@@ -71,23 +68,26 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     this.active = false;
   }
 
+
   async writeValue(value: any): Promise<void> {
+    this._writedTmp = value;
+
     await Promise.all(this.writeValueInterceptors.map(fn => fn(value)));
 
     if (!this.options.has(value)) {
-      this._writedTmp = value;
       this.selected = null;
       this.onChange(null);
     } else {
       this.selected = value;
     }
+
+    return Promise.resolve();
   }
 
   onChange: any = () => { };
   onTouched: any = () => { };
 
   registerOnChange(fn) {
-    fn(this.selected);
     this.onChange = fn;
   }
 

@@ -25,15 +25,25 @@
     <form class="hn-grid hn-grid_2 hn-grid_fields" [formGroup]="form" (submit)="submit()" id="form">
 
 
-      <input hnInput="date" formControlName="grace_term" [errors]="true" placeholder="Срок грейс (мес.)">
-      {{ form.controls.grace_term.value }}
-
-      <hn-select formControlName="technical_merchant_id" selected="" [errors]="form.controls.technical_merchant_id.errors">
+      <!-- <input hnInput="date" formControlName="grace_term" [errors]="true" placeholder="Срок грейс (мес.)">
+      {{ form.controls.grace_term.value }} -->
+      {{ form.controls.technical_merchant_id.value }}
+      <hn-select formControlName="technical_merchant_id" selected=""
+        [errors]="form.controls.technical_merchant_id.errors">
         <hn-select-header caption="Technical Merchant ID">Technical Merchant ID</hn-select-header>
         <hn-select-body>
           <hn-select-body-filter [dataSource]="dataSrc" #filter [placeholder]="'Find...'"></hn-select-body-filter>
-          <hn-select-option [value]="o.key" [caption]="o.value" *ngFor="let o of filter.options">
+          <hn-select-option [value]="o.value" [caption]="o.value" *ngFor="let o of filter.options">
             {{ o.value }}
+          </hn-select-option>
+        </hn-select-body>
+      </hn-select>
+      {{ form.controls.objects.value }}
+      <hn-select formControlName="objects" [errors]="form.controls.objects.errors">
+        <hn-select-header caption="Objects">Objects</hn-select-header>
+        <hn-select-body>
+          <hn-select-option [value]="o.name" [caption]="o.name" *ngFor="let o of objects">
+            {{ o.name }}
           </hn-select-option>
         </hn-select-body>
       </hn-select>
