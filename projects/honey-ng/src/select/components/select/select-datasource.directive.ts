@@ -1,5 +1,5 @@
 import { Directive, Input, OnInit, Output } from '@angular/core';
-import { IDataSource, IOption } from 'honey-ng/honey-ng';
+import { IDataSource, IOption } from './../../models/data-source';
 import { SelectComponent } from './select.component';
 
 @Directive({
