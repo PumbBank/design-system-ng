@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, OnDestroy } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy } from '@angular/core';
 import { IDataSource, IOption } from '../../public_api';
 import { SelectComponent } from '../select/select.component';
 import { FormControl } from '@angular/forms';
@@ -17,7 +17,6 @@ export class SelectBodyFilterComponent<T = any> implements OnInit, OnDestroy {
   @Input()
   dataSource: IDataSource<any>;
 
-  @Output()
   options: IOption<T>[];
 
   filterControl = new FormControl('');
@@ -28,9 +27,7 @@ export class SelectBodyFilterComponent<T = any> implements OnInit, OnDestroy {
 
     this.subscription = this.filterControl.valueChanges.pipe().subscribe(
       async (val) => {
-
         this.options = await this.dataSource.search(val);
-
       }
     );
 

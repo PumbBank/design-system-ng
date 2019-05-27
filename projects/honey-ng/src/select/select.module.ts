@@ -8,6 +8,7 @@ import { ClickOutsideDirective } from './components/select/select-clickoutside.d
 import { SelectBodyFilterComponent } from './components/select-body-filter/select-body-filter.component';
 import { InputModule } from '../input/input.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { DataSourceDirecvite } from './components/select/select-datasource.directive';
 
 @NgModule({
   imports: [
@@ -21,7 +22,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SelectBodyComponent,
     SelectOptionComponent,
     ClickOutsideDirective,
-    SelectBodyFilterComponent
+    SelectBodyFilterComponent,
+    DataSourceDirecvite
   ],
   exports: [
     SelectComponent,
@@ -29,7 +31,8 @@ import { ReactiveFormsModule } from '@angular/forms';
     SelectBodyComponent,
     SelectOptionComponent,
     ClickOutsideDirective,
-    SelectBodyFilterComponent
+    SelectBodyFilterComponent,
+    DataSourceDirecvite
   ]
 })
 export class SelectModule { }

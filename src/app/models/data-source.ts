@@ -26,7 +26,7 @@ export class DataSource implements IDataSource<string> {
           rs({ key: key, value: filteredData });
         }
         rs(null);
-      }, 3000);
+      }, 300);
     });
   }
 }

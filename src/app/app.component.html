@@ -38,15 +38,20 @@
           </hn-select-option>
         </hn-select-body>
       </hn-select>
+
       {{ form.controls.objects.value }}
-      <hn-select formControlName="objects" [errors]="form.controls.objects.errors">
-        <hn-select-header caption="Objects">Objects</hn-select-header>
+
+      <hn-select formControlName="objects" selected="" #selectObjects="dataSource" [dataSource]="dataSrc"
+        [errors]="form.controls.technical_merchant_id.errors">
+        <hn-select-header caption="Technical Merchant ID">Technical Merchant ID</hn-select-header>
         <hn-select-body>
-          <hn-select-option [value]="o.name" [caption]="o.name" *ngFor="let o of objects">
-            {{ o.name }}
+          <hn-select-option [value]="o.value" [caption]="o.value" *ngFor="let o of selectObjects.options">
+            {{ o.value }}
           </hn-select-option>
         </hn-select-body>
       </hn-select>
+
+
     </form>
   </hn-dialog-body>
   <hn-dialog-footer>
