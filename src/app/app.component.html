@@ -41,7 +41,7 @@
 
       {{ form.controls.objects.value }}
 
-      <hn-select formControlName="objects" selected="" #selectObjects="dataSource" [dataSource]="dataSrc"
+      <hn-select formControlName="objects" selected="" #selectObjects="hnDataSource" [hnDataSource]="dataSrc"
         [errors]="form.controls.technical_merchant_id.errors">
         <hn-select-header caption="Technical Merchant ID">Technical Merchant ID</hn-select-header>
         <hn-select-body>

@@ -1,15 +1,15 @@
-import { Directive, Input, OnInit, Output } from "@angular/core";
+import { Directive, Input, OnInit, Output } from '@angular/core';
 import { IDataSource, IOption } from 'honey-ng/honey-ng';
-import { SelectComponent } from './../select/select.component';
+import { SelectComponent } from './select.component';
 
 @Directive({
-  selector: 'hn-select[dataSource]',
-  exportAs: 'dataSource'
+  selector: 'hn-select[hnDataSource]',
+  exportAs: 'hnDataSource'
 })
-export class DataSourceDirecvite<T = any> implements OnInit {
+export class DataSourceDirective<T = any> implements OnInit {
 
   @Input()
-  dataSource: IDataSource<any>;
+  hnDataSource: IDataSource<any>;
 
   public options: IOption<T>[];
 
@@ -20,7 +20,7 @@ export class DataSourceDirecvite<T = any> implements OnInit {
 
     this.selectComponent.addWriteValueInterceptor(
       async (val: string): Promise<void> => {
-        const option: IOption<string> = await this.dataSource.get(val);
+        const option: IOption<string> = await this.hnDataSource.get(val);
         if (option) {
           this.selectComponent.registrateOption(option.key, option.value);
         }
@@ -30,7 +30,7 @@ export class DataSourceDirecvite<T = any> implements OnInit {
   }
 
   private async getOptions(): Promise<void> {
-    this.options = await this.dataSource.search('');
+    this.options = await this.hnDataSource.search('');
     return Promise.resolve();
   }
 }

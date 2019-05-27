@@ -82,7 +82,7 @@ export class AppComponent implements OnInit {
         { id: 'id_21', name: 'nm_21', info: 'inf_21' },
         { id: 'id_22', name: 'nm_22', info: 'inf_22' },
       ]);
-    }, 100)
+    }, 100);
 
     this.form.setValue({ technical_merchant_id: 'val_22', objects: 'val_23' });
 
