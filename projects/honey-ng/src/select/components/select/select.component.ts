@@ -79,9 +79,10 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
       this.onChange(null);
     } else {
       this.selected = value;
+      this.onChange();
     }
 
-    this.changeDetector.detectChanges();
+    this.onTouched();
     return Promise.resolve();
   }
 
