@@ -13,7 +13,7 @@ export class DataSourceDirective<T = any> implements OnInit {
 
   public options: IOption<T>[];
 
-  constructor(private selectComponent: SelectComponent<T>) { }
+  constructor(private selectComponent: SelectComponent) { }
 
   ngOnInit() {
     this.getOptions();
