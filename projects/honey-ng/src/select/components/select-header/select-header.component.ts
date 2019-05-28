@@ -7,7 +7,7 @@ import { SelectComponent } from '../select/select.component';
   templateUrl: './select-header.component.html',
   styleUrls: ['./select-header.component.scss']
 })
-export class SelectHeaderComponent<T = any> implements OnInit {
+export class SelectHeaderComponent implements OnInit {
   @Input() caption: string = 'Select';
 
   get filled(): boolean {
@@ -18,7 +18,7 @@ export class SelectHeaderComponent<T = any> implements OnInit {
     return this.selectComponent.selectedCaption;
   }
 
-  get selected(): T {
+  get selected(): string {
     return this.selectComponent.selected;
   }
 
@@ -35,7 +35,7 @@ export class SelectHeaderComponent<T = any> implements OnInit {
   }
 
   constructor(
-    private selectComponent: SelectComponent<T>
+    private selectComponent: SelectComponent
   ) { }
 
   ngOnInit() {

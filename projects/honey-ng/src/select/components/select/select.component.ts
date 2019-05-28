@@ -14,8 +14,8 @@ import { ErrorMessageHelper } from './../../../utils/error-message.helper';
   templateUrl: './select.component.html',
   styleUrls: ['./select.component.scss'],
 })
-export class SelectComponent<T = any> implements ControlValueAccessor, AfterContentInit {
-  private _writedTmp: T;
+export class SelectComponent implements ControlValueAccessor, AfterContentInit {
+  private _writedTmp: string;
 
   get selectedCaption(): string {
     return this.options.get(this.selected);
@@ -31,9 +31,9 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     return this.element.nativeElement.classList.contains('ng-invalid');
   }
 
-  @Input() selected: T;
+  @Input() selected: string;
   @Input() errors: ValidationErrors | null = null;
-  @Output() selectedChange: EventEmitter<T> = new EventEmitter<T>();
+  @Output() selectedChange: EventEmitter<string> = new EventEmitter<string>();
 
   active: boolean = false;
 
@@ -51,12 +51,20 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
     this.writeValueInterceptors.push(fn);
   }
 
-  async setSelected(option: T): Promise<void> {
+   setSelected(option: string): void {
     this._writedTmp = undefined;
     // this.selected = option;
-    await this.writeValue(option);
-    this.selectedChange.emit(option);
-    this.onChange(this.selected);
+    Promise.all(this.writeValueInterceptors.map(fn => fn(option))).then(() => {
+      if (!this.options.has(option)) {
+        this.selected = null;
+        this.onChange(null);
+        this.selectedChange.emit(option);
+      } else {
+        this.selected = option;
+        this.onChange(this.selected);
+        this.selectedChange.emit(option);
+      }
+    });
   }
 
   toggle(): void {
@@ -69,21 +77,17 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
   }
 
 
-  async writeValue(value: any): Promise<void> {
+  writeValue(value: any): void {
     this._writedTmp = value;
 
-    await Promise.all(this.writeValueInterceptors.map(fn => fn(value)));
-
-    if (!this.options.has(value)) {
-      this.selected = null;
-      this.onChange(null);
-    } else {
-      this.selected = value;
-      this.onChange();
-    }
-
-    this.onTouched();
-    return Promise.resolve();
+    Promise.all(this.writeValueInterceptors.map(fn => fn(value))).then(() => {
+      if (!this.options.has(value)) {
+        this.selected = null;
+        this.onChange(null);
+      } else {
+        this.selected = value;
+      }
+    });
   }
 
   onChange: any = () => { };
