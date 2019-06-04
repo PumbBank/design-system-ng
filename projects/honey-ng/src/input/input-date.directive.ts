@@ -54,7 +54,7 @@ export class InputDateDirective extends HnInput implements ControlValueAccessor,
 
     const [day, month, year] = ddmmyyyy.split('.');
     if (/\d{2}/.test(day) && /\d{2}/.test(month) && /\d{4}/.test(year)) {
-      return `${year}-${month}-${day}T12:00:00.000Z`;
+      return `${year}-${month}-${day}T00:00:00.000Z`;
     } else {
       return '';
     }

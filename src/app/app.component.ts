@@ -34,6 +34,7 @@ export class AppComponent implements OnInit {
 
   form = new FormGroup({
     // grace_term: new FormControl('', Validators.required),
+    fc_created_at: new FormControl('', Validators.required),
     technical_merchant_id: new FormControl('', Validators.required),
     objects: new FormControl('', Validators.required),
   });
@@ -84,7 +85,7 @@ export class AppComponent implements OnInit {
       ]);
     }, 100);
 
-    this.form.setValue({ technical_merchant_id: 'val_22', objects: 'val_23' });
+    this.form.setValue({ technical_merchant_id: 'val_22', objects: 'val_23', fc_created_at: '' });
 
     let i = 1;
     this.source = {
