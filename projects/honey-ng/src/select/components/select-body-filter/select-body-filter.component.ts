@@ -21,7 +21,7 @@ export class SelectBodyFilterComponent<T = any> implements OnInit, OnDestroy {
 
   filterControl = new FormControl('');
   subscription: Subscription;
-  constructor(private selectComponent: SelectComponent) { }
+  constructor(private selectComponent: SelectComponent<T>) { }
 
   ngOnInit() {
 
