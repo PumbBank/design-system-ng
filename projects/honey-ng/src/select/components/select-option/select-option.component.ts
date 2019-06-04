@@ -29,7 +29,6 @@ export class SelectOptionComponent<T = any> implements OnInit, OnDestroy {
 
   onClick() {
     this.selectComponent.setSelected(this.value);
-    this.selectComponent.onTouched();
     this.selectComponent.close();
   }
 }

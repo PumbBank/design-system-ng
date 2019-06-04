@@ -1,4 +1,4 @@
-import { Component, Input, Output, EventEmitter, forwardRef, ElementRef, AfterContentInit, ChangeDetectorRef, ChangeDetectionStrategy } from '@angular/core';
+import { Component, Input, Output, EventEmitter, forwardRef, ElementRef, AfterContentInit, ChangeDetectorRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angular/forms';
 import { ErrorMessageHelper } from './../../../utils/error-message.helper';
 
@@ -12,7 +12,7 @@ import { ErrorMessageHelper } from './../../../utils/error-message.helper';
     }
   ],
   templateUrl: './select.component.html',
-  styleUrls: ['./select.component.scss'],
+  styleUrls: ['./select.component.scss']
 })
 export class SelectComponent<T = any> implements ControlValueAccessor, AfterContentInit {
   private _writedTmp: T;
@@ -81,7 +81,6 @@ export class SelectComponent<T = any> implements ControlValueAccessor, AfterCont
       this.selected = value;
     }
 
-    this.changeDetector.detectChanges();
     return Promise.resolve();
   }
 
