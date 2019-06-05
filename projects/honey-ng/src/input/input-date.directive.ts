@@ -44,6 +44,7 @@ export class InputDateDirective extends HnInput implements ControlValueAccessor,
   }
 
   protected cleanFunction: CleanFunction = function (inputValue: ISOString) {
+    this.input.value = inputValue;
     this.textMaskInput.update();
     return this.input.value;
   };

@@ -87,6 +87,8 @@ export class AppComponent implements OnInit {
 
     this.form.setValue({ technical_merchant_id: 'val_22', objects: 'val_23', fc_created_at: '' });
 
+    this.form.valueChanges.subscribe(fg => console.log('fg => ', fg));
+
     let i = 1;
     this.source = {
       get(params: any) {
@@ -119,6 +121,8 @@ export class AppComponent implements OnInit {
   }
 
   submit() {
+    this.form.controls.fc_created_at.setValue('');
+
     if (!this.form.valid) {
       this.markControlsAsTouched(this.form);
       return;
