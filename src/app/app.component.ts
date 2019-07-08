@@ -33,7 +33,7 @@ export class AppComponent implements OnInit {
   });
 
   form = new FormGroup({
-    // grace_term: new FormControl('', Validators.required),
+    fc_money: new FormControl('', Validators.required),
     fc_created_at: new FormControl('', Validators.required),
     technical_merchant_id: new FormControl('', Validators.required),
     objects: new FormControl('', Validators.required),
@@ -85,7 +85,7 @@ export class AppComponent implements OnInit {
       ]);
     }, 100);
 
-    this.form.setValue({ technical_merchant_id: 'val_22', objects: 'val_23', fc_created_at: '' });
+    this.form.setValue({ technical_merchant_id: 'val_22', objects: 'val_23', fc_created_at: '', fc_money: '' });
 
     this.form.valueChanges.subscribe(fg => console.log('fg => ', fg));
 
