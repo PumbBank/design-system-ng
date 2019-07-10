@@ -1,5 +1,6 @@
-import { Directive, ElementRef, Renderer2, OnInit, Input, Output, EventEmitter, OnDestroy } from '@angular/core';
+import { Directive, ElementRef, Renderer2, OnInit, Input, Output, EventEmitter, OnDestroy, Inject } from '@angular/core';
 import { FileUploadEvent } from '../models/file-upload.event';
+import { DOCUMENT } from '@angular/platform-browser';
 
 @Directive({
   selector: '[hnFileUpload]'
@@ -14,6 +15,7 @@ export class FileUploadDirective implements OnInit, OnDestroy {
   fileAplodEvent: EventEmitter<FileUploadEvent> = new EventEmitter<FileUploadEvent>();
 
   constructor(
+    @Inject(DOCUMENT) private document: Document,
     private elementRef: ElementRef,
     private renderer: Renderer2
   ) { }
@@ -27,7 +29,7 @@ export class FileUploadDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.renderer.removeChild(document.body, this.inputFile);
+    this.renderer.removeChild(this.document.body, this.inputFile);
   }
 
   private createDom() {
@@ -37,7 +39,7 @@ export class FileUploadDirective implements OnInit, OnDestroy {
 
     this.renderer.setStyle(this.inputFile, 'display', 'none');
 
-    this.renderer.appendChild(document.body, this.inputFile);
+    this.renderer.appendChild(this.document.body, this.inputFile);
   }
 
   private watchClick() {
