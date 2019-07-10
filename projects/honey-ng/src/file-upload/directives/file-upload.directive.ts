@@ -1,6 +1,6 @@
 import { Directive, ElementRef, Renderer2, OnInit, Input, Output, EventEmitter, OnDestroy, Inject } from '@angular/core';
 import { FileUploadEvent } from '../models/file-upload.event';
-import { DOCUMENT } from '@angular/platform-browser';
+import { DOCUMENT } from '@angular/common';
 
 @Directive({
   selector: '[hnFileUpload]'
