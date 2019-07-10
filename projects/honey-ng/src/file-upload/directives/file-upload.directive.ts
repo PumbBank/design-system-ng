@@ -49,7 +49,7 @@ export class FileUploadDirective implements OnInit, OnDestroy {
   private watchSelectFile() {
     this.inputFile.addEventListener('change', (e) => {
 
-      const fileUpload: FileUploadEvent = { files: [] }
+      const fileUpload: FileUploadEvent = { files: [] };
       fileUpload.files.push(this.inputFile.files[0]);
 
       this.fileAplodEvent.next(fileUpload);
