@@ -4,3 +4,4 @@ export * from './table/public_api';
 export * from './button/button.module';
 export * from './approve/approve.module';
 export * from './select/public_api';
+export * from './file/public_api';

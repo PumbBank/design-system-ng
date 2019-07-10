@@ -9,6 +9,7 @@ import { TestDialogComponent } from './test-dialog.component';
 import { ApproveModule } from 'projects/honey-ng/src/approve/approve.module';
 import { ButtonModule } from 'projects/honey-ng/src/button/button.module';
 import { AppService } from './app.service';
+import { FileUploadModule } from 'projects/honey-ng/src/file/file-upload.module';
 
 @NgModule({
   declarations: [
@@ -21,6 +22,7 @@ import { AppService } from './app.service';
     HnModule,
     ButtonModule,
     ApproveModule,
+    FileUploadModule,
     ReactiveFormsModule,
     DialogModule.forRoot()
   ],
