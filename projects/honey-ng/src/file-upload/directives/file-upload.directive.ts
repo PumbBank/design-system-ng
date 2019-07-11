@@ -9,7 +9,9 @@ export class FileUploadDirective implements OnInit, OnDestroy {
   private rootElement: HTMLElement;
   private inputFile: HTMLInputElement;
 
-  private _document?: Document;
+  get document(): Document {
+    return this._document as Document;
+  }
 
   @Input('hnFileUploadAccept') accept: string;
 
@@ -19,10 +21,8 @@ export class FileUploadDirective implements OnInit, OnDestroy {
   constructor(
     private elementRef: ElementRef,
     private renderer: Renderer2,
-    @Inject(DOCUMENT) private document?: any
-  ) {
-    this._document = document as Document;
-  }
+    @Inject(DOCUMENT) private _document: any
+  ) { }
 
   ngOnInit() {
     this.rootElement = this.elementRef.nativeElement;
@@ -33,7 +33,7 @@ export class FileUploadDirective implements OnInit, OnDestroy {
   }
 
   ngOnDestroy() {
-    this.renderer.removeChild(this._document.body, this.inputFile);
+    this.renderer.removeChild(this.document.body, this.inputFile);
   }
 
   private createDom() {
@@ -43,7 +43,7 @@ export class FileUploadDirective implements OnInit, OnDestroy {
 
     this.renderer.setStyle(this.inputFile, 'display', 'none');
 
-    this.renderer.appendChild(this._document.body, this.inputFile);
+    this.renderer.appendChild(this.document.body, this.inputFile);
   }
 
   private watchClick() {
