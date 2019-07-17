@@ -59,6 +59,7 @@ export class FileUploadDirective implements OnInit, OnDestroy {
       fileUpload.files.push(this.inputFile.files[0]);
 
       this.fileAplodEvent.next(fileUpload);
+      this.inputFile.value = '';
     });
   }
 }
