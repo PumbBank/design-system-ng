@@ -30,7 +30,7 @@
 
       {{ form.controls.fc_created_at.value }}
       <input hnInput="date" formControlName="fc_created_at" placeholder="Дата" type="text">
-      <input hnInput="money" formControlName="fc_money" placeholder="Введите денег" type="text">
+      <input hnInput="text" formControlName="fc_money" placeholder="Введите денег" [errors]="form.controls.fc_money.errors">
       {{ form.controls.technical_merchant_id.value }}
       <hn-select formControlName="technical_merchant_id" selected=""
         [errors]="form.controls.technical_merchant_id.errors">

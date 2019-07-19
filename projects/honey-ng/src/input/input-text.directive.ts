@@ -12,31 +12,13 @@ import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
     }
   ]
 })
-export class InputTextDirective implements ControlValueAccessor, OnInit {
-  hnInput: HnInput;
-
-  get value(): string {
-    return this.hnInput.value.value;
-  }
+export class InputTextDirective extends HnInput implements ControlValueAccessor {
 
   constructor(
-    private renderer: Renderer2,
-    private inputElementRef: ElementRef
-  ) { }
-
-  ngOnInit() {
-    this.hnInput = new HnInput(this.inputElementRef.nativeElement, this.renderer);
+    renderer: Renderer2,
+    inputElementRef: ElementRef
+  ) {
+    super(inputElementRef.nativeElement, renderer);
   }
 
-  writeValue(value: string) {
-    this.hnInput.writeValue(value);
-  }
-
-  registerOnChange(fn: Function) {
-    this.hnInput.registerOnChange(fn);
-  }
-
-  registerOnTouched(fn: Function) {
-    this.hnInput.registerOnTouched(fn);
-  }
 }

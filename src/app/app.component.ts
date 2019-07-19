@@ -33,7 +33,10 @@ export class AppComponent implements OnInit {
   });
 
   form = new FormGroup({
-    fc_money: new FormControl('', Validators.required),
+    fc_money: new FormControl('', [
+      Validators.required,
+      Validators.pattern('^[^\\)\\(]*$')
+    ]),
     fc_created_at: new FormControl('', Validators.required),
     technical_merchant_id: new FormControl('', Validators.required),
     objects: new FormControl('', Validators.required),
@@ -121,7 +124,7 @@ export class AppComponent implements OnInit {
   }
 
   submit() {
-    this.form.controls.fc_created_at.setValue('');
+    // this.form.controls.fc_created_at.setValue('');
 
     if (!this.form.valid) {
       this.markControlsAsTouched(this.form);
