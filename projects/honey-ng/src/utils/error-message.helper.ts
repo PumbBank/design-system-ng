@@ -46,7 +46,7 @@ export class ErrorMessageHelper {
     }
 
     if (errors.errorMessage) {
-      return errors.errorMessage
+      return errors.errorMessage;
     }
 
     return errorMessages.default(errors);
