@@ -45,6 +45,10 @@ export class ErrorMessageHelper {
       return errorMessages.pattern();
     }
 
+    if (errors.errorMessage) {
+      return errors.errorMessage
+    }
+
     return errorMessages.default(errors);
   }
 }
