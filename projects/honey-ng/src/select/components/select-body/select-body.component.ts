@@ -9,6 +9,7 @@ import { SelectComponent } from '../select/select.component';
 export class SelectBodyComponent implements OnInit {
 
   get active(): boolean {
+    console.log(this.selectComponent.active);
     return this.selectComponent.active;
   }
 
