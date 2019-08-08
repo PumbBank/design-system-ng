@@ -1,10 +1,9 @@
-
 <hn-button size="medium" icon="user">
   dsd
 </hn-button>
 
 <hn-button size="medium" icon="user">
-    
+
 </hn-button>
 
 <hn-button size="medium" icon="user" disabled="true">
@@ -13,40 +12,28 @@
 
 <hn-button size="large" icon="user">
   dasdasd
-</hn-button> 
+</hn-button>
 
 <hn-button size="large" icon="user" view="ghost">
   dasdasd
-</hn-button> 
+</hn-button>
 
 <hn-button size="large" icon="user">
   dasdasd
-</hn-button> 
+</hn-button>
 
 <hn-button size="small" icon="user" view="ghost">
   sdasd
-</hn-button> 
+</hn-button>
+
+
 
 <hn-chip>
   dasdfasda
 </hn-chip>
-<br>
-<br>
-<br>
-
-<div style="width: 300px; margin-left: 14px;">
-  <hn-select selected="212">
-    <hn-select-header></hn-select-header>
-    <hn-select-body>
-      <hn-select-option value=12>121212121212</hn-select-option>
-      <hn-select-option value=212>12321321</hn-select-option>
-      <hn-select-option value=1222>asdasdasdsdasd</hn-select-option>
-    </hn-select-body>
-  </hn-select>
+<div [formGroup]="form">
+  <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" type="text" [caption]="'Да_та'" disabled>
+  <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" type="text" [caption]="'Да_та'">
+  <br>
+  <input hnInput="text" formControlName="fc_money" placeholder="Введите денег" caption="Название поля" [errors]="form.controls.fc_money.errors">
 </div>
-
-<br>
-<br>
-<br>
-<input hnInput="text" placeholder="Введите денег">
-
