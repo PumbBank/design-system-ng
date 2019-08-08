@@ -110,10 +110,13 @@ export class HnInput implements OnChanges, OnDestroy {
       this.updateMessagePresentation(this.errors);
     });
 
-    this.messagePresantationObserver.observe(this.msgTextElement, { characterData: false, attributes: false, childList: true, subtree: false });
+    this.messagePresantationObserver.observe(
+      this.msgTextElement,
+      { characterData: false, attributes: false, childList: true, subtree: false }
+    );
   }
 
-  updateMessagePresentation(errors) {
+  private updateMessagePresentation(errors) {
     if (errors) {
       this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
     } else {
