@@ -1,4 +1,4 @@
-import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy, ɵConsole, OnInit } from '@angular/core';
+import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy } from '@angular/core';
 import { BehaviorSubject } from 'rxjs';
 import { ErrorMessageHelper } from '../utils/error-message.helper';
 import { ValidationErrors } from '@angular/forms';
@@ -24,18 +24,19 @@ export class HnInput implements OnChanges, OnDestroy {
   msgTextElement: HTMLElement;
 
   value: BehaviorSubject<string> = new BehaviorSubject<string>(null);
-  mutationObserver: MutationObserver;
+  validationStateObserver: MutationObserver;
+  messagePresantationObserver: MutationObserver;
 
   constructor(
     private input: HTMLInputElement,
     private renderer: Renderer2,
   ) {
     this.createDom();
-    // this.updateCaptionState();
     this.watchInputValueChanges();
     this.watchTouches();
     this.watchValidationChangesByClassName();
     this.errorsUpdateText();
+    this.watchValidationMessageChanges();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -48,7 +49,8 @@ export class HnInput implements OnChanges, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    this.mutationObserver.disconnect();
+    this.validationStateObserver.disconnect();
+    this.messagePresantationObserver.disconnect();
   }
 
   registerOnChange(fn: Function) {
@@ -68,7 +70,6 @@ export class HnInput implements OnChanges, OnDestroy {
     }
 
     this.input.value = cleanValue;
-    // this.updateCaptionState();
   }
 
   onChangeCallback: Function = () => { };
@@ -77,20 +78,12 @@ export class HnInput implements OnChanges, OnDestroy {
   private updateValidationState(invalid: boolean = false): void {
     if (invalid) {
       this.renderer.addClass(this.wrapperElement, 'input_error');
-      this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
+
     } else {
       this.renderer.removeClass(this.wrapperElement, 'input_error');
-      this.renderer.removeChild(this.footerElement, this.msgWrapperElement);
+
     }
   }
-
-  // private updateCaptionState(): void {
-  //   if (this.input.value) {
-  //     this.renderer.addClass(this.wrapperElement, 'hn-input_filled');
-  //   } else {
-  //     this.renderer.removeClass(this.wrapperElement, 'hn-input_filled');
-  //   }
-  // }
 
   private watchInputValueChanges(): void {
     this.input.addEventListener('input', () => {
@@ -101,16 +94,31 @@ export class HnInput implements OnChanges, OnDestroy {
       }
 
       this.onChangeCallback(cleanValue);
-      // this.updateCaptionState();
     });
   }
 
   private watchValidationChangesByClassName(): void {
-    const observer = new MutationObserver(() => {
+    this.validationStateObserver = new MutationObserver(() => {
       this.updateValidationState(this.input.classList.contains('ng-invalid') && this.input.classList.contains('ng-touched'));
     });
 
-    observer.observe(this.input, { attributes: true });
+    this.validationStateObserver.observe(this.input, { attributes: true });
+  }
+
+  private watchValidationMessageChanges(): void {
+    this.messagePresantationObserver = new MutationObserver(() => {
+      this.updateMessagePresentation(this.errors);
+    });
+
+    this.messagePresantationObserver.observe(this.msgTextElement, { characterData: false, attributes: false, childList: true, subtree: false });
+  }
+
+  updateMessagePresentation(errors) {
+    if (errors) {
+      this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
+    } else {
+      this.renderer.removeChild(this.footerElement, this.msgWrapperElement);
+    }
   }
 
   private watchTouches(): void {
