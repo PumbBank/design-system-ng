@@ -1,14 +1,16 @@
 <button
-  class="hn-button"
-  [ngClass]="varietyClass"
+  class="button {{ sizeClass }} {{ viewClass }}"
+  [ngClass]="varietyClass" 
+  [class.button_only-icon]="buttonOnlyIcon"
   [attr.form]="form"
   [attr.type]="type"
   [attr.disabled]="disabled"
   [attr.autofocus]="autofocus">
 
-  <ng-content select=".hn-icon, hn-icon"></ng-content>
+  <!-- <ng-content select=".hn-icon, hn-icon"></ng-content> -->
 
-  <span [class.hidden]="!showText" class="hn-button__text" #content>
+  <span [class.hidden]="!showText" class="button__text" #content>
     <ng-content></ng-content>
   </span>
+  <div class="button__icon icon icon_24" *ngIf="icon" [ngClass]="'icon_' + icon"></div>
 </button>

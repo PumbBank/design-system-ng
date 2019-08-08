@@ -1,3 +1,5 @@
-<div #option class="hn-select-option" [class.hn-select-option_selected]="value === selected" (click)="onClick()">
-  <ng-content></ng-content>
+<div #option class="option" [class.hn-select-option_selected]="value === selected" (click)="onClick()">
+  <div class="option__text">
+    <ng-content></ng-content>
+  </div>
 </div>

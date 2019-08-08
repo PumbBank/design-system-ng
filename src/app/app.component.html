@@ -1,144 +1,36 @@
-<div hnApprove="aдалить совсем все" (approved)="ok('YES')" (rejected)="no('NO')">
-  <hn-button>
-    <hn-icon>close</hn-icon>
-  </hn-button>
-</div>
 
-<hn-button (hnFileUpload)="onSort($event)" hnFileUploadAccept='.json, .txt'>
-  <hn-icon>close</hn-icon>
+<hn-button size="medium" icon="user">
+  dsd
 </hn-button>
 
-<!-- <hn-select selected="212">
-  <hn-select-header></hn-select-header>
-  <hn-select-body>
-    <hn-select-option value=12>121212121212</hn-select-option>
-    <hn-select-option value=212>12321321</hn-select-option>
-    <hn-select-option value=1222>asdasdasdsdasd</hn-select-option>
-  </hn-select-body>
-</hn-select> -->
+<hn-button size="medium" icon="user">
+    
+</hn-button>
+
+<hn-button size="medium" icon="user" disabled="true">
+  asd
+</hn-button>
+
+<hn-button size="large" icon="user">
+  dasdasd
+</hn-button> 
+
+<hn-button size="large" icon="user" view="ghost">
+  dasdasd
+</hn-button> 
+
+<hn-button size="large" icon="user">
+  dasdasd
+</hn-button> 
+
+<hn-button size="small" icon="user" view="ghost">
+  sdasd
+</hn-button> 
 
 
-<hn-dialog-portal></hn-dialog-portal>
 
-<hn-dialog>
-  <hn-dialog-header>Добавление "Продукта"</hn-dialog-header>
-  <hn-dialog-body>
-
-    <span *ngIf="error$ | async"> {{ error$ | async }} <br> </span>
-
-    <form class="hn-grid hn-grid_2 hn-grid_fields" [formGroup]="form" (submit)="submit()" id="form">
-
-      {{ form.controls.fc_created_at.value }}
-      <input hnInput="date" formControlName="fc_created_at" placeholder="Дата" type="text">
-      <input hnInput="text" formControlName="fc_money" placeholder="Введите денег" [errors]="form.controls.fc_money.errors">
-      {{ form.controls.technical_merchant_id.value }}
-      <hn-select formControlName="technical_merchant_id" selected=""
-        [errors]="form.controls.technical_merchant_id.errors">
-        <hn-select-header caption="Technical Merchant ID">Technical Merchant ID</hn-select-header>
-        <hn-select-body>
-          <hn-select-body-filter [dataSource]="dataSrc" #filter [placeholder]="'Find...'"></hn-select-body-filter>
-          <hn-select-option [value]="o.value" [caption]="o.value" *ngFor="let o of filter.options">
-            {{ o.value }}
-          </hn-select-option>
-        </hn-select-body>
-      </hn-select>
-
-      {{ form.controls.objects.value }}
-
-      <hn-select formControlName="objects" selected="" #selectObjects="hnDataSource" [hnDataSource]="dataSrc"
-        [errors]="form.controls.technical_merchant_id.errors">
-        <hn-select-header caption="Technical Merchant ID">Technical Merchant ID</hn-select-header>
-        <hn-select-body>
-          <hn-select-option [value]="o.value" [caption]="o.value" *ngFor="let o of selectObjects.options">
-            {{ o.value }}
-          </hn-select-option>
-        </hn-select-body>
-      </hn-select>
+<hn-chip>
+  dasdfasda
+</hn-chip>
 
 
-    </form>
-  </hn-dialog-body>
-  <hn-dialog-footer>
-    <hn-button type="submit" (click)="close()">
-      Отмена
-    </hn-button>
-    <hn-button type="submit" variety="contained" form="form">
-      Создать
-    </hn-button>
-  </hn-dialog-footer>
-</hn-dialog>
-
-<div _ngcontent-c1="">
-  <table hnTable class="hn-table hn-table_simple">
-    <thead hnTableHeader (hnMultiSort)="onSort($event)">
-      <tr>
-        <th hnThSortble="technical_merchant_id">Technical Merchant ID</th>
-        <th hnThSortble="grace_term">Срок грейс (мес.)</th>
-        <th>Ежем. Ком. % (grace)</th>
-        <th>Ежем. Ком %</th>
-        <th>Процентная ставка</th>
-        <th>Код транзакции</th>
-        <th hnThSortble="created_at">Создан / Создал</th>
-        <th hnThSortble="updated_at">Обновлен / Обновил</th>
-        <th></th>
-      </tr>
-    </thead>
-    <tbody>
-      <!--bindings={
-  "ng-reflect-ng-for-of": "[object Object],[object Object"
-}-->
-      <tr _ngcontent-c1="">
-        <td _ngcontent-c1="">Grace_3</td>
-        <td _ngcontent-c1="">2</td>
-        <td _ngcontent-c1="">0.1</td>
-        <td _ngcontent-c1="">5</td>
-        <td _ngcontent-c1="">3</td>
-        <td _ngcontent-c1="">AZ</td>
-        <td _ngcontent-c1="">17.05.2019 14:05:05 , garkun</td>
-        <td _ngcontent-c1="">17.05.2019 14:06:43 , garkun</td>
-        <td _ngcontent-c1="" class="hn-table__actions">
-          <hn-button _ngcontent-c1="" class="hn-table__action-button"><button class="hn-button"
-              ng-reflect-klass="hn-button" type="button">
-              <hn-icon _ngcontent-c1="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
-                class="hn-button__text hidden"></span>
-            </button></hn-button>
-          <!--bindings={
-  "ng-reflect-ng-if": "true"
-}-->
-          <hn-button _ngcontent-c1="" class="hn-table__action-button"
-            ng-reflect-approve-question="Вы действительно хотите закрыт"><button class="hn-button"
-              ng-reflect-klass="hn-button" type="button">
-              <hn-icon _ngcontent-c1="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
-                class="hn-button__text hidden"></span>
-            </button></hn-button>
-        </td>
-      </tr>
-      <tr _ngcontent-c1="">
-        <td _ngcontent-c1="">Grace_2</td>
-        <td _ngcontent-c1="">7</td>
-        <td _ngcontent-c1="">29</td>
-        <td _ngcontent-c1="">88</td>
-        <td _ngcontent-c1="">26</td>
-        <td _ngcontent-c1="">AZ</td>
-        <td _ngcontent-c1="">11.05.2019 11:19:45 , garkun</td>
-        <td _ngcontent-c1="">13.05.2019 14:23:03 , cc_instmnt_mngr</td>
-        <td _ngcontent-c1="" class="hn-table__actions">
-          <hn-button _ngcontent-c1="" class="hn-table__action-button"><button class="hn-button"
-              ng-reflect-klass="hn-button" type="button">
-              <hn-icon _ngcontent-c1="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">edit</i></hn-icon><span
-                class="hn-button__text hidden"></span>
-            </button></hn-button>
-          <!--bindings={
-  "ng-reflect-ng-if": "true"
-}-->
-          <hn-button _ngcontent-c1="" class="hn-table__action-button"
-            ng-reflect-approve-question="Вы действительно хотите закрыт"><button class="hn-button"
-              ng-reflect-klass="hn-button" type="button">
-              <hn-icon _ngcontent-c1="" _nghost-c3=""><i _ngcontent-c3="" class="hn-icon">close</i></hn-icon><span
-                class="hn-button__text hidden"></span>
-            </button></hn-button>
-        </td>
-      </tr>
-    </tbody>
-  </table>
-</div>
