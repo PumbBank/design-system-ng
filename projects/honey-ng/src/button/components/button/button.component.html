@@ -9,7 +9,7 @@
 
   <!-- <ng-content select=".hn-icon, hn-icon"></ng-content> -->
 
-  <span [class.hidden]="!showText" class="button__text" #content>
+  <span [hidden]="!showText" class="button__text" #content>
     <ng-content></ng-content>
   </span>
   <div class="button__icon icon icon_24" *ngIf="icon" [ngClass]="'icon_' + icon"></div>
