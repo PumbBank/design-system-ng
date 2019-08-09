@@ -35,7 +35,7 @@
     <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'Да_та'" disabled>
     <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'Да_та'">
     <br>
-    <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'С иконкой'" [icon]="'user'">
+    <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'С иконкой'" [icon]="'user'" [errors]="form.controls.fc_created_at.errors">
     <br>
     <input hnInput="text" formControlName="fc_money" placeholder="Введите денег" caption="Название поля" [errors]="form.controls.fc_money.errors">
 </div>
