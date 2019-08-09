@@ -113,6 +113,12 @@ export class HnInput implements OnChanges, OnDestroy {
 
   private updateIcon(): void {
     if (this.icon) {
+      this.iconElement.classList.forEach((cl) => {
+        if (cl.match(/icon_/)) {
+          this.renderer.removeClass(this.iconElement, cl);
+        }
+      });
+
       this.renderer.addClass(this.iconElement, 'icon_' + this.icon);
       this.renderer.appendChild(this.bodyElement, this.iconElement);
     } else {
