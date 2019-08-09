@@ -85,7 +85,9 @@ export class HnInput implements OnChanges, OnDestroy {
       }
     } else {
       this.renderer.removeClass(this.wrapperElement, 'input_error');
-      this.renderer.removeChild(this.wrapperElement, this.footerElement);
+      if (this.wrapperElement.contains(this.footerElement)) {
+        this.renderer.removeChild(this.wrapperElement, this.footerElement);
+      }
     }
   }
 
