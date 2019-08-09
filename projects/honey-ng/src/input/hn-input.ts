@@ -13,6 +13,7 @@ export class HnInput implements OnChanges, OnDestroy {
 
   @Input() errors: ValidationErrors | null = null;
   @Input() caption: string = '';
+  @Input() icon: string;
 
   wrapperElement: HTMLElement;
   captionElement: HTMLElement;
@@ -22,6 +23,7 @@ export class HnInput implements OnChanges, OnDestroy {
   msgWrapperElement: HTMLElement;
   msgIconElement: HTMLElement;
   msgTextElement: HTMLElement;
+  iconElement: HTMLElement;
 
   value: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   validationStateObserver: MutationObserver;
@@ -45,6 +47,9 @@ export class HnInput implements OnChanges, OnDestroy {
     }
     if (changes.caption) {
       this.captionUpdateText();
+    }
+    if (changes.icon) {
+      this.updateIcon();
     }
   }
 
@@ -116,11 +121,20 @@ export class HnInput implements OnChanges, OnDestroy {
     );
   }
 
-  private updateMessagePresentation(errors) {
+  private updateMessagePresentation(errors): void {
     if (errors) {
       this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
     } else {
       this.renderer.removeChild(this.footerElement, this.msgWrapperElement);
+    }
+  }
+
+  private updateIcon(): void {
+    if (this.icon) {
+      this.renderer.addClass(this.iconElement, 'icon_' + this.icon);
+      this.renderer.appendChild(this.bodyElement, this.iconElement);
+    } else {
+      this.renderer.removeChild(this.bodyElement, this.iconElement);
     }
   }
 
@@ -139,6 +153,7 @@ export class HnInput implements OnChanges, OnDestroy {
     this.msgWrapperElement = this.renderer.createElement('div');
     this.msgIconElement = this.renderer.createElement('div');
     this.msgTextElement = this.renderer.createElement('div');
+    this.iconElement = this.renderer.createElement('div');
 
     this.renderer.insertBefore(this.input.parentElement, this.wrapperElement, this.input);
     this.renderer.appendChild(this.wrapperElement, this.captionElement);
@@ -163,6 +178,8 @@ export class HnInput implements OnChanges, OnDestroy {
     this.renderer.addClass(this.msgIconElement, 'icon');
     this.renderer.addClass(this.msgIconElement, 'icon_info');
     this.renderer.addClass(this.msgTextElement, 'control-message__text');
+    this.renderer.addClass(this.iconElement, 'icon');
+    this.renderer.addClass(this.iconElement, 'input__icon');
   }
 
   private errorsUpdateText() {
