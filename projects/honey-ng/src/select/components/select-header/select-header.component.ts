@@ -10,6 +10,10 @@ import { SelectComponent } from '../select/select.component';
 export class SelectHeaderComponent<T = any> implements OnInit {
   @Input() caption: string = 'Select';
 
+  get active(): boolean {
+    return this.selectComponent.active;
+  }
+
   get filled(): boolean {
     return (typeof this.selected !== 'undefined' && this.selected !== null);
   }

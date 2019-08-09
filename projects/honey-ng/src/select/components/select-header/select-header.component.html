@@ -1,4 +1,4 @@
-<div class="hn-select-header" [class.hn-select-header_filled]="filled" [class.hn-select-header_warn]="touched && !!errors" (click)="onClick()">
+<!-- <div class="hn-select-header" [class.hn-select-header_filled]="filled" [class.hn-select-header_warn]="touched && !!errors" (click)="onClick()">
   <div class="hn-select-header__caption">
     {{ caption }}
   </div>
@@ -13,4 +13,6 @@
     {{ (touched && !!errors) ? errorText : '' }}
   </div>
 
-</div>
+</div> -->
+
+<input hnInput="text" placeholder="Введите дату" [value]="selectedCaption" [caption]="caption"  (click)="onClick()" [icon]="active ? 'chevron-up' : 'chevron-down'">

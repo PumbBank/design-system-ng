@@ -43,7 +43,6 @@ export class ButtonComponent implements OnChanges {
   }
 
   get viewClass(): string {
-    console.log(this.getViewClass(this.view));
     return this.getViewClass(this.view);
   }
 
