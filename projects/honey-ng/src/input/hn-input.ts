@@ -27,6 +27,7 @@ export class HnInput implements OnChanges, OnDestroy {
 
   value: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   validationStateObserver: MutationObserver;
+  messagePresantationObserver: MutationObserver;
 
   constructor(
     private input: HTMLInputElement,
@@ -37,6 +38,7 @@ export class HnInput implements OnChanges, OnDestroy {
     this.watchTouches();
     this.watchValidationChangesByClassName();
     this.errorsUpdateText();
+    this.watchValidationMessageChanges();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -53,6 +55,7 @@ export class HnInput implements OnChanges, OnDestroy {
 
   ngOnDestroy(): void {
     this.validationStateObserver.disconnect();
+    this.messagePresantationObserver.disconnect();
   }
 
   registerOnChange(fn: Function) {
@@ -80,14 +83,9 @@ export class HnInput implements OnChanges, OnDestroy {
   private updateValidationState(invalid: boolean = false): void {
     if (invalid) {
       this.renderer.addClass(this.wrapperElement, 'input_error');
-      if (this.errors) {
-        this.renderer.appendChild(this.wrapperElement, this.footerElement);
-      }
+
     } else {
       this.renderer.removeClass(this.wrapperElement, 'input_error');
-      if (this.wrapperElement.contains(this.footerElement)) {
-        this.renderer.removeChild(this.wrapperElement, this.footerElement);
-      }
     }
   }
 
@@ -109,6 +107,25 @@ export class HnInput implements OnChanges, OnDestroy {
     });
 
     this.validationStateObserver.observe(this.input, { attributes: true });
+  }
+
+  private watchValidationMessageChanges(): void {
+    this.messagePresantationObserver = new MutationObserver(() => {
+      this.updateMessagePresentation(this.errors);
+    });
+
+    this.messagePresantationObserver.observe(
+      this.msgTextElement,
+      { characterData: false, attributes: false, childList: true, subtree: false }
+    );
+  }
+
+  private updateMessagePresentation(errors): void {
+    if (errors) {
+      this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
+    } else {
+      this.renderer.removeChild(this.footerElement, this.msgWrapperElement);
+    }
   }
 
   private updateIcon(): void {
@@ -146,11 +163,11 @@ export class HnInput implements OnChanges, OnDestroy {
     this.renderer.insertBefore(this.input.parentElement, this.wrapperElement, this.input);
     this.renderer.appendChild(this.wrapperElement, this.captionElement);
     this.renderer.appendChild(this.wrapperElement, this.bodyElement);
+    this.renderer.appendChild(this.wrapperElement, this.footerElement);
 
     this.renderer.appendChild(this.bodyElement, this.entranceElement);
     this.renderer.appendChild(this.entranceElement, this.input);
 
-    this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
     this.renderer.appendChild(this.msgWrapperElement, this.msgIconElement);
     this.renderer.appendChild(this.msgWrapperElement, this.msgTextElement);
 
