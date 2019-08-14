@@ -15,4 +15,21 @@
 
 </div> -->
 
-<input hnInput="text" placeholder="Введите дату" [value]="selectedCaption" [caption]="caption"  (click)="onClick()" [icon]="active ? 'chevron-up' : 'chevron-down'">
+<!-- <input
+  hnInput="text"
+  placeholder="Введите дату"
+  [value]="selectedCaption"
+  [caption]="caption"
+  (click)="onClick()"
+  [icon]="active ? 'chevron-up' : 'chevron-down'"
+/> -->
+
+<div class="input__label">
+  {{ caption }}
+</div>
+<div class="input__body" (click)="onClick()">
+  <div class="input__enterence">
+    <input class="input__input" type="text" [value]="selectedCaption" placeholder="Ivanov Ivan" [disabled]="false"/>
+  </div>
+  <div class="input__icon icon icon_{{ active ? 'chevron-up' : 'chevron-down' }}"></div>
+</div>
