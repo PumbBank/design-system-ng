@@ -24,7 +24,7 @@
         type="text"
         [value]="selectedCaption || ''"
         [placeholder]="placeholder"
-        [disabled]="false"
+        [disabled]="!filter"
       />
     </div>
     <div class="input__icon icon icon_{{ active ? 'chevron-up' : 'chevron-down' }}"></div>
