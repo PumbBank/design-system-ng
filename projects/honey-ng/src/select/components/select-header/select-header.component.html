@@ -22,8 +22,8 @@
       <input
         class="input__input"
         type="text"
-        [value]="selectedCaption"
-        placeholder=""
+        [value]="selectedCaption || ''"
+        [placeholder]="placeholder"
         [disabled]="false"
       />
     </div>
