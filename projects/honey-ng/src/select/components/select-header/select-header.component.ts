@@ -9,7 +9,7 @@ import { SelectComponent } from '../select/select.component';
 })
 export class SelectHeaderComponent<T = any> implements OnInit {
   @Input() caption: string = 'Select';
-  @Input() placeholder: string = 'Select';
+  @Input() placeholder: string = '';
   @Input() filter: boolean = false;
 
   get active(): boolean {
