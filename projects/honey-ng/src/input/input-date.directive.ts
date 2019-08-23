@@ -36,7 +36,9 @@ export class InputDateDirective extends HnInput implements ControlValueAccessor,
   }
 
   registerOnChange(fn: Function) {
-    super.registerOnChange((value: string) => fn(this.ddmmyyyToISO(value)));
+    super.registerOnChange((value: string) => {
+        return fn()
+        });
   }
 
   writeValue(value: ISOString) {
