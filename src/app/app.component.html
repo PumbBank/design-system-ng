@@ -40,7 +40,7 @@
     <br>
     <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'С иконкой'" [icon]="'user'">
     <br>
-    <input hnInput="text" formControlName="fc_money" placeholder="Введите денег" caption="Название поля" [errors]="form.controls.fc_money.errors">
+    <input hnInput="text" [mask]="mask" formControlName="fc_money" placeholder="Введите денег" caption="Название поля" [errors]="form.controls.fc_money.errors">
     <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'Да_та'" disabled>
     <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'Да_та'">
     <br>
@@ -51,10 +51,10 @@
 
 
 
-<hn-select selected="">
+<hn-select selected="12">
     <hn-select-header placeholder="sssss" filter="true"></hn-select-header>
     <hn-select-body>
-        <hn-select-option value=12>121212121212</hn-select-option>
+        <hn-select-option value="12">121212121212</hn-select-option>
         <hn-select-option value=212>12321321</hn-select-option>
         <hn-select-option value=1222>asdasdasdsdasd</hn-select-option>
     </hn-select-body>
