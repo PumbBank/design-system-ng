@@ -25,11 +25,13 @@ export class InputTextDirective extends HnInput implements ControlValueAccessor,
   }
 
   ngOnInit() {
-    this.textMaskInput = createTextMaskInputElement({
-      inputElement: this.inputElementRef.nativeElement,
-      mask: this.mask,
-      keepCharPositions: true
-    });
+    if (this.mask) {
+      this.textMaskInput = createTextMaskInputElement({
+        inputElement: this.inputElementRef.nativeElement,
+        mask: this.mask,
+        keepCharPositions: true
+      });
+    }
   }
 
   registerOnChange(fn: Function) {
@@ -42,7 +44,9 @@ export class InputTextDirective extends HnInput implements ControlValueAccessor,
 
   protected cleanFunction: CleanFunction = function (inputValue: string) {
     this.input.value = inputValue;
-    this.textMaskInput.update();
+    if (this.mask) {
+      this.textMaskInput.update();
+    }
     return this.input.value;
   };
 

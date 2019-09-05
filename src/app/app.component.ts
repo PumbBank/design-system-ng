@@ -1,10 +1,19 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
+import { FormControl, FormGroup, Validators, FormArray, ValidationErrors } from '@angular/forms';
 import { DialogService, IDataSource } from 'projects/honey-ng/src/public_api';
 import { of, Observable } from 'rxjs';
 import { DataSource } from './models/data-source';
 import { debounceTime, map, distinctUntilChanged } from 'rxjs/operators';
 
+export function maxLengthValidator(maxLength: number = 0): (control) => ValidationErrors | null {
+  return (control: FormControl): ValidationErrors | null => {
+    if (control.value.length > maxLength) {
+      return {errorMessage: `Максимальна кількість символів: ${maxLength}`};
+    } else {
+      return null;
+    }
+  };
+}
 export interface Obj {
   id: string;
   name: string;
@@ -37,9 +46,9 @@ export class AppComponent implements OnInit {
   form = new FormGroup({
     fc_money: new FormControl('', [
       Validators.required,
-      Validators.pattern('^[^\\)\\(]*$')
+      maxLengthValidator(5)
     ]),
-    fc_created_at: new FormControl('', Validators.required),
+    fc_created_at: new FormControl('', [Validators.required, maxLengthValidator(6)]),
     technical_merchant_id: new FormControl('', Validators.required),
     objects: new FormControl('', Validators.required),
   });
