@@ -43,7 +43,7 @@ export class SelectBodyFilterComponent<T = any> implements OnInit, OnDestroy {
   }
 
   updateOptions(): void {
-    this.dataSource.search('')
+    this.dataSource.search(this.filterControl.value)
       .then((options) => this.options = options);
   }
 
