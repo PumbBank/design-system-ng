@@ -19,13 +19,9 @@
   {{ caption }}
   <div class="input__body" (click)="onClick()">
     <div class="input__enterence">
-      <input
-        class="input__input"
-        type="text"
-        [value]="selectedCaption || ''"
-        [placeholder]="placeholder"
-        [disabled]="!filter"
-      />
+      <input class="input__input" type="text" [value]="selectedCaption || ''" [placeholder]="placeholder"
+        [disabled]="!filter" *ngIf="!useTemplate; else headerTemplate;"/>
+        <!-- <div><span>some text</span></div> -->
     </div>
     <div class="input__icon icon icon_{{ active ? 'chevron-up' : 'chevron-down' }}"></div>
   </div>

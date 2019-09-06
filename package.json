@@ -3,7 +3,7 @@
   "version": "0.0.2",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --port 4300",
+    "start": "ng serve --port 4700",
     "build": "ng lint && ng build honey-ng",
     "honey:update": "npm i @honey/stylesheets@latest"
   },

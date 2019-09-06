@@ -51,11 +51,15 @@
 
 
 
-<hn-select selected="12">
-    <hn-select-header placeholder="sssss" filter="true"></hn-select-header>
+<hn-select selected="">
+    <hn-select-header placeholder="select value ..." [headerTemplate]="template"></hn-select-header>
     <hn-select-body>
         <hn-select-option value="12">121212121212</hn-select-option>
         <hn-select-option value=212>12321321</hn-select-option>
         <hn-select-option value=1222>asdasdasdsdasd</hn-select-option>
     </hn-select-body>
 </hn-select>
+
+<ng-template #template>
+    <span class="input__input">this is template</span>
+</ng-template>

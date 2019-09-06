@@ -11,6 +11,7 @@ export class SelectHeaderComponent<T = any> implements OnInit {
   @Input() caption: string = 'Select';
   @Input() placeholder: string = '';
   @Input() filter: boolean = false;
+  @Input() headerTemplate: any;
 
   get active(): boolean {
     return this.selectComponent.active;
@@ -26,6 +27,10 @@ export class SelectHeaderComponent<T = any> implements OnInit {
 
   get selected(): T {
     return this.selectComponent.selected;
+  }
+
+  get useTemplate(): boolean {
+    return !!this.selectComponent.selected && !!this.headerTemplate;
   }
 
   get errors(): boolean {
