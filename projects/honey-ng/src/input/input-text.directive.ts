@@ -30,6 +30,7 @@ export class InputTextDirective extends HnInput implements ControlValueAccessor,
   }
 
   ngOnChanges(changes: SimpleChanges) {
+    super.ngOnChanges(changes);
     if (changes.mask) {
       if (this.textMaskInput) {
         delete this.textMaskInput;
