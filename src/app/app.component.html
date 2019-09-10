@@ -35,8 +35,8 @@
     Chip
 </hn-chip>
 <div [formGroup]="form">
-    <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'Да_та'" disabled>
     <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'Да_та'">
+    <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'Да_та_Disabled'" [hnDisabled]="false">
     <br>
     <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'С иконкой'" [icon]="'user'" [errors]="form.controls.fc_created_at.errors">
     <br>
@@ -51,8 +51,8 @@
 
 
 
-<hn-select selected="">
-    <hn-select-header placeholder="select value ..." [headerTemplate]="template"></hn-select-header>
+<hn-select selected="212">
+    <hn-select-header placeholder="select value ..."></hn-select-header>
     <hn-select-body>
         <hn-select-option value="12">121212121212</hn-select-option>
         <hn-select-option value=212>12321321</hn-select-option>

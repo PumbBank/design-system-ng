@@ -5,7 +5,8 @@
       true,
       "attribute",
       "hn",
-      "camelCase"
+      "camelCase",
+      "disabled"
     ],
     "component-selector": [
       true,
