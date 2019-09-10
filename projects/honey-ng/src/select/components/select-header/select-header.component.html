@@ -15,8 +15,10 @@
 
 </div> -->
 
-<label class="input__label">
-  {{ caption }}
+<label>
+  <div class="input__label">
+    {{ caption }}
+  </div>
   <div class="input__body" (click)="onClick()">
     <div class="input__enterence">
       <input class="input__input" type="text" [value]="selectedCaption || ''" [placeholder]="placeholder"
