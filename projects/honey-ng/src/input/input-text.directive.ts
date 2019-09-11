@@ -34,8 +34,8 @@ export class InputTextDirective extends HnInput implements ControlValueAccessor,
     if (changes.mask) {
       if (this.textMaskInput) {
         delete this.textMaskInput;
-        this.initTextMask();
       }
+      this.initTextMask();
     }
   }
 
