@@ -9,7 +9,8 @@ enum elementSize {
 
 enum elementView {
   filled = 'filled',
-  ghost = 'ghost'
+  ghost = 'ghost',
+  hidden = 'hidden'
 }
 
 @Component({
@@ -72,6 +73,9 @@ export class ButtonComponent implements OnChanges {
         break;
       case elementView.ghost:
         viewClass = 'button_ghost';
+        break;
+      case elementView.hidden:
+        viewClass = 'button_hidden';
         break;
     }
     return viewClass;

@@ -25,7 +25,7 @@
 <hn-button size="large" icon="user">
 </hn-button>
 
-<hn-button size="small" icon="user" view="ghost">
+<hn-button size="small" icon="user" view="hidden">
     small ghost
 </hn-button>
 
@@ -59,3 +59,17 @@
         <hn-select-option value=1222>asdasdasdsdasd</hn-select-option>
     </hn-select-body>
 </hn-select>
+
+<hn-select selected="Jan" >
+    <hn-select-header
+      caption="Місяць">
+    </hn-select-header>
+    <hn-select-body>
+      <hn-select-option 
+        [value]="month.abbreviation"
+        [caption]="month.name" 
+        *ngFor="let month of months">
+        {{ month.name }}
+      </hn-select-option>
+    </hn-select-body>
+  </hn-select>
