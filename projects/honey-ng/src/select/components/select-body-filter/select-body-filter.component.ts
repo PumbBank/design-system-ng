@@ -25,7 +25,7 @@ export class SelectBodyFilterComponent<T = any> implements OnInit, OnDestroy {
 
   ngOnInit() {
 
-    this.subscription = this.filterControl.valueChanges.pipe().subscribe(
+    this.subscription = this.filterControl.valueChanges.subscribe(
       async (val) => {
         this.options = await this.dataSource.search(val);
       }
@@ -40,6 +40,11 @@ export class SelectBodyFilterComponent<T = any> implements OnInit, OnDestroy {
         return Promise.resolve();
       }
     );
+  }
+
+  updateOptions(): void {
+    this.dataSource.search(this.filterControl.value)
+      .then((options) => this.options = options);
   }
 
   ngOnDestroy(): void {

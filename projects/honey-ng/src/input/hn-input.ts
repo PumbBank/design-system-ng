@@ -80,6 +80,10 @@ export class HnInput implements OnChanges, OnDestroy {
   onChangeCallback: Function = () => { };
   onTouchedCallback: Function = () => { };
 
+  setDisabledState?(isDisabled: boolean): void {
+    this.renderer.setProperty(this.input, 'disabled', isDisabled);
+  }
+
   private updateValidationState(invalid: boolean = false): void {
     if (invalid) {
       this.renderer.addClass(this.wrapperElement, 'input_error');

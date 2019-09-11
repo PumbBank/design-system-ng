@@ -6,4 +6,5 @@ export interface IDataSource<T> {
 export interface IOption<T> {
   key: T;
   value: string;
+  payload?: any;
 }

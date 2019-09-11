@@ -10,6 +10,7 @@ import { ApproveModule } from 'projects/honey-ng/src/approve/approve.module';
 import { ButtonModule } from 'projects/honey-ng/src/button/button.module';
 import { AppService } from './app.service';
 import { FileUploadModule } from 'projects/honey-ng/src/file-upload/file-upload.module';
+import { FormControlDisabledModule } from 'projects/honey-ng/src/form-control-disabled/form-control-disabled.module';
 
 @NgModule({
   declarations: [
@@ -23,6 +24,7 @@ import { FileUploadModule } from 'projects/honey-ng/src/file-upload/file-upload.
     ButtonModule,
     ApproveModule,
     FileUploadModule,
+    FormControlDisabledModule,
     ReactiveFormsModule,
     DialogModule.forRoot()
   ],
