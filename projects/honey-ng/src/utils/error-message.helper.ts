@@ -3,7 +3,7 @@ import { ValidationErrors } from '@angular/forms';
 const errorMessages: {
   [validatorType: string]: (...args: any) => string;
 } = {
-  required: () => 'Обязательно для заполнения',
+  required: () => 'Обов\'язкове поле',
   min: (min: number) => `Минимально значение ${min}`,
   max: (max: number) => `Максимально значение ${max}`,
   email: () => `Указан неверный формат для Email`,
