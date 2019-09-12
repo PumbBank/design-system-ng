@@ -22,15 +22,17 @@
   <div class="input__body" (click)="onClick()">
     <div class="input__enterence">
       <input class="input__input" type="text" [value]="selectedCaption || ''" [placeholder]="placeholder"
-        [disabled]="!filter" *ngIf="!useTemplate; else headerTemplate;"/>
-        <!-- <div><span>some text</span></div> -->
+        [disabled]="!filter" *ngIf="!useTemplate; else headerTemplate;" />
+      <!-- <div><span>some text</span></div> -->
     </div>
     <div class="input__icon icon icon_{{ active ? 'chevron-up' : 'chevron-down' }}"></div>
   </div>
-  <div class="input__footer" *ngIf="(touched && !!errors)">
-    <div class="control-message input__control-message">
-      <div class="control-message__icon icon icon_info"></div>
-      <div class="control-message__text">{{ (touched && !!errors) ? errorText : '' }}</div>
-    </div>
+  <div class="input__footer">
+    <ng-container *ngIf="(touched && !!errors)">
+      <div class="control-message input__control-message">
+        <div class="control-message__icon icon icon_info"></div>
+        <div class="control-message__text">{{ (touched && !!errors) ? errorText : '' }}</div>
+      </div>
+    </ng-container>
   </div>
 </label>
