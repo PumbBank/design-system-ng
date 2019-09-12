@@ -29,6 +29,59 @@ export class AppComponent implements OnInit {
 
   mask = [/\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/];
 
+
+  months: any = [
+    {
+      abbreviation: 'Jan',
+      name: 'Січень'
+    },
+    {
+      abbreviation: 'Feb',
+      name: 'Лютий'
+    },
+    {
+      abbreviation: 'Mar',
+      name: 'Березнь'
+    },
+    {
+      abbreviation: 'Apr',
+      name: 'Квітень'
+    },
+    {
+      abbreviation: 'May',
+      name: 'Травень'
+    },
+    {
+      abbreviation: 'Jun',
+      name: 'Червень'
+    },
+    {
+      abbreviation: 'Jul',
+      name: 'Липень'
+    },
+    {
+      abbreviation: 'Aug',
+      name: 'Серпень'
+    },
+    {
+      abbreviation: 'Sep',
+      name: 'Вересень'
+    },
+    {
+      abbreviation: 'Oct',
+      name: 'Жовтень'
+    },
+    {
+      abbreviation: 'Nov',
+      name: 'Листопад'
+    },
+    {
+      abbreviation: 'Dec',
+      name: 'Грудень'
+    }
+  ];
+
+
   control = new FormControl(undefined, Validators.pattern('^[0-9]{1,}$')); // [^\d+(?:\.{1}\d{1,4})$]/igm,
   control1 = new FormControl(35, Validators.pattern('^[0-9]{1,}$')); // [^\d+(?:\.{1}\d{1,4})$]/igm,
   control2 = new FormControl('hi', Validators.required);
