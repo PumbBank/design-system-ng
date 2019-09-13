@@ -24,7 +24,6 @@ export class SelectBodyFilterComponent<T = any> implements OnInit, OnDestroy {
   constructor(private selectComponent: SelectComponent<T>) { }
 
   ngOnInit() {
-
     this.subscription = this.filterControl.valueChanges.subscribe(
       async (val) => {
         this.options = await this.dataSource.search(val);
@@ -40,6 +39,12 @@ export class SelectBodyFilterComponent<T = any> implements OnInit, OnDestroy {
         return Promise.resolve();
       }
     );
+
+    this.baseInit();
+  }
+
+  async baseInit(): Promise<void> {
+    this.options = await this.dataSource.search('');
   }
 
   updateOptions(): void {
