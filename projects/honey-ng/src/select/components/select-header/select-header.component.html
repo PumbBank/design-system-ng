@@ -17,7 +17,7 @@
 
 <label>
   <div class="input__label">
-    {{ caption }}
+    {{ caption }} <ng-container *ngIf="required">*</ng-container>
   </div>
   <div class="input__body" (click)="onClick()">
     <div class="input__enterence">

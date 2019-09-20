@@ -1,7 +1,7 @@
 import { Directive, Renderer2, ElementRef, forwardRef, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { HnInput, CleanFunction } from './hn-input';
-import { createTextMaskInputElement, } from 'text-mask-core';
+import { createTextMaskInputElement } from 'text-mask-core';
 
 @Directive({
   selector: '[hnInput="text"][type="text"], [hnInput="text"]:not([type])',
@@ -17,6 +17,7 @@ export class InputTextDirective extends HnInput implements ControlValueAccessor,
   private textMaskInput: any;
 
   @Input() mask: Array<string | RegExp>;
+  @Input() cleanFn: any;
 
   constructor(
     renderer: Renderer2,
@@ -48,11 +49,11 @@ export class InputTextDirective extends HnInput implements ControlValueAccessor,
   }
 
   protected cleanFunction: CleanFunction = function (inputValue: string) {
-    this.input.value = inputValue;
     if (this.textMaskInput) {
+      this.input.value = inputValue;
       this.textMaskInput.update();
     }
-    return this.input.value;
+    return this.cleanFn ? this.cleanFn(this.input.value) : this.input.value;
   };
 
   private initTextMask() {

@@ -1,65 +1,16 @@
-<hn-button size="medium" icon="user">
-    Medium Filled icon
-</hn-button>
+<input hnInput="text" [cleanFn]="c" required [formControl]="control" placeholder="Test input 0-9+" caption="Название поля"
+  [errors]="control.errors">
 
-<hn-button size="medium">
-        Medium Filled 
-    </hn-button>
+  {{ control.errors | json }}
 
-<hn-button size="medium" icon="user">
-
-</hn-button>
-
-<hn-button size="medium" icon="user" disabled="true">
-    Medium Filled
-</hn-button>
-
-<hn-button size="large" icon="user">
-    Large Filled 
-</hn-button>
-
-<hn-button size="large" icon="user" view="ghost">
-    Large ghost
-</hn-button>
-
-<hn-button size="large" icon="user">
-</hn-button>
-
-<hn-button size="small" icon="user" view="hidden">
-    small ghost
-</hn-button>
-
-
-
-<hn-chip>
-    Chip
-</hn-chip>
-<div [formGroup]="form">
-    <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'Да_та'">
-    <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'Да_та_Disabled'" [hnDisabled]="false">
-    <br>
-    <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'С иконкой'" [icon]="'user'" [errors]="form.controls.fc_created_at.errors">
-    <br>
-    <input hnInput="text" [mask]="mask" formControlName="fc_money" placeholder="Введите денег" caption="Название поля" [errors]="form.controls.fc_money.errors">
-    <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'Да_та'" disabled>
-    <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'Да_та'">
-    <br>
-    <input hnInput="date" formControlName="fc_created_at" placeholder="Введите дату" [caption]="'С иконкой'" [icon]="'user'">
-    <br>
-    <input hnInput="text" formControlName="fc_money" placeholder="Введите денег" caption="Название поля" [errors]="form.controls.fc_money.errors">
-</div>
-
-
-
-<hn-select selected="212">
-    <hn-select-header placeholder="select value ..."></hn-select-header>
-    <hn-select-body>
-        <hn-select-option value="12">121212121212</hn-select-option>
-        <hn-select-option value=212>12321321</hn-select-option>
-        <hn-select-option value=1222>asdasdasdsdasd</hn-select-option>
-    </hn-select-body>
+<hn-select selected="TEST" required>
+  <hn-select-header placeholder=""></hn-select-header>
+  <hn-select-body>
+    <hn-select-option value="1">One</hn-select-option>
+    <hn-select-option value="2">Two</hn-select-option>
+    <hn-select-option value="3">Three</hn-select-option>
+  </hn-select-body>
 </hn-select>
 
-<ng-template #template>
-    <span class="input__input">this is template</span>
-</ng-template>
+
+<input type="text" #inputt>
