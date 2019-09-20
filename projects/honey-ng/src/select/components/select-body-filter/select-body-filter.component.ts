@@ -21,7 +21,13 @@ export class SelectBodyFilterComponent<T = any> implements OnInit, OnDestroy {
 
   filterControl = new FormControl('');
   subscription: Subscription;
-  constructor(private selectComponent: SelectComponent<T>) { }
+
+  constructor(private selectComponent: SelectComponent<T>) {
+    selectComponent.addToogleInterceptor((nextActive: boolean) => {
+      this.updateOptions();
+      return Promise.resolve();
+    });
+  }
 
   ngOnInit() {
     this.subscription = this.filterControl.valueChanges.subscribe(

@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, forwardRef, ElementRef, AfterContentInit, ChangeDetectorRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angular/forms';
 import { ErrorMessageHelper } from './../../../utils/error-message.helper';
-import { RequirebleComponent } from 'projects/honey-ng/src/utils/abstract-requireble';
+import { RequirebleComponent } from '../../../utils/abstract-requireble';
 
 @Component({
   selector: 'hn-select',
@@ -21,8 +21,11 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
   get selectedCaption(): string {
     return this.options.get(this.selected);
   }
+
   private options: Map<any, string> = new Map<any, string>();
+
   private writeValueInterceptors: ((value: string) => Promise<void>)[] = [];
+  private toogleInteceptors: ((nextActive: boolean) => Promise<void>)[] = [];
 
   get touched(): boolean {
     return this.element.nativeElement.classList.contains('ng-touched');
@@ -53,6 +56,10 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
     this.writeValueInterceptors.push(fn);
   }
 
+  addToogleInterceptor(fn: (nextActive: boolean) => Promise<void>): void {
+    this.toogleInteceptors.push(fn);
+  }
+
   async setSelected(option: T): Promise<void> {
     this._writedTmp = undefined;
     // this.selected = option;
@@ -63,6 +70,9 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
 
   toggle(): void {
     this.errorsUpdateText();
+
+    this.toogleInteceptors.forEach((interceptor: any) => interceptor(!this.active));
+
     this.active = !this.active;
   }
 
