@@ -18,7 +18,7 @@ type ISOString = string;
 export class InputPhoneDirective extends HnInput implements ControlValueAccessor, OnInit {
 
   private textMaskInput: any;
-  private mask: Array<string | RegExp> = ['+38',/\d/, /\d/, '.', /\d/, /\d/, '.', /\d/, /\d/, /\d/, /\d/];
+  private mask: Array<string | RegExp> = ['+38', /\d/, /\d/, '.', /\d/, /\d/, '.', /\d/, /\d/, /\d/, /\d/];
 
   constructor(
     renderer: Renderer2,
