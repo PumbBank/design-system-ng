@@ -45,6 +45,10 @@ export class SelectHeaderComponent<T = any> implements OnInit {
     return this.selectComponent.touched;
   }
 
+  get required(): boolean {
+    return this.selectComponent.required as boolean;
+  }
+
   constructor(
     private selectComponent: SelectComponent<T>
   ) { }

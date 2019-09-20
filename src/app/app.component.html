@@ -58,8 +58,19 @@
         <hn-select-option value=212>12321321</hn-select-option>
         <hn-select-option value=1222>asdasdasdsdasd</hn-select-option>
     </hn-select-body>
+<input hnInput="text" [cleanFn]="c" required [formControl]="control" placeholder="Test input 0-9+" caption="Название поля"
+  [errors]="control.errors">
+
+  {{ control.errors | json }}
+
+<hn-select selected="TEST" required>
+  <hn-select-header placeholder=""></hn-select-header>
+  <hn-select-body>
+    <hn-select-option value="1">One</hn-select-option>
+    <hn-select-option value="2">Two</hn-select-option>
+    <hn-select-option value="3">Three</hn-select-option>
+  </hn-select-body>
 </hn-select>
 
-<ng-template #template>
-    <span class="input__input">this is template</span>
-</ng-template>
+
+<input type="text" #inputt>
