@@ -1,7 +1,7 @@
 import { Component, Input, Output, EventEmitter, forwardRef, ElementRef, AfterContentInit, ChangeDetectorRef } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angular/forms';
 import { ErrorMessageHelper } from './../../../utils/error-message.helper';
-import { RequirebleComponent } from 'projects/honey-ng/src/utils/abstract-requireble';
+import { RequirebleComponent } from '../../../utils/abstract-requireble';
 
 @Component({
   selector: 'hn-select',
