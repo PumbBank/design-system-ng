@@ -101,11 +101,15 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
     this.active = !this.active;
   }
 
-  close(): void {
-    this.active = false;
-    setTimeout(() => {
-      this.selectElementRef.nativeElement.focus();
-    }, 100);
+  close(focusAfterClosing: boolean = false): void {
+    if (this.active) {
+      if (focusAfterClosing) {
+        setTimeout(() => {
+          this.selectElementRef.nativeElement.focus();
+        }, 100);
+      }
+      this.active = false;
+    }
   }
 
   async writeValue(value: any): Promise<void> {
