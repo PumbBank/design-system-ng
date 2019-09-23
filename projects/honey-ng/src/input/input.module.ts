@@ -4,6 +4,7 @@ import { InputTextDirective } from './input-text.directive';
 import { InputNumberDirective } from './input-number.derective';
 import { InputDateDirective } from './input-date.directive';
 import { InputMoneyDirective } from './input-money.directive';
+import { InputPhoneDirective } from './input-phone.directive';
 
 @NgModule({
   declarations: [
@@ -11,14 +12,16 @@ import { InputMoneyDirective } from './input-money.directive';
     InputDigitDirective,
     InputNumberDirective,
     InputDateDirective,
-    InputMoneyDirective
+    InputMoneyDirective,
+    InputPhoneDirective
   ],
   exports: [
     InputTextDirective,
     InputDigitDirective,
     InputNumberDirective,
     InputDateDirective,
-    InputMoneyDirective
+    InputMoneyDirective,
+    InputPhoneDirective
   ]
 })
 export class InputModule { }
