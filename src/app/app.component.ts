@@ -32,6 +32,11 @@ export class AppComponent implements OnInit {
 
   control = new FormControl(null, [Validators.required, Validators.pattern('^[0-9]{1,}$')]);
 
+  ds = {
+    search: () => Promise.resolve([]),
+    get: () => Promise.resolve({key: 1, value: 1})
+  };
+
   constructor(
     private dialog: DialogService
   ) { }

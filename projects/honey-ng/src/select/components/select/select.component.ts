@@ -1,7 +1,15 @@
-import { Component, Input, Output, EventEmitter, forwardRef, ElementRef, AfterContentInit, ChangeDetectorRef } from '@angular/core';
+import {
+  Component, Input, Output, EventEmitter, forwardRef,
+  ElementRef, AfterContentInit, ChangeDetectorRef, HostListener
+} from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angular/forms';
 import { ErrorMessageHelper } from './../../../utils/error-message.helper';
 import { RequirebleComponent } from '../../../utils/abstract-requireble';
+
+const KEY_CODE_ARROW_UP = 38;
+const KEY_CODE_ARROW_DOWN = 40;
+const KEY_CODE_ENTER = 13;
+
 
 @Component({
   selector: 'hn-select',
@@ -18,14 +26,16 @@ import { RequirebleComponent } from '../../../utils/abstract-requireble';
 export class SelectComponent<T = any> extends RequirebleComponent implements ControlValueAccessor, AfterContentInit {
   private _writedTmp: T;
 
-  get selectedCaption(): string {
-    return this.options.get(this.selected);
-  }
-
   private options: Map<any, string> = new Map<any, string>();
 
   private writeValueInterceptors: ((value: string) => Promise<void>)[] = [];
   private toogleInteceptors: ((nextActive: boolean) => Promise<void>)[] = [];
+
+  focused: boolean = false;
+
+  get selectedCaption(): string {
+    return this.options.get(this.selected);
+  }
 
   get touched(): boolean {
     return this.element.nativeElement.classList.contains('ng-touched');
@@ -119,6 +129,20 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
 
   errorsText(): string {
     return this.errors ? ErrorMessageHelper.getMessage(this.errors) : '';
+  }
+
+  @HostListener('window:keyup', ['$event'])
+  onkeyup(e: KeyboardEvent) {
+    if (
+      !this.active &&
+      this.focused &&
+      [KEY_CODE_ARROW_UP, KEY_CODE_ARROW_DOWN, KEY_CODE_ENTER].includes(e.keyCode)) {
+      e.preventDefault();
+      e.stopPropagation();
+      setTimeout(() => {
+        this.active = true;
+      });
+    }
   }
 
   private errorsUpdateText() {

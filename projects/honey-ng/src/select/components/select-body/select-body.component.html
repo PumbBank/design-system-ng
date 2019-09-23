@@ -1,6 +1,11 @@
 <div class="option-list" [class.option-list_active]="active">
   <div class="hn-select-body__header">
-    <ng-content select="hn-select-body-filter"></ng-content>
+    <div class="hidden">
+      <ng-content select="hn-select-body-filter[hidden]"></ng-content>
+    </div>
+    <ng-container>
+      <ng-content select="hn-select-body-filter"></ng-content>
+    </ng-container>
   </div>
   <ng-content></ng-content>
 </div>

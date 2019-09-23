@@ -11,6 +11,8 @@ export class SelectOptionComponent<T = any> implements OnInit, OnDestroy {
   @Input() caption: string;
   @ViewChild('option') optionElementRef: ElementRef;
 
+  focused = false;
+
   get selected(): T {
     return this.selectComponent.selected;
   }
@@ -27,7 +29,15 @@ export class SelectOptionComponent<T = any> implements OnInit, OnDestroy {
     this.selectComponent.destroyOption(this.value);
   }
 
-  onClick() {
+  markAsFocused(): void {
+    this.focused = true;
+  }
+
+  markAsUnfocused(): void {
+    this.focused = false;
+  }
+
+  emitSelection() {
     this.selectComponent.setSelected(this.value);
     this.selectComponent.close();
   }

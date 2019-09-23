@@ -1,3 +1,3 @@
-<div class="select" (hnClickOutside)="close()">
+<div class="select" (hnClickOutside)="close()" tabindex="0" #select (focus)="focused = true" (blur)="focused = false">
   <ng-content></ng-content>
 </div>
