@@ -1,3 +1,4 @@
+import { BehaviorSubject } from 'rxjs';
 import {
   Component, Input, Output, EventEmitter, forwardRef,
   ElementRef, AfterContentInit, ChangeDetectorRef, HostListener
@@ -24,6 +25,8 @@ const KEY_CODE_ENTER = 13;
   styleUrls: ['./select.component.scss']
 })
 export class SelectComponent<T = any> extends RequirebleComponent implements ControlValueAccessor, AfterContentInit {
+  private _active: boolean = false;
+
   private _writedTmp: T;
 
   private options: Map<any, string> = new Map<any, string>();
@@ -49,7 +52,17 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
   @Input() errors: ValidationErrors | null = null;
   @Output() selectedChange: EventEmitter<T> = new EventEmitter<T>();
 
-  active: boolean = false;
+  public get active(): boolean {
+    return this._active;
+  }
+
+  public set active(value: boolean) {
+    this._active = value;
+    this.active$.next(value);
+  }
+
+  active$ = new BehaviorSubject<boolean>(this._active);
+
 
   constructor(private element: ElementRef, private changeDetector: ChangeDetectorRef) {
     super();
