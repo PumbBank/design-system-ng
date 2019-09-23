@@ -1,7 +1,7 @@
 import { BehaviorSubject } from 'rxjs';
 import {
   Component, Input, Output, EventEmitter, forwardRef,
-  ElementRef, AfterContentInit, ChangeDetectorRef, HostListener
+  ElementRef, AfterContentInit, ChangeDetectorRef, HostListener, ViewChild
 } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angular/forms';
 import { ErrorMessageHelper } from './../../../utils/error-message.helper';
@@ -52,6 +52,8 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
   @Input() errors: ValidationErrors | null = null;
   @Output() selectedChange: EventEmitter<T> = new EventEmitter<T>();
 
+  @ViewChild('select') selectElementRef: ElementRef;
+
   public get active(): boolean {
     return this._active;
   }
@@ -101,8 +103,10 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
 
   close(): void {
     this.active = false;
+    setTimeout(() => {
+      this.selectElementRef.nativeElement.focus();
+    }, 100);
   }
-
 
   async writeValue(value: any): Promise<void> {
     this._writedTmp = value;
@@ -144,17 +148,19 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
     return this.errors ? ErrorMessageHelper.getMessage(this.errors) : '';
   }
 
-  @HostListener('window:keyup', ['$event'])
+  @HostListener('keydown', ['$event'])
   onkeyup(e: KeyboardEvent) {
     if (
       !this.active &&
       this.focused &&
-      [KEY_CODE_ARROW_UP, KEY_CODE_ARROW_DOWN, KEY_CODE_ENTER].includes(e.keyCode)) {
+      [KEY_CODE_ARROW_UP, KEY_CODE_ARROW_DOWN, KEY_CODE_ENTER].includes(e.keyCode)
+    ) {
       e.preventDefault();
       e.stopPropagation();
       setTimeout(() => {
         this.active = true;
       });
+      return false;
     }
   }
 

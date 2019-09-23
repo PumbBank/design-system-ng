@@ -25,9 +25,10 @@ export class SelectBodyComponent implements OnInit {
   ) { }
 
   ngOnInit() {
+    // window.addEventListener('keydown', this.onkeyup);
   }
 
-  @HostListener('window:keyup', ['$event'])
+  @HostListener('window:keydown', ['$event'])
   onkeyup(e: KeyboardEvent) {
     if (
       this.active &&
@@ -66,6 +67,8 @@ export class SelectBodyComponent implements OnInit {
 
         this.currentFocused = -1;
       }
+
+      return false;
     }
   }
 }
