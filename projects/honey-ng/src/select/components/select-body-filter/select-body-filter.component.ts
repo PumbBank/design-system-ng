@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef } from '@angular/core';
+import { Component, OnInit, Input, OnDestroy, ViewChild, ElementRef, Output, EventEmitter } from '@angular/core';
 import { IDataSource, IOption } from '../../public_api';
 import { SelectComponent } from '../select/select.component';
 import { FormControl } from '@angular/forms';
@@ -11,6 +11,7 @@ import { takeUntil } from 'rxjs/operators';
   styleUrls: ['./select-body-filter.component.scss']
 })
 export class SelectBodyFilterComponent<T = any> implements OnInit {
+  private _options: IOption<T>[];
   private unsubscriber: Subject<void> = new Subject<void>();
 
   @Input()
@@ -19,7 +20,15 @@ export class SelectBodyFilterComponent<T = any> implements OnInit {
   @Input()
   dataSource: IDataSource<any>;
 
-  options: IOption<T>[];
+  public get options(): IOption<T>[] {
+    return this._options;
+  }
+  public set options(value: IOption<T>[]) {
+    this._options = value;
+    this.optionChanged.emit();
+  }
+
+  @Output() optionChanged = new EventEmitter<void>();
 
   filterControl = new FormControl('');
 
