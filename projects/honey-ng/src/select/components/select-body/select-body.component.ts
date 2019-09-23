@@ -1,4 +1,4 @@
-import { Component, OnInit, HostListener, ContentChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, OnInit, HostListener, ContentChildren, QueryList, ElementRef, ViewChild } from '@angular/core';
 import { SelectComponent } from '../select/select.component';
 import { SelectOptionComponent } from '../select-option/select-option.component';
 
@@ -19,6 +19,7 @@ export class SelectBodyComponent implements OnInit {
   }
 
   @ContentChildren(SelectOptionComponent) optionsElements: QueryList<SelectOptionComponent>;
+  @ViewChild('optionList') optionListElementRef: ElementRef;
 
   constructor(
     private selectComponent: SelectComponent
@@ -28,7 +29,7 @@ export class SelectBodyComponent implements OnInit {
     // window.addEventListener('keydown', this.onkeyup);
   }
 
-  @HostListener('window:keydown', ['$event'])
+  @HostListener('body:keydown', ['$event'])
   onkeyup(e: KeyboardEvent) {
     if (
       this.active &&
@@ -62,13 +63,23 @@ export class SelectBodyComponent implements OnInit {
       if ((this.optionsElements as any)._results[nextFocused]) {
         (this.optionsElements as any)._results[nextFocused].markAsFocused();
         this.currentFocused = nextFocused;
+        this.scrollToOption((this.optionsElements as any)._results[nextFocused]);
+        // this.optionListElementRef.nativeElement.scrollTo(.optionElementRef);
       } else {
-
-
         this.currentFocused = -1;
       }
 
       return false;
     }
+  }
+
+  scrollToOption(option: SelectOptionComponent) {
+    const optionListElement = this.optionListElementRef.nativeElement;
+    const optionElement = option.optionElementRef.nativeElement;
+
+    const thisRect: DOMRect = optionListElement.getBoundingClientRect();
+    const optionRect: DOMRect = optionElement.getBoundingClientRect();
+
+    optionListElement.scrollTo(0, optionListElement.scrollTop + optionRect.y - thisRect.y );
   }
 }

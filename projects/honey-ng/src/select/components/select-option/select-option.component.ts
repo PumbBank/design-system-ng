@@ -7,6 +7,8 @@ import { SelectComponent } from '../select/select.component';
   styleUrls: ['./select-option.component.scss']
 })
 export class SelectOptionComponent<T = any> implements OnInit, OnDestroy {
+
+
   @Input() value: T;
   @Input() caption: string;
   @ViewChild('option') optionElementRef: ElementRef;
