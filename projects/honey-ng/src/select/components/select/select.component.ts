@@ -10,6 +10,7 @@ import { RequirebleComponent } from '../../../utils/abstract-requireble';
 const KEY_CODE_ARROW_UP = 38;
 const KEY_CODE_ARROW_DOWN = 40;
 const KEY_CODE_ENTER = 13;
+const KEY_CODE_TAB = 9;
 
 
 @Component({
@@ -64,7 +65,6 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
   }
 
   active$ = new BehaviorSubject<boolean>(this._active);
-
 
   constructor(private element: ElementRef, private changeDetector: ChangeDetectorRef) {
     super();
@@ -165,6 +165,10 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
         this.active = true;
       });
       return false;
+    }
+
+    if (e.keyCode === KEY_CODE_TAB) {
+      this.close();
     }
   }
 
