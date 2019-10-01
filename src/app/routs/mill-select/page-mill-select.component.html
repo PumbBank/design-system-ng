@@ -1,0 +1,16 @@
+
+<h4 lcass="h4">Simple seelct with template options</h4>
+
+<mill-select caption="Select" placeholder="Placeholder">
+  <mill-select-option key="opt-1" value="Option 1"></mill-select-option>
+  <mill-select-option key="opt-2" value="Option 2"></mill-select-option>
+</mill-select>
+
+<h4 lcass="h4">Simple seelct with template options</h4>
+
+<mill-select caption="Select" [selected]="3" placeholder="Placeholder" [optionSource]="simpleOS"></mill-select>
+
+
+<h4 lcass="h4">Benchmark</h4>
+
+<mill-select caption="Select"  placeholder="Placeholder" [optionSource]="settlementOs" *ngFor="let i of range"></mill-select>

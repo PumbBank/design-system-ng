@@ -1,7 +1,12 @@
+import { PageMillSelectComponent } from './routs/mill-select/page-mill-select.component';
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
-const routes: Routes = [];
+export const routes: Routes = [
+  {
+    path: 'mill-select', component: PageMillSelectComponent
+  }
+];
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

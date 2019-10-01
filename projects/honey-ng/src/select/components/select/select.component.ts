@@ -122,6 +122,7 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
       this.onChange(null);
     } else {
       this.selected = value;
+      this.onChange(value);
     }
 
     return Promise.resolve();
