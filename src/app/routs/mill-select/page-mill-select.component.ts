@@ -2,6 +2,7 @@ import { MillOptionSource, SimpleOptionSource } from 'projects/honey-ng/src/publ
 import { Component, OnInit } from '@angular/core';
 import { SettlementService } from 'src/app/services/settlement.service';
 import { Subject } from 'rxjs';
+import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 
 @Component({
   selector: 'page-mill-select',
@@ -28,10 +29,15 @@ export class PageMillSelectComponent implements OnInit {
 
   }
 
+  onTypeChange(nextValue: any): void {
+    console.log(nextValue);
+  }
+
   ngOnInit(): void {
     const _this = this;
     this.settlementOs = {
       onChanges$: new Subject(),
+      inited: () => Promise.resolve(),
       search: (q: string) =>
         _this.settlementService.get(q ? `regionName=${q}` : '')
           .then(

@@ -24,20 +24,32 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
 
     if (this.single && !Array.isArray(value)) {
 
+
       const setSelecteForSingle = () => {
         this.optionSource.get(value).then((option: MillSelectOption<K, P>) => {
+          if (!option) { return; }
           this._selected = option.key;
           this._selectedOption = option;
         });
       };
 
-      if (!this.optionSource.inited) {
-        setSelecteForSingle();
-      }
+      const tryToSet = () => {
+        if (!this.optionSource) {
+          setTimeout(() => tryToSet(), 100);
+          return;
+        }
 
-      this.optionSource.inited().then(() => {
-        setSelecteForSingle();
-      });
+        if (!this.optionSource.inited) {
+          setSelecteForSingle();
+        }
+
+        this.optionSource.inited().then(() => {
+          setSelecteForSingle();
+        });
+      };
+
+      tryToSet();
+
     }
 
     // this._selected = value;

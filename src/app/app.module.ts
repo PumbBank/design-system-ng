@@ -3,7 +3,7 @@ import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { HnModule, DialogModule, MillSelectModule } from 'projects/honey-ng/src/public_api';
 import { ApproveModule } from 'projects/honey-ng/src/approve/approve.module';
 import { ButtonModule } from 'projects/honey-ng/src/button/button.module';
@@ -33,6 +33,7 @@ const MILL_MODULES = [
     FileUploadModule,
     FormControlDisabledModule,
     ReactiveFormsModule,
+    FormsModule,
     DialogModule.forRoot(),
     ...MILL_MODULES
   ],
