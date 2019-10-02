@@ -1,5 +1,5 @@
-import { MillSelectOption } from './mill-select-option';
 import { InjectionToken } from '@angular/core';
+import { MillSelectOption } from '../../mill-select-option';
 
 export const OPTION_REGISTRATOR_KEY = new InjectionToken<MillOptionRegistrator>('SELECT_OPTION_REGISTRATOR_KEY');
 

@@ -13,46 +13,41 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
   private _selectedOption: MillSelectOption<K, P>;
   private _selected: K | Array<K>;
 
+  searchInputValue = '';
+
+  @Input() optionSource: MillOptionSource<K, P>;
+
   /**
    * @description Key o selected option
    */
   @Input()
   public set selected(value: K | Array<K>) {
-    if (this.single && Array.isArray(value)) {
-      throw Error('[MillSelectComponent] You con\'t set array as selected for not multiple select!');
-    }
 
-    if (this.single && !Array.isArray(value)) {
+    if (this.single) {
+      if (Array.isArray(value)) {
+        throw Error('[MillSelectComponent] You con\'t set array as selected for not multiple select!');
+      }
 
-
-      const setSelecteForSingle = () => {
+      const setSelectedForSingle = () => {
         this.optionSource.get(value).then((option: MillSelectOption<K, P>) => {
           if (!option) { return; }
           this._selected = option.key;
           this._selectedOption = option;
+          this.searchInputValue = option.value;
         });
       };
 
-      const tryToSet = () => {
-        if (!this.optionSource) {
-          setTimeout(() => tryToSet(), 100);
-          return;
-        }
-
+      this.waitForSettingOptionSource().then(() => {
         if (!this.optionSource.inited) {
-          setSelecteForSingle();
+          setSelectedForSingle();
         }
 
         this.optionSource.inited().then(() => {
-          setSelecteForSingle();
+          setSelectedForSingle();
         });
-      };
-
-      tryToSet();
+      });
 
     }
-
-    // this._selected = value;
   }
 
   public get selected(): K | Array<K> {
@@ -77,23 +72,17 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
     return !this.multiple;
   }
 
-  @Input() optionSource: MillOptionSource<K, P>;
-
   options$ = new BehaviorSubject<Array<MillSelectOption<K, P>>>([]);
 
   ngOnInit(): void {
-    this.optionSource.onChanges$
-      .pipe(debounceTime(300))
-      .subscribe(() => {
-        if (DEBUG) { debugLog(`[AbstractSelectOptions] this.optionSource.onChanges$.subscribe`); }
-        this.updateOptions();
-      });
-  }
-
-  optionClick(option: MillSelectOption<K, P>): void {
-    if (DEBUG) { debugLog(`[AbstractSelectOptions] optionClick`); }
-
-    this.selectOption(option);
+    this.waitForSettingOptionSource().then(() => {
+      if (this.optionSource.registerOnCanhges) {
+        this.optionSource.registerOnCanhges(() => {
+          if (DEBUG) { debugLog(`[AbstractSelectOptions] this.optionSource.registerOnCanhges > onchangeCallback`); }
+          this.loadOptionsFromSource();
+        });
+      }
+    });
   }
 
   clearSelected(): void {
@@ -129,8 +118,8 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
     return Promise.resolve();
   }
 
-  protected async updateOptions(query: string = ''): Promise<any> {
-    if (DEBUG) { debugLog(`[AbstractSelectOptions] updateOptions`); }
+  protected async loadOptionsFromSource(query: string = ''): Promise<any> {
+    if (DEBUG) { debugLog(`[AbstractSelectOptions] loadOptionsFromSource ${query}`); }
 
     if (this.optionSource.inited) {
       await this.optionSource.inited();
@@ -174,5 +163,20 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
     } else {
       throw new Error(`[MillSelectComponent] selcted and selectedOptions for single seclect must not be array!`);
     }
+  }
+
+  private async waitForSettingOptionSource(checkInterval: number = 100): Promise<void> {
+    return new Promise((resolve: any) => {
+      const tryToSet = () => {
+        if (!this.optionSource) {
+          setTimeout(() => tryToSet(), 100);
+          return;
+        }
+
+        resolve();
+      };
+
+      tryToSet();
+    });
   }
 }

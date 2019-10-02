@@ -1,8 +1,9 @@
 <div role="listbox" class="select">
   <ng-container *ngTemplateOutlet="defaultHeaderTemplate; context: this"></ng-container>
 
-  <ng-container *ngTemplateOutlet="defaultBodyTemplate; context: this">
-
+  <ng-container *ngIf="active$.value || !isNotRenderInactiveBodyMode">
+    <ng-container *ngTemplateOutlet="defaultBodyTemplate; context: this">
+    </ng-container>
   </ng-container>
 </div>
 

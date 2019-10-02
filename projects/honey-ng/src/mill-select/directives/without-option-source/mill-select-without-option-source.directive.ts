@@ -1,9 +1,10 @@
 import { BehaviorSubject, Subject } from 'rxjs';
 import { Directive, AfterContentInit, forwardRef } from '@angular/core';
 import { MillOptionRegistrator, OPTION_REGISTRATOR_KEY } from './mill-option-registrator';
-import { MillSelectOption } from './mill-select-option';
 import { filter, map } from 'rxjs/operators';
-import { MillSelectComponent } from './components/select/mill-select.component';
+import { MillSelectComponent } from '../../components/select/mill-select.component';
+import { MillSelectOption } from '../../mill-select-option';
+import { InactiveBodyMode } from '../../components/select/abstract-select-state';
 
 @Directive({
   selector: 'mill-select:not([optionSource])',
@@ -15,15 +16,40 @@ import { MillSelectComponent } from './components/select/mill-select.component';
 export class MillSelectWithoutOptionSourceDirective<K = any, P = any> implements MillOptionRegistrator, AfterContentInit {
   private initSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private options = new Map<K, MillSelectOption<K, P>>();
-  private onChanges$ = new Subject<void>();
 
   constructor(
-    millSelectComponent: MillSelectComponent<K, P>
+    private millSelectComponent: MillSelectComponent<K, P>
   ) {
+    this.millSelectComponent.inactiveBodyMode = InactiveBodyMode.NOT_VISIBLE;
+    this.initOptionSource();
+  }
+
+  ngAfterContentInit(): void {
+    this.initSubject.next(true);
+  }
+
+  registrateOption(option: MillSelectOption<K, P>): void {
+    if (this.options.has(option.key)) {
+      throw new Error(`[MillSelectWithoutOptionSourceDirective] Duplicate registration option: ${JSON.stringify(option)}`);
+    }
+    this.options.set(option.key, option);
+    this.onchangesCallback();
+  }
+
+  unregistrateOption(option: MillSelectOption<K, P>): void {
+    if (!this.options.has(option.key)) {
+      throw new Error(`[MillSelectWithoutOptionSourceDirective] Try unregistrate unregistrated option: ${JSON.stringify(option)}`);
+    }
+    this.options.delete(option.key);
+  }
+
+  private initOptionSource() {
     const _this = this;
 
-    millSelectComponent.optionSource = {
-      onChanges$: _this.onChanges$,
+    this.millSelectComponent.optionSource = {
+      registerOnCanhges: (onchangesCallback: () => void) => {
+        _this.onchangesCallback = onchangesCallback;
+      },
 
       inited: () => {
         if (_this.initSubject.value) {
@@ -44,26 +70,7 @@ export class MillSelectWithoutOptionSourceDirective<K = any, P = any> implements
           })
       )
     };
-
-    (window as any).ass = millSelectComponent.optionSource;
   }
 
-  ngAfterContentInit(): void {
-    this.initSubject.next(true);
-  }
-
-  registrateOption(option: MillSelectOption<K, P>): void {
-    if (this.options.has(option.key)) {
-      throw new Error(`[MillSelectWithoutOptionSourceDirective] Duplicate registration option: ${JSON.stringify(option)}`);
-    }
-    this.options.set(option.key, option);
-    this.onChanges$.next();
-  }
-
-  unregistrateOption(option: MillSelectOption<K, P>): void {
-    if (!this.options.has(option.key)) {
-      throw new Error(`[MillSelectWithoutOptionSourceDirective] Try unregistrate unregistrated option: ${JSON.stringify(option)}`);
-    }
-    this.options.delete(option.key);
-  }
+  private onchangesCallback: () => void = () => { };
 }

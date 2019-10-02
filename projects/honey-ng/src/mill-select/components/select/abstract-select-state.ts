@@ -2,25 +2,44 @@ import { BehaviorSubject } from 'rxjs';
 import { AbstractSelectOptions } from './abstract-select-option';
 import { DEBUG, debugLog } from '../../../utils/degug-log';
 
+export enum InactiveBodyMode {
+  NOT_VISIBLE,
+  NOT_RENDER
+}
+
 
 export abstract class AbstractSelectState<K = any, P = any> extends AbstractSelectOptions<K, P> {
   active$ = new BehaviorSubject<boolean>(false);
-  toggle(): boolean {
-    if (DEBUG) { debugLog(`[AbstractSelectState] toggle ${this.active$.value}`); }
 
-    if (this.active$.value) {
-      this.close();
-    } else {
-      this.open();
-    }
+  inactiveBodyMode: InactiveBodyMode = InactiveBodyMode.NOT_RENDER;
 
-    return this.active$.value;
+  get isNotVisibleInactiveBodyMode(): boolean {
+    return this.inactiveBodyMode === InactiveBodyMode.NOT_VISIBLE;
   }
 
-  open(): void {
-    if (DEBUG) { debugLog(`[AbstractSelectState] open`); }
+  get isNotRenderInactiveBodyMode(): boolean {
+    return this.inactiveBodyMode === InactiveBodyMode.NOT_RENDER;
+  }
 
-    this.updateOptions('');
+  // toggle(): boolean {
+  //   if (DEBUG) { debugLog(`[AbstractSelectState] toggle "${this.active$.value}"`); }
+
+  //   if (this.active$.value) {
+  //     this.close();
+  //   } else {
+  //     this.open();
+  //   }
+
+  //   return this.active$.value;
+  // }
+
+  open(updateOptionList = false): void {
+    if (DEBUG) { debugLog(`[AbstractSelectState] open > updateOptionList: ${updateOptionList}`); }
+
+    if (updateOptionList) {
+      this.loadOptionsFromSource('');
+    }
+
     this.active$.next(true);
   }
 

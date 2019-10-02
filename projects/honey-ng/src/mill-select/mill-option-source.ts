@@ -2,7 +2,7 @@ import { MillSelectOption } from './mill-select-option';
 import { Observable, Subject } from 'rxjs';
 
 export interface MillOptionSource<K = any, P = any, Q = any> {
-  onChanges$: Observable<void>;
+  registerOnCanhges?(onchangeCallback: () => void): void;
 
   /**
    * @description Promis that wait initing of source and resolve after option-source inited.
@@ -22,7 +22,6 @@ export interface MillOptionSource<K = any, P = any, Q = any> {
 }
 
 export class SimpleOptionSource<K = any, P = any> implements MillOptionSource<K, P, string> {
-  onChanges$ = new Subject<void>();
 
   constructor(private options: Array<MillSelectOption<K, P>>) { }
 

@@ -1,17 +1,12 @@
-import { Component, Inject, Input, OnInit, OnDestroy } from '@angular/core';
-import { MillOptionRegistrator, OPTION_REGISTRATOR_KEY } from '../../mill-option-registrator';
+import { Inject, Input, OnInit, OnDestroy, Directive } from '@angular/core';
 import { MillSelectOption } from '../../mill-select-option';
+import { OPTION_REGISTRATOR_KEY, MillOptionRegistrator } from '../../directives/without-option-source/mill-option-registrator';
 
-@Component({
+@Directive({
   // tslint:disable-next-line:component-selector
-  selector: 'mill-select-option',
-  template: `
-    <div class="option">
-      <div class="option__text"></div>
-    </div>
-  `
+  selector: '[millSelectOption]',
 })
-export class MillSelectOptionComponent<K = any> implements OnDestroy, OnInit {
+export class MillSelectOptionDirective<K = any> implements OnDestroy, OnInit {
   option: MillSelectOption<K>;
 
   @Input() key: K;

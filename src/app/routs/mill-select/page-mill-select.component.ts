@@ -23,6 +23,9 @@ export class PageMillSelectComponent implements OnInit {
     }
   ]);
 
+  os100: MillOptionSource<number> = new SimpleOptionSource(Array(100).fill(0).map((v, key) => ({ key, value: `Option ${key}` })));
+  os1000: MillOptionSource<number> = new SimpleOptionSource(Array(1000).fill(0).map((v, key) => ({ key, value: `Option ${key}` })));
+
   settlementOs: MillOptionSource<string>;
 
   constructor(private settlementService: SettlementService) {
@@ -36,7 +39,6 @@ export class PageMillSelectComponent implements OnInit {
   ngOnInit(): void {
     const _this = this;
     this.settlementOs = {
-      onChanges$: new Subject(),
       inited: () => Promise.resolve(),
       search: (q: string) =>
         _this.settlementService.get(q ? `regionName=${q}` : '')

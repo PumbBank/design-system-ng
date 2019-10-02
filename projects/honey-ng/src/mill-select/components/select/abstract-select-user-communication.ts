@@ -14,6 +14,19 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
   @ViewChildren('optionElement') optionsRefs: QueryList<ElementRef>;
   @ViewChild('selectBodyElement') bodyRef: ElementRef;
 
+  optionClick(option: MillSelectOption<K, P>): void {
+    if (DEBUG) { debugLog(`[AbstractSelectUserCommunication] optionClick`); }
+
+    this.selectOption(option);
+  }
+
+  onSearchInput(query: string): void {
+    super.onSearchInput(query);
+    if (!this.active$) {
+      this.open();
+    }
+  }
+
   onSearchInputFocus() {
     if (DEBUG) { debugLog(`[AbstractSelectUserCommunication] onSearchInputFocus`); }
 
@@ -22,8 +35,8 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
     this.searchInputFocused = true;
   }
 
-  open() {
-    super.open();
+  open(updateOptionList = false) {
+    super.open(updateOptionList);
     this.focusedOptionIndex = -1;
   }
 
@@ -50,7 +63,7 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
     if (DEBUG) { debugLog(`[AbstractSelectUserCommunication] onSearchInputKeydown ${JSON.stringify({ code: event.keyCode, chanr: event.char })}`); }
 
 
-    if (event.keyCode === KEY_CODE_ARROW_UP) {
+    if (event.keyCode === KEY_CODE_ARROW_UP && this.active$.value) {
       event.preventDefault();
       event.stopPropagation();
 
@@ -65,7 +78,7 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
       return;
     }
 
-    if (event.keyCode === KEY_CODE_ARROW_DOWN) {
+    if (event.keyCode === KEY_CODE_ARROW_DOWN && this.active$.value) {
       event.preventDefault();
       event.stopPropagation();
 
@@ -80,14 +93,14 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
       return;
     }
 
-    if (event.keyCode === KEY_CODE_ENTER && this.options$.value[this.focusedOptionIndex]) {
+    if (event.keyCode === KEY_CODE_ENTER && this.options$.value[this.focusedOptionIndex] && this.active$.value) {
       event.preventDefault();
       event.stopPropagation();
 
       this.selectOption(this.options$.value[this.focusedOptionIndex]);
     }
 
-    if (event.keyCode === KEY_CODE_TAB) {
+    if (event.keyCode === KEY_CODE_TAB && this.active$.value) {
       if (this.single && this.options$.value[this.focusedOptionIndex]) {
         this.selectOption(this.options$.value[this.focusedOptionIndex]);
       } else {

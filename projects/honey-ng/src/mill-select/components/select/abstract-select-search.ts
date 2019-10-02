@@ -1,8 +1,8 @@
 import { AbstractSelectState } from './abstract-select-state';
 import { DEBUG, debugLog } from '../../../utils/degug-log';
+import { Input } from '@angular/core';
 
 export abstract class AbstractSelectSearch<K = any, P = any> extends AbstractSelectState<K, P> {
-  searchInputValue = '';
 
   onSearchInput(query: string) {
     if (DEBUG) { debugLog(`[AbstractSelectSearch] onSearchInput "${query}"`); }
@@ -10,13 +10,14 @@ export abstract class AbstractSelectSearch<K = any, P = any> extends AbstractSel
     if (this.single) {
       this.clearSelected();
     }
+
     this.searchInputValue = query;
-    this.updateOptions(query);
+    this.loadOptionsFromSource(query);
   }
 
   onSearchInputFocus() {
     if (DEBUG) { debugLog(`[AbstractSelectSearch] onSearchInputFocus`); }
-    this.open();
+    this.open(true);
   }
 
   onSearchInputBlur() {

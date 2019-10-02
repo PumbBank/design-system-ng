@@ -1,8 +1,8 @@
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { MillSelectWithoutOptionSourceDirective } from './mill-select-without-option-source.directive';
 import { MillSelectComponent } from './components/select/mill-select.component';
-import { MillSelectOptionComponent } from './components/option/mill-select-option.component';
+import { MillSelectWithoutOptionSourceDirective } from './directives/without-option-source/mill-select-without-option-source.directive';
+import { MillSelectOptionDirective } from './directives/option/mill-select-option.directive';
 
 @NgModule({
   imports: [
@@ -11,12 +11,12 @@ import { MillSelectOptionComponent } from './components/option/mill-select-optio
   declarations: [
     MillSelectComponent,
     MillSelectWithoutOptionSourceDirective,
-    MillSelectOptionComponent
+    MillSelectOptionDirective
   ],
   exports: [
     MillSelectComponent,
     MillSelectWithoutOptionSourceDirective,
-    MillSelectOptionComponent
+    MillSelectOptionDirective
   ]
 })
 export class MillSelectModule { }
