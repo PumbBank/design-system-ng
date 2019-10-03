@@ -53,7 +53,7 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
   @Input()
   public set selected(value: T) {
     this._selected = value;
-    this.changeDetector.markForCheck();
+    setTimeout(() => this.changeDetector.markForCheck(), 100);
   }
   public get selected(): T {
     return this._selected;
