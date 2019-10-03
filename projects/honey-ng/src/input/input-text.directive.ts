@@ -49,8 +49,8 @@ export class InputTextDirective extends HnInput implements ControlValueAccessor,
   }
 
   protected cleanFunction: CleanFunction = function (inputValue: string) {
+    this.input.value = inputValue;
     if (this.textMaskInput) {
-      this.input.value = inputValue;
       this.textMaskInput.update();
     }
     return this.cleanFn ? this.cleanFn(this.input.value) : this.input.value;
