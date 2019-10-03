@@ -27,6 +27,7 @@ const KEY_CODE_TAB = 9;
 })
 export class SelectComponent<T = any> extends RequirebleComponent implements ControlValueAccessor, AfterContentInit {
   private _active: boolean = false;
+  private _selected: T;
 
   private _writedTmp: T;
 
@@ -49,7 +50,15 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
     return this.element.nativeElement.classList.contains('ng-invalid');
   }
 
-  @Input() selected: T;
+  @Input()
+  public set selected(value: T) {
+    this._selected = value;
+    this.changeDetector.markForCheck();
+  }
+  public get selected(): T {
+    return this._selected;
+  }
+
   @Input() errors: ValidationErrors | null = null;
   @Output() selectedChange: EventEmitter<T> = new EventEmitter<T>();
 
