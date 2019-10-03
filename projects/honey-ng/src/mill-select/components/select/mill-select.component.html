@@ -11,12 +11,20 @@
   Default header template
 -->
 <ng-template #defaultHeaderTemplate>
-  <div class="select__header input">
+  <label class="select__header input">
     <div class="input__label">{{ caption }} </div>
     <div class="input__body">
+
+      <ng-container *ngIf="multiple">
+        <div class="chip" *ngFor="let option of selectedOption">
+          <div class="chip__text">{{ option.value }}</div>
+          <div class="chip__icon icon" (click)="ontionChipCloseClick(option)"></div>
+        </div>
+      </ng-container>
+
+
       <div class="input__enterence">
         <div class="input__placeholder" *ngIf="!searchInputValue"> {{ placeholder }} </div>
-
         <input class="input__input" (focus)="onSearchInputFocus()" (blur)="onSearchInputBlur()"
           [value]="searchInputValue" (input)="onSearchInput(searchInput.value)" (keydown)="onSearchInputKeydown($event)"
           #searchInput>
@@ -24,7 +32,7 @@
       </div>
       <span class="input__icon icon icon_chevron-down"></span>
     </div>
-  </div>
+  </label>
 </ng-template>
 
 <!--

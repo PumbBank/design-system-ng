@@ -20,6 +20,12 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
     this.selectOption(option);
   }
 
+  ontionChipCloseClick(option: MillSelectOption<K, P>): void {
+    if (DEBUG) { debugLog(`[AbstractSelectUserCommunication] ontionChipCloseClick "${option.key} - ${option.value}"`); }
+
+    this.unselectOption(option);
+  }
+
   onSearchInput(query: string): void {
     super.onSearchInput(query);
     if (!this.active$) {
@@ -53,9 +59,9 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
       } else {
         this.searchInputValue = '';
       }
-
-      this.updateState();
     }
+
+    this.updateState();
   }
 
   onSearchInputKeydown(event: KeyboardEvent) {
@@ -121,6 +127,8 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
     if (DEBUG) { debugLog(`[AbstractSelectUserCommunication] onBodyMouseOut`); }
 
     this.bodyMouseOvered = false;
+
+    this.updateState();
   }
 
   protected async selectOption(option: MillSelectOption<K, P>): Promise<void> {

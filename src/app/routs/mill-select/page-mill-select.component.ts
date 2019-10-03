@@ -1,7 +1,7 @@
+import { FormControl } from '@angular/forms';
 import { MillOptionSource, SimpleOptionSource } from 'projects/honey-ng/src/public_api';
 import { Component, OnInit } from '@angular/core';
 import { SettlementService } from 'src/app/services/settlement.service';
-import { Subject } from 'rxjs';
 import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 
 @Component({
@@ -10,7 +10,9 @@ import { __core_private_testing_placeholder__ } from '@angular/core/testing';
 })
 export class PageMillSelectComponent implements OnInit {
 
-  range = Array(100).fill(0);
+  range = Array(50).fill(0);
+
+  formControl = new FormControl([11, 12, 13, 14]);
 
   simpleOS: MillOptionSource<number> = new SimpleOptionSource([
     {
@@ -51,7 +53,7 @@ export class PageMillSelectComponent implements OnInit {
                 }))
           )
       ,
-      get: (key: string) => _this.settlementService.get(`?regionName=key`)
+      get: (key: string) => _this.settlementService.get(``)
         .then(
           (settlements: any) =>
             settlements.result
@@ -59,7 +61,7 @@ export class PageMillSelectComponent implements OnInit {
                 key: settlement.Id,
                 value: settlement.Region
               }))
-              .find((option: any) => option.key === key)
+              .find((option: any) => option.key === +key)
         )
     };
   }

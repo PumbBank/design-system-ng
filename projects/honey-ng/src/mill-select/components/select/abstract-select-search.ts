@@ -1,6 +1,5 @@
 import { AbstractSelectState } from './abstract-select-state';
 import { DEBUG, debugLog } from '../../../utils/degug-log';
-import { Input } from '@angular/core';
 
 export abstract class AbstractSelectSearch<K = any, P = any> extends AbstractSelectState<K, P> {
 

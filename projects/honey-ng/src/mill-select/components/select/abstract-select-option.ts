@@ -1,16 +1,13 @@
 import { MillSelectOption } from './../../mill-select-option';
 import { Input, OnInit, EventEmitter, Output } from '@angular/core';
-import { debounceTime } from 'rxjs/operators';
 import { MillOptionSource } from '../../mill-option-source';
 import { BehaviorSubject } from 'rxjs';
 import { DEBUG, debugLog } from '../../../utils/degug-log';
 
-interface IMillSelectedChangeEvent<K = any> {
-  selected: K | Array<K>;
-}
 
 export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit {
-  private _selectedOption: MillSelectOption<K, P>;
+  private _multiple: boolean = false;
+  private _selectedOption: MillSelectOption<K, P> | Array<MillSelectOption<K, P>>;
   private _selected: K | Array<K>;
 
   searchInputValue = '';
@@ -18,58 +15,43 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
   @Input() optionSource: MillOptionSource<K, P>;
 
   /**
+   * @description Enable selecting more then one option
+   */
+  @Input()
+  public set multiple(value: boolean) {
+    this._multiple = value;
+    if (!Array.isArray(this.selected)) {
+      this.selected = [];
+      this._selectedOption = [];
+    }
+  }
+  public get multiple(): boolean {
+    return this._multiple;
+  }
+
+  get single(): boolean {
+    return !this.multiple;
+  }
+
+  /**
    * @description Key o selected option
    */
   @Input()
   public set selected(value: K | Array<K>) {
-
-    if (this.single) {
-      if (Array.isArray(value)) {
-        throw Error('[MillSelectComponent] You con\'t set array as selected for not multiple select!');
-      }
-
-      const setSelectedForSingle = () => {
-        this.optionSource.get(value).then((option: MillSelectOption<K, P>) => {
-          if (!option) { return; }
-          this._selected = option.key;
-          this._selectedOption = option;
-          this.searchInputValue = option.value;
-        });
-      };
-
-      this.waitForSettingOptionSource().then(() => {
-        if (!this.optionSource.inited) {
-          setSelectedForSingle();
-        }
-
-        this.optionSource.inited().then(() => {
-          setSelectedForSingle();
-        });
-      });
-
-    }
+    this.setSelected(value);
   }
 
   public get selected(): K | Array<K> {
     return this._selected;
   }
 
-  @Output() selectedChange = new EventEmitter<IMillSelectedChangeEvent<K>>();
+  @Output() selectedChange = new EventEmitter<K | Array<K>>();
 
   /**
    * @description Selected option
    */
   get selectedOption(): MillSelectOption<K, P> | Array<MillSelectOption<K, P>> {
     return this._selectedOption;
-  }
-
-  /**
-   * @description Enable selecting more then one option
-   */
-  @Input() multiple: boolean = false;
-
-  get single(): boolean {
-    return !this.multiple;
   }
 
   options$ = new BehaviorSubject<Array<MillSelectOption<K, P>>>([]);
@@ -109,13 +91,27 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
     if (DEBUG) { debugLog(`[AbstractSelectOptions] selectOption`); }
 
     if (this.multiple) {
-      this.setOptionForMultiple(option);
+      await this.setOptionForMultiple(option);
     } else {
-      this.setOptionForSingle(option);
+      await this.setOptionForSingle(option);
     }
-    this.selectedChange.emit({ selected: this.selected });
 
+    this.selectedChange.emit(this.selected);
     return Promise.resolve();
+  }
+
+  protected unselectOption(option: MillSelectOption<K, P>) {
+    if (DEBUG) { debugLog(`[AbstractSelectOptions] unselectOption ${JSON.stringify(option)}`); }
+
+    if (!Array.isArray(this._selectedOption) || !Array.isArray(this._selected)) {
+      throw new Error(`[AbstractSelectOptions] _selectedOption && _selected must be Array ;(`);
+    }
+
+    this._selectedOption.splice(this._selectedOption.indexOf(option), 1);
+    this._selected.splice(this._selected.indexOf(option.key), 1);
+
+
+    this.selectedChange.emit(this.selected);
   }
 
   protected async loadOptionsFromSource(query: string = ''): Promise<any> {
@@ -128,11 +124,13 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
     this.options$.next(await this.optionSource.search(query));
   }
 
-  protected setOptionForSingle(option: MillSelectOption<K, P>) {
+  protected async setOptionForSingle(option: MillSelectOption<K, P>): Promise<void> {
     if (DEBUG) { debugLog(`[AbstractSelectOptions] setOptionForSingle ${JSON.stringify(option)}`); }
 
     if (!Array.isArray(this.selected) && !Array.isArray(this.selectedOption)) {
-      this.selected = option.key;
+      await this.setSelected(option.key);
+
+      return Promise.resolve();
     } else {
       throw new Error(`[MillSelectComponent] selcted and selectedOptions for single seclect must not be array!`);
     }
@@ -162,6 +160,55 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
       this.selected = null;
     } else {
       throw new Error(`[MillSelectComponent] selcted and selectedOptions for single seclect must not be array!`);
+    }
+  }
+
+  private async setSelected(value: K | Array<K>): Promise<void> {
+    if (this.single) {
+      if (Array.isArray(value)) {
+        throw Error('[MillSelectComponent] You con\'t set array as selected for not multiple select!');
+      }
+
+      const setSelectedForSingle = async () => {
+        await this.optionSource.get(value as K).then((option: MillSelectOption<K, P>) => {
+          if (!option) { return; }
+          this._selected = option.key;
+          this._selectedOption = option;
+          this.searchInputValue = option.value;
+        });
+
+        return Promise.resolve();
+      };
+
+      return this.waitForSettingOptionSource()
+        .then(() => this.optionSource.inited && this.optionSource.inited())
+        .then(() => setSelectedForSingle());
+
+    } else {
+      if (!Array.isArray(value)) {
+        // throw Error(`[MillSelectComponent] You con\'t set "${value}"(${typeof value}) as selected for multiple select! Array expected!`);
+        value = [];
+      }
+
+      this._selected = [];
+      this._selectedOption = [];
+
+      const setSelectedForMultiple = async () => {
+        // (value as Array<K>).forEach((item: K) =>
+        for (const item of value as Array<K>) {
+          this.optionSource.get(item).then((option: MillSelectOption<K, P>) => {
+            if (!option) { return; }
+            (this._selected as Array<K>).push(option.key);
+            (this._selectedOption as Array<MillSelectOption<K, P>>).push(option);
+          });
+        }
+
+        return Promise.resolve();
+      };
+
+      return this.waitForSettingOptionSource()
+        .then(() => this.optionSource.inited && this.optionSource.inited())
+        .then(() => setSelectedForMultiple());
     }
   }
 
