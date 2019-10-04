@@ -27,6 +27,12 @@ export class SelectValueAccessorDirective implements ControlValueAccessor {
         this.onChangeCallback(value);
       }
     });
+
+    select.active$.pipe(takeUntil(this.unsubscriber)).subscribe((active: boolean) => {
+      if (!active) {
+        this.onTouchedCallback();
+      }
+    });
   }
 
   writeValue(value: any) {

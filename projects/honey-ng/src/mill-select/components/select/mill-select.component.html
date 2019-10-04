@@ -22,7 +22,6 @@
         </div>
       </ng-container>
 
-
       <div class="input__enterence">
         <div class="input__placeholder" *ngIf="!searchInputValue"> {{ placeholder }} </div>
         <input class="input__input" (focus)="onSearchInputFocus()" (blur)="onSearchInputBlur()"
@@ -31,6 +30,10 @@
 
       </div>
       <span class="input__icon icon icon_chevron-down"></span>
+    </div>
+
+    <div class="input__footer">
+      <ng-content selector="mill-hint"></ng-content>
     </div>
   </label>
 </ng-template>

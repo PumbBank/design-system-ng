@@ -13,9 +13,14 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
 
   @ViewChildren('optionElement') optionsRefs: QueryList<ElementRef>;
   @ViewChild('selectBodyElement') bodyRef: ElementRef;
+  @ViewChild('searchInput') searchInputRef: ElementRef;
 
   optionClick(option: MillSelectOption<K, P>): void {
     if (DEBUG) { debugLog(`[AbstractSelectUserCommunication] optionClick`); }
+
+    if (this.multiple) {
+      this.searchInputRef.nativeElement.focus();
+    }
 
     this.selectOption(option);
   }

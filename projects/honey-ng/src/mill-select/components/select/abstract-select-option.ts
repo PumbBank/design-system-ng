@@ -21,7 +21,7 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
   public set multiple(value: boolean) {
     this._multiple = value;
     if (!Array.isArray(this.selected)) {
-      this.selected = [];
+      this._selected = [];
       this._selectedOption = [];
     }
   }
@@ -117,9 +117,7 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
   protected async loadOptionsFromSource(query: string = ''): Promise<any> {
     if (DEBUG) { debugLog(`[AbstractSelectOptions] loadOptionsFromSource ${query}`); }
 
-    if (this.optionSource.inited) {
-      await this.optionSource.inited();
-    }
+    await this.waitForSettingOptionSource();
 
     this.options$.next(await this.optionSource.search(query));
   }
@@ -157,7 +155,8 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
     if (DEBUG) { debugLog(`[AbstractSelectOptions] clearSelectedForSingle ${JSON.stringify(this.selected)}`); }
 
     if (!Array.isArray(this.selected) && !Array.isArray(this.selectedOption)) {
-      this.selected = null;
+      this._selected = null;
+      this._selectedOption = null;
     } else {
       throw new Error(`[MillSelectComponent] selcted and selectedOptions for single seclect must not be array!`);
     }

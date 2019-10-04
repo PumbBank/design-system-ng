@@ -3,9 +3,22 @@
 <hr>
 <input type="text" #testInp1> <button (click)="formControl.setValue(testInp1.value.split(','))">SET</button>
 {{ formControl.value }}
+
 <mill-select caption="Select" placeholder="Placeholder" [formControl]="formControl" [multiple]="true"
   [optionSource]="settlementOs">
+  <mill-hint hintControl></mill-hint>
 </mill-select>
+
+<form action="" ngForm>
+  <mill-select caption="Select" placeholder="Placeholder" ngModel name="test" required [multiple]="true"
+    [optionSource]="settlementOs">
+    <mill-hint hintControl></mill-hint>
+  </mill-select>
+
+  <button type="submit">S</button>
+
+</form>
+
 <hr>
 
 <h4 class="h4"> Multiple </h4>

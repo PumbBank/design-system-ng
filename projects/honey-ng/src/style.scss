@@ -1,0 +1,8 @@
+
+@import '~@mill/stylesheets/bundle';
+
+mill-select.ng-touched.ng-invalid {
+  .input {
+    @extend .input_error;
+  }
+}
