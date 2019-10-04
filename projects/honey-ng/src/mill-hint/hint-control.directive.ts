@@ -27,7 +27,7 @@ export class HintControlDirective implements OnInit {
     } else if (this.formControlDirective) {
       this.control = this.formControlDirective.control;
     } else {
-      console.warn(`[HintControlDirective] Can't find any abstractControl source (ngModel, formConrtol, formControlName)`);
+      throw new Error(`[HintControlDirective] Can't find any abstractControl source (ngModel, formConrtol, formControlName)`);
     }
 
     this.control.statusChanges

@@ -1,5 +1,5 @@
 
-import { KEY_CODE_TAB, KEY_CODE_ARROW_UP, KEY_CODE_ARROW_DOWN, KEY_CODE_ENTER } from './../../../utils/key-code';
+import { CODE_TAB, CODE_ARROW_UP, CODE_ARROW_DOWN, CODE_ENTER } from './../../../utils/key-code';
 import { MillSelectOption } from './../../mill-select-option';
 import { DEBUG, debugLog } from '../../../utils/degug-log';
 import { AbstractSelectSearch } from './abstract-select-search';
@@ -71,10 +71,10 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
 
   onSearchInputKeydown(event: KeyboardEvent) {
     // tslint:disable-next-line:max-line-length
-    if (DEBUG) { debugLog(`[AbstractSelectUserCommunication] onSearchInputKeydown ${JSON.stringify({ code: event.keyCode, chanr: event.char })}`); }
+    if (DEBUG) { debugLog(`[AbstractSelectUserCommunication] onSearchInputKeydown ${JSON.stringify({ code: event.code })}`); }
 
 
-    if (event.keyCode === KEY_CODE_ARROW_UP && this.active$.value) {
+    if (event.code === CODE_ARROW_UP && this.active$.value) {
       event.preventDefault();
       event.stopPropagation();
 
@@ -89,7 +89,7 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
       return;
     }
 
-    if (event.keyCode === KEY_CODE_ARROW_DOWN && this.active$.value) {
+    if (event.code === CODE_ARROW_DOWN && this.active$.value) {
       event.preventDefault();
       event.stopPropagation();
 
@@ -104,14 +104,14 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
       return;
     }
 
-    if (event.keyCode === KEY_CODE_ENTER && this.options$.value[this.focusedOptionIndex] && this.active$.value) {
+    if (event.code === CODE_ENTER && this.options$.value[this.focusedOptionIndex] && this.active$.value) {
       event.preventDefault();
       event.stopPropagation();
 
       this.selectOption(this.options$.value[this.focusedOptionIndex]);
     }
 
-    if (event.keyCode === KEY_CODE_TAB && this.active$.value) {
+    if (event.code === CODE_TAB && this.active$.value) {
       if (this.single && this.options$.value[this.focusedOptionIndex]) {
         this.selectOption(this.options$.value[this.focusedOptionIndex]);
       } else {

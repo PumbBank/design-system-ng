@@ -6,12 +6,7 @@ import {
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, ValidationErrors } from '@angular/forms';
 import { ErrorMessageHelper } from './../../../utils/error-message.helper';
 import { RequirebleComponent } from '../../../utils/abstract-requireble';
-
-const KEY_CODE_ARROW_UP = 38;
-const KEY_CODE_ARROW_DOWN = 40;
-const KEY_CODE_ENTER = 13;
-const KEY_CODE_TAB = 9;
-
+import { CODE_ARROW_UP, CODE_TAB, CODE_ARROW_DOWN, CODE_ENTER } from '../../../utils/key-code';
 
 @Component({
   selector: 'hn-select',
@@ -167,7 +162,7 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
     if (
       !this.active &&
       this.focused &&
-      [KEY_CODE_ARROW_UP, KEY_CODE_ARROW_DOWN, KEY_CODE_ENTER].includes(e.keyCode)
+      [CODE_ARROW_UP, CODE_ARROW_DOWN, CODE_ENTER].includes(e.code)
     ) {
       e.preventDefault();
       e.stopPropagation();
@@ -177,7 +172,7 @@ export class SelectComponent<T = any> extends RequirebleComponent implements Con
       return false;
     }
 
-    if (e.keyCode === KEY_CODE_TAB) {
+    if (e.code === CODE_TAB) {
       this.close();
     }
   }

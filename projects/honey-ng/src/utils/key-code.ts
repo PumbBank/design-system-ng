@@ -1,5 +1,5 @@
 
-export const KEY_CODE_ARROW_UP = 38;
-export const KEY_CODE_ARROW_DOWN = 40;
-export const KEY_CODE_ENTER = 13;
-export const KEY_CODE_TAB = 9;
+export const CODE_ARROW_UP = 'ArrowUp';
+export const CODE_ARROW_DOWN = 'ArrowDown';
+export const CODE_ENTER = 'Enter';
+export const CODE_TAB = 'Tab';

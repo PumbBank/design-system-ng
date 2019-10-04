@@ -1,10 +1,7 @@
 import { Component, OnInit, HostListener, ContentChildren, QueryList, ElementRef, ViewChild } from '@angular/core';
 import { SelectComponent } from '../select/select.component';
 import { SelectOptionComponent } from '../select-option/select-option.component';
-
-const KEY_CODE_ARROW_UP = 38;
-const KEY_CODE_ARROW_DOWN = 40;
-const KEY_CODE_ENTER = 13;
+import { CODE_ENTER, CODE_ARROW_UP, CODE_ARROW_DOWN } from '../../../utils/key-code';
 
 @Component({
   selector: 'hn-select-body',
@@ -33,12 +30,12 @@ export class SelectBodyComponent implements OnInit {
   onkeyup(e: KeyboardEvent) {
     if (
       this.active &&
-      [KEY_CODE_ARROW_UP, KEY_CODE_ARROW_DOWN, KEY_CODE_ENTER].includes(e.keyCode)
+      [CODE_ARROW_UP, CODE_ARROW_DOWN, CODE_ENTER].includes(e.code)
     ) {
       e.preventDefault();
       e.stopPropagation();
 
-      if (e.keyCode === KEY_CODE_ENTER) {
+      if (e.code === CODE_ENTER) {
         if ((this.optionsElements as any)._results[this.currentFocused]) {
           (this.optionsElements as any)._results[this.currentFocused].emitSelection();
         }
@@ -55,7 +52,7 @@ export class SelectBodyComponent implements OnInit {
         }
       }
 
-      let nextFocused = this.currentFocused + (e.keyCode === KEY_CODE_ARROW_UP ? -1 : 1);
+      let nextFocused = this.currentFocused + (e.code === CODE_ARROW_UP ? -1 : 1);
 
       if (nextFocused < 0) { nextFocused = this.optionsElements.length - 1; }
       if (nextFocused > this.optionsElements.length - 1) { nextFocused = 0; }

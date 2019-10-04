@@ -185,7 +185,6 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
 
     } else {
       if (!Array.isArray(value)) {
-        // throw Error(`[MillSelectComponent] You con\'t set "${value}"(${typeof value}) as selected for multiple select! Array expected!`);
         value = [];
       }
 

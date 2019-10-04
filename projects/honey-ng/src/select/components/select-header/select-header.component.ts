@@ -18,7 +18,7 @@ export class SelectHeaderComponent<T = any> implements OnInit {
   }
 
   get filled(): boolean {
-    return (typeof this.selected !== 'undefined' && this.selected !== null);
+    return (typeof(this.selected) !== 'undefined' && this.selected !== null);
   }
 
   get selectedCaption(): string {
