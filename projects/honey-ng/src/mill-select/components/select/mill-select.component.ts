@@ -7,6 +7,7 @@ import { AbstractSelectUserCommunication } from './abstract-select-user-communic
   templateUrl: './mill-select.component.html',
   styles: [
     `
+      :host { display: contents; }
       .input__input { display: inline-block; min-width: 160px; }
       .select { display: inline-block; }
       .input__enterence { min-width: 207px; }
