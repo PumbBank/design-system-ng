@@ -12,7 +12,10 @@ export function propertyChangeInterceptor(object: {}, p: string, set?: Function,
   }
 
   if (!setter) {
-    setter = (value: any) => propertyValue = value;
+    setter = (value: any) => {
+      propertyValue = value;
+      return true;
+    };
   }
 
   if (get) {
