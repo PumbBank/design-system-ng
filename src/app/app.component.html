@@ -1,4 +1,9 @@
 
+  {{ silentValidatorError | json }} {{ inputControlModel.errors | json }}
+  <br>
+  <input hnInput ngModel #inputControlModel=ngModel hnInput="text"
+    [errors]="inputControlModel.errors || silentValidatorError" required pattern="^[a-z0-9_-]{3,7}$" (ngModelChange)="checkValue($event)">
+  <br>
 
 
 <a *ngFor="let route of routes" [routerLink]="route.path">{{ route.path }}</a>

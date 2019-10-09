@@ -9,7 +9,8 @@ export type CleanFunction = (inputValue: any) => string;
 const DEFAULT_CLEN_FUNCTION = (inputValue: any): string => inputValue;
 
 export class HnInput extends RequirebleComponent implements OnChanges, OnDestroy {
-  private invalidAndTouched: boolean;
+  private invalid: boolean;
+  private touched: boolean;
 
   protected cleanFunction: CleanFunction = DEFAULT_CLEN_FUNCTION;
 
@@ -89,10 +90,25 @@ export class HnInput extends RequirebleComponent implements OnChanges, OnDestroy
 
   private updateValidationState(invalid: boolean = false): void {
     if (invalid) {
-      this.invalidAndTouched = true;
+      this.invalid = true;
+    } else {
+      this.invalid = false;
+    }
+  }
+
+  private updateTouchedState(touched: boolean = false): void {
+    if (touched) {
+      this.touched = true;
+      return;
+    }
+    this.touched = false;
+  }
+
+  private updateMsgTextStyles() {
+    if (this.touched && this.invalid) {
       this.renderer.addClass(this.wrapperElement, 'input_error');
     } else {
-      this.invalidAndTouched = false;
+
       this.renderer.removeClass(this.wrapperElement, 'input_error');
     }
   }
@@ -111,11 +127,12 @@ export class HnInput extends RequirebleComponent implements OnChanges, OnDestroy
 
   private watchValidationChangesByClassName(): void {
     this.validationStateObserver = new MutationObserver(() => {
-      this.updateValidationState(this.input.classList.contains('ng-invalid') && this.input.classList.contains('ng-touched'));
+      this.updateValidationState(this.input.classList.contains('ng-invalid'));
+      this.updateTouchedState(this.input.classList.contains('ng-touched'));
       this.errorsUpdateText();
     });
 
-    this.validationStateObserver.observe(this.input, { attributes: true });
+    this.validationStateObserver.observe(this.input, { attributeFilter: ['class'], attributes: true });
   }
 
   private watchValidationMessageChanges(): void {
@@ -130,7 +147,7 @@ export class HnInput extends RequirebleComponent implements OnChanges, OnDestroy
   }
 
   private updateMessagePresentation(): void {
-    if (this.errors && this.invalidAndTouched) {
+    if (this.errors && this.touched) {
       this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
     } else {
       this.renderer.removeChild(this.footerElement, this.msgWrapperElement);
@@ -197,7 +214,8 @@ export class HnInput extends RequirebleComponent implements OnChanges, OnDestroy
   }
 
   private errorsUpdateText() {
-    this.msgTextElement.innerText = this.errors && this.invalidAndTouched ? ErrorMessageHelper.getMessage(this.errors) : '';
+    this.msgTextElement.innerText = this.errors && this.touched ? ErrorMessageHelper.getMessage(this.errors) : '';
+    this.updateMsgTextStyles();
   }
 
   private captionUpdateText() {
