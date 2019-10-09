@@ -1,6 +1,6 @@
 import { routes } from './app-routing.module';
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'app-root',
@@ -10,12 +10,21 @@ import { FormControl } from '@angular/forms';
 export class AppComponent implements OnInit {
   routes = routes;
 
+  silentValidatorError: ValidationErrors = null;
+
   control1 = new FormControl('');
 
   constructor(
   ) { }
 
   ngOnInit() {
+  }
 
+  checkValue(value: any) {
+    if (value.length > 4) {
+      this.silentValidatorError = { errorMessage: 'Some value' };
+      return;
+    }
+    this.silentValidatorError = null;
   }
 }

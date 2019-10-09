@@ -35,7 +35,8 @@ const MILL_MODULES = [
     ReactiveFormsModule,
     FormsModule,
     DialogModule.forRoot(),
-    ...MILL_MODULES
+    MillSelectModule,
+    HintModule
   ],
   providers: [
     SettlementService
