@@ -126,7 +126,7 @@ export class HnInput extends RequirebleComponent implements OnChanges, OnDestroy
   }
 
   private watchValidationChangesByClassName(): void {
-    this.validationStateObserver = new MutationObserver((...args: any[]) => {
+    this.validationStateObserver = new MutationObserver(() => {
       this.updateValidationState(this.input.classList.contains('ng-invalid'));
       this.updateTouchedState(this.input.classList.contains('ng-touched'));
       this.errorsUpdateText();
@@ -147,7 +147,7 @@ export class HnInput extends RequirebleComponent implements OnChanges, OnDestroy
   }
 
   private updateMessagePresentation(): void {
-    if (this.errors) {
+    if (this.errors && this.touched) {
       this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
     } else {
       this.renderer.removeChild(this.footerElement, this.msgWrapperElement);
