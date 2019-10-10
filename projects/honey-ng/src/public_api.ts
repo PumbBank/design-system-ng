@@ -11,3 +11,4 @@ export * from './file-upload/public_api';
 // Mill
 export * from './mill-select/public_api';
 export * from './mill-hint/public_api';
+export * from './mill-input/public_api';

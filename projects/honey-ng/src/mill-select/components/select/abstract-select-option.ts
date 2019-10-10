@@ -163,6 +163,7 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
   }
 
   private async setSelected(value: K | Array<K>): Promise<void> {
+    if (DEBUG) { debugLog(`[AbstractSelectOptions] setSelected ${JSON.stringify(value)}`); }
     if (this.single) {
       if (Array.isArray(value)) {
         throw Error('[MillSelectComponent] You con\'t set array as selected for not multiple select!');
@@ -170,10 +171,15 @@ export abstract class AbstractSelectOptions<K = any, P = any> implements OnInit 
 
       const setSelectedForSingle = async () => {
         await this.optionSource.get(value as K).then((option: MillSelectOption<K, P>) => {
-          if (!option) { return; }
-          this._selected = option.key;
-          this._selectedOption = option;
-          this.searchInputValue = option.value;
+          if (!option) {
+            this._selected = undefined;
+            this._selectedOption = undefined;
+            this.searchInputValue = '';
+          } else {
+            this._selected = option.key;
+            this._selectedOption = option;
+            this.searchInputValue = option.value;
+          }
         });
 
         return Promise.resolve();
