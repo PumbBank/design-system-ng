@@ -1,88 +1,25 @@
 {
   "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
   "version": 1,
-  "newProjectRoot": "projects",
   "projects": {
-    "mill-ng-wrapper": {
-      "projectType": "application",
-      "schematics": {
-        "@schematics/angular:component": {
-          "style": "scss"
-        }
-      },
+    "mill-ng": {
       "root": "",
+      "projectType": "library",
       "sourceRoot": "src",
-      "prefix": "app",
+      "prefix": "mill",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-angular:browser",
+          "builder": "@angular-devkit/build-ng-packagr:build",
           "options": {
-            "outputPath": "dist/mill-ng-wrapper",
-            "index": "src/index.html",
-            "main": "src/main.ts",
-            "polyfills": "src/polyfills.ts",
-            "tsConfig": "tsconfig.app.json",
-            "aot": false,
-            "assets": [
-              "src/favicon.ico",
-              "src/assets"
-            ],
-            "styles": [
-              "src/styles.scss"
-            ],
-            "scripts": []
-          },
-          "configurations": {
-            "production": {
-              "fileReplacements": [
-                {
-                  "replace": "src/environments/environment.ts",
-                  "with": "src/environments/environment.prod.ts"
-                }
-              ],
-              "optimization": true,
-              "outputHashing": "all",
-              "sourceMap": false,
-              "extractCss": true,
-              "namedChunks": false,
-              "aot": true,
-              "extractLicenses": true,
-              "vendorChunk": false,
-              "buildOptimizer": true,
-              "budgets": [
-                {
-                  "type": "initial",
-                  "maximumWarning": "2mb",
-                  "maximumError": "5mb"
-                }
-              ]
-            }
-          }
-        },
-        "serve": {
-          "builder": "@angular-devkit/build-angular:dev-server",
-          "options": {
-            "browserTarget": "mill-ng-wrapper:build"
-          },
-          "configurations": {
-            "production": {
-              "browserTarget": "mill-ng-wrapper:build:production"
-            }
-          }
-        },
-        "extract-i18n": {
-          "builder": "@angular-devkit/build-angular:extract-i18n",
-          "options": {
-            "browserTarget": "mill-ng-wrapper:build"
+            "tsConfig": "tsconfig.json",
+            "project": "ng-package.json"
           }
         },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
             "tsConfig": [
-              "tsconfig.app.json",
-              "tsconfig.spec.json",
-              "e2e/tsconfig.json"
+              "sconfig.json"
             ],
             "exclude": [
               "**/node_modules/**"
@@ -91,32 +28,29 @@
         }
       }
     },
-    "mill-ng": {
-      "projectType": "library",
-      "root": "projects/mill-ng",
-      "sourceRoot": "projects/mill-ng/src",
-      "prefix": "lib",
+    "storybook-stub": {
+      "root": "",
+      "projectType": "application",
+      "sourceRoot": "src",
       "architect": {
         "build": {
-          "builder": "@angular-devkit/build-ng-packagr:build",
+          "builder": "This is stub only for setting global style and assets for Storybook",
           "options": {
-            "tsConfig": "projects/mill-ng/tsconfig.lib.json",
-            "project": "projects/mill-ng/ng-package.json"
-          }
-        },
-        "lint": {
-          "builder": "@angular-devkit/build-angular:tslint",
-          "options": {
-            "tsConfig": [
-              "projects/mill-ng/tsconfig.lib.json",
-              "projects/mill-ng/tsconfig.spec.json"
+            "tsConfig": "tsconfig.json",
+            "project": "ng-package.json",
+            "scripts": [],
+            "styles": [
+              "node_modules/@mill/stylesheets/assets/gilroy/gilroy.css",
+              "src/assets/style.scss"
             ],
-            "exclude": [
-              "**/node_modules/**"
-            ]
+            "assets": [
+              { "glob": "**/*", "input": "node_modules/@mill/stylesheets/assets", "output": "/" }
+            ],
+            "outputPath": "dist"
           }
         }
       }
-    }},
-  "defaultProject": "mill-ng-wrapper"
+    }
+  },
+  "defaultProject": "storybook-stub"
 }

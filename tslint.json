@@ -12,13 +12,15 @@
     "directive-selector": [
       true,
       "attribute",
-      "app",
-      "camelCase"
+      "mill",
+      "camelCase",
+      "kebab-case"
     ],
     "component-selector": [
       true,
       "element",
-      "app",
+      "lib",
+      "mill",
       "kebab-case"
     ],
     "import-blacklist": [
