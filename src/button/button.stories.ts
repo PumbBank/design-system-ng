@@ -2,24 +2,19 @@ import { storiesOf } from '@storybook/angular';
 import { withKnobs, text } from "@storybook/addon-knobs";
 import { ButtonComponent } from './components/button/button.component';
 
-storiesOf('Addon|Knobs', module)
-  .addParameters({
-    knobs: {
-      disableDebounce: true,
-    },
-  })
-  .addDecorator(withKnobs)
-  .add('Simple', () => {
-    const label = text('label', 'Regular Button');
+const buttonStories = storiesOf('Buttons', module);
+buttonStories.addDecorator(withKnobs);
 
-    return {
-      moduleMetadata: {
-        entryComponents: [ButtonComponent],
-        declarations: [ButtonComponent],
-      },
-      template: `<mill-button>{{label}}</mill-button>`,
-      props: {
-        label,
-      },
-    };
-  });
+buttonStories.add('regular button', () => ({
+  moduleMetadata: {
+    declarations: [
+      ButtonComponent
+    ]
+  },
+  props: {
+    label: text('label', 'Regular Button'), // The first param of the knob function has to be exactly the same as the component input.
+  },
+  template: `
+    <mill-button>{{label}}</mill-button>
+  `
+}));
