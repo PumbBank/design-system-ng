@@ -26,6 +26,7 @@
     "@storybook/addon-notes": "^5.2.5",
     "@storybook/addons": "^5.2.5",
     "@storybook/angular": "^5.2.5",
+    "@storybook/theming": "^5.2.5",
     "@types/node": "~8.9.4",
     "babel-loader": "^8.0.6",
     "fs-extra": "^8.1.0",
