@@ -1,11 +1,12 @@
 <button
   class="button {{ sizeClass }} {{ viewClass }}"
-  [ngClass]="varietyClass" 
+  [ngClass]="varietyClass"
   [class.button_only-icon]="buttonOnlyIcon"
   [attr.form]="form"
   [attr.type]="type"
   [attr.disabled]="disabled"
-  [attr.autofocus]="autofocus">
+  [attr.autofocus]="autofocus"
+  [style.background-color]="bgColor">
 
   <!-- <ng-content select=".hn-icon, hn-icon"></ng-content> -->
 

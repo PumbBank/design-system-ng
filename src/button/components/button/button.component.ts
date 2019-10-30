@@ -29,6 +29,7 @@ export class ButtonComponent implements OnChanges {
   @Input() disabled: boolean;
   @Input() autofocus: boolean;
   @Input() icon: string;
+  @Input() bgColor: string;
   /* END: HTML attributes: */
 
   @ViewChild('content', { static: false }) content: ElementRef;
