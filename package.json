@@ -10,7 +10,7 @@
     "@angular/common": "~8.1.2",
     "@angular/core": "~8.1.2",
     "@angular/forms": "~8.1.2",
-    "@mill/stylesheets": "^0.1.6"
+    "@mill/stylesheets": "^0.1.7"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.801.2",
@@ -32,6 +32,7 @@
     "babel-loader": "^8.0.6",
     "fs-extra": "^8.1.0",
     "ng-packagr": "^5.1.0",
-    "zone.js": "~0.9.1"
+    "zone.js": "~0.9.1",
+    "hammerjs": "^2.0.8"
   }
 }
