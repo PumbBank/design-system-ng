@@ -459,4 +459,5 @@ export class SliderComponent implements OnInit, OnChanges {
 		}
 		return value;
 	}
+
 }
