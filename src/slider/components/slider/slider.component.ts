@@ -71,7 +71,7 @@ export class SliderComponent implements OnInit, OnChanges {
 	private formContent: ElementRef;
 	private _startArea: number;
 	private _widthArea: number;
-	private _mouseMoveCounter = 0;
+	private _moveCounter = 0;
 	private _rangeFirstArray = [];
 	private _rangeSecondArray = [];
 
@@ -229,15 +229,8 @@ export class SliderComponent implements OnInit, OnChanges {
 	*/
 
 	public onPan(e): void {
-
-		console.log(e);
-
-		this._mouseMoveCounter = e.changedPointers[0].pageX - this._selectedThumb.position;
-
-		const result = this._selectedThumb.value + Math.round(this._mouseMoveCounter / Math.round(this._widthArea / 100));
-
-		console.log(e.changedPointers[0].pointerType, this._mouseMoveCounter, result);
-
+		this._moveCounter = e.changedPointers[0].pageX - this._selectedThumb.position;
+		const result = this._selectedThumb.value + Math.round(this._moveCounter / Math.round(this._widthArea / 100));
 		this._updateValue(result);
 	}
 
