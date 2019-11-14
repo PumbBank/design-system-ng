@@ -1,0 +1,19 @@
+<label class="pin-input" [class.pin-input_error]="invalid">
+	<div class="pin-input__title">
+		<ng-content></ng-content>
+	</div>
+	<div class="pin-input__enterence">
+		<input  (keydown)="handleInput($event, i)" class="pin-input__input" (focus)="onFocus()" (blur)="onBlur()">
+		<div 
+			*ngFor="let char of charsArray; index as i; trackBy: trackByFn" 
+			(click)="onCeilClick(i)"
+		  class="pin-input__ceil" [class.pin-input__ceil_focused]="focused && focusedIndex == i">
+			{{ char }}
+		</div>
+	</div>
+	<div class="pin-input__footer">
+		<div class="pin-input__message" *ngIf="invalid && errorMessage">
+			{{ errorMessage }}
+		</div>
+	</div>
+</label>
