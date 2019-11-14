@@ -1,14 +1,12 @@
 <ng-container>
 	<div class="slider e2e-mill-slider" style="padding-top: 64px;"
 		 [hidden]="!isSliderInit"
-		 [ngClass]="{'slider_disabled': disabled}"
-		 (pan)="onPan($event)"
-		 (panend)="onFocusOut()">
+		 [ngClass]="{'slider_disabled': disabled}">
 		<div class="slider__wrapper">
 
 			<div class="slider__value">{{minValue}}</div>
 
-			<form #formContent [formGroup]="form" autocomplete="off" novalidate class="slider__content" >
+			<div #sliderContent class="slider__content" >
 				<div class="slider__track-wrapper" [ngClass]="{'step': getType() === sliderType.step}">
 					<div class="track" [ngStyle]="{'background': getBaseTrackStyle()}"></div>
 				</div>
@@ -17,47 +15,22 @@
 					<div class="track" [ngStyle]="{'transform': getTrackFillStyle()}" style="z-index: 1; transform-origin: 0 0;"></div>
 				</div>
 
-				<div class="slider__thumb-container" tabindex="0"
-					 *ngIf="getType() === sliderType.double"
-					 [ngStyle]="{'transform': calculateMinDif()}"
-					 (focus)="onFocus(thumbName.minValue)"
-					 (focusout)="onFocusOut()"
-					 (mousedown)="onMouseDown($event, thumbName.minValue)"
-					 (panstart)="onTouchStart($event, thumbName.minValue)"
-					 (keydown)="onKeyDown($event)"
-					 [ngClass]="{'active': isLastSelected(thumbName.minValue)}">
-					<div class="thumb"
-						 [ngClass]="{
-							 'thumb_focus': isSelected(thumbName.minValue),
-							 'thumb_hidden': isHidden(thumbName.minValue)
-						 }">
-						<div class="thumb__circle"></div>
-						<div class="thumb__tooltip">
-							<span>{{getValue(thumbName.minValue)}}</span>
-						</div>
-					</div>
-				</div>
-
-				<div class="slider__thumb-container" tabindex="0"
-					 [ngStyle]="{'transform': calculateMaxDif()}"
-					 (focus)="onFocus(thumbName.maxValue)"
-					 (focusout)="onFocusOut()"
-					 (mousedown)="onMouseDown($event, thumbName.maxValue)"
-					 (panstart)="onTouchStart($event, thumbName.maxValue)"
-				     (keydown)="onKeyDown($event)"
-					 [ngClass]="{'active': isLastSelected(thumbName.maxValue)}">
-					<div class="thumb"
-						 [ngClass]="{
-							 'thumb_focus': isSelected(thumbName.maxValue),
-							 'thumb_hidden': isHidden(thumbName.maxValue)
-						 }">
-						<div class="thumb__circle"></div>
-						<div class="thumb__tooltip">
-							<span>{{getValue(thumbName.maxValue)}}</span>
-						</div>
-					</div>
-				</div>
-			</form>
+				<slider-thumb [hidden]="getType() !== sliderType.double"
+							  (eventOutput)="_getEvent($event)"
+							  (focus)="onFocus(thumbName.minValue)"
+							  (blur)="onBlur()"
+							  (keydown)="onKeyDown($event)"
+							  [config]="_sliderSettings"
+							  [thumbName]="thumbName.minValue"
+							  [value]="getValue(thumbName.minValue)"></slider-thumb>
+				<slider-thumb (eventOutput)="_getEvent($event)"
+							  (focus)="onFocus(thumbName.maxValue)"
+							  (blur)="onBlur()"
+							  (keydown)="onKeyDown($event)"
+							  [config]="_sliderSettings"
+							  [thumbName]="thumbName.maxValue"
+							  [value]="getValue(thumbName.maxValue)"></slider-thumb>
+			</div>
 
 			<div class="slider__value">{{maxValue}}</div>
 
