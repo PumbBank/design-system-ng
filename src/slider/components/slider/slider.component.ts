@@ -1,7 +1,7 @@
 import {
 	Component,
 	ElementRef,
-	EventEmitter,
+	EventEmitter, forwardRef,
 	HostListener,
 	Input,
 	OnChanges,
@@ -9,12 +9,12 @@ import {
 	Output,
 	ViewChild
 } from '@angular/core';
-import { FormBuilder, FormGroup } from '@angular/forms';
-import { isNumber } from 'util';
-import { Subscription, fromEvent, BehaviorSubject } from 'rxjs';
+import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { Subscription, fromEvent } from 'rxjs';
 
 
-export interface SliderSettingsInterface {
+/** Slider config interface */
+export interface SliderConfigInterface {
 	minValue: number;
 	maxValue: number;
 	lastSelected: ThumbNameEnum;
@@ -22,72 +22,97 @@ export interface SliderSettingsInterface {
 	selectedThumb: ThumbInterface;
 }
 
+/** Slider thumb interface */
 interface ThumbInterface {
 	name: string;
 	value: number;
 	position: number;
 }
 
+/** Interface for result output */
 export interface ResultInterface {
 	minValue?: number;
 	maxValue?: number;
 }
 
+/** Enum for thumb names */
 export enum ThumbNameEnum {
 	minValue = 'minValue',
 	maxValue = 'maxValue',
 }
 
-enum sliderType {
+/** Enum for slider type */
+enum SliderTypeEnum {
 	basic = 'basic',
 	double = 'double',
 	step = 'step',
 }
 
+/** Enum for keycodes */
+enum KeyCodeEnum {
+	keyLeft = 'ArrowLeft',
+	keyRight = 'ArrowRight'
+}
+
 @Component({
 	selector: 'mill-slider',
 	templateUrl: './slider.component.html',
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: forwardRef(() => SliderComponent),
+			multi: true,
+		}
+	]
 })
-export class SliderComponent implements OnInit, OnChanges {
+export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor {
 
-	// Input Values
+	/** Minimum slider value. */
 	@Input()
 	get minValue(): number { return this._minValue };
 	set minValue(value: number) {
-		this._minValue = this._parseInput(value);
+		this._minValue = this._toNumber(value);
 	}
 	private _minValue: number;
 
+	/** Maximum slider value. */
 	@Input()
 	get maxValue(): number { return this._maxValue };
 	set maxValue(value: number) {
-		this._maxValue = this._parseInput(value);
+		this._maxValue = this._toNumber(value);
 	}
 	private _maxValue: number;
 
+	/** Number of steps for slider with type "step" */
 	@Input()
 	get step(): number { return this._step }
 	set step(value: number) {
-		this._step = this._parseInput(value);
+		this._step = this._toNumber(value);
 	}
 	private _step?: number;
 
-	@Input() public type?: sliderType = sliderType.basic;
+	/** Type of slider
+	 * can be "basic", "double" or "step"
+	 * */
+	@Input() public type?: SliderTypeEnum = SliderTypeEnum.basic;
+
+	/** Disable state for slider */
 	@Input() public disabled = false;
 
-	// Output
+	/** Output  */
 	@Output() public valueChanged: EventEmitter<ResultInterface> = new EventEmitter<ResultInterface>();
 
-	// Init
-	private canInit: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-	public isSliderInit: boolean;
+	/** Slider form group for values */
 	public form: FormGroup;
 
-	// Slider settings
-	public sliderType = sliderType;
+	/** Enum for slider type */
+	public sliderType = SliderTypeEnum;
+
+	/** Enum for thumb names */
 	public thumbName = ThumbNameEnum;
 
-	private _sliderSettings: SliderSettingsInterface = {
+	/** Init slider config */
+	private _sliderConfig: SliderConfigInterface = {
 		minValue: 0,
 		maxValue: 100,
 		lastSelected: null,
@@ -99,37 +124,21 @@ export class SliderComponent implements OnInit, OnChanges {
 		}
 	};
 
+	/** Object of observables with event binding  */
 	private _eventSubscriptions: Subscription[] = [];
 
-	// Calculation
-	@ViewChild('sliderContent', {static: true})
-	private sliderContent: ElementRef;
-	private _startArea: number;
-	private _widthArea: number;
+	/** Reference to the slider content */
+	@ViewChild('sliderContent', {static: true}) private _sliderContent: ElementRef;
+
+	/** Slider content width*/
+	private _sliderWidth: number;
+
+	/** The result of moving thumb */
 	private _moveCounter = 0;
+
+	/** Arrays of steps */
 	private _rangeFirstArray = [];
 	private _rangeSecondArray = [];
-
-	// Errors
-	private _errorMessage: string;
-	private _errorState = {
-		hasMaxNumber: {
-			valid: false,
-			message: `Max number is NaN or undefined`
-		},
-		hasMinNumber: {
-			valid: false,
-			message: `Min number is NaN or undefined`
-		},
-		rangeMinMax: {
-			valid: false,
-			message: `Min number is bigger than max number`
-		},
-		availableStepNumber: {
-			valid: false,
-			message: `Step can be only number between 2 and 50`
-		},
-	};
 
 	constructor(private _fb: FormBuilder) {
 
@@ -138,44 +147,35 @@ export class SliderComponent implements OnInit, OnChanges {
 			maxValue: [{value: this.maxValue, disabled: false}, null],
 		});
 
-		this.canInit.subscribe(result => {
-			this.isSliderInit = result;
-
-			if (!result) return;
-
-			this._setSliderArea();
-			if (this.getType() === sliderType.step) {
-				this._setRangeArray();
-			}
-
-		});
-
 	}
 
 	ngOnInit(): void {
-		this.canSliderInit();
+		this._validateSlider();
+		this._getSliderContentWidth();
+
+		if (this.getType() === SliderTypeEnum.step) {
+			this._setRangeArray();
+		}
+
 	}
 
 	ngOnChanges(): void {
-		console.log(this.step);
-		this.canSliderInit();
-		if (this.canInit.getValue()) {
-			this._onChangeCalc();
+		this._validateSlider();
+
+		if (this.getType() === SliderTypeEnum.step) {
+			this._setRangeArray();
 		}
+
 	}
 
 	@HostListener('window:resize', ['$event'])
 	onResize(): void {
-		this._setSliderArea();
+		this._getSliderContentWidth();
 	}
 
-	/*
-	*
-	*	Init and error check
-	*
-	*/
-
+	/** Get event from slider thumb */
 	private _getEvent(eventOutput): void {
+
 		const isTouch = this._isTouch(eventOutput.event);
 		const moveEventName = isTouch ? 'touchmove' : 'mousemove';
 		const endEventMove = isTouch ? 'touchend' : 'mouseup';
@@ -187,21 +187,24 @@ export class SliderComponent implements OnInit, OnChanges {
 			this._addEvent('touchcancel');
 		}
 
+		// Set basic options for the selected thumb
 		this._setSelectedThumb(eventOutput.target, eventOutput.event);
 	}
 
+	/** Push event from slider thumb */
 	private _addEvent(eventName): void {
 		const event: Subscription = fromEvent(document.body, eventName).subscribe(
 			event => {
+
+				// Prevent from selecting anything else.
 				if (eventName === 'mousemove') {
 					event.preventDefault();
 				}
 
-				// console.log('eventName: ', eventName, ' value: ', event);
+				// Move event
 				this.onMove(event);
 
 				const endEvents = ['mouseup', 'touchend', 'touchcancel'];
-
 				if (endEvents.includes(eventName)) {
 					this._clearEvents();
 				}
@@ -218,117 +221,96 @@ export class SliderComponent implements OnInit, OnChanges {
 		this._eventSubscriptions = [];
 	}
 
-	public canSliderInit(): void {
-
-		this._errorState.hasMinNumber.valid = isNumber(this.minValue) && this.minValue >= 0;
-		this._errorState.hasMaxNumber.valid = isNumber(this.maxValue) && this.maxValue >= 0;
-
-		this._errorState.rangeMinMax.valid = this.minValue <= this.maxValue;
-
-		if (this.getType() === sliderType.step) {
-			this._errorState.availableStepNumber.valid = isNumber(this.step) && this.step >= 2 && this.step <= 50;
-		}
-		else {
-			this._errorState.availableStepNumber.valid = true;
-		}
-
-		let valid;
-
-		for (const key in this._errorState) {
-			if (this._errorState.hasOwnProperty(key) && !this._errorState[key].valid) {
-				valid = false;
-				this._errorMessage = this._errorState[key].message;
-				break;
-			}
-			valid = true;
-		}
-
-		this.canInit.next(valid);
-	}
-
-	/*
-	*
-	*	Thumb methods
-	*
-    */
-
 	public onFocus(thumbName: ThumbNameEnum): void {
 		this._setSelectedThumb(thumbName);
 	}
 
 	public onBlur(): void {
-		this._sliderSettings.selectedThumb.name = null;
+		this._sliderConfig.selectedThumb.name = null;
 	}
 
+	/** Setting basic options for the selected thumb */
 	private _setSelectedThumb(thumbName: ThumbNameEnum, event?): void {
 
 		if (this.disabled) return;
 
-		this._sliderSettings.selectedThumb.name = thumbName;
-		this._sliderSettings.selectedThumb.value = this._sliderSettings[thumbName];
-		this._sliderSettings.lastSelected = thumbName;
+		this._sliderConfig.selectedThumb.name = thumbName;
+		this._sliderConfig.selectedThumb.value = this._sliderConfig[thumbName];
+		this._sliderConfig.lastSelected = thumbName;
 
 		if (event) {
-			this._sliderSettings.selectedThumb.position = this._isTouch(event) ? (event.touches[0].pageX || event.changedTouches[0].pageX) : event.pageX;
+			this._sliderConfig.selectedThumb.position = this._isTouch(event) ? (event.touches[0].pageX || event.changedTouches[0].pageX) : event.pageX;
 		}
 
 	}
 
-	/*
-	*
-	*	Change events
-	*
-	*/
 
+	/** Mouse/touch move event */
 	public onMove(event): void {
+
+		// Get X position for our touch or cursor
 		const eventX = this._isTouch(event) && event.touches && event.touches.length > 0 ? (event.touches[0].pageX || event.changedTouches[0].pageX) : event.pageX;
-		this._moveCounter = eventX - this._sliderSettings.selectedThumb.position;
-		const result = this._sliderSettings.selectedThumb.value + Math.round(this._moveCounter / Math.round(this._widthArea / 100));
+
+		// Position difference calculation
+		this._moveCounter = eventX - this._sliderConfig.selectedThumb.position;
+
+		// Calculation of position as a percentage
+		const result = this._sliderConfig.selectedThumb.value + Math.round(this._moveCounter / Math.round(this._sliderWidth / 100));
 
 		this._updateValue(result);
 	}
 
+	/** Key down event */
 	public onKeyDown(event): void {
-		if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
-			const value = this._sliderSettings[this._sliderSettings.selectedThumb.name];
+		if (event.key === KeyCodeEnum.keyLeft || event.key === KeyCodeEnum.keyRight) {
+			const value = this._sliderConfig[this._sliderConfig.selectedThumb.name];
 			this._updateValue(value, event.key);
 		}
 	}
 
+	/** One method for calculating values from movements or keys  */
 	private _updateValue(value, key?: string): void {
-		if (key) {
-			const step = this.getType() === sliderType.step ? 100 / this.step : 1;
 
-			value = key && key === 'ArrowRight' ? value + step : value - step;
+		// Check if event is keydown
+		if (key) {
+			const step = this.getType() === SliderTypeEnum.step ? 100 / this.step : 1;
+			value = key && key === KeyCodeEnum.keyRight ? value + step : value - step;
 		}
 
-		if (this.getType() === sliderType.step) {
+		// Check if slider type is step
+		if (this.getType() === SliderTypeEnum.step) {
+
+			if (value < 0) {
+				value = 0;
+			} else if (value > 100) {
+				value = 100;
+			}
+
 			value = this._calcStepValue(value);
 		}
 
+		// Calculate view for UI
 		this._calcViewValue(value);
+
+		// Calculate real value
 		this._calcValue();
+
+		// Check if we need to hide one of the tooltips (just for UI)
 		this._checkTooltip();
 
-		this._outputResult();
 	}
 
-	/*
-	*
-	* Calculation
-	*
-	*/
-
-	// Calculate value for slider with step type
+	/** Calculation value for the slider with step type */
 	private _calcStepValue(value): number {
 		for (let i = 0; i < this.step; i++) {
+			// If value is between min and max values in step arrays
 			if (value >= this._rangeFirstArray[i] && value <= this._rangeSecondArray[i]) {
 				return Math.round(value > ((this._rangeFirstArray[i] + this._rangeSecondArray[i]) / 2) ? this._rangeSecondArray[i] : this._rangeFirstArray[i]);
 			}
 		}
 	}
 
-	// Set array of numbers for slider with step type
+	/** Set array of numbers for slider with step type */
 	private _setRangeArray(): void {
 		this._rangeFirstArray = [];
 		this._rangeSecondArray = [];
@@ -345,149 +327,147 @@ export class SliderComponent implements OnInit, OnChanges {
 
 	}
 
-	// Calculate UI thumb position
+	/** Calculate UI thumb position */
 	private _calcViewValue(value): void {
 		if (value || value === 0) {
-			if (this._sliderSettings.selectedThumb.name === ThumbNameEnum.minValue) {
+			if (this._sliderConfig.selectedThumb.name === ThumbNameEnum.minValue) {
 				if (value < 1) {
-					this._sliderSettings[ThumbNameEnum.minValue] = 0;
+					this._sliderConfig[ThumbNameEnum.minValue] = 0;
 				}
-				else if (value > this._sliderSettings[ThumbNameEnum.maxValue]) {
-					this._sliderSettings[ThumbNameEnum.minValue] = this._sliderSettings[ThumbNameEnum.maxValue];
+				else if (value > this._sliderConfig[ThumbNameEnum.maxValue]) {
+					this._sliderConfig[ThumbNameEnum.minValue] = this._sliderConfig[ThumbNameEnum.maxValue];
 				}
 				else {
-					this._sliderSettings[ThumbNameEnum.minValue] = value;
+					this._sliderConfig[ThumbNameEnum.minValue] = value;
 				}
 
 			}
-			else if (this._sliderSettings.selectedThumb.name === ThumbNameEnum.maxValue) {
+			else if (this._sliderConfig.selectedThumb.name === ThumbNameEnum.maxValue) {
 				if (value > 100) {
-					this._sliderSettings[ThumbNameEnum.maxValue] = 100;
+					this._sliderConfig[ThumbNameEnum.maxValue] = 100;
 				}
-				else if (value < this._sliderSettings[ThumbNameEnum.minValue]) {
-					this._sliderSettings[ThumbNameEnum.maxValue] = this._sliderSettings[ThumbNameEnum.minValue];
+				else if (value < this._sliderConfig[ThumbNameEnum.minValue]) {
+					this._sliderConfig[ThumbNameEnum.maxValue] = this._sliderConfig[ThumbNameEnum.minValue];
 				}
 				else {
-					this._sliderSettings[ThumbNameEnum.maxValue] = value;
+					this._sliderConfig[ThumbNameEnum.maxValue] = value;
 				}
 			}
 		}
 	}
 
-	// Set slider position
-	private _setSliderArea(): void {
-		this._startArea = Math.ceil(this.sliderContent.nativeElement.getBoundingClientRect().left);
-		this._widthArea = this.sliderContent.nativeElement.getBoundingClientRect().width;
+	/** Get slider content width*/
+	private _getSliderContentWidth(): void {
+		this._sliderWidth = this._sliderContent.nativeElement.getBoundingClientRect().width;
 	}
 
-	// Calculate new slider values
+	/** Calculate slider real values */
 	private _calcValue(): void {
 		const result = {};
-		result[this._sliderSettings.selectedThumb.name] = this._calcNumber(this._sliderSettings.selectedThumb.name);
-		this.form.patchValue(result);
-	}
 
-	// Calculate new slider values with new inputs
-	private _onChangeCalc(): void {
-		const result = {};
-
-		if (this.getType() === sliderType.double) {
+		if (this.getType() === SliderTypeEnum.double) {
 			result[ThumbNameEnum.minValue] = this._calcNumber(ThumbNameEnum.minValue);
 			result[ThumbNameEnum.maxValue] = this._calcNumber(ThumbNameEnum.maxValue);
 		}
 		else {
-			// this._sliderSettings[ThumbNameEnum.minValue] = 0;
+			this._sliderConfig[ThumbNameEnum.minValue] = 0;
 			result[ThumbNameEnum.minValue] = 0;
 			result[ThumbNameEnum.maxValue] = this._calcNumber(ThumbNameEnum.maxValue);
 		}
-
 		this.form.patchValue(result);
 	}
 
-	// Calculate UI percent value
+	/** Calculate UI percent value */
 	private _calcNumber(thumb): number {
 		const calcValue = this.maxValue - this.minValue;
-		return Math.round(this.minValue + calcValue / 100 * this._sliderSettings[thumb]);
+		return Math.round(this.minValue + calcValue / 100 * this._sliderConfig[thumb]);
 	}
-
-
-	/*
-	*
-	*	Output result
-	*
-	*/
-
-	private _outputResult(): void {
-		const obj: ResultInterface = {};
-
-		if (this.getType() === this.sliderType.basic) {
-			obj.maxValue = this.form.value[ThumbNameEnum.maxValue];
-		}
-		else if (this.getType() === this.sliderType.step) {
-			obj.maxValue = this.form.value[ThumbNameEnum.maxValue];
-		}
-		else if (this.getType() === this.sliderType.double) {
-			this.form.value[ThumbNameEnum.minValue] ? obj.minValue = this.form.value[ThumbNameEnum.minValue] : obj.minValue = this.minValue;
-			this.form.value[ThumbNameEnum.maxValue] ? obj.maxValue = this.form.value[ThumbNameEnum.maxValue] : obj.maxValue = this.maxValue;
-		}
-
-		this.valueChanged.emit(obj);
-	}
-
-	/*
-	*
-	* UI methods
-	*
-	*/
 
 	public getValue(fieldName): string {
 		return this.form.value[fieldName];
 	}
 
-	public getType(): sliderType {
+	public getType(): SliderTypeEnum {
 		return this.type;
 	}
 
+	/** Return css style for the base track */
 	public getBaseTrackStyle(): string {
-
-		if (this.getType() === sliderType.step) {
+		if (this.getType() === SliderTypeEnum.step) {
 			return `repeating-linear-gradient(to right, #E1E1E8, #E1E1E8 ${(100 / this.step) - 1}%, #fff ${(100 / this.step) - 1}%, #fff ${100 / this.step}%)`;
 		}
-
 		return '#E1E1E8';
 	}
 
+	/** Return css style for the filled track */
 	public getTrackFillStyle(): string {
-		// tslint:disable-next-line:max-line-length
-		return `translate(${this._sliderSettings[ThumbNameEnum.minValue]}%, 0px) scale3d(${(this._sliderSettings[ThumbNameEnum.maxValue] - this._sliderSettings[ThumbNameEnum.minValue]) / 100}, 1, 1)`;
+		return `translate(${this._sliderConfig[ThumbNameEnum.minValue]}%, 0px) 
+				scale3d(${(this._sliderConfig[ThumbNameEnum.maxValue] - this._sliderConfig[ThumbNameEnum.minValue]) / 100}, 1, 1)`;
 	}
 
-	public getErrorMessage(): string {
-		return this._errorMessage;
-	}
-
-	// UI tooltip
+	/** Check if we need to hide one of the tooltips */
 	private _checkTooltip(): void {
-		if (this._sliderSettings[ThumbNameEnum.maxValue] - this._sliderSettings[ThumbNameEnum.minValue] < 20) {
-			if (this._sliderSettings.selectedThumb.name === ThumbNameEnum.minValue) {
-				this._sliderSettings.hiddenTooltip = ThumbNameEnum.maxValue;
+		if (this._sliderConfig[ThumbNameEnum.maxValue] - this._sliderConfig[ThumbNameEnum.minValue] < 20) {
+			if (this._sliderConfig.selectedThumb.name === ThumbNameEnum.minValue) {
+				this._sliderConfig.hiddenTooltip = ThumbNameEnum.maxValue;
 			}
-			else if (this._sliderSettings.selectedThumb.name === ThumbNameEnum.maxValue) {
-				this._sliderSettings.hiddenTooltip = ThumbNameEnum.minValue;
+			else if (this._sliderConfig.selectedThumb.name === ThumbNameEnum.maxValue) {
+				this._sliderConfig.hiddenTooltip = ThumbNameEnum.minValue;
 			}
 		}
 		else {
-			this._sliderSettings.hiddenTooltip = null;
+			this._sliderConfig.hiddenTooltip = null;
 		}
 	}
 
-	private _parseInput = (value): number => {
+	/** Control value accessor methods */
+	writeValue() {}
+
+	onTouched: any = () => {
+	};
+
+	registerOnChange(fn): void {
+		this.form.valueChanges.subscribe(fn);
+	}
+
+	registerOnTouched(fn): void {
+		this.onTouched = fn;
+	}
+
+	setDisabledState(isDisabled: boolean): void {
+		this.disabled = isDisabled;
+	}
+
+	/** Validate slider min, max value and step */
+	private _validateSlider(): void {
+
+		if (this.minValue > this.maxValue) {
+			this.minValue = this.maxValue;
+			console.warn(`[Mill-Slider] The min value cannot be greater than the max value`);
+		}
+
+		if (this.getType() === SliderTypeEnum.step) {
+			if (this.step < 2) {
+				this.step = 2;
+				console.warn(`[Mill-Slider] The step must be greater than 2`);
+			} else if (this.step > 50) {
+				this.step = 50;
+				console.warn(`[Mill-Slider] The step cannot be more than 50`)
+			}
+		}
+
+	}
+
+	/** Convert value to number */
+	private _toNumber = (value: any): number => {
 		if (!isNaN(value)) {
 			return parseInt(value, null);
 		}
-		return value;
+		console.warn(`[Mill-Slider] ${value} is not a number`);
+		return 0;
 	};
 
+	/** Check if event is touch event */
 	private _isTouch = (event): boolean => {
 		return event.type[0] === 't';
 	};

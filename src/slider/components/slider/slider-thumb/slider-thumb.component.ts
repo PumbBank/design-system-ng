@@ -6,7 +6,7 @@ import {
 	OnInit,
 	Output,
 } from '@angular/core';
-import { SliderSettingsInterface, ThumbNameEnum } from '../slider.component';
+import { SliderConfigInterface, ThumbNameEnum } from '../slider.component';
 
 interface EventOutputInterface {
 	event: Event;
@@ -22,9 +22,16 @@ interface EventOutputInterface {
 })
 export class SliderThumbComponent implements OnInit{
 
+	/** Thumb name (min or max value) */
 	@Input() thumbName: ThumbNameEnum;
-	@Input() config: SliderSettingsInterface;
+
+	/** Slider config */
+	@Input() config: SliderConfigInterface;
+
+	/** Real value for view */
 	@Input() value: string;
+
+	/** Output event (mousedown or touchstart) */
 	@Output() eventOutput: EventEmitter<EventOutputInterface> = new EventEmitter<EventOutputInterface>();
 
 	constructor() {
@@ -52,18 +59,22 @@ export class SliderThumbComponent implements OnInit{
 		this.eventOutput.emit(obj);
 	}
 
+	/** Is thumb selected */
 	public isSelected(): boolean {
 		return this.thumbName === this.config.selectedThumb.name;
 	}
 
+	/** Is thumb was selected previously */
 	public isLastSelected(): boolean {
 		return this.thumbName === this.config.lastSelected;
 	}
 
+	/** Is thumb hidden */
 	public isHidden(): boolean {
 		return this.thumbName === this.config.hiddenTooltip;
 	}
 
+	/** Calculate thumb UI position */
 	public calculateDif(): string {
 		return `translate(${this.config[this.thumbName]}%, 0px)`;
 	}
