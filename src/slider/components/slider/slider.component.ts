@@ -35,6 +35,12 @@ export interface ResultInterface {
 	maxValue?: number;
 }
 
+/** Interface for thumb output */
+export interface EventOutputInterface {
+	event: Event | MouseEvent | TouchEvent;
+	target: ThumbNameEnum;
+}
+
 /** Enum for thumb names */
 export enum ThumbNameEnum {
 	minValue = 'minValue',
@@ -90,6 +96,13 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 		this._step = this._toNumber(value);
 	}
 	private _step?: number;
+
+	@Input()
+	get value(): number { return this._value }
+	set value(value: number) {
+		this._value = this._toNumber(value);
+	}
+	private _value?: number;
 
 	/** Type of slider
 	 * can be "basic", "double" or "step"
@@ -149,6 +162,14 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 
 	}
 
+	ngOnChanges(): void {
+		this._validateSlider();
+
+		if (this.getType() === SliderTypeEnum.step) {
+			this._setRangeArray();
+		}
+	}
+
 	ngOnInit(): void {
 		this._validateSlider();
 		this._getSliderContentWidth();
@@ -159,13 +180,22 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 
 	}
 
-	ngOnChanges(): void {
-		this._validateSlider();
+	/** Control value accessor methods */
+	writeValue() {}
 
-		if (this.getType() === SliderTypeEnum.step) {
-			this._setRangeArray();
-		}
+	onTouched: any = () => {
+	};
 
+	registerOnChange(fn): void {
+		this.form.valueChanges.subscribe(fn);
+	}
+
+	registerOnTouched(fn): void {
+		this.onTouched = fn;
+	}
+
+	setDisabledState(isDisabled: boolean): void {
+		this.disabled = isDisabled;
 	}
 
 	@HostListener('window:resize', ['$event'])
@@ -174,21 +204,38 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 	}
 
 	/** Get event from slider thumb */
-	private _getEvent(eventOutput): void {
+	public onEvent(eventOutput: EventOutputInterface): void {
 
-		const isTouch = this._isTouch(eventOutput.event);
-		const moveEventName = isTouch ? 'touchmove' : 'mousemove';
-		const endEventMove = isTouch ? 'touchend' : 'mouseup';
+		if (eventOutput.event && eventOutput.event.type) {
+			switch (eventOutput.event.type) {
+				case 'touchstart':
+				case 'mousedown':
+					const isTouch = this._isTouch(eventOutput.event);
+					const moveEventName = isTouch ? 'touchmove' : 'mousemove';
+					const endEventMove = isTouch ? 'touchend' : 'mouseup';
 
-		this._addEvent(moveEventName);
-		this._addEvent(endEventMove);
+					this._addEvent(moveEventName);
+					this._addEvent(endEventMove);
 
-		if (isTouch) {
-			this._addEvent('touchcancel');
+					if (isTouch) {
+						this._addEvent('touchcancel');
+					}
+
+					// Set basic options for the selected thumb
+					this._setSelectedThumb(eventOutput.target, eventOutput.event);
+
+					break;
+				case 'keydown':
+					this.onKeyDown(eventOutput.event);
+					break;
+				case 'blur':
+					this._sliderConfig.selectedThumb.name = null;
+					break;
+				case 'focus':
+					this._setSelectedThumb(eventOutput.target);
+					break;
+			}
 		}
-
-		// Set basic options for the selected thumb
-		this._setSelectedThumb(eventOutput.target, eventOutput.event);
 	}
 
 	/** Push event from slider thumb */
@@ -221,14 +268,6 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 		this._eventSubscriptions = [];
 	}
 
-	public onFocus(thumbName: ThumbNameEnum): void {
-		this._setSelectedThumb(thumbName);
-	}
-
-	public onBlur(): void {
-		this._sliderConfig.selectedThumb.name = null;
-	}
-
 	/** Setting basic options for the selected thumb */
 	private _setSelectedThumb(thumbName: ThumbNameEnum, event?): void {
 
@@ -239,11 +278,12 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 		this._sliderConfig.lastSelected = thumbName;
 
 		if (event) {
-			this._sliderConfig.selectedThumb.position = this._isTouch(event) ? (event.touches[0].pageX || event.changedTouches[0].pageX) : event.pageX;
+			this._sliderConfig.selectedThumb.position = this._isTouch(event)
+				&& event.touches
+				&& event.touches.length > 0 ? (event.touches[0].pageX || event.changedTouches[0].pageX) : event.pageX;
 		}
 
 	}
-
 
 	/** Mouse/touch move event */
 	public onMove(event): void {
@@ -269,12 +309,12 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 	}
 
 	/** One method for calculating values from movements or keys  */
-	private _updateValue(value, key?: string): void {
+	private _updateValue(value, eventKey?: string): void {
 
 		// Check if event is keydown
-		if (key) {
+		if (eventKey) {
 			const step = this.getType() === SliderTypeEnum.step ? 100 / this.step : 1;
-			value = key && key === KeyCodeEnum.keyRight ? value + step : value - step;
+			value = eventKey && eventKey === KeyCodeEnum.keyRight ? value + step : value - step;
 		}
 
 		// Check if slider type is step
@@ -296,33 +336,8 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 		this._calcValue();
 
 		// Check if we need to hide one of the tooltips (just for UI)
-		this._checkTooltip();
-
-	}
-
-	/** Calculation value for the slider with step type */
-	private _calcStepValue(value): number {
-		for (let i = 0; i < this.step; i++) {
-			// If value is between min and max values in step arrays
-			if (value >= this._rangeFirstArray[i] && value <= this._rangeSecondArray[i]) {
-				return Math.round(value > ((this._rangeFirstArray[i] + this._rangeSecondArray[i]) / 2) ? this._rangeSecondArray[i] : this._rangeFirstArray[i]);
-			}
-		}
-	}
-
-	/** Set array of numbers for slider with step type */
-	private _setRangeArray(): void {
-		this._rangeFirstArray = [];
-		this._rangeSecondArray = [];
-
-		const value = 100 / this.step;
-
-		let count = 0;
-
-		for (let i = 0; i < this.step; i++) {
-			this._rangeFirstArray.push(count);
-			count = count + value;
-			this._rangeSecondArray.push(count);
+		if (this.getType() === SliderTypeEnum.double) {
+			this._checkTooltip();
 		}
 
 	}
@@ -356,9 +371,31 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 		}
 	}
 
-	/** Get slider content width*/
-	private _getSliderContentWidth(): void {
-		this._sliderWidth = this._sliderContent.nativeElement.getBoundingClientRect().width;
+	/** Set array of numbers for slider with step type */
+	private _setRangeArray(): void {
+		this._rangeFirstArray = [];
+		this._rangeSecondArray = [];
+
+		const value = 100 / this.step;
+
+		let count = 0;
+
+		for (let i = 0; i < this.step; i++) {
+			this._rangeFirstArray.push(count);
+			count = count + value;
+			this._rangeSecondArray.push(count);
+		}
+
+	}
+
+	/** Calculation value for the slider with step type */
+	private _calcStepValue(value): number {
+		for (let i = 0; i < this.step; i++) {
+			// If value is between min and max values in step arrays
+			if (value >= this._rangeFirstArray[i] && value <= this._rangeSecondArray[i]) {
+				return Math.round(value > ((this._rangeFirstArray[i] + this._rangeSecondArray[i]) / 2) ? this._rangeSecondArray[i] : this._rangeFirstArray[i]);
+			}
+		}
 	}
 
 	/** Calculate slider real values */
@@ -383,8 +420,24 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 		return Math.round(this.minValue + calcValue / 100 * this._sliderConfig[thumb]);
 	}
 
-	public getValue(fieldName): string {
-		return this.form.value[fieldName];
+	/** Check if active thumb is close to another thumb, hide another */
+	private _checkTooltip(): void {
+		if (this._sliderConfig[ThumbNameEnum.maxValue] - this._sliderConfig[ThumbNameEnum.minValue] < 20) {
+			if (this._sliderConfig.selectedThumb.name === ThumbNameEnum.minValue) {
+				this._sliderConfig.hiddenTooltip = ThumbNameEnum.maxValue;
+			}
+			else if (this._sliderConfig.selectedThumb.name === ThumbNameEnum.maxValue) {
+				this._sliderConfig.hiddenTooltip = ThumbNameEnum.minValue;
+			}
+		}
+		else {
+			this._sliderConfig.hiddenTooltip = null;
+		}
+	}
+
+	/** Get slider content width*/
+	private _getSliderContentWidth(): void {
+		this._sliderWidth = this._sliderContent.nativeElement.getBoundingClientRect().width;
 	}
 
 	public getType(): SliderTypeEnum {
@@ -405,54 +458,21 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 				scale3d(${(this._sliderConfig[ThumbNameEnum.maxValue] - this._sliderConfig[ThumbNameEnum.minValue]) / 100}, 1, 1)`;
 	}
 
-	/** Check if we need to hide one of the tooltips */
-	private _checkTooltip(): void {
-		if (this._sliderConfig[ThumbNameEnum.maxValue] - this._sliderConfig[ThumbNameEnum.minValue] < 20) {
-			if (this._sliderConfig.selectedThumb.name === ThumbNameEnum.minValue) {
-				this._sliderConfig.hiddenTooltip = ThumbNameEnum.maxValue;
-			}
-			else if (this._sliderConfig.selectedThumb.name === ThumbNameEnum.maxValue) {
-				this._sliderConfig.hiddenTooltip = ThumbNameEnum.minValue;
-			}
-		}
-		else {
-			this._sliderConfig.hiddenTooltip = null;
-		}
-	}
-
-	/** Control value accessor methods */
-	writeValue() {}
-
-	onTouched: any = () => {
-	};
-
-	registerOnChange(fn): void {
-		this.form.valueChanges.subscribe(fn);
-	}
-
-	registerOnTouched(fn): void {
-		this.onTouched = fn;
-	}
-
-	setDisabledState(isDisabled: boolean): void {
-		this.disabled = isDisabled;
-	}
-
 	/** Validate slider min, max value and step */
 	private _validateSlider(): void {
 
 		if (this.minValue > this.maxValue) {
 			this.minValue = this.maxValue;
-			console.warn(`[Mill-Slider] The min value cannot be greater than the max value`);
+			console.warn(`[Mill Slider] The min value cannot be greater than the max value`);
 		}
 
 		if (this.getType() === SliderTypeEnum.step) {
 			if (this.step < 2) {
 				this.step = 2;
-				console.warn(`[Mill-Slider] The step must be greater than 2`);
+				console.warn(`[Mill Slider] The step must be greater than 2`);
 			} else if (this.step > 50) {
 				this.step = 50;
-				console.warn(`[Mill-Slider] The step cannot be more than 50`)
+				console.warn(`[Mill Slider] The step cannot be more than 50`)
 			}
 		}
 
@@ -463,7 +483,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 		if (!isNaN(value)) {
 			return parseInt(value, null);
 		}
-		console.warn(`[Mill-Slider] ${value} is not a number`);
+		console.warn(`[Mill Slider] ${value} is not a number`);
 		return 0;
 	};
 

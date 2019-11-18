@@ -1,17 +1,5 @@
-import {
-	Component,
-	EventEmitter,
-	HostListener,
-	Input,
-	OnInit,
-	Output,
-} from '@angular/core';
-import { SliderConfigInterface, ThumbNameEnum } from '../slider.component';
-
-interface EventOutputInterface {
-	event: Event;
-	target: ThumbNameEnum;
-}
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { EventOutputInterface, SliderConfigInterface, ThumbNameEnum } from '../slider.component';
 
 @Component({
 	selector: 'slider-thumb',
@@ -20,7 +8,7 @@ interface EventOutputInterface {
 		'[tabIndex]': '0',
 	}
 })
-export class SliderThumbComponent implements OnInit{
+export class SliderThumbComponent {
 
 	/** Thumb name (min or max value) */
 	@Input() thumbName: ThumbNameEnum;
@@ -29,7 +17,12 @@ export class SliderThumbComponent implements OnInit{
 	@Input() config: SliderConfigInterface;
 
 	/** Real value for view */
-	@Input() value: string;
+	@Input()
+	get value(): string { return this._value };
+	set value(value: string) {
+		this._value = value[this.thumbName];
+	}
+	private _value: string;
 
 	/** Output event (mousedown or touchstart) */
 	@Output() eventOutput: EventEmitter<EventOutputInterface> = new EventEmitter<EventOutputInterface>();
@@ -37,21 +30,13 @@ export class SliderThumbComponent implements OnInit{
 	constructor() {
 	}
 
-	ngOnInit() {
-	}
-
-	@HostListener('mousedown', ['$event'])
-	onMouseDown(event: MouseEvent): void {
-		const obj = {
-			event: event,
-			target: this.thumbName
-		};
-		console.log(obj);
-		this.eventOutput.emit(obj);
-	}
-
+	/** Event listeners */
 	@HostListener('touchstart', ['$event'])
-	onTouchStart(event: TouchEvent) : void {
+	@HostListener('mousedown', ['$event'])
+	@HostListener('keydown', ['$event'])
+	@HostListener('focus', ['$event'])
+	@HostListener('blur', ['$event'])
+	private _onEvent (event: any): void {
 		const obj = {
 			event: event,
 			target: this.thumbName
@@ -76,7 +61,7 @@ export class SliderThumbComponent implements OnInit{
 
 	/** Calculate thumb UI position */
 	public calculateDif(): string {
-		return `translate(${this.config[this.thumbName]}%, 0px)`;
+		return `translateX(-${100 - this.config[this.thumbName]}%)`;
 	}
 
 }

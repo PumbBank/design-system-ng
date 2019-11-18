@@ -1,7 +1,7 @@
 <div class="slider__thumb-container" style="left: 0;"
 	 [ngStyle]="{'transform': calculateDif()}"
 	 [ngClass]="{'active': isLastSelected()}">
-	<div class="thumb" [ngClass]="{
+	<div class="thumb" style="left: unset; right: -16px;" [ngClass]="{
 			 'thumb_focus': isSelected(),
 			 'thumb_hidden': isHidden()
 		 }">

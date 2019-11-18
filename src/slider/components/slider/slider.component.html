@@ -13,23 +13,14 @@
 				<div class="track" [ngStyle]="{'transform': getTrackFillStyle()}"></div>
 			</div>
 
-			<slider-thumb [hidden]="getType() !== sliderType.double"
-						  (eventOutput)="_getEvent($event)"
-						  (focus)="onFocus(thumbName.minValue)"
-						  (blur)="onBlur()"
-						  (keydown)="onKeyDown($event)"
-						  [config]="_sliderConfig"
-						  [thumbName]="thumbName.minValue"
-						  [value]="getValue(thumbName.minValue)">
-			</slider-thumb>
-			<slider-thumb (eventOutput)="_getEvent($event)"
-						  (focus)="onFocus(thumbName.maxValue)"
-						  (blur)="onBlur()"
-						  (keydown)="onKeyDown($event)"
-						  [config]="_sliderConfig"
-						  [thumbName]="thumbName.maxValue"
-						  [value]="getValue(thumbName.maxValue)">
-			</slider-thumb>
+			<ng-container *ngFor="let item of [thumbName.minValue, thumbName.maxValue]">
+				<slider-thumb [hidden]="getType() !== sliderType.double && item === thumbName.minValue"
+							  (eventOutput)="onEvent($event)"
+							  [config]="_sliderConfig"
+							  [thumbName]="item"
+							  [value]="form.value">
+				</slider-thumb>
+			</ng-container>
 		</div>
 
 		<div class="slider__value">{{ maxValue }}</div>
