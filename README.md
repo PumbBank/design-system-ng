@@ -9,6 +9,7 @@
 1. Set fuib registry for npm
 ```
 registry=https://nxrepo.fuib.com/repository/fuib-npm-group/
+strict-ssl=false
 ```
 2. git clone..., npm install
 3. Run start command for open dev application (Stroybook)
