@@ -11,6 +11,7 @@ import {
 } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Subscription, fromEvent } from 'rxjs';
+import { debounceTime } from 'rxjs/operators';
 
 
 /** Slider config interface */
@@ -187,7 +188,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 	};
 
 	registerOnChange(fn): void {
-		this.form.valueChanges.subscribe(fn);
+		this.form.valueChanges.pipe(debounceTime(100)).subscribe();
 	}
 
 	registerOnTouched(fn): void {
@@ -240,20 +241,25 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 
 	/** Push event from slider thumb */
 	private _addEvent(eventName): void {
-		const event$: Subscription = fromEvent(document.body, eventName).subscribe(
+		console.log(eventName);
+		const event$: Subscription = fromEvent(window, eventName).subscribe(
 			event => {
 
-				// Prevent from selecting anything else.
-				if (eventName === 'mousemove') {
-					event.preventDefault();
-				}
+				if (event) {
+					if (eventName === 'mousemove') {
+						// Prevent from selecting anything else.
+						event.preventDefault();
+					}
 
-				// Move event
-				this.onMove(event);
+					if (eventName === 'mousemove' || eventName === 'touchmove') {
+						// Move event
+						this.onMove(event);
+					}
 
-				const endEvents = ['mouseup', 'touchend', 'touchcancel'];
-				if (endEvents.includes(eventName)) {
-					this._clearEvents();
+					const endEvents = ['mouseup', 'touchend', 'touchcancel'];
+					if (endEvents.includes(eventName)) {
+						this._clearEvents();
+					}
 				}
 
 			},
@@ -412,6 +418,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 			result[ThumbNameEnum.maxValue] = this._calcNumber(ThumbNameEnum.maxValue);
 		}
 		this.form.patchValue(result);
+		this.valueChanged.emit(result);
 	}
 
 	/** Calculate UI percent value */
