@@ -24,7 +24,7 @@ export class SliderThumbComponent {
 	}
 	private _value: string;
 
-	/** Output event (mousedown or touchstart) */
+	/** Output events */
 	@Output() eventOutput: EventEmitter<EventOutputInterface> = new EventEmitter<EventOutputInterface>();
 
 	constructor() {

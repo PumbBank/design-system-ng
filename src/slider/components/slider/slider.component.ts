@@ -112,8 +112,8 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 	/** Disable state for slider */
 	@Input() public disabled = false;
 
-	/** Output  */
-	@Output() public valueChanged: EventEmitter<ResultInterface> = new EventEmitter<ResultInterface>();
+	/** Output result */
+	@Output('result') public valueChanged: EventEmitter<ResultInterface> = new EventEmitter<ResultInterface>();
 
 	/** Slider form group for values */
 	public form: FormGroup;
@@ -138,7 +138,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 	};
 
 	/** Object of observables with event binding  */
-	private _eventSubscriptions: Subscription[] = [];
+	private _eventSubscriptions$: Subscription[] = [];
 
 	/** Reference to the slider content */
 	@ViewChild('sliderContent', {static: true}) private _sliderContent: ElementRef;
@@ -240,7 +240,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 
 	/** Push event from slider thumb */
 	private _addEvent(eventName): void {
-		const event: Subscription = fromEvent(document.body, eventName).subscribe(
+		const event$: Subscription = fromEvent(document.body, eventName).subscribe(
 			event => {
 
 				// Prevent from selecting anything else.
@@ -260,12 +260,12 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 			error => console.log(error),
 		);
 
-		this._eventSubscriptions.push(event);
+		this._eventSubscriptions$.push(event$);
 	}
 
 	private _clearEvents(): void {
-		this._eventSubscriptions.forEach(sub => sub.unsubscribe());
-		this._eventSubscriptions = [];
+		this._eventSubscriptions$.forEach(sub => sub.unsubscribe());
+		this._eventSubscriptions$ = [];
 	}
 
 	/** Setting basic options for the selected thumb */
