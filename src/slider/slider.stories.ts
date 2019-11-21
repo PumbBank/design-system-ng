@@ -13,6 +13,8 @@ sliderStories.add('slider', () => ({
 	props: {
 		min: number('minValue', 0),
 		max: number('maxValue', 100),
+		startMin: number('started min value', 0),
+		startMax: number('started max value', 50),
 		type: radios('slider type',
 			{
 				Basic: 'basic',
@@ -24,6 +26,6 @@ sliderStories.add('slider', () => ({
 		status: boolean('disabled?', false)
 	},
 	template: `
-		<mill-slider [minValue]="min" [maxValue]="max" [type]="type" [step]="step" [disabled]="status"></mill-slider>
+		<mill-slider [minValue]="min" [maxValue]="max" [startMin]="startMin" [startMax]="startMax" [type]="type" [step]="step" [disabled]="status"></mill-slider>
     `
 }));

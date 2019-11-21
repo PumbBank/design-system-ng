@@ -76,7 +76,9 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 
 	/** Minimum slider value. */
 	@Input()
-	get minValue(): number { return this._minValue };
+	get minValue(): number {
+		return this._minValue
+	};
 	set minValue(value: number) {
 		this._minValue = this._toNumber(value);
 	}
@@ -84,22 +86,49 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 
 	/** Maximum slider value. */
 	@Input()
-	get maxValue(): number { return this._maxValue };
+	get maxValue(): number {
+		return this._maxValue
+	};
 	set maxValue(value: number) {
 		this._maxValue = this._toNumber(value);
 	}
 	private _maxValue: number;
 
+	@Input()
+	get startMax(): number {
+		return this._startMax;
+	}
+	set startMax(value: number) {
+		this._startMax = this._toPercent(this._toNumber(value));
+	}
+	private _startMax?: number;
+
+	@Input()
+	get startMin(): number {
+		return this._startMin;
+	}
+	set startMin(value: number) {
+		this._startMin = this._toPercent(this._toNumber(value));
+	}
+	private _startMin?: number;
+
+
 	/** Number of steps for slider with type "step" */
 	@Input()
-	get step(): number { return this._step }
+	get step(): number {
+		return this._step
+	}
+
 	set step(value: number) {
 		this._step = this._toNumber(value);
 	}
 	private _step?: number;
 
 	@Input()
-	get value(): number { return this._value }
+	get value(): number {
+		return this._value
+	}
+
 	set value(value: number) {
 		this._value = this._toNumber(value);
 	}
@@ -182,13 +211,47 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 	}
 
 	/** Control value accessor methods */
-	writeValue() {}
+	writeValue(value: ResultInterface) {
+
+		if (value && Object.keys(value).length > 0) {
+
+			let minValue = value.minValue;
+			let maxValue = value.maxValue;
+
+			if (minValue > maxValue) {
+				console.warn(`[Mill Slider] The min value cannot be greater than the max value`);
+				minValue = maxValue;
+			}
+
+			if (maxValue > this.maxValue) {
+				console.warn(`[Mill Slider] The new value cannot be greater than the max value`);
+				maxValue = this.maxValue
+			}
+
+			if (minValue < this.minValue) {
+				console.warn(`[Mill Slider] The new value cannot be less than the min value`);
+				minValue = this.minValue
+			}
+
+			const result: ResultInterface = {
+				minValue: minValue,
+				maxValue: maxValue
+			};
+
+			this._sliderConfig[ThumbNameEnum.minValue] = this._toPercent(minValue);
+			this._sliderConfig[ThumbNameEnum.maxValue] = this._toPercent(maxValue);
+
+			this.form.patchValue(result);
+
+		}
+
+	}
 
 	onTouched: any = () => {
 	};
 
 	registerOnChange(fn): void {
-		this.form.valueChanges.pipe(debounceTime(100)).subscribe();
+		this.form.valueChanges.pipe(debounceTime(100)).subscribe(fn);
 	}
 
 	registerOnTouched(fn): void {
@@ -285,8 +348,8 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 
 		if (event) {
 			this._sliderConfig.selectedThumb.position = this._isTouch(event)
-				&& event.touches
-				&& event.touches.length > 0 ? (event.touches[0].pageX || event.changedTouches[0].pageX) : event.pageX;
+			&& event.touches
+			&& event.touches.length > 0 ? (event.touches[0].pageX || event.changedTouches[0].pageX) : event.pageX;
 		}
 
 	}
@@ -354,23 +417,18 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 			if (this._sliderConfig.selectedThumb.name === ThumbNameEnum.minValue) {
 				if (value < 1) {
 					this._sliderConfig[ThumbNameEnum.minValue] = 0;
-				}
-				else if (value > this._sliderConfig[ThumbNameEnum.maxValue]) {
+				} else if (value > this._sliderConfig[ThumbNameEnum.maxValue]) {
 					this._sliderConfig[ThumbNameEnum.minValue] = this._sliderConfig[ThumbNameEnum.maxValue];
-				}
-				else {
+				} else {
 					this._sliderConfig[ThumbNameEnum.minValue] = value;
 				}
 
-			}
-			else if (this._sliderConfig.selectedThumb.name === ThumbNameEnum.maxValue) {
+			} else if (this._sliderConfig.selectedThumb.name === ThumbNameEnum.maxValue) {
 				if (value > 100) {
 					this._sliderConfig[ThumbNameEnum.maxValue] = 100;
-				}
-				else if (value < this._sliderConfig[ThumbNameEnum.minValue]) {
+				} else if (value < this._sliderConfig[ThumbNameEnum.minValue]) {
 					this._sliderConfig[ThumbNameEnum.maxValue] = this._sliderConfig[ThumbNameEnum.minValue];
-				}
-				else {
+				} else {
 					this._sliderConfig[ThumbNameEnum.maxValue] = value;
 				}
 			}
@@ -408,15 +466,10 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 	private _calcValue(): void {
 		const result = {};
 
-		if (this.getType() === SliderTypeEnum.double) {
-			result[ThumbNameEnum.minValue] = this._calcNumber(ThumbNameEnum.minValue);
-			result[ThumbNameEnum.maxValue] = this._calcNumber(ThumbNameEnum.maxValue);
-		}
-		else {
-			this._sliderConfig[ThumbNameEnum.minValue] = 0;
-			result[ThumbNameEnum.minValue] = 0;
-			result[ThumbNameEnum.maxValue] = this._calcNumber(ThumbNameEnum.maxValue);
-		}
+
+		result[ThumbNameEnum.minValue] = this._calcNumber(ThumbNameEnum.minValue);
+		result[ThumbNameEnum.maxValue] = this._calcNumber(ThumbNameEnum.maxValue);
+
 		this.form.patchValue(result);
 		this.valueChanged.emit(result);
 	}
@@ -432,12 +485,10 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 		if (this._sliderConfig[ThumbNameEnum.maxValue] - this._sliderConfig[ThumbNameEnum.minValue] < 20) {
 			if (this._sliderConfig.selectedThumb.name === ThumbNameEnum.minValue) {
 				this._sliderConfig.hiddenTooltip = ThumbNameEnum.maxValue;
-			}
-			else if (this._sliderConfig.selectedThumb.name === ThumbNameEnum.maxValue) {
+			} else if (this._sliderConfig.selectedThumb.name === ThumbNameEnum.maxValue) {
 				this._sliderConfig.hiddenTooltip = ThumbNameEnum.minValue;
 			}
-		}
-		else {
+		} else {
 			this._sliderConfig.hiddenTooltip = null;
 		}
 	}
@@ -468,6 +519,18 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 	/** Validate slider min, max value and step */
 	private _validateSlider(): void {
 
+		if (this._startMax) {
+			this._sliderConfig[ThumbNameEnum.maxValue] = this._toPercent(this._startMax);
+		}
+
+		if (this.startMin) {
+			if (this.startMin > this.startMax && this.startMax) {
+				console.warn(`[Mill Slider] The start min value cannot be greater than the start max value`);
+				this.startMin = this.startMax;
+			}
+			this._sliderConfig[ThumbNameEnum.minValue] = this._toPercent(this._startMin);
+		}
+
 		if (this.minValue > this.maxValue) {
 			this.minValue = this.maxValue;
 			console.warn(`[Mill Slider] The min value cannot be greater than the max value`);
@@ -482,16 +545,19 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 				console.warn(`[Mill Slider] The step cannot be more than 50`)
 			}
 		}
+	}
 
+	/** Convert value to percent */
+	private _toPercent(value): number {
+		if (!value) return;
+		return 100 / ((this.maxValue - this.minValue) / (value - this.minValue));
 	}
 
 	/** Convert value to number */
 	private _toNumber = (value: any): number => {
-		if (!isNaN(value)) {
-			return parseInt(value, null);
-		}
+		if (!isNaN(value)) return parseInt(value, null);
 		console.warn(`[Mill Slider] ${value} is not a number`);
-		return 0;
+		return null;
 	};
 
 	/** Check if event is touch event */
