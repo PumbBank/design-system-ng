@@ -8,7 +8,6 @@ import {
 	OnChanges,
 	OnInit,
 	Output,
-	SimpleChanges,
 	ViewChild
 } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
@@ -223,7 +222,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 		});
 	}
 
-	ngOnChanges(changes: SimpleChanges): void {
+	ngOnChanges(): void {
 		this._validateSlider();
 		this._calcValue();
 	}
