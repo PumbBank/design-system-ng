@@ -1,0 +1,23 @@
+<div class="search-input search-input_active">
+	<div class="search-input__search-icon" (click)="onSearch()"></div>
+	<input type="text" placeholder="Placeholder"
+		   [(ngModel)]="inputValue"
+		   #inputEl
+			(keyup)="onKeyUp($event)"
+			(focus)="onFocus()"
+		   (blur)="onBlur()"
+	>
+	<div *ngIf="inputValue.length > 0" class="search-input__close-icon" (click)="clearInput()"></div>
+	<div *ngIf="active" [class.option-list_active]="active" [class.option-list_history]="activeHistory" class="option-list option-list_search">
+		<div *ngFor="let item of showList.slice(0, 4); let i = index" class="option" (click)="setInputValue(item)">
+			<div *ngIf="activeHistory" class="search-input__clock-icon"></div>
+
+			<div class="option__text">
+				{{ activeHistory ? item : inputValue }}<b *ngIf="!activeHistory">{{ resultStr(item) }}</b>
+			</div>
+
+			<div *ngIf="activeHistory" class="search-input__close-icon" (click)="removeFromHistory($event, item)"></div>
+		</div>
+	</div>
+</div>
+
