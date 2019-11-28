@@ -1,0 +1,29 @@
+<div class="slider e2e-mill-slider" style="padding-top: 64px;"
+	 [ngClass]="{'slider_disabled': disabled}">
+	<div class="slider__wrapper">
+
+		<div class="slider__value">{{ minValue }}</div>
+
+		<div #sliderContent class="slider__content" >
+			<div class="slider__track-wrapper" [ngClass]="{'step': getType() === sliderType.step}">
+				<div class="track" [ngStyle]="{'background': getBaseTrackStyle()}"></div>
+			</div>
+
+			<div class="slider__track-fill">
+				<div class="track" [ngStyle]="{'transform': getTrackFillStyle()}"></div>
+			</div>
+
+			<ng-container *ngFor="let item of [thumbName.minValue, thumbName.maxValue]">
+				<slider-thumb [hidden]="getType() !== sliderType.double && item === thumbName.minValue"
+							  (eventOutput)="onEvent($event)"
+							  [config]="_sliderConfig"
+							  [thumbName]="item"
+							  [value]="form.value">
+				</slider-thumb>
+			</ng-container>
+		</div>
+
+		<div class="slider__value">{{ maxValue }}</div>
+
+	</div>
+</div>
