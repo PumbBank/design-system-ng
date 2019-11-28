@@ -1,0 +1,10 @@
+<div class="switcher"
+	 style="margin: 20px 20px 0"
+	 #switcher
+	 [ngClass]="{
+		 'switcher-on': active,
+		 'switcher-off': !active,
+		 'switcher_disabled': disabled
+	 }">
+	<switcher-circle (eventOutput)="onEvent($event)" (circleWidth)="setMaxPosition($event)" [ngStyle]="{'display': 'block', 'transform': calculatePosition()}"></switcher-circle>
+</div>
