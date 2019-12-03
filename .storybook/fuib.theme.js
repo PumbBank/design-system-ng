@@ -35,5 +35,5 @@ export default create({
 
   brandTitle: 'FUIB Design System',
   brandUrl: '/',
-  brandImage: 'https://placehold.it/350x150',
+  brandImage: 'https://www.infinitas.cf/wp-content/uploads/2019/03/bank-pumb-logo.png',
 });
