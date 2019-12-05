@@ -1,4 +1,14 @@
-import { Component, ElementRef, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+	Component,
+	ElementRef,
+	EventEmitter,
+	forwardRef,
+	HostListener,
+	Input,
+	OnInit,
+	Output,
+	ViewChild
+} from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
@@ -71,7 +81,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 
 	@Output('search') public searchString: EventEmitter<string> = new EventEmitter<string>();
 
-	constructor()  {
+	constructor(private _elementRef: ElementRef)  {
 		this.inputValue.valueChanges.pipe(
 			startWith(''),
 			map(value => value && value.match(/^\s$/) ? this.inputValue.setValue('') : value)
@@ -90,10 +100,15 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 
 	}
 
-	//todo remove focus from input
 	@ViewChild('inputEl', {static: false})
 	public inputEl: ElementRef;
 
+	@HostListener('document:click', ['$event.target'])
+	public clickOutside(target) {
+		if (!this._elementRef.nativeElement.contains(target)) {
+			this.active = false;
+		}
+	}
 
 	ngOnInit() {
 	}
@@ -238,7 +253,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 	}
 
 	public resultStr(item: string, ): string[] {
-		const reg = new RegExp(`(${this.inputValue.value})`, 'gi');
+		const reg = new RegExp(`(${this.inputValue.value})`, 'i');
 
 		return item.split(reg).filter(i => i.length > 0);
 	}
@@ -247,11 +262,11 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 		localStorage.setItem('historyList', JSON.stringify(this.historyList.getValue()));
 	}
 
-	public isBold(value: string, isHistory: boolean): boolean {
+	public isBold(value: string, isHistory: boolean, index): boolean {
 		const input = this.inputValue.value ? this.inputValue.value.toLowerCase() : '';
 		value = value.toLowerCase();
 
-		return value === input && !isHistory || input && value !== input && isHistory
+		return isHistory ? input && index > 0 : input === value;
 	}
 
 	private _onTouched: any = () => {
