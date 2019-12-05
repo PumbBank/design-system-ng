@@ -99,6 +99,7 @@ $grey-60: #6D6D7A;
 
 
   &_disabled {
+    pointer-events: none;
     &:after {
       border: 1px solid $grey-30;
       top: -1px;
@@ -110,7 +111,7 @@ $grey-60: #6D6D7A;
         color: $grey-30;
       }
     }
-    .icon_search, .icon_circle-close {
+  	.search-input__search-icon, .search-input__close-icon {
       @extend %icon_grey-30;
     }
   }
@@ -123,6 +124,16 @@ $grey-60: #6D6D7A;
     .option {
       padding: 0 12px;
       justify-content: flex-start;
+		&.option_active {
+			background: #f5f5fa;
+		}
+		&.option_with-icon {
+			.option__text {
+				width: 104px;
+				padding: 0;
+				color: $grey-50;
+			}
+		}
     }
     .option__text {
       width: 132px;
@@ -130,14 +141,6 @@ $grey-60: #6D6D7A;
       overflow: hidden;
       padding-left: 24px;
       color: $grey-60;
-    }
-  }
-
-  .option-list_history {
-    .option__text {
-      width: 104px;
-      padding: 0;
-      color: $grey-50;
     }
   }
 

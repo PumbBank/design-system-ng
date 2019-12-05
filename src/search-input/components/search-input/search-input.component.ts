@@ -1,109 +1,276 @@
-import { Component, ViewChild, ElementRef, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, ElementRef, EventEmitter, forwardRef, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { BehaviorSubject } from 'rxjs';
+import { map, startWith } from 'rxjs/operators';
+
+interface ListInterface {
+	value: any;
+	isHistory: boolean;
+}
+
+interface DataInterface {
+	f: string;
+	s: string;
+	l: string;
+}
+
+enum KeyCodeEnum {
+	keyUp = 'ArrowUp',
+	keyDown = 'ArrowDown',
+	enter = 'Enter'
+}
 
 @Component({
 	selector: 'mill-search',
 	templateUrl: './search-input.component.html',
-	styleUrls: ['./search-input.component.scss']
+	styleUrls: ['./search-input.component.scss'],
+	providers: [
+		{
+			provide: NG_VALUE_ACCESSOR,
+			useExisting: forwardRef(() => SearchInputComponent),
+			multi: true,
+		}
+	]
 })
-export class SearchInputComponent implements OnInit {
+export class SearchInputComponent implements OnInit, ControlValueAccessor {
 
 	public active = false;
-
-	private _searchList = [];
-	public showList = [];
-
-	public inputValue = '';
-
 	public activeHistory = false;
+	public activeItemIndex = -1;
 
+	@Input('disabled') public isDisabled = false;
+
+	public inputValue = new FormControl();
+
+	public showList: ListInterface[] = [];
+
+	public historyList: BehaviorSubject<ListInterface[]> = new BehaviorSubject<ListInterface[]>([]);
+
+	private _resultList: BehaviorSubject<ListInterface[]> = new BehaviorSubject<ListInterface[]>([]);
+
+	@Input('list')
+	set resultList(value: DataInterface[]) {
+		const arr = [];
+
+		value.forEach(item => {
+			const obj = {
+				value: '',
+				isHistory: false,
+			};
+			for (const key in item) {
+				if (item.hasOwnProperty(key)) {
+					obj.value += `${item[key]} `;
+				}
+			}
+			obj.value = obj.value.trim();
+			arr.push(obj);
+		});
+
+		this._resultList.next(arr);
+	}
 
 	@Output('search') public searchString: EventEmitter<string> = new EventEmitter<string>();
 
-	constructor() {
-		this._searchList.push('Ваня', 'Валера', 'Владимир Сергеевич', 'Вася');
+	constructor()  {
+		this.inputValue.valueChanges.pipe(
+			startWith(''),
+			map(value => value && value.match(/^\s$/) ? this.inputValue.setValue('') : value)
+			// debounceTime(100),
+			// distinctUntilChanged()
+		).subscribe(value => {
+			this._filterSearch(value);
+		});
+
+		const history = localStorage.getItem('historyList');
+
+		if (history) {
+			const parsedHistory = JSON.parse(history);
+			this.historyList.next(parsedHistory);
+		}
+
 	}
 
+	//todo remove focus from input
 	@ViewChild('inputEl', {static: false})
 	public inputEl: ElementRef;
+
 
 	ngOnInit() {
 	}
 
-	onFocus(): void {
-		this.active = true;
-		if (this._searchList.length > 0) {
+	private _filterSearch(value: string): void {
 
-			if (this.inputValue.length === 0) {
-				this.activeHistory = true;
-				this.showList = this._searchList.concat();
+		if (value) {
+			const history = this._filter(this.historyList.getValue(), value);
+			const result = this._filter(this._resultList.getValue(), value);
+
+			this.showList = history.concat(result);
+		} else {
+			this.showList = this.historyList.getValue();
+		}
+		this._onTouched();
+	}
+
+	private _filter(array: ListInterface[], value: string): ListInterface[] {
+
+		if (!array || array.length === 0) {
+			return [];
+		}
+
+		const filterValue = value.toLowerCase();
+
+		return array.filter(result => result.isHistory
+			? result.value.toLowerCase().indexOf(filterValue) === 0
+			: result.value.toLowerCase().indexOf(filterValue) !== -1);
+	}
+
+	public onFocus(): void {
+
+		if (this.isDisabled) {
+			return;
+		}
+
+		this.active = true;
+		this.inputEl.nativeElement.focus();
+
+		if (this.inputValue.value === null) {
+			this.activeHistory = true;
+			this._filterSearch(null);
+		}
+	}
+
+	public onBlur(): void {
+		this.active = false;
+	}
+
+	public clearInput(): void {
+		this.inputValue.reset();
+	}
+
+	public onKeyUp(event): void {
+
+		if (event.key !== KeyCodeEnum.enter && event.key !== KeyCodeEnum.keyUp && event.key !== KeyCodeEnum.keyDown) {
+			this.activeItemIndex = -1;
+		}
+
+		// Enter
+		if (event.key === KeyCodeEnum.enter) {
+
+			if (this.activeItemIndex !== -1) {
+				console.log(this.showList[this.activeItemIndex].value);
+				this.inputValue.setValue(this.showList[this.activeItemIndex].value);
+				this.activeItemIndex = -1;
+			}
+			this.onSearch(this.inputValue.value);
+		}
+
+		// Arrow up
+		if (event.key === KeyCodeEnum.keyUp) {
+			if (this.activeItemIndex !== -1) {
+
+				if (this.activeItemIndex === 0) {
+					this.activeItemIndex = -1;
+				} else {
+					this.activeItemIndex--;
+				}
+
+			} else {
+				this.activeItemIndex = this.showList.length - 1;
+			}
+		}
+
+		// Arrow down
+		if (event.key === KeyCodeEnum.keyDown) {
+			if (this.showList.length > 0) {
+				if (this.activeItemIndex !== -1) {
+
+					if (this.activeItemIndex === this.showList.length - 1) {
+						this.activeItemIndex = -1;
+					} else {
+						this.activeItemIndex++;
+					}
+
+				} else {
+					this.activeItemIndex = 0;
+				}
 			}
 
 		}
 	}
 
-	onBlur(): void {
-		if (this.inputValue.length === 0) {}
-	}
-
-	clearInput() {
-		this.inputValue = '';
-		this.showList.length = 0;
-	}
-
-	onKeyUp(event): void {
-
-		if (this.inputValue.length !== 0) {
-			this.activeHistory = false;
-
-			this.showList = this._searchList.filter(item => {
-				return item.startsWith(this.inputValue);
-			})
-
-		} else {
-			this.activeHistory = true;
-
-			this.showList = this._searchList.concat();
-
-		}
-
-		// Enter
-		if (event.keyCode === 13) {
-			this.onSearch();
-		}
-
-	}
-
-	removeFromHistory(event, item) {
+	public removeFromHistory(event, value: string): void {
 		event.stopPropagation();
-		const index = this._searchList.indexOf(item);
-		if (index !== -1) this._searchList.splice(index, 1);
 
-		this.showList = this._searchList.filter(item => {
-			return item.startsWith(this.inputValue);
-		})
+		const list = this.historyList.getValue().filter(item => item.value !== value);
+		this.historyList.next(list);
 
+		this._saveToLocalStorage();
+
+		this.inputValue.updateValueAndValidity();
 	}
 
-	onSearch() {
-		if (this.inputValue.length === 0) return;
+	public onSearch(value: string): void {
 
-		this._searchList.unshift(this.inputValue);
-		this._searchList = this._searchList.filter((item, index) => this._searchList.indexOf(item) === index);
+		if (!value || !value.trim()) {
+			return;
+		}
 
-		this.searchString.emit(this.inputValue);
-		this.clearInput();
+		this.showList = [];
 
+		const list = this.historyList.getValue().length > 0 ? this.historyList.getValue().filter(item => item.value !== value) : [];
+
+		const obj = {
+			value: value,
+			isHistory: true
+		};
+
+		list.unshift(obj);
+		this.historyList.next(list);
+
+		this.searchString.emit(value);
+
+		this._saveToLocalStorage();
 	}
 
-	setInputValue(value: string) {
-		this.inputValue = value;
-		this.activeHistory = false;
-
-		this.showList.length = 0;
-
+	public setInputValue(value: string): void {
+		this.inputValue.setValue(value);
+		this.onSearch(this.inputValue.value);
 	}
 
-	resultStr(item: any) {
-		return `${item.slice(this.inputValue.length)}`
+	public resultStr(item: string, ): string[] {
+		const reg = new RegExp(`(${this.inputValue.value})`, 'gi');
+
+		return item.split(reg).filter(i => i.length > 0);
 	}
+
+	private _saveToLocalStorage(): void {
+		localStorage.setItem('historyList', JSON.stringify(this.historyList.getValue()));
+	}
+
+	public isBold(value: string, isHistory: boolean): boolean {
+		const input = this.inputValue.value ? this.inputValue.value.toLowerCase() : '';
+		value = value.toLowerCase();
+
+		return value === input && !isHistory || input && value !== input && isHistory
+	}
+
+	private _onTouched: any = () => {
+	};
+
+	registerOnChange(fn: any): void {
+		this.inputValue.valueChanges.subscribe(fn);
+	}
+
+	registerOnTouched(fn: any): void {
+		this._onTouched = fn;
+	}
+
+	setDisabledState(isDisabled: boolean): void {
+		this.isDisabled = isDisabled;
+	}
+
+	writeValue(value: string): void {
+		this.inputValue.setValue(value);
+	}
+
 }

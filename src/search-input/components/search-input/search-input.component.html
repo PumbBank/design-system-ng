@@ -1,22 +1,29 @@
-<div class="search-input search-input_active">
-	<div class="search-input__search-icon" (click)="onSearch()"></div>
+<div class="search-input search-input_active" [class.search-input_disabled]="isDisabled">
+	<div class="search-input__search-icon"></div>
 	<input type="text" placeholder="Placeholder"
-		   [(ngModel)]="inputValue"
+		   [formControl]="inputValue"
 		   #inputEl
-			(keyup)="onKeyUp($event)"
-			(focus)="onFocus()"
-		   (blur)="onBlur()"
+		   [attr.aria-activedescendant]="'mill-option-' + activeItemIndex"
+		   [attr.aria-expanded]="active"
+		   (focus)="onFocus()"
+		   (keyup)="onKeyUp($event)"
 	>
-	<div *ngIf="inputValue.length > 0" class="search-input__close-icon" (click)="clearInput()"></div>
-	<div *ngIf="active" [class.option-list_active]="active" [class.option-list_history]="activeHistory" class="option-list option-list_search">
-		<div *ngFor="let item of showList.slice(0, 4); let i = index" class="option" (click)="setInputValue(item)">
-			<div *ngIf="activeHistory" class="search-input__clock-icon"></div>
+	<div *ngIf="inputValue.value && inputValue.value.length > 0" class="search-input__close-icon" (click)="clearInput()"></div>
+	<div *ngIf="active" [class.option-list_active]="active" class="option-list option-list_search">
+		<div *ngFor="let item of showList; let i = index" class="option" id="mill-option-{{ i }}" tabindex="0"
+			 [class.option_active]="i === activeItemIndex"
+			 [class.option_with-icon]="item.isHistory"
+			 (click)="setInputValue(item.value)"
+		>
+			<div *ngIf="item.isHistory" class="search-input__clock-icon"></div>
 
-			<div class="option__text">
-				{{ activeHistory ? item : inputValue }}<b *ngIf="!activeHistory">{{ resultStr(item) }}</b>
-			</div>
+			<div class="option__text"><span
+				*ngFor="let value of resultStr(item.value)"
+				[style.fontWeight]="isBold(value, item.isHistory) ? 'bold' : null"
+			>{{value}}</span></div>
 
-			<div *ngIf="activeHistory" class="search-input__close-icon" (click)="removeFromHistory($event, item)"></div>
+			<div *ngIf="item.isHistory" class="search-input__close-icon" (click)="removeFromHistory($event, item.value)"></div>
+
 		</div>
 	</div>
 </div>
