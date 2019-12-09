@@ -1,4 +1,6 @@
-<div class="search-input search-input_active" [class.search-input_disabled]="isDisabled"
+<div class="search-input search-input_active"
+	 [style.width.px]="width"
+	 [class.search-input_disabled]="isDisabled"
 	 (click)="onFocus()">
 	<div class="search-input__search-icon"></div>
 	<input type="text" placeholder="Placeholder"

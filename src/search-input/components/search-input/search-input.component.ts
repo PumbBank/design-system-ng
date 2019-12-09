@@ -45,8 +45,9 @@ enum KeyCodeEnum {
 export class SearchInputComponent implements OnInit, ControlValueAccessor {
 
 	public active = false;
-	public activeHistory = false;
 	public activeItemIndex = -1;
+
+	@Input() public width: number;
 
 	@Input('disabled') public isDisabled = false;
 
@@ -149,13 +150,8 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 		this.inputEl.nativeElement.focus();
 
 		if (this.inputValue.value === null) {
-			this.activeHistory = true;
 			this._filterSearch(null);
 		}
-	}
-
-	public onBlur(): void {
-		this.active = false;
 	}
 
 	public clearInput(): void {
