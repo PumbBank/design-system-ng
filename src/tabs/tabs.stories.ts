@@ -22,7 +22,7 @@ tabsStories.add('Tabs', () => ({
 			<mill-tab label="Mega Large Label Here">content 4</mill-tab>	
 		</mill-tabs>
 		
-		<mill-tabs [isDisabled]="disable" [isFullWidth]="fullWidth" [type]="ios">
+		<mill-tabs [isDisabled]="disable" [isFullWidth]="fullWidth" [type]="'ios'">
 			<mill-tab label="Ios tabs">content 234</mill-tab>
 			<mill-tab label="Ios tabs 2">content 2343252352</mill-tab>
 			<mill-tab label="Ios tabs 3">content new</mill-tab>
