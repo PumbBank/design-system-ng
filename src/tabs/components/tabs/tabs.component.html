@@ -1,0 +1,20 @@
+<div [ngClass]="getTabClass()">
+	<div class="tabs__header">
+		<div class="tabs__itm"
+			 *ngFor="let item of components.toArray(); let idx = index"
+			 #elements
+			 [class.tabs__itm_active]="item.isSelected"
+			 [style.flexGrow]="isFullWidth ? '1' : null"
+			 (click)="onClick(item.id)"
+		>
+			{{item.label}}
+		</div>
+		<div *ngIf="!isIos()" class="tabs__brd" [style.width.px]="barWidth" [style.left.px]="barPosition">
+			<span></span>
+		</div>
+	</div>
+	<div class="tab-body">
+		<ng-content></ng-content>
+	</div>
+</div>
+
