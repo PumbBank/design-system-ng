@@ -8,10 +8,10 @@ import {
 	QueryList,
 	ViewChildren
 } from '@angular/core';
-import { TabContentComponent } from './tab/tab-content.component';
+import { TabContentComponent } from './tab-content/tab-content.component';
 
 enum TypeEnum {
-	basic = 'normal',
+	basic = 'basic',
 	ios = 'ios'
 }
 
@@ -39,6 +39,7 @@ export class TabsComponent implements OnInit, AfterContentInit, AfterViewInit {
 	}
 
 	ngOnInit() {
+
 	}
 
 	ngAfterViewInit(): void {
@@ -46,7 +47,7 @@ export class TabsComponent implements OnInit, AfterContentInit, AfterViewInit {
 		this._activeEl = new MutationObserver((mutations: MutationRecord[])=> {
 			mutations.forEach(m => {
 				const target = m.target as HTMLElement;
-				if (target.classList.contains('tabs__itm_active')) {
+				if (target.classList.contains('tabs-basic__item_active')) {
 					this.barOptions(target.offsetLeft, target.offsetWidth);
 				}
 			})
@@ -55,7 +56,7 @@ export class TabsComponent implements OnInit, AfterContentInit, AfterViewInit {
 		this.elements.toArray().forEach(el => {
 			const nativeEl = el.nativeElement;
 
-			if (nativeEl.classList.contains('tabs__itm_active')) {
+			if (nativeEl.classList.contains('tabs-basic__item_active')) {
 				this.barOptions(nativeEl.offsetLeft, nativeEl.offsetWidth);
 			}
 
@@ -96,18 +97,34 @@ export class TabsComponent implements OnInit, AfterContentInit, AfterViewInit {
 		this.barWidth = width;
 	}
 
-	public isIos(): boolean {
-		return this.type === TypeEnum.ios;
+	public getBaseClass(): string {
+		return this.type === TypeEnum.basic ? 'basic' : 'ios';
 	}
 
 	public getTabClass(): string {
 		let className = '';
-		let type = this.isIos() ? 'ios' : 'basic';
+		let type = this.getBaseClass();
 
 		className += `tabs-${type}`;
 
 		if (this.isDisabled) className += ' ' + `tabs-${type}_disabled`;
 		if (this.isFullWidth) className += ' ' + `tabs-${type}_full-width`;
+
+		return className;
+	}
+
+	public getHeaderClass(): string {
+		return `tabs-${this.getBaseClass()}__header`;
+	}
+
+	public getItemClass(selected): string {
+
+		let className = '';
+		let type = this.getBaseClass();
+
+		className += `tabs-${type}__item`;
+
+		if (selected) className += ' ' + `tabs-${type}__item_active`;
 
 		return className;
 	}

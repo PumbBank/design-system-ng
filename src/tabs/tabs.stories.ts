@@ -19,7 +19,14 @@ tabsStories.add('Tabs', () => ({
 			<mill-tab label="Label">content</mill-tab>
 			<mill-tab label="Label 2">content 2</mill-tab>
 			<mill-tab label="Large Label Here">content 3</mill-tab>
-			<mill-tab label="Mega Large Label Here">content 4</mill-tab>	
+			<mill-tab label="Mega Large Label Here">
+				<mill-tabs [isDisabled]="disable" [isFullWidth]="fullWidth" [type]="'ios'">
+					<mill-tab label="Ios child tabs">content 234</mill-tab>
+					<mill-tab label="Ios child tabs 2">content 2343252352</mill-tab>
+					<mill-tab label="Ios child tabs 3">content new</mill-tab>
+					<mill-tab label="Super Large child Ios Tab">content new</mill-tab>
+				</mill-tabs>
+			</mill-tab>	
 		</mill-tabs>
 		
 		<mill-tabs [isDisabled]="disable" [isFullWidth]="fullWidth" [type]="'ios'">

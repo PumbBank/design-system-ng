@@ -1,15 +1,14 @@
 <div [ngClass]="getTabClass()">
-	<div class="tabs__header">
-		<div class="tabs__itm"
-			 *ngFor="let item of components.toArray(); let idx = index"
+	<div [ngClass]="getHeaderClass()">
+		<div [ngClass]="getItemClass(item.isSelected)"
+			 *ngFor="let item of components.toArray()"
 			 #elements
-			 [class.tabs__itm_active]="item.isSelected"
 			 [style.flexGrow]="isFullWidth ? '1' : null"
 			 (click)="onClick(item.id)"
 		>
 			{{item.label}}
 		</div>
-		<div *ngIf="!isIos()" class="tabs__brd" [style.width.px]="barWidth" [style.left.px]="barPosition">
+		<div *ngIf="type === 'basic'" class="tabs-basic__border" [style.width.px]="barWidth" [style.left.px]="barPosition">
 			<span></span>
 		</div>
 	</div>
