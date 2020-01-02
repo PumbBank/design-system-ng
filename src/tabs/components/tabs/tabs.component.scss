@@ -1,10 +1,10 @@
 $grey-70: rgba(77, 77, 92, 1);
+$grey-60: rgba(109, 109, 122, 1);
 $grey-50: rgba(147, 147, 158, 1);
 $grey-40: rgba(182, 182, 191, 1);
 $grey-30: rgba(208, 208, 217, 1);
 $grey-20: rgba(225, 225, 232, 1);
 $red-50: rgba(249, 31, 43, 1);
-$grey-60: rgba(109, 109, 122, 1);
 $red-30: rgba(252, 151, 157, 1);
 
 %s1 {
@@ -69,11 +69,8 @@ $red-30: rgba(252, 151, 157, 1);
 }
 
 .tabs-basic {
-
 	height: auto;
-	flex-direction: column;
 	border: none;
-	width: 100%;
 
 	&.tabs-basic_full-width {
 		width: 100%;
@@ -140,11 +137,8 @@ $red-30: rgba(252, 151, 157, 1);
 }
 
 .tabs-ios {
-
 	height: auto;
-	flex-direction: column;
 	border: none;
-	width: 100%;
 
 	&.tabs-ios_disabled {
 
