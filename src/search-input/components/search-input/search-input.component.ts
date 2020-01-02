@@ -24,6 +24,10 @@ interface DataInterface {
 	l: string;
 }
 
+interface OutputInterface {
+	value: string;
+}
+
 enum KeyCodeEnum {
 	keyUp = 'ArrowUp',
 	keyDown = 'ArrowDown',
@@ -48,15 +52,13 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 	public activeItemIndex = -1;
 
 	@Input() public width: number;
-
 	@Input('disabled') public isDisabled = false;
+	@Input() public async = false;
 
 	public inputValue = new FormControl();
 
 	public showList: ListInterface[] = [];
-
 	public historyList: BehaviorSubject<ListInterface[]> = new BehaviorSubject<ListInterface[]>([]);
-
 	private _resultList: BehaviorSubject<ListInterface[]> = new BehaviorSubject<ListInterface[]>([]);
 
 	@Input('list')
@@ -80,16 +82,18 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 		this._resultList.next(arr);
 	}
 
-	@Output('search') public searchString: EventEmitter<string> = new EventEmitter<string>();
+	@Output('search') public searchOutput: EventEmitter<OutputInterface> = new EventEmitter<OutputInterface>();
 
 	constructor(private _elementRef: ElementRef)  {
 		this.inputValue.valueChanges.pipe(
 			startWith(''),
 			map(value => value && value.match(/^\s$/) ? this.inputValue.setValue('') : value)
-			// debounceTime(100),
-			// distinctUntilChanged()
 		).subscribe(value => {
-			this._filterSearch(value);
+			if (this.async) {
+				this.searchOutput.emit({value});
+			} else {
+				this._filterSearch(value);
+			}
 		});
 
 		const history = localStorage.getItem('historyList');
@@ -168,7 +172,6 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 		if (event.key === KeyCodeEnum.enter) {
 
 			if (this.activeItemIndex !== -1) {
-				console.log(this.showList[this.activeItemIndex].value);
 				this.inputValue.setValue(this.showList[this.activeItemIndex].value);
 				this.activeItemIndex = -1;
 			}
@@ -238,7 +241,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 		list.unshift(obj);
 		this.historyList.next(list);
 
-		this.searchString.emit(value);
+		this.searchOutput.emit({value});
 
 		this._saveToLocalStorage();
 	}
