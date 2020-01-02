@@ -19,40 +19,46 @@ enum TypeEnum {
 	selector: 'mill-tabs',
 	templateUrl: './tabs.component.html',
 	styleUrls: ['./tabs.component.scss'],
-	// changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class TabsComponent implements OnInit, AfterContentInit, AfterViewInit {
 
+	/** Get content from child ng-content */
 	@ContentChildren(TabContentComponent) components: QueryList<TabContentComponent>;
+
+	/** Get query list from labels */
 	@ViewChildren('elements') elements: QueryList<ElementRef>;
 
 	@Input() public type: TypeEnum = TypeEnum.basic;
 	@Input() public isDisabled = false;
 	@Input() public isFullWidth = false;
+	@Input() public animationDuration = '400ms';
 
 	public barWidth: number;
 	public barPosition: number;
 
+	/** Observe active element changing */
 	private _activeEl: MutationObserver;
 
 	constructor() {
 	}
 
 	ngOnInit() {
-
 	}
 
 	ngAfterViewInit(): void {
 
+		/** Init mutation observer */
 		this._activeEl = new MutationObserver((mutations: MutationRecord[])=> {
 			mutations.forEach(m => {
 				const target = m.target as HTMLElement;
+				// Set position and width for list bar
 				if (target.classList.contains('tabs-basic__item_active')) {
 					this.barOptions(target.offsetLeft, target.offsetWidth);
 				}
 			})
 		});
 
+		/** Get native element */
 		this.elements.toArray().forEach(el => {
 			const nativeEl = el.nativeElement;
 
@@ -60,6 +66,7 @@ export class TabsComponent implements OnInit, AfterContentInit, AfterViewInit {
 				this.barOptions(nativeEl.offsetLeft, nativeEl.offsetWidth);
 			}
 
+			// Set observer on each label
 			this._activeEl.observe(nativeEl, {
 				attributes: true,
 			})
@@ -70,32 +77,39 @@ export class TabsComponent implements OnInit, AfterContentInit, AfterViewInit {
 
 	ngAfterContentInit(): void {
 
-		this.components.toArray().forEach((item, index) => {
+		const components = this.components.toArray();
+		const isSelected = components.some(i => i.isSelected);
 
-			const isSelected = 'isSelected' in item;
+		// Update component variables
+		components.forEach((item, index) => {
 
 			if (!item.id) {
 				item.id = index;
 			}
 
+			if ('isSelected' in item) {
+				item.isSelected = true;
+			}
+
 			if (!isSelected) {
-				if (index === 0) {
-					item.isSelected = true;
-				}
+				components[0].isSelected = true;
 			}
 
 		});
 
 	}
 
+	/** Set selected state for tab content */
 	public onClick(id): void {
 		this.components.toArray().forEach(item => item.isSelected = item.id === id);
 	}
 
+	/** Styles for label bar */
 	public barOptions(left, width): void {
 		this.barPosition = left;
 		this.barWidth = width;
 	}
+
 
 	public getBaseClass(): string {
 		return this.type === TypeEnum.basic ? 'basic' : 'ios';

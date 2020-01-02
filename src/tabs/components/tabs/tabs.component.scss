@@ -45,6 +45,7 @@ $red-30: rgba(252, 151, 157, 1);
 .tab-body {
 	display: flex;
 	position: relative;
+	overflow: hidden;
 }
 
 .tabs-basic__border {
@@ -65,9 +66,7 @@ $red-30: rgba(252, 151, 157, 1);
 
 .tab-content {
 	width: 100%;
-	display: none;
 }
-
 
 .tabs-basic {
 

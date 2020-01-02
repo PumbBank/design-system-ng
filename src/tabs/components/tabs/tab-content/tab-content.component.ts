@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
 	selector: 'mill-tab',
@@ -8,23 +8,13 @@ import { AfterViewInit, Component, ElementRef, Input, OnInit, TemplateRef } from
 		'[class.tab_active]' : 'isSelected',
 	}
 })
-export class TabContentComponent implements OnInit, AfterViewInit {
+export class TabContentComponent {
 
 	@Input() public label: string;
-	@Input() public template: TemplateRef<any>;
 	@Input() public id: number;
 	@Input() public isSelected: boolean;
 
-	public element: ElementRef;
-
-	constructor(private _elementRef: ElementRef) {
-	}
-
-	ngOnInit() {
-	}
-
-	ngAfterViewInit(): void {
-		this.element = this._elementRef;
+	constructor() {
 	}
 
 }

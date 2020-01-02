@@ -4,11 +4,16 @@
 	top: 0;
 	left: 0;
 
-	display: none;
+	transition-duration: inherit;
+
+	transform: translateX(-100%);
 
 	&.tab_active {
 		position: relative;
-
-		display: block;
+		transform: translateX(0);
 	}
+}
+
+.tab_active ~ :host {
+	transform: translateX(100%);
 }
