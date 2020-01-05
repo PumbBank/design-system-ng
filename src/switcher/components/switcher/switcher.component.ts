@@ -5,6 +5,7 @@ import { Subscription, fromEvent } from 'rxjs';
 @Component({
 	selector: 'mill-switcher',
 	templateUrl: './switcher.component.html',
+  styleUrls: [ './switcher.scss' ],
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,
