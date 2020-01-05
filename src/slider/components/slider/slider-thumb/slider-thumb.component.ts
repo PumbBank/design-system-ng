@@ -4,6 +4,7 @@ import { EventOutputInterface, SliderConfigInterface, ThumbNameEnum } from '../s
 @Component({
 	selector: 'slider-thumb',
 	templateUrl: './slider-thumb.component.html',
+  styleUrls: [ './../slider.scss' ],
 	host: {
 		'[tabIndex]': '0',
 	}

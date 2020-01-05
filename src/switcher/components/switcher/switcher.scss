@@ -2,7 +2,7 @@
 @import "~@mill/figma/icons";
 
 %icon_white {
-  background: #fff;
+  background: #ffffff;
 }
 
 .switcher {
@@ -24,10 +24,8 @@
   border-radius: 24px;
   position: absolute;
   top: -1px;
-
   border: none;
   outline: none;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -38,9 +36,9 @@
   @extend %icon_white;
 }
 
-
-.switcher-off {
+.switcher_off {
   border: 1px solid $grey-40;
+
   .switcher__circle {
     left: -1px;
     background: $grey-40;
@@ -52,19 +50,19 @@
     &:focus {
       background: $grey-60;
     }
-
   }
 
   .switcher__icon {
     @extend .icon_error;
   }
-
 }
+/* stylelint-disable no-descending-specificity */
 
-.switcher-on {
+.switcher_on {
   border: 1px solid $red-40;
+
   .switcher__circle {
-    background: $red-50;
+    background-color: $red-50;
 
     &:hover {
       background: $red-40;
@@ -73,20 +71,19 @@
     &:focus {
       background: $red-60;
     }
-
   }
 
   .switcher__icon {
     @extend .icon_ok;
   }
-
 }
 
 .switcher_disabled {
   pointer-events: none;
   border: 1px solid $grey-20;
+
   .switcher__circle {
     background: $grey-20;
   }
 }
-
+/* stylelint-enable */
