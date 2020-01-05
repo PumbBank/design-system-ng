@@ -15,7 +15,8 @@ enum elementView {
 
 @Component({
   selector: 'mill-button',
-  templateUrl: './button.component.html'
+  templateUrl: './button.component.html',
+  styleUrls: [ './button.scss' ]
 })
 export class ButtonComponent implements OnChanges {
 
