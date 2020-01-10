@@ -6,6 +6,8 @@
 
 ## For developers
 
+
+### Commands for starting dev 
 1. Set fuib registry for npm
 ```
 registry=https://nxrepo.fuib.com/repository/fuib-npm-group/
@@ -15,6 +17,19 @@ strict-ssl=false
 3. Run start command for open dev application (Stroybook)
 ```
 npm start
+```
+
+### Commands for build npm package
+```
+npm i
+npm run build
+```
+
+
+### Commands for static storybook app
+```
+npm i
+npm run build-storybook
 ```
 
 ### How create new component
