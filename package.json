@@ -2,6 +2,7 @@
   "name": "@mill/ng",
   "version": "0.0.1",
   "scripts": {
+    "build-storybook": "build-storybook -c .storybook -o dist",
     "start": "start-storybook -p 6006 && npm run lint",
     "build": "ng build mill-ng && node copy-assets && npm run lint",
     "lint": "ng lint && npm run lint:styles",
