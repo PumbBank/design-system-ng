@@ -11,25 +11,7 @@ const RIGHT_KEY = 'ArrowRight';
 @Component({
 	selector: 'mill-pin-input',
 	templateUrl: './pin-input.component.html',
-	styles: [`
-
-		.pin-input__input::selection {
-			background: transparent !important;
-		}
-
-		.pin-input__ceil_focused {
-			border: 2px solid #6D6D7A;
-			line-height: 60px;
-			box-sizing: border-box;
-		}
-
-
-		.pin-input__input {
-			opacity: 0;
-			width: 0px;
-			height: 0px;
-		}
-	`]
+	styleUrls: [ './pin-input.scss' ]
 })
 export class PinInputComponent {
 	charsArray = new Array(DEFAULT_LENGTH).fill('');

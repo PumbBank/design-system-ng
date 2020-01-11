@@ -40,11 +40,10 @@
             "project": "ng-package.json",
             "scripts": [],
             "styles": [
-              "node_modules/@mill/stylesheets/assets/gilroy/gilroy.css",
               "src/assets/style.scss"
             ],
             "assets": [
-              { "glob": "**/*", "input": "node_modules/@mill/stylesheets/assets", "output": "/" }
+              { "glob": "**/*", "input": "src/assets", "output": "/" }
             ],
             "outputPath": "dist"
           }
