@@ -1,8 +1,11 @@
 ## Для DevOps
 
 type: static
+
 doc: 
+
 description: Библиотека UI Компонентов +  Storybook (Превью сайт для компонентов)
+
 resourse: low
 
 # @Mill/ng
