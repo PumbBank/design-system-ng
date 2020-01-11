@@ -75,6 +75,7 @@ $red-30: rgba(252, 151, 157, 1);
 	&.tabs-basic_full-width {
 		width: 100%;
 		display: flex;
+    flex-direction: column;
 
 		.tabs-basic__item {
 			flex-grow: 1;
@@ -164,6 +165,7 @@ $red-30: rgba(252, 151, 157, 1);
 	&.tabs-ios_full-width {
 		width: 100%;
 		display: flex;
+    flex-direction: column;
 
 		.tabs__itm {
 			flex-grow: 1;
