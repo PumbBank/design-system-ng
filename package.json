@@ -4,7 +4,7 @@
   "scripts": {
     "start": "start-storybook -p 6006 && npm run lint",
     "build": "npm run build:package && npm run build:storybook",
-    "build:package": "ng build mill-ng && node copy-assets && npm run lint",
+    "build:package": "ng build mill-ng && node copy-assets",
     "build:storybook": "build-storybook -c .storybook -o dist",
     "lint": "ng lint && npm run lint:styles",
     "lint:styles": "stylelint \"apps/**/*.scss\" && stylelint \"libs/**/*.scss\""
