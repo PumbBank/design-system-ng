@@ -1,0 +1,17 @@
+project:
+  build:
+    type: npm
+    npm_publish_dir_path: "dist-package"
+  steps:
+    release:
+      publish: true
+docker:
+  builders:
+    node:
+      tag: 10.15.0-build
+  build:
+    snapshot: true
+    release: true
+auto_deploy:
+  enable: true
+
