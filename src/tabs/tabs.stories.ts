@@ -21,7 +21,7 @@ tabsStories.add('Tabs', () => ({
 			<mill-tab label="Label 2">content 2</mill-tab>
 			<mill-tab label="Large Label Here" [isSelected]="true">content 3</mill-tab>
 			<mill-tab label="Mega Large Label Here">
-				<mill-tabs [isDisabled]="disable" [isFullWidth]="fullWidth" [type]="'ios'">
+				<mill-tabs [isDisabled]="disable" [isFullWidth]="fullWidth" [type]="'ios'" [animationDuration]="animationDuration">
 					<mill-tab label="Ios child tabs">content 234</mill-tab>
 					<mill-tab label="Ios child tabs 2">content 2343252352</mill-tab>
 					<mill-tab label="Ios child tabs 3">content new</mill-tab>
@@ -35,7 +35,7 @@ tabsStories.add('Tabs', () => ({
 			<mill-tab label="Ios tabs 2">content 2343252352</mill-tab>
 			<mill-tab label="Ios tabs 3">content new</mill-tab>
 			<mill-tab label="Super Large Ios Tab">
-				<mill-tabs [isDisabled]="disable" [isFullWidth]="fullWidth">
+				<mill-tabs [isDisabled]="disable" [isFullWidth]="fullWidth" [animationDuration]="animationDuration">
 					<mill-tab label="Ios child tabs">content 234</mill-tab>
 					<mill-tab label="Ios child tabs 2">content 2343252352</mill-tab>
 					<mill-tab label="Ios child tabs 3">content new</mill-tab>
