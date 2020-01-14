@@ -10,7 +10,7 @@ docker:
     node:
       tag: 10.15.0-build
   build:
-    snapshot: false
-    release: false
+    snapshot: true
+    release: true
 auto_deploy:
-  enable: false
+  enable: true
