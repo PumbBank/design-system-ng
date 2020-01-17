@@ -1,17 +1,17 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TabsComponent } from './components/tabs/tabs.component';
-import { TabContentComponent } from './components/tabs/tab-content/tab-content.component';
+import { TabItemComponent } from './components/tabs/tab-content/tab-item.component';
 
 
 @NgModule({
 	declarations: [
 		TabsComponent,
-		TabContentComponent,
+		TabItemComponent,
 	],
 	exports: [
 		TabsComponent,
-		TabContentComponent,
+		TabItemComponent,
 	],
 	imports: [
 		CommonModule,

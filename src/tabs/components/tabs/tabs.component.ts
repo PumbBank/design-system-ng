@@ -1,146 +1,104 @@
 import {
-	AfterContentInit,
-	AfterViewInit,
-	Component,
-	ContentChildren, ElementRef,
-	Input,
-	OnInit,
-	QueryList,
-	ViewChildren
+  AfterContentInit,
+  AfterViewInit, ChangeDetectorRef,
+  Component,
+  ContentChildren,
+  ElementRef,
+  Input,
+  QueryList,
+  ViewChildren,
+  ViewEncapsulation
 } from '@angular/core';
-import { TabContentComponent } from './tab-content/tab-content.component';
+import { TabItemComponent } from './tab-content/tab-item.component';
 
-enum TypeEnum {
-	basic = 'basic',
-	ios = 'ios'
-}
 
 @Component({
 	selector: 'mill-tabs',
 	templateUrl: './tabs.component.html',
 	styleUrls: ['./tabs.component.scss'],
+  encapsulation: ViewEncapsulation.None
 })
-export class TabsComponent implements OnInit, AfterContentInit, AfterViewInit {
+export class TabsComponent implements AfterContentInit, AfterViewInit {
 
-	/** Get content from child ng-content */
-	@ContentChildren(TabContentComponent) components: QueryList<TabContentComponent>;
+  /** Create unique id */
+  static tabsId = 0;
+
+	/** Get tab components */
+	@ContentChildren(TabItemComponent) components: QueryList<TabItemComponent>;
 
 	/** Get query list from labels */
 	@ViewChildren('elements') elements: QueryList<ElementRef>;
 
-	@Input() public type: TypeEnum = TypeEnum.basic;
-	@Input() public isDisabled = false;
-	@Input() public isFullWidth = false;
-	@Input() public animationDuration = '400ms';
+	@Input() public type = 'basic' || 'ios';
+	@Input() public disabled = false;
 
+	public id = `mill-tabs-${TabsComponent.tabsId}`;
 	public barWidth: number;
 	public barPosition: number;
+	public selectedTabIndex = 0;
 
-	/** Observe active element changing */
-	private _activeEl: MutationObserver;
-
-	constructor() {
-	}
-
-	ngOnInit() {
+	constructor(private cd: ChangeDetectorRef) {
+    TabsComponent.tabsId++;
 	}
 
 	ngAfterViewInit(): void {
+		// Update View Bar
+    if (this._isBasic()) {
+      this._updateBar();
+      this.cd.detectChanges();
+    }
+  }
 
-		/** Init mutation observer */
-		this._activeEl = new MutationObserver((mutations: MutationRecord[])=> {
-			mutations.forEach(m => {
-				const target = m.target as HTMLElement;
-				// Set position and width for list bar
-				if (target.classList.contains('tabs-basic__item_active')) {
-					this.barOptions(target.offsetLeft, target.offsetWidth);
-				}
-			})
-		});
+  ngAfterContentInit(): void {
+    this._registerTabs();
 
-		/** Get native element */
-		this.elements.toArray().forEach(el => {
-			const nativeEl = el.nativeElement;
+    this.components.changes.subscribe(() => {
+      this._registerTabs();
 
-			if (nativeEl.classList.contains('tabs-basic__item_active')) {
-				this.barOptions(nativeEl.offsetLeft, nativeEl.offsetWidth);
-			}
-
-			// Set observer on each label
-			this._activeEl.observe(nativeEl, {
-				attributes: true,
-			})
-
-		});
-
-	}
-
-	ngAfterContentInit(): void {
-
-		const components = this.components.toArray();
-		const isSelected = components.some(i => i.isSelected);
-
-		// Update component variables
-		components.forEach((item, index) => {
-
-			if (!item.id) {
-				item.id = index;
-			}
-
-			if ('isSelected' in item) {
-				item.isSelected = true;
-			}
-
-			if (!isSelected) {
-				components[0].isSelected = true;
-			}
-
-		});
-
+      if (this._isBasic()) {
+        this._updateBar();
+      }
+    })
 	}
 
 	/** Set selected state for tab content */
-	public onClick(id): void {
-		this.components.toArray().forEach(item => item.isSelected = item.id === id);
+	public onClick(event, id): void {
+	  event.stopPropagation();
+
+    this._barOptions(event.target.offsetLeft, event.target.offsetWidth);
+	  this.components.toArray().forEach(item => item.selected = item.id === id);
 	}
 
+	private _registerTabs(): void {
+    // Set selected for the first element if no one is selected
+    this.components.first.selected = !this.components.some(i => i.selected);
+
+    // Update tab id's
+    this.components.forEach((item, index) => {
+      if (!item.id) {
+        item.id = `${this.id}-${index}`
+      }
+      if (item.selected) {
+        this.selectedTabIndex = index;
+      }
+    });
+  }
+
+  /** Update styles for label bar */
+	private _updateBar(): void {
+    if (this.selectedTabIndex > -1) {
+      const element = this.elements.toArray()[this.selectedTabIndex];
+      this._barOptions(element.nativeElement.offsetLeft, element.nativeElement.offsetWidth);
+    }
+  }
+
 	/** Styles for label bar */
-	public barOptions(left, width): void {
+	private _barOptions(left, width): void {
 		this.barPosition = left;
 		this.barWidth = width;
 	}
 
-
-	public getBaseClass(): string {
-		return this.type === TypeEnum.basic ? 'basic' : 'ios';
-	}
-
-	public getTabClass(): string {
-		let className = '';
-		let type = this.getBaseClass();
-
-		className += `tabs-${type}`;
-
-		if (this.isDisabled) className += ' ' + `tabs-${type}_disabled`;
-		if (this.isFullWidth) className += ' ' + `tabs-${type}_full-width`;
-
-		return className;
-	}
-
-	public getHeaderClass(): string {
-		return `tabs-${this.getBaseClass()}__header`;
-	}
-
-	public getItemClass(selected): string {
-
-		let className = '';
-		let type = this.getBaseClass();
-
-		className += `tabs-${type}__item`;
-
-		if (selected) className += ' ' + `tabs-${type}__item_active`;
-
-		return className;
-	}
-
+	private _isBasic(): boolean {
+	  return this.type === 'basic';
+  }
 }
