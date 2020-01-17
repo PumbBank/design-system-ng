@@ -13,9 +13,9 @@ import { TabItemComponent } from './tab-content/tab-item.component';
 
 
 @Component({
-	selector: 'mill-tabs',
-	templateUrl: './tabs.component.html',
-	styleUrls: ['./tabs.component.scss'],
+  selector: 'mill-tabs',
+  templateUrl: './tabs.component.html',
+  styleUrls: ['./tabs.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
 export class TabsComponent implements AfterContentInit, AfterViewInit {
@@ -23,26 +23,26 @@ export class TabsComponent implements AfterContentInit, AfterViewInit {
   /** Create unique id */
   static tabsId = 0;
 
-	/** Get tab components */
-	@ContentChildren(TabItemComponent) components: QueryList<TabItemComponent>;
+  /** Get tab components */
+  @ContentChildren(TabItemComponent) components: QueryList<TabItemComponent>;
 
-	/** Get query list from labels */
-	@ViewChildren('elements') elements: QueryList<ElementRef>;
+  /** Get query list from labels */
+  @ViewChildren('elements') elements: QueryList<ElementRef>;
 
-	@Input() public type = 'basic' || 'ios';
-	@Input() public disabled = false;
+  @Input() public type = 'basic' || 'ios';
+  @Input() public disabled = false;
 
-	public id = `mill-tabs-${TabsComponent.tabsId}`;
-	public barWidth: number;
-	public barPosition: number;
-	public selectedTabIndex = 0;
+  public id = `mill-tabs-${TabsComponent.tabsId}`;
+  public barWidth: number;
+  public barPosition: number;
+  public selectedTabIndex = 0;
 
-	constructor(private cd: ChangeDetectorRef) {
+  constructor(private cd: ChangeDetectorRef) {
     TabsComponent.tabsId++;
-	}
+  }
 
-	ngAfterViewInit(): void {
-		// Update View Bar
+  ngAfterViewInit(): void {
+    // Update View Bar
     if (this._isBasic()) {
       this._updateBar();
       this.cd.detectChanges();
@@ -59,17 +59,17 @@ export class TabsComponent implements AfterContentInit, AfterViewInit {
         this._updateBar();
       }
     })
-	}
+  }
 
-	/** Set selected state for tab content */
-	public onClick(event, id): void {
-	  event.stopPropagation();
+  /** Set selected state for tab content */
+  public onClick(event, id): void {
+    event.stopPropagation();
 
     this._barOptions(event.target.offsetLeft, event.target.offsetWidth);
-	  this.components.toArray().forEach(item => item.selected = item.id === id);
-	}
+    this.components.toArray().forEach(item => item.selected = item.id === id);
+  }
 
-	private _registerTabs(): void {
+  private _registerTabs(): void {
     // Set selected for the first element if no one is selected
     this.components.first.selected = !this.components.some(i => i.selected);
 
@@ -85,20 +85,20 @@ export class TabsComponent implements AfterContentInit, AfterViewInit {
   }
 
   /** Update styles for label bar */
-	private _updateBar(): void {
+  private _updateBar(): void {
     if (this.selectedTabIndex > -1) {
       const element = this.elements.toArray()[this.selectedTabIndex];
       this._barOptions(element.nativeElement.offsetLeft, element.nativeElement.offsetWidth);
     }
   }
 
-	/** Styles for label bar */
-	private _barOptions(left, width): void {
-		this.barPosition = left;
-		this.barWidth = width;
-	}
+  /** Styles for label bar */
+  private _barOptions(left, width): void {
+    this.barPosition = left;
+    this.barWidth = width;
+  }
 
-	private _isBasic(): boolean {
-	  return this.type === 'basic';
+  private _isBasic(): boolean {
+    return this.type === 'basic';
   }
 }
