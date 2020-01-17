@@ -3,13 +3,13 @@
 @import "~@mill/figma/typography";
 
 .tab-body {
-	display: flex;
-	position: relative;
-	overflow: hidden;
+  display: flex;
+  position: relative;
+  overflow: hidden;
 }
 
 .tab-content {
-	width: 100%;
+  width: 100%;
 }
 
 %tabs-label {
@@ -31,27 +31,27 @@
   display: flex;
   flex-direction: column;
 
-	height: auto;
-	border: none;
+  height: auto;
+  border: none;
 
-	&_disabled {
+  &_disabled {
 
     .tabs-basic__item {
-			color: $grey-30;
-			pointer-events: none;
+      color: $grey-30;
+      pointer-events: none;
 
-			&_active {
-				color: $grey-40;
-			}
+      &_active {
+        color: $grey-40;
+      }
 
-		}
+    }
 
     .tabs-basic__border {
-			span {
-				background: $grey-30;
-			}
-		}
-	}
+      span {
+        background: $grey-30;
+      }
+    }
+  }
 
   &__border {
     position: absolute;
@@ -100,26 +100,26 @@
   display: flex;
   flex-direction: column;
 
-	height: auto;
-	border: none;
+  height: auto;
+  border: none;
 
-	&_disabled {
+  &_disabled {
 
-		.tabs-ios__header {
-			border: 1px solid $grey-40;
-			pointer-events: none;
-		}
+    .tabs-ios__header {
+      border: 1px solid $grey-40;
+      pointer-events: none;
+    }
 
-		.tabs-ios__item {
-			color: $grey-40;
+    .tabs-ios__item {
+      color: $grey-40;
 
-			&_active {
-				color: #fff;
-				background: $grey-40;
-				box-shadow: none;
-			}
-		}
-	}
+      &_active {
+        color: #fff;
+        background: $grey-40;
+        box-shadow: none;
+      }
+    }
+  }
 
   &__header {
     display: inline-flex;
@@ -183,6 +183,7 @@
   &_active {
     position: relative;
     transform: translateX(0);
+
     ~ .tab-item {
       transform: translateX(100%);
     }

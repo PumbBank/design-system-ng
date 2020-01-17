@@ -2,26 +2,26 @@
   class="tabs-{{type}}"
   [ngClass]="disabled ? 'tabs-' + type + '_disabled' : null"
 >
-	<div class="tabs-{{type}}__header">
-		<div class="tabs-{{type}}__item"
-			 *ngFor="let item of components.toArray()"
-			 #elements
-       [ngClass]="item.selected ? 'tabs-' + type + '__item_active' : null"
-			 (click)="onClick($event, item.id)"
-		>
-			{{item.label}}
-		</div>
-		<div
+  <div class="tabs-{{type}}__header">
+    <div class="tabs-{{type}}__item"
+         *ngFor="let item of components.toArray()"
+         #elements
+         [ngClass]="item.selected ? 'tabs-' + type + '__item_active' : null"
+         (click)="onClick($event, item.id)"
+    >
+      {{item.label}}
+    </div>
+    <div
       *ngIf="type === 'basic'"
       class="tabs-basic__border"
       [style.width.px]="barWidth"
       [style.left.px]="barPosition"
     >
-			<span></span>
-		</div>
-	</div>
-	<div class="tab-body">
-		<ng-content></ng-content>
-	</div>
+      <span></span>
+    </div>
+  </div>
+  <div class="tab-body">
+    <ng-content></ng-content>
+  </div>
 </div>
 
