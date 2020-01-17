@@ -66,7 +66,7 @@ export class TabsComponent implements AfterContentInit, AfterViewInit {
     event.stopPropagation();
 
     this._barOptions(event.target.offsetLeft, event.target.offsetWidth);
-    this.components.toArray().forEach(item => item.selected = item.id === id);
+    this.components.forEach(item => item.selected = item.id === id);
   }
 
   private _registerTabs(): void {
