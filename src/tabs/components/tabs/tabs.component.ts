@@ -1,104 +1,36 @@
-import {
-  AfterContentInit,
-  AfterViewInit, ChangeDetectorRef,
-  Component,
-  ContentChildren,
-  ElementRef,
-  Input,
-  QueryList,
-  ViewChildren,
-  ViewEncapsulation
-} from '@angular/core';
-import { TabItemComponent } from './tab-content/tab-item.component';
+import { Component, Input, ViewEncapsulation } from '@angular/core';
+
+import { TabItemComponent } from './tab-item/tab-item.component';
+import { TabsBase } from './tabs';
+import { BehaviorSubject } from 'rxjs';
 
 
 @Component({
-  selector: 'mill-tabs',
-  templateUrl: './tabs.component.html',
-  styleUrls: ['./tabs.component.scss'],
-  encapsulation: ViewEncapsulation.None
+	selector: 'mill-tabs',
+	templateUrl: './tabs.component.html',
+	styleUrls: ['./tabs.component.scss'],
+	encapsulation: ViewEncapsulation.None,
+	providers: [{provide: TabsBase, useExisting: TabsComponent}]
 })
-export class TabsComponent implements AfterContentInit, AfterViewInit {
+export class TabsComponent implements TabsBase {
 
-  /** Create unique id */
-  static tabsId = 0;
+	@Input() public type: 'basic' | 'ios' = 'basic';
+	@Input() public disabled = false;
 
-  /** Get tab components */
-  @ContentChildren(TabItemComponent) components: QueryList<TabItemComponent>;
+	@Input() set selected(value: string) {
+		if (value) {
+			this.selectedTabId.next(value);
+		}
+	}
 
-  /** Get query list from labels */
-  @ViewChildren('elements') elements: QueryList<ElementRef>;
+	public tabItems: BehaviorSubject<TabItemComponent[]> = new BehaviorSubject<TabItemComponent[]>([]);
+	public selectedTabId: BehaviorSubject<string> = new BehaviorSubject<string>('0');
+	public selectedLabel: HTMLElement;
 
-  @Input() public type = 'basic' || 'ios';
-  @Input() public disabled = false;
-
-  public id = `mill-tabs-${TabsComponent.tabsId}`;
-  public barWidth: number;
-  public barPosition: number;
-  public selectedTabIndex = 0;
-
-  constructor(private cd: ChangeDetectorRef) {
-    TabsComponent.tabsId++;
-  }
-
-  ngAfterViewInit(): void {
-    // Update View Bar
-    if (this._isBasic()) {
-      this._updateBar();
-      this.cd.detectChanges();
-    }
-  }
-
-  ngAfterContentInit(): void {
-    this._registerTabs();
-
-    this.components.changes.subscribe(() => {
-      this._registerTabs();
-
-      if (this._isBasic()) {
-        this._updateBar();
-      }
-    })
-  }
-
-  /** Set selected state for tab content */
-  public onClick(event, id): void {
-    event.stopPropagation();
-
-    this._barOptions(event.target.offsetLeft, event.target.offsetWidth);
-    this.components.forEach(item => item.selected = item.id === id);
-  }
-
-  private _registerTabs(): void {
-    // Set selected for the first element if no one is selected
-    this.components.first.selected = !this.components.some(i => i.selected);
-
-    // Update tab id's
-    this.components.forEach((item, index) => {
-      if (!item.id) {
-        item.id = `${this.id}-${index}`
-      }
-      if (item.selected) {
-        this.selectedTabIndex = index;
-      }
-    });
-  }
-
-  /** Update styles for label bar */
-  private _updateBar(): void {
-    if (this.selectedTabIndex > -1) {
-      const element = this.elements.toArray()[this.selectedTabIndex];
-      this._barOptions(element.nativeElement.offsetLeft, element.nativeElement.offsetWidth);
-    }
-  }
-
-  /** Styles for label bar */
-  private _barOptions(left, width): void {
-    this.barPosition = left;
-    this.barWidth = width;
-  }
-
-  private _isBasic(): boolean {
-    return this.type === 'basic';
-  }
+	public barStyles() {
+		if (this.selectedLabel) {
+			return {'left': this.selectedLabel.offsetLeft + 'px', 'width': this.selectedLabel.offsetWidth + 'px'};
+		}
+		return {'left': '0px', 'width': '0px'};
+	}
 }

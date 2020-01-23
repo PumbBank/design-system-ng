@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/angular';
-import { boolean, text, withKnobs } from "@storybook/addon-knobs";
+import { boolean, withKnobs } from "@storybook/addon-knobs";
 import { TabsModule } from './tabs.module';
 
 
@@ -15,10 +15,10 @@ tabsStories.add('Tabs', () => ({
 	},
 	template: `
 		<div style="width: 800px">
-      <mill-tabs [disabled]="disable">
-        <mill-tab label="Label">content</mill-tab>
-        <mill-tab label="Label 2">content 2</mill-tab>
-        <mill-tab label="Large Label Here" [selected]="true">content 3</mill-tab>
+      <mill-tabs [disabled]="disable" selected="second">
+        <mill-tab label="Label" id="first">content</mill-tab>
+        <mill-tab label="Label 2" id="second">content 2</mill-tab>
+        <mill-tab label="Large Label Here">content 3</mill-tab>
         <mill-tab label="Mega Large Label Here">
           <mill-tabs [disabled]="disable" [type]="'ios'">
             <mill-tab label="Ios child tabs">content 234</mill-tab>
@@ -29,10 +29,10 @@ tabsStories.add('Tabs', () => ({
         </mill-tab>	
       </mill-tabs>
       
-      <mill-tabs [disabled]="disable" [type]="'ios'">
+      <mill-tabs [disabled]="disable" type="ios" selected="tab">
         <mill-tab label="Ios tabs">content 234</mill-tab>
         <mill-tab label="Ios tabs 2">content 2343252352</mill-tab>
-        <mill-tab label="Ios tabs 3">content new</mill-tab>
+        <mill-tab label="Ios tabs 3" id="tab">content new</mill-tab>
         <mill-tab label="Super Large Ios Tab">
           <mill-tabs [disabled]="disable">
             <mill-tab label="Ios child tabs">content 234</mill-tab>
@@ -42,6 +42,7 @@ tabsStories.add('Tabs', () => ({
           </mill-tabs>
         </mill-tab>
       </mill-tabs>
+      
      </div>
   `
 }));
