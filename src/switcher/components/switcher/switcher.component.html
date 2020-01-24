@@ -1,6 +1,7 @@
 <div class="switcher"
 	 style="margin: 20px 20px 0;"
 	 #switcher
+   (click)="onClick($event)"
 	 [ngClass]="{
 		 'switcher_on': active,
 		 'switcher_off': !active,

@@ -53,10 +53,9 @@
   }
 
   .switcher__icon {
-    @extend .icon_error;
+    @extend .icon_close !optional;
   }
 }
-/* stylelint-disable no-descending-specificity */
 
 .switcher_on {
   border: 1px solid $red-40;
@@ -86,4 +85,3 @@
     background: $grey-20;
   }
 }
-/* stylelint-enable */
