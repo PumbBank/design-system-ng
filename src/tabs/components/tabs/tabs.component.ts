@@ -1,8 +1,5 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-
-import { TabItemComponent } from './tab-item/tab-item.component';
-import { TabsBase } from './tabs';
-import { BehaviorSubject } from 'rxjs';
+import { TabItemBase, TabsBase } from './tabs';
 
 
 @Component({
@@ -12,25 +9,31 @@ import { BehaviorSubject } from 'rxjs';
 	encapsulation: ViewEncapsulation.None,
 	providers: [{provide: TabsBase, useExisting: TabsComponent}]
 })
-export class TabsComponent implements TabsBase {
+export class TabsComponent extends TabsBase {
 
-	@Input() public type: 'basic' | 'ios' = 'basic';
-	@Input() public disabled = false;
+  @Input() public set selected(value: string) {
+    if (value) {
+      this.selectedTabId.next(value);
+    }
+  }
 
-	@Input() set selected(value: string) {
-		if (value) {
-			this.selectedTabId.next(value);
-		}
-	}
+  public registerTabItem(tab: TabItemBase): void {
+    this.tabItems.getValue().push(tab);
 
-	public tabItems: BehaviorSubject<TabItemComponent[]> = new BehaviorSubject<TabItemComponent[]>([]);
-	public selectedTabId: BehaviorSubject<string> = new BehaviorSubject<string>('0');
-	public selectedLabel: HTMLElement;
+	  if (!tab.id) {
+      tab.id = `${this.tabItemId++}`;
+    }
+  }
 
-	public barStyles() {
-		if (this.selectedLabel) {
-			return {'left': this.selectedLabel.offsetLeft + 'px', 'width': this.selectedLabel.offsetWidth + 'px'};
-		}
-		return {'left': '0px', 'width': '0px'};
-	}
+  public unregisterTabItem(tab: TabItemBase): void {
+    this.tabItems.next(this.tabItems.getValue().filter(i => i !== tab));
+  }
+
+  public barStyles() {
+    if (this.selectedLabel) {
+      return {left: this.selectedLabel.offsetLeft + 'px', width: this.selectedLabel.offsetWidth + 'px'};
+    }
+
+    return {left: '0px', width: '0px'};
+  }
 }
