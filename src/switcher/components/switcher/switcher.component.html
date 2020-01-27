@@ -1,10 +1,15 @@
 <div class="switcher"
-	 style="margin: 20px 20px 0"
+	 style="margin: 20px 20px 0;"
 	 #switcher
+   (click)="onClick($event)"
 	 [ngClass]="{
-		 'switcher-on': active,
-		 'switcher-off': !active,
+		 'switcher_on': active,
+		 'switcher_off': !active,
 		 'switcher_disabled': disabled
 	 }">
-	<switcher-circle (eventOutput)="onEvent($event)" (circleWidth)="setMaxPosition($event)" [ngStyle]="{'display': 'block', 'transform': calculatePosition()}"></switcher-circle>
+	<switcher-circle
+    (eventOutput)="onEvent($event)"
+    (circleWidth)="setMaxPosition($event)"
+    [ngStyle]="{'display': 'block', 'transform': calculatePosition()}"
+  ></switcher-circle>
 </div>

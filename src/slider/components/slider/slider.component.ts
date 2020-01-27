@@ -64,6 +64,7 @@ enum KeyCodeEnum {
 @Component({
 	selector: 'mill-slider',
 	templateUrl: './slider.component.html',
+  styleUrls: [ './slider.scss' ],
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,
@@ -567,7 +568,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 
 	/** Return css style for the filled track */
 	public getTrackFillStyle(): string {
-		return `translate(${this._sliderConfig[ThumbNameEnum.minValue]}%, 0px) 
+		return `translate(${this._sliderConfig[ThumbNameEnum.minValue]}%, 0px)
 				scale3d(${(this._sliderConfig[ThumbNameEnum.maxValue] - this._sliderConfig[ThumbNameEnum.minValue]) / 100}, 1, 1)`;
 	}
 

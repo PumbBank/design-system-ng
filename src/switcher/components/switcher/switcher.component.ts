@@ -1,10 +1,23 @@
-import { Component, ElementRef, EventEmitter, forwardRef, Input, OnChanges, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  Component,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewEncapsulation
+} from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms'
-import { Subscription, fromEvent } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 
 @Component({
 	selector: 'mill-switcher',
 	templateUrl: './switcher.component.html',
+  styleUrls: [ './switcher.scss' ],
+  encapsulation: ViewEncapsulation.None,
 	providers: [
 		{
 			provide: NG_VALUE_ACCESSOR,
@@ -12,7 +25,6 @@ import { Subscription, fromEvent } from 'rxjs';
 			multi: true,
 		}
 	]
-
 })
 export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccessor {
 
@@ -109,6 +121,8 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
 		const event$: Subscription = fromEvent(window, eventName).subscribe(
 			event => {
 
+			  event.stopPropagation();
+
 				if (eventName === 'mousemove') {
 					// Prevent from selecting anything else.
 					event.preventDefault();
@@ -143,7 +157,9 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
 		this._eventSubscriptions$ = [];
 	}
 
-	public onClick(): void {
+	public onClick(event?): void {
+
+	  if (event && event.target !== this._switcher.nativeElement) return;
 
 		if (this.disabled) return;
 
@@ -233,7 +249,6 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
 
 		this._onChange(this.active);
 		this.statusChange.emit(this.active);
-
 	}
 
 	/** Check position while moving */

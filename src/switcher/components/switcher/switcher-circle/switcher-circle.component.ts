@@ -2,7 +2,7 @@ import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output, View
 
 @Component({
 	selector: 'switcher-circle',
-	templateUrl: './switcher-circle.component.html'
+	templateUrl: './switcher-circle.component.html',
 })
 export class SwitcherCircleComponent implements OnInit {
 
