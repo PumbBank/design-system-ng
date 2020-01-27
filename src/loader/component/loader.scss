@@ -1,0 +1,146 @@
+.loader {
+  filter: url("#loader-regular");
+
+  &__item {
+    background: #ec443d;
+    border: 1px solid #000333;
+    border-radius: 50%;
+  }
+
+  &_circular {
+    $loader-size: 100px;
+
+    position: relative;
+    width: $loader-size;
+    height: $loader-size;
+
+    .loader__item {
+      position: absolute;
+      top: 65%;
+      left: 65%;
+      width: 15%;
+      height: 15%;
+      transform-origin: -50% -50%;
+      animation: circleLoader 2.5s infinite cubic-bezier(0.57, 0, 0.52, 1);
+
+      &.loader {
+        &__item-one {
+          animation-delay: 0.25s;
+        }
+
+        &__item-two {
+          animation-delay: 0.5s;
+        }
+
+        &__item-three {
+          animation-delay: 0.75s;
+        }
+
+        &__item-four {
+          animation-delay: 1s;
+        }
+
+        &__item-five {
+          animation-delay: 1.25s;
+        }
+      }
+    }
+
+    &.loader_small {
+      $loader-size: 50px;
+
+      width: $loader-size;
+      height: $loader-size;
+    }
+  }
+
+  &_linear {
+    width: 200px;
+    height: 20px;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 0 37px;
+
+    .loader__item {
+      $loader-size: 15px;
+
+      width: $loader-size;
+      height: $loader-size;
+      transform: translateX(0);
+      animation: linearLoaderRegular 2.5s infinite ease;
+
+      &.loader {
+        &__item-one {
+          animation-delay: 0.25s;
+        }
+
+        &__item-two {
+          animation-delay: 0.5s;
+        }
+
+        &__item-three {
+          animation-delay: 0.75s;
+        }
+
+        &__item-four {
+          animation-delay: 1s;
+        }
+
+        &__item-five {
+          animation-delay: 1.25s;
+        }
+      }
+    }
+
+    &.loader_small {
+      width: 100px;
+      height: 10px;
+      padding: 0 15px;
+
+      .loader__item {
+        $loader-size: 10px;
+
+        width: $loader-size;
+        height: $loader-size;
+        animation-name: linearLoaderSmall;
+        animation-duration: 3s;
+      }
+    }
+  }
+
+  &_small {
+    filter: url("#loader-small");
+  }
+}
+
+@keyframes circleLoader {
+  50% {
+    width: 25%;
+    height: 25%;
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+@keyframes linearLoaderRegular {
+  33% {
+    transform: translateX(50px);
+  }
+
+  66% {
+    transform: translateX(-50px);
+  }
+}
+
+@keyframes linearLoaderSmall {
+  33% {
+    transform: translateX(20px);
+  }
+
+  66% {
+    transform: translateX(-20px);
+  }
+}
