@@ -8,7 +8,7 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 		SearchInputComponent,
 	],
 	exports: [
-		SearchInputComponent
+		SearchInputComponent,
 	],
 	imports: [
 		CommonModule,

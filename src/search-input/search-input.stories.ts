@@ -16,7 +16,7 @@ const data = [
 
 searchStories.add('search input', () => ({
 	moduleMetadata: {
-		imports: [SearchInputModule]
+		imports: [SearchInputModule],
 	},
 	props: {
 		width: number('width', 200),
@@ -25,6 +25,6 @@ searchStories.add('search input', () => ({
 		ng: text('text', ''),
 	},
 	template: `
-		<mill-search [list]="array" [disabled]="status" [(ngModel)]="ng" [width]="width"></mill-search>
+      <mill-search [list]="array" [disabled]="status" [(ngModel)]="ng" [width]="width"></mill-search>
   	`
 }));

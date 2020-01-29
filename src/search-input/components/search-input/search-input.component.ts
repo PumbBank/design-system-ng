@@ -1,17 +1,18 @@
 import {
-	Component,
-	ElementRef,
-	EventEmitter,
-	forwardRef,
-	HostListener,
-	Input,
-	OnInit,
-	Output,
-	ViewChild
+  Component,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { BehaviorSubject, fromEvent } from 'rxjs';
+import { map, startWith, filter } from 'rxjs/operators';
 
 interface ListInterface {
 	value: any;
@@ -44,7 +45,8 @@ enum KeyCodeEnum {
 			useExisting: forwardRef(() => SearchInputComponent),
 			multi: true,
 		}
-	]
+	],
+  encapsulation: ViewEncapsulation.None
 })
 export class SearchInputComponent implements OnInit, ControlValueAccessor {
 
@@ -52,14 +54,16 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 	public activeItemIndex = -1;
 
 	@Input() public width: number;
-	@Input('disabled') public isDisabled = false;
+	@Input() public disabled = false;
 	@Input() public async = false;
 
 	public inputValue = new FormControl();
 
 	public showList: ListInterface[] = [];
-	public historyList: BehaviorSubject<ListInterface[]> = new BehaviorSubject<ListInterface[]>([]);
+	public historyList: ListInterface[] = [];
 	private _resultList: BehaviorSubject<ListInterface[]> = new BehaviorSubject<ListInterface[]>([]);
+
+	private _pause: boolean;
 
 	@Input('list')
 	set resultList(value: DataInterface[]) {
@@ -84,55 +88,74 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 
 	@Output('search') public searchOutput: EventEmitter<OutputInterface> = new EventEmitter<OutputInterface>();
 
-	constructor(private _elementRef: ElementRef)  {
-		this.inputValue.valueChanges.pipe(
-			startWith(''),
-			map(value => value && value.match(/^\s$/) ? this.inputValue.setValue('') : value)
-		).subscribe(value => {
-			if (this.async) {
-				this.searchOutput.emit({value});
-			} else {
-				this._filterSearch(value);
-			}
-		});
+  @ViewChild('inputEl', {static: true})
+  public inputEl: ElementRef;
 
-		const history = localStorage.getItem('historyList');
+  @HostListener('document:click', ['$event.target'])
+  public clickOutside(target) {
+    if (!this._elementRef.nativeElement.contains(target)) {
+      this.active = false;
+    }
+  }
 
-		if (history) {
-			const parsedHistory = JSON.parse(history);
-			this.historyList.next(parsedHistory);
-		}
-
-	}
-
-	@ViewChild('inputEl', {static: false})
-	public inputEl: ElementRef;
-
-	@HostListener('document:click', ['$event.target'])
-	public clickOutside(target) {
-		if (!this._elementRef.nativeElement.contains(target)) {
-			this.active = false;
-		}
+  constructor(private _elementRef: ElementRef)  {
 	}
 
 	ngOnInit() {
+    this.inputValue.valueChanges
+      .pipe(
+        startWith(''),
+        map(value => value && value.match(/^\s$/) ? this.inputValue.setValue('') : value),
+      )
+      .subscribe(value => {
+        if (!this._pause) {
+          if (!this.async) {
+            this._filterSearch(value);
+          }
+          this.searchOutput.emit({value});
+        }
+      });
+
+    fromEvent(this.inputEl.nativeElement, 'keydown')
+      .pipe(
+        filter(v => {
+          const ev = v as KeyboardEvent;
+          return ev.key === KeyCodeEnum.keyDown || ev.key === KeyCodeEnum.keyUp || ev.key === KeyCodeEnum.enter
+        }),
+      )
+      .subscribe(event => {
+        this._pause = true;
+        this.onKeyUp(event);
+        this._pause = false;
+      });
+
+    const history = localStorage.getItem('historyList');
+
+    if (history) {
+      const parsedHistory = JSON.parse(history);
+      this.historyList = parsedHistory;
+    }
+
+	  if (this.async) {
+	    this._resultList.subscribe(result => {
+        this._filterSearch(this.inputValue.value);
+      })
+    }
 	}
 
 	private _filterSearch(value: string): void {
-
 		if (value) {
-			const history = this._filter(this.historyList.getValue(), value);
+			const history = this._filter(this.historyList, value);
 			const result = this._filter(this._resultList.getValue(), value);
 
 			this.showList = history.concat(result);
 		} else {
-			this.showList = this.historyList.getValue();
+			this.showList = this.historyList.slice(0, 4);
 		}
 		this._onTouched();
 	}
 
 	private _filter(array: ListInterface[], value: string): ListInterface[] {
-
 		if (!array || array.length === 0) {
 			return [];
 		}
@@ -145,93 +168,68 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 	}
 
 	public onFocus(): void {
-
-		if (this.isDisabled) {
+		if (this.disabled) {
 			return;
 		}
 
 		this.active = true;
-		this.inputEl.nativeElement.focus();
 
-		if (this.inputValue.value === null) {
+		if (!this.inputValue.value) {
 			this._filterSearch(null);
 		}
 	}
 
 	public clearInput(): void {
-		this.inputValue.reset();
+		this.inputValue.setValue(null);
+		this.onFocus();
 	}
 
 	public onKeyUp(event): void {
-
-		if (event.key !== KeyCodeEnum.enter && event.key !== KeyCodeEnum.keyUp && event.key !== KeyCodeEnum.keyDown) {
-			this.activeItemIndex = -1;
-		}
-
 		// Enter
 		if (event.key === KeyCodeEnum.enter) {
-
-			if (this.activeItemIndex !== -1) {
-				this.inputValue.setValue(this.showList[this.activeItemIndex].value);
-				this.activeItemIndex = -1;
-			}
 			this.onSearch(this.inputValue.value);
+			this.inputEl.nativeElement.blur();
+			this.active = false;
 		}
-
 		// Arrow up
-		if (event.key === KeyCodeEnum.keyUp) {
+		if (event.key === KeyCodeEnum.keyUp && this.showList.length > 0) {
+		  event.preventDefault();
+
 			if (this.activeItemIndex !== -1) {
-
-				if (this.activeItemIndex === 0) {
-					this.activeItemIndex = -1;
-				} else {
-					this.activeItemIndex--;
-				}
-
+				this.activeItemIndex === 0 ? this.activeItemIndex = this.showList.length - 1 : this.activeItemIndex--;
+        this.inputValue.setValue(this.showList[this.activeItemIndex].value);
 			} else {
 				this.activeItemIndex = this.showList.length - 1;
 			}
 		}
-
 		// Arrow down
-		if (event.key === KeyCodeEnum.keyDown) {
-			if (this.showList.length > 0) {
-				if (this.activeItemIndex !== -1) {
-
-					if (this.activeItemIndex === this.showList.length - 1) {
-						this.activeItemIndex = -1;
-					} else {
-						this.activeItemIndex++;
-					}
-
-				} else {
-					this.activeItemIndex = 0;
-				}
-			}
-
+		if (event.key === KeyCodeEnum.keyDown && this.showList.length > 0) {
+      if (this.activeItemIndex !== -1) {
+        this.activeItemIndex === this.showList.length - 1 ? this.activeItemIndex = 0 : this.activeItemIndex++;
+        this.inputValue.setValue(this.showList[this.activeItemIndex].value);
+      } else {
+        this.activeItemIndex = 0;
+      }
 		}
 	}
 
 	public removeFromHistory(event, value: string): void {
 		event.stopPropagation();
 
-		const list = this.historyList.getValue().filter(item => item.value !== value);
-		this.historyList.next(list);
-
+    this.historyList = this.historyList.filter(item => item.value !== value);
 		this._saveToLocalStorage();
 
 		this.inputValue.updateValueAndValidity();
 	}
 
 	public onSearch(value: string): void {
-
 		if (!value || !value.trim()) {
 			return;
 		}
 
 		this.showList = [];
 
-		const list = this.historyList.getValue().length > 0 ? this.historyList.getValue().filter(item => item.value !== value) : [];
+		const list = this.historyList.length > 0 ? this.historyList.filter(item => item.value !== value) : [];
 
 		const obj = {
 			value: value,
@@ -239,7 +237,8 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 		};
 
 		list.unshift(obj);
-		this.historyList.next(list);
+		this.historyList = list;
+
 
 		this.searchOutput.emit({value});
 
@@ -251,16 +250,18 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 		this.onSearch(this.inputValue.value);
 	}
 
-	public resultStr(item: string, ): string[] {
+  /**  */
+	public resultStr(item: string): string[] {
 		const reg = new RegExp(`(${this.inputValue.value})`, 'i');
 
 		return item.split(reg).filter(i => i.length > 0);
 	}
 
 	private _saveToLocalStorage(): void {
-		localStorage.setItem('historyList', JSON.stringify(this.historyList.getValue()));
+		localStorage.setItem('historyList', JSON.stringify(this.historyList));
 	}
 
+  /** Modify result option text with bold */
 	public isBold(value: string, isHistory: boolean, index): boolean {
 		const input = this.inputValue.value ? this.inputValue.value.toLowerCase() : '';
 		value = value.toLowerCase();
@@ -271,20 +272,21 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 	private _onTouched: any = () => {
 	};
 
-	registerOnChange(fn: any): void {
+	public registerOnChange(fn: any): void {
 		this.inputValue.valueChanges.subscribe(fn);
 	}
 
-	registerOnTouched(fn: any): void {
+	public registerOnTouched(fn: any): void {
 		this._onTouched = fn;
 	}
 
-	setDisabledState(isDisabled: boolean): void {
-		this.isDisabled = isDisabled;
+	public setDisabledState(isDisabled: boolean): void {
+		this.disabled = isDisabled;
 	}
 
-	writeValue(value: string): void {
-		this.inputValue.setValue(value);
+	public writeValue(value: string): void {
+		this.inputValue.setValue(value ? value : '');
+		this.active = true;
 	}
 
 }

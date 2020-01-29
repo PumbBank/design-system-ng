@@ -1,17 +1,19 @@
-<div class="search-input search-input_active"
+<div class="search-input"
 	 [style.width.px]="width"
-	 [class.search-input_disabled]="isDisabled"
-	 (click)="onFocus()">
-	<div class="search-input__search-icon"></div>
-	<input type="text" placeholder="Placeholder"
+	 [class.search-input_disabled]="disabled"
+   [class.search-input_active]="active">
+  <label class="search-input__label">
+    <span class="search-input__search-icon"></span>
+    <input type="text" placeholder="Placeholder"
            #inputEl
-		   [formControl]="inputValue"
-		   [attr.aria-activedescendant]="'mill-option-' + activeItemIndex"
-		   [attr.aria-expanded]="active"
-		   (keyup)="onKeyUp($event)"
-	>
-	<div *ngIf="inputValue.value && inputValue.value.length > 0" class="search-input__close-icon" (click)="clearInput()"></div>
-	<div *ngIf="active" [class.option-list_active]="active" class="option-list option-list_search">
+           [formControl]="inputValue"
+           [attr.aria-activedescendant]="'mill-option-' + activeItemIndex"
+           [attr.aria-expanded]="active"
+           (focus)="onFocus()"
+    >
+    <span *ngIf="inputValue.value && inputValue.value.length > 0" class="search-input__close-icon" (click)="clearInput()"></span>
+  </label>
+	<div *ngIf="active" [class.option-list_active]="active" class="option-list">
 		<div *ngFor="let item of showList; let i = index" class="option" id="mill-option-{{ i }}" tabindex="0"
 			 [class.option_active]="i === activeItemIndex"
 			 [class.option_with-icon]="item.isHistory"
@@ -25,7 +27,6 @@
 			>{{value}}</span></div>
 
 			<div *ngIf="item.isHistory" class="search-input__close-icon" (click)="removeFromHistory($event, item.value)"></div>
-
 		</div>
 	</div>
 </div>
