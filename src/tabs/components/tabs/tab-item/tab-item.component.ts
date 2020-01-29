@@ -1,5 +1,5 @@
 import { Component, HostBinding, OnDestroy, OnInit } from '@angular/core';
-import { TabItemBase, TabsBase } from '../tabs';
+import { TabItemBase, TabsBase } from '../../../tabs';
 
 @Component({
 	selector: 'mill-tab',

@@ -4,13 +4,21 @@ import { Input } from '@angular/core';
 export abstract class TabsBase {
   @Input() public type: 'basic' | 'ios' = 'basic';
   @Input() public disabled = false;
-  public tabItemId = 0;
+  public tabItemCount = 0;
   public tabItems: BehaviorSubject<TabItemBase[]> = new BehaviorSubject<TabItemBase[]>([]);
   public selectedTabId: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   public selectedLabel: HTMLElement;
 
-  abstract registerTabItem(item: TabItemBase): void;
-  abstract unregisterTabItem(item: TabItemBase): void;
+  public registerTabItem(tab: TabItemBase): void {
+    this.tabItems.getValue().push(tab);
+
+    if (!tab.id) {
+      tab.id = `${this.tabItemCount++}`;
+    }
+  }
+  public unregisterTabItem(tab: TabItemBase): void {
+    this.tabItems.next(this.tabItems.getValue().filter(i => i !== tab));
+  }
 }
 
 export abstract class TabItemBase {

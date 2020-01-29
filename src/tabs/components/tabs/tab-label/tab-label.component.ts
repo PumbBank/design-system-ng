@@ -1,5 +1,5 @@
 import { Component, ElementRef, Input, ViewEncapsulation } from '@angular/core';
-import { TabsBase } from '../tabs';
+import { TabsBase } from '../../../tabs';
 import { TabItemComponent } from '../tab-item/tab-item.component';
 
 @Component({
@@ -27,7 +27,7 @@ export class TabLabelComponent {
 	}
 
 	private _relatedTab: TabItemComponent;
-	
+
 	constructor(
 		private _el: ElementRef,
 		private _tabs: TabsBase

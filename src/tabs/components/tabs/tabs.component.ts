@@ -1,5 +1,5 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
-import { TabItemBase, TabsBase } from './tabs';
+import { TabsBase } from '../../tabs';
 
 
 @Component({
@@ -17,19 +17,7 @@ export class TabsComponent extends TabsBase {
     }
   }
 
-  public registerTabItem(tab: TabItemBase): void {
-    this.tabItems.getValue().push(tab);
-
-	  if (!tab.id) {
-      tab.id = `${this.tabItemId++}`;
-    }
-  }
-
-  public unregisterTabItem(tab: TabItemBase): void {
-    this.tabItems.next(this.tabItems.getValue().filter(i => i !== tab));
-  }
-
-  public barStyles() {
+  public barStyles(): {left: string, width: string} {
     if (this.selectedLabel) {
       return {left: this.selectedLabel.offsetLeft + 'px', width: this.selectedLabel.offsetWidth + 'px'};
     }
