@@ -1,4 +1,4 @@
-import { Component, ElementRef, Input, ViewEncapsulation } from '@angular/core';
+import { AfterViewInit, Component, ElementRef, Input, ViewEncapsulation } from '@angular/core';
 import { TabsBase } from '../../../tabs';
 import { TabItemComponent } from '../tab-item/tab-item.component';
 
@@ -10,15 +10,12 @@ import { TabItemComponent } from '../tab-item/tab-item.component';
 		'(click)': 'onClick()',
 	},
 })
-export class TabLabelComponent {
+export class TabLabelComponent implements AfterViewInit {
 
 	@Input()
 	set relatedTab(tabItem: TabItemComponent) {
 		if (tabItem) {
 			this._relatedTab = tabItem;
-			if (tabItem.id === this._tabs.selectedTabId.getValue()) {
-				this._tabs.selectedLabel = this._el.nativeElement;
-			}
 		}
 	}
 
@@ -33,7 +30,13 @@ export class TabLabelComponent {
 		private _tabs: TabsBase
 	) {}
 
-	public onClick() {
+  ngAfterViewInit(): void {
+    if (this.relatedTab.id === this._tabs.selectedTabId.getValue()) {
+      this._tabs.selectedLabel = this._el.nativeElement;
+    }
+  }
+
+  public onClick() {
 		this._tabs.selectedTabId.next(this.relatedTab.id);
 		this._tabs.selectedLabel = this._el.nativeElement;
 	}
