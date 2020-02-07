@@ -6,12 +6,12 @@ const searchStories = storiesOf('Search Input', module);
 searchStories.addDecorator(withKnobs);
 
 const data = [
-	{f: 'Евгений', s: 'Александрович'},
-	{f: 'Игорь', s: 'Андреевич'},
-	{f: 'Андрей', s: 'Андреевич'},
-	{f: 'Дмитрий'},
-	{f: 'Роман'},
-	{f: 'Алексей'}
+	{name: 'Евгений', surname: 'Александрович'},
+	{name: 'Игорь', surname: 'Андреевич'},
+	{name: 'Андрей', surname: 'Андреевич'},
+	{name: 'Дмитрий'},
+	{name: 'Роман'},
+	{name: 'Алексей'}
 ];
 
 searchStories.add('search input', () => ({

@@ -4,7 +4,7 @@
    [class.search-input_active]="active">
   <label class="search-input__label">
     <span class="search-input__search-icon"></span>
-    <input type="text" placeholder="Placeholder"
+    <input type="text" placeholder="{{placeholder}}"
            #inputEl
            [formControl]="inputValue"
            [attr.aria-activedescendant]="'mill-option-' + activeItemIndex"
