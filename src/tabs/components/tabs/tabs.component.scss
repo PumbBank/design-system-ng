@@ -1,0 +1,191 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/icons";
+@import "~@mill/figma/typography";
+
+.tab-body {
+  display: flex;
+  position: relative;
+  overflow: hidden;
+}
+
+.tab-content {
+  width: 100%;
+}
+
+%tabs-label {
+  padding: 0 24px;
+  min-width: 92px;
+  color: $grey-50;
+  cursor: pointer;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-grow: 1;
+
+  transition: 0.3s ease;
+  transition-property: color, background-color;
+}
+
+.tabs-basic {
+  display: flex;
+  flex-direction: column;
+
+  height: auto;
+  border: none;
+
+  &_disabled {
+
+    .tabs-basic__item {
+      color: $grey-30;
+      pointer-events: none;
+
+      &_active {
+        color: $grey-40;
+      }
+
+    }
+
+    .tabs-basic__border {
+      span {
+        background: $grey-30;
+      }
+    }
+  }
+
+  &__border {
+    position: absolute;
+    left: 0;
+    bottom: -2px;
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    transition: 0.3s ease;
+
+    span {
+      width: calc(100% - 48px);
+      height: 3px;
+      border-radius: 5px;
+      background: $red-50;
+    }
+  }
+
+  &__header {
+    display: inline-flex;
+    height: 56px;
+    position: relative;
+    padding: 0 24px;
+    border-bottom: 1px solid $grey-20;
+    box-sizing: border-box;
+  }
+
+  &__item {
+    @extend %p1;
+    @extend %tabs-label;
+
+    &:hover {
+      color: $grey-70;
+    }
+
+    &_active {
+      @extend %s1;
+      color: $grey-70;
+    }
+  }
+}
+
+.tabs-ios {
+  display: flex;
+  flex-direction: column;
+
+  height: auto;
+  border: none;
+
+  &_disabled {
+
+    .tabs-ios__header {
+      border: 1px solid $grey-40;
+      pointer-events: none;
+    }
+
+    .tabs-ios__item {
+      color: $grey-40;
+
+      &_active {
+        color: #fff;
+        background: $grey-40;
+        box-shadow: none;
+      }
+    }
+  }
+
+  &__header {
+    display: inline-flex;
+    height: 40px;
+    border-radius: 50px;
+    border: 1px solid $red-50;
+    box-sizing: border-box;
+  }
+
+  &__item {
+    @extend %p2;
+    @extend %tabs-label;
+
+    &:first-of-type {
+      border-radius: 50px 0 0 50px;
+    }
+
+    &:last-of-type {
+      border-radius: 0 50px 50px 0;
+    }
+
+    &:hover:not(&_active) {
+      background: $red-30;
+      color: #fff;
+    }
+
+    &_active {
+      @extend %s2;
+      background: $red-50;
+      color: #fff;
+      box-shadow: 0 2px 5px rgba(249, 31, 43, 0.35);
+    }
+
+    &:not(:last-of-type):not(&_active) {
+
+      &:before {
+        content: '';
+        position: absolute;
+        right: -1px;
+        top: 0;
+        bottom: 0;
+        margin: auto;
+        width: 1px;
+        height: 24px;
+        background: $grey-20;
+      }
+
+    }
+  }
+}
+
+.tab-item {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+
+  transition: 0.4s ease;
+  transform: translateX(-100%);
+
+  &_active {
+    position: relative;
+    transform: translateX(0);
+
+    ~ .tab-item {
+      transform: translateX(100%);
+    }
+  }
+}

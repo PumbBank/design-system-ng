@@ -1,0 +1,26 @@
+<div
+  class="tabs-{{type}}"
+  [ngClass]="disabled ? 'tabs-' + type + '_disabled' : null"
+>
+  <div class="tabs-{{type}}__header">
+    <tab-label
+      *ngFor="let item of tabItems | async"
+      class="tabs-{{type}}__item"
+	    [ngClass]="item.id === this.selectedTabId.getValue() ? 'tabs-' + type + '__item_active' : null"
+	    [relatedTab]="item"
+    >
+      {{item.label}}
+    </tab-label>
+    <div
+      *ngIf="type === 'basic'"
+      class="tabs-basic__border"
+      [ngStyle]="barStyles()"
+    >
+      <span></span>
+    </div>
+  </div>
+  <div class="tab-body">
+    <ng-content></ng-content>
+  </div>
+</div>
+
