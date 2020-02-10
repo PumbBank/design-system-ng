@@ -16,7 +16,7 @@ enum elementView {
 @Component({
   selector: 'mill-button',
   templateUrl: './button.component.html',
-  styleUrls: [ './button.scss' ]
+  styleUrls: ['./button.scss']
 })
 export class ButtonComponent implements OnChanges {
 
@@ -29,20 +29,20 @@ export class ButtonComponent implements OnChanges {
   @Input() view: elementView = elementView.filled;
   @Input() disabled: boolean;
   @Input() autofocus: boolean;
-  @Input() icon: string;
-  @Input() bgColor: string;
   /* END: HTML attributes: */
+
+  @Input() icon: string;
 
   @ViewChild('content', { static: false }) content: ElementRef;
 
   varietyClass: string;
 
   public get buttonOnlyIcon(): boolean {
-    return !!this.icon && !this.content.nativeElement.textContent;
+    return !!this.icon && !(this.content && this.content.nativeElement.textContent);
   }
 
   get showText(): boolean {
-    return this.content && !!this.content.nativeElement.innerText.trim();
+    return this.content && !!(this.content.nativeElement && this.content.nativeElement.innerText.trim());
   }
 
   get viewClass(): string {

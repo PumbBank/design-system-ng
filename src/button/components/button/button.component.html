@@ -5,10 +5,8 @@
   [attr.form]="form"
   [attr.type]="type"
   [attr.disabled]="disabled"
-  [attr.autofocus]="autofocus"
-  [style.background-color]="bgColor">
+  [attr.autofocus]="autofocus">
 
-  <!-- <ng-content select=".hn-icon, hn-icon"></ng-content> -->
 
   <span [hidden]="!showText" class="button__text" #content>
     <ng-content></ng-content>

@@ -12,10 +12,28 @@ buttonStories.add('regular button', () => ({
     ]
   },
   props: {
-    label: text('label', 'Regular Button'), // The first param of the knob function has to be exactly the same as the component input.
-    backColor: color('background color', '#cc0812'),
+    label: text('label', 'Button'),
+    icon: text('icon', 'home')
   },
   template: `
-    <mill-button [bgColor]="backColor">{{label}}</mill-button>
+    <mill-button size="large">{{ label }}</mill-button>
+    <mill-button size="large" view="ghost">{{ label }}</mill-button>
+    <mill-button size="large" view="hidden">{{ label }}</mill-button>
+
+    <mill-button size="large" [icon]="icon"></mill-button>
+    <mill-button size="large" view="ghost" [icon]="icon"></mill-button>
+    <mill-button size="large" view="hidden" [icon]="icon"></mill-button>
+    <br><br>
+    <mill-button>{{ label }}</mill-button>
+    <mill-button view="ghost">{{ label }}</mill-button>
+    <mill-button view="hidden">{{ label }}</mill-button>
+    
+    <mill-button [icon]="icon"></mill-button>
+    <mill-button view="ghost" [icon]="icon"></mill-button>
+    <mill-button view="hidden" [icon]="icon"></mill-button>
+    <br><br>
+    <mill-button size="small">{{ label }}</mill-button>
+    <mill-button size="small" view="ghost">{{ label }}</mill-button>
+    <mill-button size="small" view="hidden">{{ label }}</mill-button>
   `
 }));
