@@ -19,14 +19,14 @@
 			 [class.option_with-icon]="item.isHistory"
 			 (click)="setInputValue(item.value)"
 		>
-			<div *ngIf="item.isHistory" class="search-input__clock-icon"></div>
+			<span *ngIf="item.isHistory" class="search-input__clock-icon"></span>
 
 			<div class="option__text"><span
 				*ngFor="let value of resultStr(item.value); let i = index"
 				[style.fontWeight]="isBold(value, item.isHistory, i) ? 'bold' : null"
 			>{{value}}</span></div>
 
-			<div *ngIf="item.isHistory" class="search-input__close-icon" (click)="removeFromHistory($event, item.value)"></div>
+			<span *ngIf="item.isHistory" class="search-input__close-icon" (click)="removeFromHistory($event, item.value)"></span>
 		</div>
 	</div>
 </div>
