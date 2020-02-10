@@ -1,0 +1,15 @@
+<div class="sidebar__header">
+  <div class="sidebar__burger" (click)="collapsedToggle()">
+    <span class="sidebar__burger-icon icon icon_burger icon_24"></span>
+  </div>
+  <img class="sidebar__logo" [src]="logo" alt="logo">
+</div>
+
+<div class="sidebar__scrollable" [class.sidebar__scrollable_active]="scrolled" (scroll)="onScroll($event)">
+  <div class="sidebar__user-info-wrapper">
+    <ng-content select="user-info"></ng-content>
+  </div>
+  <div class="sidebar__navigation">
+    <ng-content></ng-content>
+  </div>
+</div>

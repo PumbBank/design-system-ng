@@ -1,0 +1,79 @@
+@import "~@mill/figma/colors";
+
+:host {
+  width: 280px;
+  display: block;
+
+  transition: width 299ms ease;
+
+  &.sidebar_collapsed {
+    width: 72px;
+    overflow: hidden;
+
+    .sidebar__scrollable {
+      padding: 0 12px;
+    }
+
+    .sidebar__user-info-wrapper {
+      padding: 0px;
+    }
+
+    .sidebar__logo {
+      opacity: 0;
+    }
+  }
+}
+
+.sidebar_collapsed {
+  width: 72px;
+  overflow: hidden;
+}
+
+.sidebar__header {
+  display: flex;
+  height: 40px;
+  padding: 32px 24px;
+  align-items: center;
+  flex-direction: row;
+}
+
+.sidebar__burger {
+  height: 24px;
+  cursor: pointer;
+}
+
+.sidebar__burger-icon {
+  background: $grey-40;
+}
+
+.sidebar__logo {
+  transition: opacity 299ms ease;
+  height: 40px;
+  margin-left: 20px;
+}
+
+.sidebar__user-info-wrapper {
+  transition: padding 299ms ease;
+  padding: 0 24px 36px;
+}
+
+.sidebar__scrollable {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  transition: padding 299ms ease;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: calc(100% - 104px);
+
+  &_active {
+    border-top: 1px solid $grey-70;
+  }
+}
+
+.sidebar__navigation {
+  padding-right: 24px;
+}

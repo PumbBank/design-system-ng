@@ -1,0 +1,16 @@
+<div class="user-info__body" [class.user-info__body_with-avatar]="!!avatar">
+  <div class="user-info__avatar" *ngIf="avatar" [style]="avatarStyle"></div>
+
+  <div class="user-info__text" [class.user-info__body_with-additional]="!!additional">
+    <div class="user-info__username">
+      {{ username }}
+    </div>
+    <div class="user-info__additional" *ngIf="additional">
+      {{ additional }}
+    </div>
+  </div>
+
+</div>
+<div class="user-info__footer">
+  <ng-content></ng-content>
+</div>
