@@ -40,10 +40,15 @@
             "project": "ng-package.json",
             "scripts": [],
             "styles": [
-              "src/assets/style.scss"
+              "src/assets/style.scss",
+              "node_modules/@mill/figma/icons.scss"
             ],
             "assets": [
-              { "glob": "**/*", "input": "src/assets", "output": "/" }
+              {
+                "glob": "**/*",
+                "input": "src/assets",
+                "output": "/"
+              }
             ],
             "outputPath": "dist"
           }
