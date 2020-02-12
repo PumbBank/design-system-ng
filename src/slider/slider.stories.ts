@@ -2,7 +2,6 @@ import { storiesOf } from '@storybook/angular';
 import { withKnobs, number, radios, boolean } from "@storybook/addon-knobs";
 import { SliderModule } from './slider.module';
 
-
 const sliderStories = storiesOf('Slider', module);
 sliderStories.addDecorator(withKnobs);
 
