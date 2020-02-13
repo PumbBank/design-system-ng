@@ -77,7 +77,7 @@
       width: 12px;
       height: 12px;
       border-radius: 50%;
-      background: $white;
+      background: $other-white;
       margin: auto;
       z-index: 1;
       opacity: 0;
@@ -109,7 +109,7 @@
     }
 
     .thumb__tooltip {
-      color: $white;
+      color: $other-white;
       transform: translateY(0);
 
       @extend %s2;
