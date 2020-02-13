@@ -62,7 +62,7 @@
 
 .button_filled {
   background: $red-50;
-  color: $white;
+  color: $other-white;
 
   .button__icon { @extend %icon_white; }
 
@@ -96,7 +96,7 @@
 
   &:hover:not(:disabled) {
     background: $red-50;
-    color: $white;
+    color: $other-white;
 
     .button__icon { @extend %icon_white; }
   }
@@ -104,7 +104,7 @@
   &:active:not(:disabled) {
     border-color: $red-60;
     background: $red-60;
-    color: $white;
+    color: $other-white;
 
     .button__icon { @extend %icon_white; }
   }
