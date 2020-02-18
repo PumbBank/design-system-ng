@@ -1,4 +1,5 @@
 import { Directive, ElementRef, Input, Renderer2 } from '@angular/core';
+import { BadgeIconService } from '../services/badge-icon.service';
 
 @Directive({
   selector: '[badge]',
@@ -30,10 +31,12 @@ export class BadgeIconDirective {
 
   constructor(
     private _el: ElementRef,
-    private _r: Renderer2
+    private _r: Renderer2,
+    private _badgeService: BadgeIconService,
   ) {}
 
   ngOnInit() {
+    this._badgeService.appendSvg();
     this.createBadgeElement();
   }
 

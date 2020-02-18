@@ -1,7 +1,9 @@
-import { Injectable, Renderer2, RendererFactory2 } from '@angular/core';
+import { Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/core';
 
 @Injectable()
-export class BadgeIconService {
+export class BadgeIconService implements OnDestroy {
+
+  private _appended = false;
 
   private _svgPath = [
     {
@@ -28,10 +30,20 @@ export class BadgeIconService {
     this._r = _rFactory.createRenderer(null, null);
   }
 
+  ngOnDestroy() {
+    this._r.removeChild(document.body, document.getElementById('icon-svg'));
+  }
+
   public appendSvg(): void {
+
+    if (this._appended) { return; }
+
+    this._appended = true;
+
     const svg = this._r.createElement('svg', 'svg');
     this._r.setAttribute(svg, 'width', '0');
     this._r.setAttribute(svg, 'height', '0');
+    this._r.setAttribute(svg, 'id', 'icon-svg');
 
     this._svgPath.forEach(i => {
       const clip = this._r.createElement('clipPath', 'svg');
@@ -48,5 +60,6 @@ export class BadgeIconService {
 
     this._r.appendChild(document.body, svg);
   }
+
 
 }
