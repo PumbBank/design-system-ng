@@ -1,10 +1,9 @@
-import { storiesOf, moduleMetadata } from '@storybook/angular';
+import { storiesOf } from '@storybook/angular';
 import { withKnobs, boolean, select } from '@storybook/addon-knobs/angular';
 
 import { LoaderModule } from './loader.module';
 
 const loaderStories = storiesOf('Loader', module);
-
 loaderStories.addDecorator(withKnobs);
 
 loaderStories.add('Glue Loader', () => ({
