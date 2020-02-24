@@ -1,0 +1,69 @@
+<div role="listbox" class="select">
+  <ng-container *ngTemplateOutlet="defaultHeaderTemplate; context: this"></ng-container>
+
+  <ng-container *ngIf="active$.value || !isNotRenderInactiveBodyMode">
+    <ng-container *ngTemplateOutlet="defaultBodyTemplate; context: this">
+    </ng-container>
+  </ng-container>
+</div>
+
+<!--
+  Default header template
+-->
+<ng-template #defaultHeaderTemplate>
+  <label class="select__header input" [class.input_required]="this.required">
+    <div class="input__label">
+      {{ caption }}</div>
+    <div class="input__body">
+
+      <ng-container *ngIf="multiple">
+        <div class="chip" *ngFor="let option of selectedOption">
+          <div class="chip__text">{{ option.value }}</div>
+          <div class="chip__icon icon" (click)="ontionChipCloseClick(option)"></div>
+        </div>
+      </ng-container>
+
+      <div class="input__enterence">
+        <div class="input__placeholder" *ngIf="!searchInputValue"> {{ placeholder }} </div>
+        <input class="input__input" (focus)="onSearchInputFocus()" (blur)="onSearchInputBlur()"
+          [value]="searchInputValue" (input)="onSearchInput(searchInput.value)" (keydown)="onSearchInputKeydown($event)"
+          #searchInput>
+
+      </div>
+      <span class="input__icon icon icon_chevron-down"></span>
+    </div>
+
+    <div class="input__footer">
+      <ng-content select="mill-hint"></ng-content>
+    </div>
+  </label>
+</ng-template>
+
+<!--
+  Default body template
+-->
+<ng-template #defaultBodyTemplate>
+  <div #selectBodyElement class="option-list" [class.option-list_active]="active$.value" (mouseover)="onBodyMouseOver()"
+    (mouseout)="onBodyMouseOut()">
+    <ng-container *ngFor="let option of (options$ | async); index as i">
+
+      <ng-container *ngTemplateOutlet="defaultOptionTemplate; context: { option: option, i: i }">
+
+      </ng-container>
+    </ng-container>
+  </div>
+</ng-template>
+
+
+<!--
+  Default option tempalte
+-->
+
+<ng-template #defaultOptionTemplate let-option="option" let-i="i">
+  <div #optionElement class="option" [class.option_focused]="focusedOptionIndex == i" (click)="optionClick(option)">
+    <div class="option__text">
+      {{ option.value }}
+    </div>
+    <span *ngIf="checkIsOptionSelected(option)" class="option__icon icon"></span>
+  </div>
+</ng-template>

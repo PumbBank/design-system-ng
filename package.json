@@ -15,7 +15,7 @@
     "@angular/common": "~8.1.2",
     "@angular/core": "~8.1.2",
     "@angular/forms": "~8.1.2",
-    "@mill/figma": "latest"
+    "@mill/figma": "0.0.583253"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.801.2",
