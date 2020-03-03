@@ -1,25 +1,37 @@
 <div
   class="tabs-{{type}}"
-  [ngClass]="disabled ? 'tabs-' + type + '_disabled' : null"
+  [ngClass]="[(disabled ? 'tabs-' + type + '_disabled' : ''), (fullWidth ? 'tabs-' + type + '_full-width': '')]"
 >
-  <div class="tabs-{{type}}__header">
-    <tab-label
-      *ngFor="let item of tabItems | async"
-      class="tabs-{{type}}__item"
-	    [ngClass]="item.id === this.selectedTabId.getValue() ? 'tabs-' + type + '__item_active' : null"
-	    [relatedTab]="item"
-    >
-      {{item.label}}
-    </tab-label>
-    <div
-      *ngIf="type === 'basic'"
-      class="tabs-basic__border"
-      [ngStyle]="barStyles()"
-    >
-      <span></span>
+  <div class="tabs-{{type}}__header" style="flex-grow: 1; position: relative" #wrapper>
+    <div class="tabs-{{type}}__list" #labelWrapper [ngStyle]="{'transform': getTransformStyle()}">
+      <div class="tabs-{{type}}__labels">
+        <tab-label
+          *ngFor="let item of tabItems | async"
+          class="tabs-{{type}}__item"
+          [ngClass]="item.id === this.selectedTabId ? 'tabs-' + type + '__item_active' : null"
+          [relatedTab]="item"
+        >
+          {{item.label}}
+        </tab-label>
+      </div>
+      <div
+        *ngIf="type === 'basic'"
+        class="tabs-basic__border"
+        [ngStyle]="barStyles()"
+      >
+        <span></span>
+      </div>
     </div>
   </div>
-  <div class="tab-body">
+  <ng-container *ngIf="!hideControls">
+    <button *ngIf="!disableBefore" class="tab-nav tab-nav_left" (click)="scrollHeader('left')">
+      <span class="icon icon_24 icon_chevron-left"></span>
+    </button>
+    <button *ngIf="!disableAfter" class="tab-nav tab-nav_right" (click)="scrollHeader('right')">
+      <span class="icon icon_24 icon_chevron-right"></span>
+    </button>
+  </ng-container>
+  <div class="tab-content">
     <ng-content></ng-content>
   </div>
 </div>
