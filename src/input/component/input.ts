@@ -16,6 +16,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   protected cleanFunction: CleanFunction = DEFAULT_CLEN_FUNCTION;
 
   @Input() errors: ValidationErrors | null = null;
+  @Input() valid: string | boolean = null;
   @Input() caption = '';
   @Input() icon: string;
 
@@ -47,7 +48,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   }
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.errors) {
+    if (changes.errors || changes.valid) {
       this.errorsUpdateText();
     }
     if (changes.caption) {
@@ -101,14 +102,6 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     this.touched = false;
   }
 
-  private updateMsgTextStyles() {
-    if (this.touched && this.invalid) {
-      this.renderer.addClass(this.wrapperElement, 'input_error');
-    } else {
-
-      this.renderer.removeClass(this.wrapperElement, 'input_error');
-    }
-  }
 
   private watchInputValueChanges(): void {
     this.input.addEventListener('input', () => {
@@ -143,11 +136,42 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     );
   }
 
+  private updateMsgTextStyles() {
+    if (this.touched && this.invalid) {
+      this.renderer.removeClass(this.wrapperElement, 'input_valid');
+      this.renderer.addClass(this.wrapperElement, 'input_error');
+
+      this.renderer.removeClass(this.msgIconElement, 'icon_info');
+      this.renderer.removeClass(this.msgIconElement, 'icon_valid');
+      this.renderer.addClass(this.msgIconElement, 'icon_close');
+
+    } else if (this.valid) {
+      this.renderer.removeClass(this.wrapperElement, 'input_error');
+      this.renderer.addClass(this.wrapperElement, 'input_valid');
+
+
+      this.renderer.removeClass(this.msgIconElement, 'icon_info');
+      this.renderer.addClass(this.msgIconElement, 'icon_valid');
+      this.renderer.removeClass(this.msgIconElement, 'icon_close');
+    } else {
+      this.renderer.removeClass(this.wrapperElement, 'input_error');
+      this.renderer.removeClass(this.wrapperElement, 'input_valid');
+
+      this.renderer.addClass(this.msgIconElement, 'icon_info');
+      this.renderer.removeClass(this.msgIconElement, 'icon_valid');
+      this.renderer.removeClass(this.msgIconElement, 'icon_close');
+    }
+  }
+
   private updateMessagePresentation(): void {
     if (this.errors && this.touched) {
       this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
+    } else if (this.valid && this.valid !== 'true' && this.valid !== true) {
+      this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
     } else {
-      this.renderer.removeChild(this.footerElement, this.msgWrapperElement);
+      try {
+        this.renderer.removeChild(this.footerElement, this.msgWrapperElement);
+      } catch (e) { }
     }
   }
 
@@ -212,7 +236,14 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   }
 
   private errorsUpdateText() {
-    this.msgTextElement.innerText = this.errors && this.touched ? ErrorMessageHelper.getMessage(this.errors) : '';
+    if (this.errors && this.touched) {
+      this.msgTextElement.innerText = this.errors && this.touched ? ErrorMessageHelper.getMessage(this.errors) : '';
+    } else if (!!this.valid && this.valid !== 'true' && this.valid !== true) {
+      this.msgTextElement.innerText = this.valid as string;
+    } else {
+      this.msgTextElement.innerText = '';
+    }
+    this.updateMessagePresentation();
     this.updateMsgTextStyles();
   }
 
