@@ -9,11 +9,10 @@
 .tab-body {
   display: flex;
   position: absolute;
-  overflow: hidden;
   top: 0;
   left: 0;
-  transform: translate3d(-100%, 0px, 0px);
-  opacity: 0;
+  overflow: hidden;
+  width: 100%;
 }
 
 .tab-content {

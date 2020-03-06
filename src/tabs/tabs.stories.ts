@@ -34,13 +34,8 @@ tabsStories.add('Tabs', () => ({
         <mill-tab label="Ios tabs 2">content 2343252352</mill-tab>
         <mill-tab label="Ios tabs 3" [id]="'tab'">content new</mill-tab>
         <mill-tab label="Super Large Ios Tab">
-          <mill-tabs [disabled]="disable" [fullWidth]="fullWidth">
-            <mill-tab label="Ios child tabs">content 234</mill-tab>
-            <mill-tab label="Ios child tabs 2">content 2343252352</mill-tab>
-            <mill-tab label="Ios child tabs 3">content new</mill-tab>
-            <mill-tab label="Super Large child Ios Tab">content new</mill-tab>
-          </mill-tabs>
-        </mill-tab>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+        </mill-tab>          
       </mill-tabs>
       
      </div>

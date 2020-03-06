@@ -1,4 +1,4 @@
-import { Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
+import { ChangeDetectorRef, Component, HostBinding, Input, OnDestroy, OnInit } from '@angular/core';
 import { TabItemBase, TabsBase } from '../../../tabs';
 import { animatedTab } from '../../../tabs.animation';
 
@@ -8,21 +8,20 @@ import { animatedTab } from '../../../tabs.animation';
 	host: {
 		'class': 'tab-item',
 	},
-  animations: [animatedTab.tabAnimation]
+  animations: [animatedTab.tabAnimation, animatedTab.contentAnimation]
 })
 export class TabItemComponent extends TabItemBase implements OnInit, OnDestroy {
 
-  public tabPosition: 'left' | 'right' | 'center' = 'left';
+  public tabPosition: 'left' | 'right' | 'center';
 
   @Input() public set position(position: number) {
-    console.log(position);
     this._tabPositionIndex = position;
-    this.calcAnimationPosition();
+    this._setTabPosition();
   };
 
   private _tabPositionIndex: number;
 
-  public calcAnimationPosition() {
+  private _setTabPosition() {
     if (this._tabPositionIndex < 0) {
       this.tabPosition = 'left'
     } else if (this._tabPositionIndex > 0) {
@@ -32,7 +31,7 @@ export class TabItemComponent extends TabItemBase implements OnInit, OnDestroy {
     }
   }
 
-	constructor(private _tabs: TabsBase) {
+	constructor(private _tabs: TabsBase, private _cd: ChangeDetectorRef) {
 		super();
 	}
 
@@ -42,7 +41,7 @@ export class TabItemComponent extends TabItemBase implements OnInit, OnDestroy {
 
 	ngOnInit() {
     this._tabs.registerTabItem(this);
-    this._tabs.selectedTabId === this.id ? this.tabPosition = 'center' : 'left';
+    this._tabs.selectedTabId === this.id ? this.tabPosition = 'center' : null;
 	}
 
 	ngOnDestroy() {
