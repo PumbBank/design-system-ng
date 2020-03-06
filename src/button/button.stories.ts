@@ -6,7 +6,7 @@ import { ButtonOverview } from './examples/button-page/button-page.component';
 const buttonStories = storiesOf('Buttons', module);
 buttonStories.addDecorator(withKnobs);
 
-buttonStories.add('regular button', () => ({
+buttonStories.add('Overview', () => ({
   moduleMetadata: {
     declarations: [
       ButtonComponent,
