@@ -1,0 +1,45 @@
+<div class="h3">Buttons</div>
+<br>
+<ng-container *ngFor="let t of types">
+  <br><br>
+  <div class="h4">{{ t }}</div>
+  <br>
+  <div class="grid">
+    <div class="grid-item-4">
+      <div class="s1">Basic</div>
+      <div class="preview-block">
+        <mill-button [view]="t" size="large">{{ label }}</mill-button>
+        <div class="p2 preview-block__label">large</div>
+        <mill-button [view]="t" size="middle">{{ label }}</mill-button>
+        <div class="p2 preview-block__label">middle</div>
+        <mill-button [view]="t" size="small">{{ label }}</mill-button>
+        <div class="p2 preview-block__label">small</div>
+      </div>
+    </div>
+
+    <div class="grid-item-4">
+      <div class="s1">With icon</div>
+      <div class="preview-block">
+        <mill-button [view]="t" size="large" icon="add">{{ label }}</mill-button>
+        <div class="p2 preview-block__label">large</div>
+        <mill-button [view]="t" size="middle" icon="add">{{ label }}</mill-button>
+        <div class="p2 preview-block__label">middle</div>
+        <mill-button [view]="t" size="small" icon="add">{{ label }}</mill-button>
+        <div class="p2 preview-block__label">small</div>
+      </div>
+    </div>
+
+    <div class="grid-item-4">
+      <div class="s1">Only icon</div>
+      <div class="preview-block">
+        <mill-button [view]="t" size="large" icon="add"></mill-button>
+        <div class="p2 preview-block__label">large</div>
+        <mill-button [view]="t" size="middle" icon="add"></mill-button>
+        <div class="p2 preview-block__label">middle</div>
+        <mill-button [view]="t" size="small" icon="add"></mill-button>
+        <div class="p2 preview-block__label">small</div>
+      </div>
+    </div>
+  </div>
+
+</ng-container>
