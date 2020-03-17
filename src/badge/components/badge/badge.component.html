@@ -1,0 +1,23 @@
+<div
+  class="badge"
+  [class.badge_green]="color === badgeColorEnum.green"
+  [class.badge_orange]="color === badgeColorEnum.orange"
+  [class.badge_red]="color === badgeColorEnum.red"
+  [class.badge_black]="color === badgeColorEnum.black"
+  [class.badge_grey]="color === badgeColorEnum.grey"
+  [class.badge_blue]="color === badgeColorEnum.blue"
+  [class.badge_basic]="type === badgeTypeEnum.basic"
+  [class.badge_filled]="type === badgeTypeEnum.filled"
+  [class.badge_minimal]="type === badgeTypeEnum.minimal"
+>
+  <div
+    *ngIf="type === badgeTypeEnum.basic"
+    class="badge__icon"
+    [class.badge__icon_warning]="icon === badgeIconEnum.warning"
+    [class.badge__icon_valid]="icon === badgeIconEnum.valid"
+  ></div>
+  <span *ngIf="type === badgeTypeEnum.minimal" class="badge__circle"></span>
+  <div class="badge__text">
+    <ng-content></ng-content>
+  </div>
+</div>

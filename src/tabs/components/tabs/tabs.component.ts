@@ -3,25 +3,32 @@ import { TabsBase } from '../../tabs';
 
 
 @Component({
-	selector: 'mill-tabs',
-	templateUrl: './tabs.component.html',
-	styleUrls: ['./tabs.component.scss'],
-	encapsulation: ViewEncapsulation.None,
-	providers: [{provide: TabsBase, useExisting: TabsComponent}]
+  selector: 'mill-tabs',
+  templateUrl: './tabs.component.html',
+  styleUrls: ['./tabs.component.scss'],
+  encapsulation: ViewEncapsulation.None,
+  providers: [{provide: TabsBase, useExisting: TabsComponent}],
+  host: {
+    'class': 'mill-tabs'
+  }
 })
 export class TabsComponent extends TabsBase {
 
-  @Input() public set selected(value: string) {
+  @Input()
+  public set selected(value: string) {
     if (value) {
-      this.selectedTabId.next(value);
+      this.selectedTabId = value;
     }
   }
 
-  public barStyles(): {left: string, width: string} {
+  public barStyles(): { left: string, width: string } {
     if (this.selectedLabel) {
       return {left: this.selectedLabel.offsetLeft + 'px', width: this.selectedLabel.offsetWidth + 'px'};
     }
 
     return {left: '0px', width: '0px'};
   }
+
 }
+
+
