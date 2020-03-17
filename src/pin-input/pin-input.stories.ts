@@ -6,4 +6,4 @@ const pinInputStories = storiesOf('Pin input', module);
 
 pinInputStories.addDecorator(withKnobs);
 
-pinInputStories.add('Basic pin input', pinInputDefaultStorie);
+pinInputStories.add('Overview', pinInputDefaultStorie);

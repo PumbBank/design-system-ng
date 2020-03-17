@@ -104,3 +104,8 @@
     background: transparentize($orange-50, 0.85);
   }
 }
+
+.pin-input__ceil_disabled {
+  background: $grey-20;
+  cursor: default;
+}
