@@ -2,6 +2,7 @@ import { AfterViewInit, Component, ElementRef, Input, ViewEncapsulation } from '
 import { TabsBase } from '../../../tabs';
 import { TabItemComponent } from '../tab-item/tab-item.component';
 
+
 @Component({
 	selector: 'tab-label',
 	templateUrl: './tab-label.component.html',
@@ -16,6 +17,7 @@ export class TabLabelComponent implements AfterViewInit {
 	set relatedTab(tabItem: TabItemComponent) {
 		if (tabItem) {
 			this._relatedTab = tabItem;
+			tabItem.labelElement = this._el;
 		}
 	}
 
@@ -27,17 +29,18 @@ export class TabLabelComponent implements AfterViewInit {
 
 	constructor(
 		private _el: ElementRef,
-		private _tabs: TabsBase
+    private _tabs: TabsBase,
 	) {}
 
   ngAfterViewInit(): void {
-    if (this.relatedTab.id === this._tabs.selectedTabId.getValue()) {
+    if (this.relatedTab.id === this._tabs.selectedTabId) {
       this._tabs.selectedLabel = this._el.nativeElement;
     }
   }
 
   public onClick() {
-		this._tabs.selectedTabId.next(this.relatedTab.id);
+		this._tabs.selectedTabId = this.relatedTab.id;
 		this._tabs.selectedLabel = this._el.nativeElement;
 	}
+
 }
