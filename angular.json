@@ -41,9 +41,6 @@
             "scripts": [],
             "styles": [
               "src/assets/styles/_styles.scss",
-              "node_modules/@mill/figma/icons.scss",
-              "node_modules/@mill/figma/colors.scss",
-              "node_modules/@mill/figma/typography.scss",
               "node_modules/@mill/figma/gilroy/gilroy.css"
             ],
             "assets": [
