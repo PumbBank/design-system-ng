@@ -10,8 +10,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 	declarations: [
 		TabsComponent,
 		TabItemComponent,
-		TabLabelComponent,
-	],
+		TabLabelComponent
+  ],
 	exports: [
 		TabsComponent,
 		TabItemComponent,

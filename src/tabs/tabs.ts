@@ -59,7 +59,7 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
       .pipe(debounceTime(100))
       .subscribe(() => {
         this._checkOverflow();
-        this._checkLabelInView();
+        this.checkLabelInView();
 
         if (!this.overflow) {
           this.scrollOffset = 0;
@@ -67,7 +67,7 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
       });
 
     this._checkOverflow();
-    this._checkLabelInView();
+    this.checkLabelInView();
     this._checkScrollControls();
   }
 
@@ -118,7 +118,7 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
       }
     }
 
-    this._checkLabelInView();
+    this.checkLabelInView();
   }
 
   public scrollTo(label: HTMLElement) {
@@ -134,17 +134,18 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
     if (labelStartPosition < beforeLabelPosition) {
       this.scrollOffset -= beforeLabelPosition - labelStartPosition + SCROLL_OVERFLOW
     } else if (labelEndPosition > afterLabelPosition) {
-      this.scrollOffset += labelEndPosition - afterLabelPosition + SCROLL_OVERFLOW;
+      this.scrollOffset += labelEndPosition - afterLabelPosition + SCROLL_OVERFLOW
     }
   }
 
   private _scroll(value: number) {
     const maxScroll = this._maxScrollLength();
+    if (maxScroll - value <= 10) value = maxScroll;
     this._scrollOffset = Math.max(0, Math.min(maxScroll, value));
     this._checkScrollControls();
   }
 
-  private _checkLabelInView() {
+  public checkLabelInView() {
     if (!this.overflow) {
       return;
     }
@@ -220,6 +221,7 @@ export abstract class TabsBase extends TabsPagination implements OnInit {
 
       if (this.overflow) {
         this.scrollTo(label);
+        this.checkLabelInView();
       }
     }
   }
