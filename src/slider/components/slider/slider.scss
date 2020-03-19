@@ -4,6 +4,7 @@
 .track {
   width: 100%;
   height: 4px;
+
   border-radius: 8px;
   z-index: 1;
   transform-origin: 0 0;
@@ -13,23 +14,29 @@
   position: absolute;
   top: -16px;
   right: -16px;
+
   width: 32px;
   height: 32px;
+
   display: flex;
-  align-items: center;
   justify-content: center;
 
   &__tooltip {
-    position: absolute;
     width: 32px;
+
+    position: absolute;
     height: 32px;
     bottom: 36px;
     left: 0;
+
     color: $grey-60;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     z-index: 1;
+
     transition: 0.2s ease;
     transition-property: opacity, visibility, transform;
     transform: translateY(12px);
@@ -53,7 +60,6 @@
 
     span {
       display: block;
-      font-size: 14px;
     }
   }
 
@@ -64,8 +70,11 @@
     border-radius: 50%;
     box-shadow: 0 2px 5px rgba(249, 31, 43, 0.35);
     transition: 0.2s ease;
-    transition-property: width, height;
+    transition-property: width, height, top;
     position: relative;
+    top: 8px;
+
+    cursor: pointer;
 
     &::after {
       content: "";
@@ -89,6 +98,7 @@
     &:hover {
       width: 20px;
       height: 20px;
+      top: 6px;
 
       &::after {
         opacity: 1;
@@ -101,6 +111,7 @@
     .thumb__circle {
       width: 24px;
       height: 24px;
+      top: 4px;
 
       &::after {
         opacity: 1;
@@ -139,6 +150,9 @@
 
   &__value {
     margin: 0 8px;
+
+    @extend %p2;
+    color: $grey-70;
   }
 
   &__content {
@@ -148,31 +162,6 @@
     align-items: center;
     position: relative;
     margin: 0 8px;
-  }
-
-  &_disabled {
-    pointer-events: none;
-
-    .slider__track-fill {
-      .track {
-        background: $grey-30;
-      }
-    }
-
-    .thumb {
-      &__circle {
-        box-shadow: none;
-        background: $grey-40;
-      }
-
-      &__tooltip {
-        color: $grey-40;
-      }
-    }
-
-    .slider__value {
-      color: $grey-40;
-    }
   }
 
   .slider__track-wrapper {
@@ -201,8 +190,33 @@
     z-index: 2;
     transform-origin: 0 0;
 
-    &.active {
+    &_active {
       z-index: 3;
+    }
+  }
+
+  &_disabled {
+    pointer-events: none;
+
+    .slider__track-fill {
+      .track {
+        background: $grey-30;
+      }
+    }
+
+    .thumb {
+      &__circle {
+        box-shadow: none;
+        background: $grey-40;
+      }
+
+      &__tooltip {
+        color: $grey-40;
+      }
+    }
+
+    .slider__value {
+      color: $grey-40;
     }
   }
 }

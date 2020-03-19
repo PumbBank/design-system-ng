@@ -1,10 +1,10 @@
 <div class="slider__thumb-container"
 	 [ngStyle]="{'transform': calculateDif()}"
-	 [ngClass]="{'active': isLastSelected()}">
-	<div class="thumb" [ngClass]="{
-			 'thumb_focus': isSelected(),
-			 'thumb_hidden': isHidden()
-		 }">
+	 [class.slider__thumb-container_active]="isLastSelected()">
+	<div class="thumb"
+       [class.thumb_focus]="isSelected()"
+       [class.thumb_hidden]="isHidden()"
+  >
 		<div class="thumb__circle"></div>
 		<div class="thumb__tooltip">
 			<span>{{ value }}</span>
