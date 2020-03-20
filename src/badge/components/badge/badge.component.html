@@ -10,12 +10,13 @@
   [class.badge_filled]="type === badgeTypeEnum.filled"
   [class.badge_minimal]="type === badgeTypeEnum.minimal"
 >
-  <div
+  <mill-icon
     *ngIf="type === badgeTypeEnum.basic"
     class="badge__icon"
-    [class.badge__icon_warning]="icon === badgeIconEnum.warning"
-    [class.badge__icon_valid]="icon === badgeIconEnum.valid"
-  ></div>
+    [name]="icon"
+    [size]="'12'"
+    [color]="color === badgeColorEnum.black ? colors.white : colors[color]"
+  ></mill-icon>
   <span *ngIf="type === badgeTypeEnum.minimal" class="badge__circle"></span>
   <div class="badge__text">
     <ng-content></ng-content>

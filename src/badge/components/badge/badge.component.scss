@@ -27,18 +27,6 @@
     display: inline-block;
     margin-left: -2px;
     margin-right: 4px;
-
-    @extend .icon_12;
-
-    &_warning { @extend .icon_warning }
-    &_valid { @extend .icon_valid }
-
-    .badge_green & { background: $green-50 }
-    .badge_red & { background: $red-50 }
-    .badge_orange & { background: $orange-50 }
-    .badge_black & { background: $main-primary-light }
-    .badge_grey & { background: $grey-50 }
-    .badge_blue & { background: $blue-50 }
   }
 
   &__text {
