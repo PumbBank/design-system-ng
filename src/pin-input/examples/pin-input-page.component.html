@@ -1,37 +1,32 @@
 <div class="h3">{{label}}</div>
-
+<br>
 <div class="preview">
 
   <div class="preview__block">
-    <div></div>
-    <div class="preview__label p1">
-      Pin-input component
+    <div class="preview__label s1">
+      Basic
     </div>
     <div class="preview__component">
-      <mill-pin-input [value]="133234" [length]="6" (enter)="fn($event.value)">
+      <mill-pin-input [value]="1332" [length]="4" (enter)="fn($event.value)">
         Enter OTP
       </mill-pin-input>
     </div>
-    <div></div>
   </div>
 
   <div class="preview__block">
-    <div></div>
-    <div class="preview__label p1">
-      Pin-input component: <span class="s1">&nbsp; disabled </span>
+    <div class="preview__label s1">
+      Disabled
     </div>
     <div class="preview__component">
-      <mill-pin-input [value]="43212" [length]="5" (enter)="fn($event.value)" [disable]="true">
+      <mill-pin-input [value]="4322" [length]="4" (enter)="fn($event.value)" [disable]="true">
         Enter OTP
       </mill-pin-input>
     </div>
-    <div></div>
   </div>
 
   <div class="preview__block">
-    <div></div>
-    <div class="preview__label p1">
-      Pin-input component: <span class="s1">&nbsp; invalid </span>
+    <div class="preview__label s1">
+      Invalid
     </div>
     <div class="preview__component">
       <mill-pin-input [value]="3322" [length]="4" (enter)="fn($event.value)" [errorMessage]="'Wrong OTP'"
@@ -39,7 +34,6 @@
         Enter OTP
       </mill-pin-input>
     </div>
-    <div></div>
   </div>
 
 </div>
