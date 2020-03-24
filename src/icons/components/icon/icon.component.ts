@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'mill-icon',
@@ -15,5 +15,13 @@ export class IconComponent {
 
   get iconName() {
     return this.name ? `icon_${this.name}` : null
+  }
+
+  @HostBinding('style.width') get iconWidth() {
+    return `${this.size}px`
+  }
+
+  @HostBinding('style.height') get iconHeight() {
+    return `${this.size}px`
   }
 }
