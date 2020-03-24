@@ -1,15 +1,17 @@
 <div class="switcher"
-	 style="margin: 20px 20px 0;"
 	 #switcher
-   (click)="onClick($event)"
-	 [ngClass]="{
-		 'switcher_on': active,
-		 'switcher_off': !active,
-		 'switcher_disabled': disabled
-	 }">
+   (click)="onClick()"
+   [class.switcher_on]="active"
+   [class.switcher_off]="!active"
+   [class.switcher_disabled]="disabled"
+>
+  <div *ngIf="active === null" class="switcher__loader">
+    <mill-icon [name]="'spinner'" color="#fff"></mill-icon>
+  </div>
 	<switcher-circle
+    *ngIf="active !== null"
     (eventOutput)="onEvent($event)"
     (circleWidth)="setMaxPosition($event)"
-    [ngStyle]="{'display': 'block', 'transform': calculatePosition()}"
+    [ngStyle]="{'display': 'block', 'transform': calculatePosition(), 'transition': isMoved ? '0s' : '0.2s ease'}"
   ></switcher-circle>
 </div>

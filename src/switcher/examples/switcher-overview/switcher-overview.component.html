@@ -1,0 +1,22 @@
+<div class="h3">Switcher</div>
+<br><br>
+<div class="grid">
+  <div class="grid-item-2">
+    <div class="h4">Off</div>
+    <div class="preview-block">
+      <mill-switcher [active]="false" [disabled]="disabled"></mill-switcher>
+    </div>
+  </div>
+  <div class="grid-item-2">
+    <div class="h4">On</div>
+    <div class="preview-block">
+      <mill-switcher [active]="true" [disabled]="disabled"></mill-switcher>
+    </div>
+  </div>
+  <div class="grid-item-2">
+    <div class="h4">Loading...</div>
+    <div class="preview-block">
+      <mill-switcher [disabled]="disabled"></mill-switcher>
+    </div>
+  </div>
+</div>

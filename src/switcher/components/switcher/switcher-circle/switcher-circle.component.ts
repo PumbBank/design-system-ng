@@ -16,9 +16,6 @@ export class SwitcherCircleComponent implements OnInit {
 	@ViewChild('switcherCircle', {static: true})
 	private _switcherCircle: ElementRef;
 
-	constructor() {
-	}
-
 	ngOnInit() {
 		this.circleWidth.emit(this._switcherCircle.nativeElement.getBoundingClientRect().width);
 	}
