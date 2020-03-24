@@ -1,0 +1,10 @@
+<div class="h3">Range slider</div>
+<br>
+<div class="grid">
+  <div *ngFor="let t of types" class="grid-item-4">
+    <div class="s1">{{t | titlecase}}</div>
+    <div class="preview-block">
+      <mill-slider [minValue]="minValue" [maxValue]="maxValue" [type]="t" [step]="t === 'step' ? 5 : null" [disabled]="disable"></mill-slider>
+    </div>
+  </div>
+</div>
