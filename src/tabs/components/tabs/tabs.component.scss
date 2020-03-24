@@ -4,6 +4,8 @@
 
 .mill-tabs {
   display: block;
+  position: relative;
+  width: 100%;
 }
 
 .tab-body {
@@ -112,9 +114,30 @@
   &__item {
     @extend %tabs-label;
     border-bottom: 1px solid $grey-20;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 24px;
+      bottom: -1px;
+      width: calc(100% - 48px);
+      height: 2px;
+      background: $grey-30;
+      opacity: 0;
+      visibility: hidden;
+      transition: .2s ease;
+    }
 
     &:not(&_active) {
       @extend %p1;
+
+      &:hover {
+        &:after {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
     }
 
     &:hover {
@@ -128,7 +151,7 @@
   }
 
   .tab-nav {
-    top: 20px;
+    top: 12px;
   }
 }
 
@@ -242,26 +265,10 @@
       color: #fff;
       box-shadow: 0 2px 5px rgba(249, 31, 43, 0.35);
     }
-
-    //&:not(:last-of-type):not(&_active) {
-    //
-    //  &:before {
-    //    content: '';
-    //    position: absolute;
-    //    right: -1px;
-    //    top: 0;
-    //    bottom: 0;
-    //    margin: auto;
-    //    width: 1px;
-    //    height: 24px;
-    //    background: $grey-20;
-    //  }
-    //
-    //}
   }
 
   .tab-nav {
-    top: 4px;
+    top: 3px;
   }
 }
 
@@ -272,20 +279,7 @@
 
 .tab-item {
   width: 100%;
-  //transform: translateX(-100%);
-  //
-  //transition: 0.4s ease;
-
   overflow: hidden;
-
-  //&_active {
-  //  position: relative;
-  //  //transform: translateX(0);
-  //  //
-  //  //~ .tab-item {
-  //  //  transform: translateX(100%);
-  //  //}
-  //}
 }
 
 .tab-nav {
