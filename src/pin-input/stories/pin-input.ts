@@ -1,10 +1,12 @@
 import { PinInputComponent } from '../components/pin-input/pin-input.component';
 import { number, text, boolean } from '@storybook/addon-knobs';
+import { PinInputOverviewComponent } from '../examples/pin-input-page.component';
 
 export const pinInputDefaultStorie = () => ({
     moduleMetadata: {
         declarations: [
-            PinInputComponent
+            PinInputComponent,
+            PinInputOverviewComponent
         ]
     },
     props: {
@@ -16,32 +18,6 @@ export const pinInputDefaultStorie = () => ({
         alert: alert
     },
     template: `
-    <div class="h3">{{label}}</div>
-    <div style="display: flex; padding: 24px; justify-content: space-between;">
-      <mill-pin-input
-      [value]="value"
-      [length]="length"
-      (enter)="alert($event.value)"
-      [errorMessage]="errorMessage">
-        Enter OTP
-      </mill-pin-input>
-
-      <mill-pin-input 
-      [value]="value"
-      [length]="4"
-      (enter)="alert($event.value)"
-      [errorMessage]="errorMessage"
-      [invalid]="invalid">
-        Enter OTP (invalid)
-      </mill-pin-input>
-
-      <mill-pin-input 
-      [value]="value"
-      [length]="5"
-      (enter)="alert($event.value)"
-      [disable]="true">
-        Enter OTP (disabled)
-      </mill-pin-input>
-    </div>
+    <app-pin-input-overview [label]="label" [fn]="alert"></app-pin-input-overview>
     `
 })
