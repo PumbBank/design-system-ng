@@ -1,3 +1,9 @@
+:host {
+  display: block;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
 .preview-block {
   display: flex;
   flex-direction: column;
