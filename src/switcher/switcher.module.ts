@@ -2,6 +2,7 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SwitcherComponent } from './components/switcher/switcher.component';
 import { SwitcherCircleComponent } from './components/switcher/switcher-circle/switcher-circle.component';
+import { IconsModule } from '../icons/icons.module';
 
 
 
@@ -15,6 +16,7 @@ import { SwitcherCircleComponent } from './components/switcher/switcher-circle/s
 	],
 	imports: [
 		CommonModule,
+    IconsModule
 	],
 })
 export class SwitcherModule { }
