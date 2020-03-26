@@ -2,7 +2,8 @@ import { Component, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'mill-icon',
-  templateUrl: './icon.component.html'
+  templateUrl: './icon.component.html',
+  styles: [':host {display: flex}']
 })
 export class IconComponent {
   @Input() public size: '12' | '24' | '36' = '24';

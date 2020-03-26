@@ -24,13 +24,13 @@
   &_black:not(&_minimal) { background: $main-primary-dark }
 
   &__icon {
-    display: inline-block;
     margin-left: -2px;
     margin-right: 4px;
   }
 
   &__text {
     @extend %p3;
+    line-height: 1;
 
     .badge_green.badge_basic & { color: $green-50 }
     .badge_red.badge_basic & { color: $red-50 }
