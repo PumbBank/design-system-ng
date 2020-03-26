@@ -1,0 +1,33 @@
+<div class="h3">Inputs</div>
+<br>
+<div class="grid">
+  <div class="grid-item-3">
+    <h5 class="h5">Text input</h5>
+    <div class="preview-block">
+      <input icon="user" millInput="text" [formControl]="nameControl" [valid]="nameControl.valid"
+        [errors]="nameControl.errors" required caption="Enter Name" placeholder="Ivanov Ivan">
+
+    </div>
+  </div>
+  <div class="grid-item-3">
+    <h5 class="h5">Date Input</h5>
+    <div class="preview-block">
+      <input millInput="date" [formControl]="dateControl" [valid]="dateControl.valid" [errors]="dateControl.errors"
+        required caption="Enter Date" placeholder="dd.mm.yyyy">
+    </div>
+  </div>
+  <div class="grid-item-3">
+    <h5 class="h5">Digit input</h5>
+    <div class="preview-block">
+      <input millInput="digit" [formControl]="digitControl" [valid]="digitControl.valid ? 'Valid' : null"
+        [errors]="digitControl.errors" required caption="Enter digit" placeholder="Enter digit">
+    </div>
+  </div>
+  <div class="grid-item-3">
+    <h5 class="h5">Money input</h5>
+    <div class="preview-block">
+      <input millInput="money" [formControl]="moneyControl" [errors]="moneyControl.errors" required
+        caption="Enter price" placeholder="Enter price">
+    </div>
+  </div>
+</div>
