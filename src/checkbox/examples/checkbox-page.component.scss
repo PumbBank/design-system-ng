@@ -1,3 +1,5 @@
+@import "~@mill/figma/colors";
+
 :host {
   padding: 24px;
   box-sizing: border-box;
@@ -8,10 +10,25 @@
   display: flex;
   align-items: center;
   justify-content: space-around;
-  border: 1px solid #e1e1e8;
+  border: 1px solid $grey-20;
   border-radius: 8px;
   padding: 24px;
   height: 100%;
   box-sizing: border-box;
   margin-top: 18px;
+}
+
+.preview {
+  display: grid;
+  grid-gap: 24px;
+  grid-template-columns: repeat(3, 1fr);
+
+  &__component {
+    border: 1px solid $grey-20;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: column;
+    padding: 12px;
+    margin-top: 16px;
+  }
 }
