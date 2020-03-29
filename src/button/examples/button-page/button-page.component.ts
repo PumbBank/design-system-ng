@@ -5,9 +5,9 @@ import { Component, Input } from '@angular/core';
   templateUrl: './button-page.component.html',
   styleUrls: ['./button-page.component.scss']
 })
+
 export class ButtonOverview {
   @Input() label;
   icon = 'home';
-
-  types = ['filled', 'ghost', 'hidden']
+  types = ['filled', 'ghost', 'hidden'];
 }

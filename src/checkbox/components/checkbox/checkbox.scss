@@ -5,11 +5,22 @@
 %icon_white {
   background: #ffffff;
 }
-
+/* stylelint-disable no-descending-specificity */
 .checkbox {
+  cursor: pointer;
   display: inline-flex;
   align-items: center;
+  color: $grey-60;
   padding-right: 10px;
+  transition: color 0.2s ease-in-out;
+
+  &:hover {
+    color: $grey-70;
+
+    .checkbox__item {
+      border-color: $red-40;
+    }
+  }
 
   &:not(.checkbox_disabled) {
     &:hover {
@@ -31,13 +42,15 @@
     box-sizing: border-box;
     border-radius: 4px;
     border: 2px solid $grey-50;
+    cursor: pointer;
     display: inline-flex;
     align-items: center;
     justify-content: center;
-    margin-right: 5px;
+    transition: border-color 0.2s ease-in-out, background-color 0.2s ease-in-out;
   }
 
   &__label {
+    margin-left: 14px;
     pointer-events: none;
 
     &_hidden {
@@ -47,16 +60,29 @@
 
   &_checked {
     .checkbox__item {
-      border-color: $red-50;
       background: $red-50;
+      border-color: $red-50;
     }
 
     .checkbox__icon {
       visibility: visible;
     }
+
+    &:hover {
+      .checkbox__item {
+        background-color: $red-40;
+        border-color: $red-40;
+      }
+
+      .checkbox__label {
+        color: $grey-70;
+      }
+    }
   }
 
   &_disabled {
+    cursor: default;
+
     .checkbox__item {
       border-color: $grey-30;
     }
@@ -72,12 +98,18 @@
         visibility: visible;
       }
     }
+
+    &:hover {
+      .checkbox__item {
+        border-color: $grey-30;
+      }
+    }
   }
 
   &_indeterminate {
     .checkbox__item {
-      border-color: $red-50;
       background: $red-50;
+      border-color: $red-50;
 
       .checkbox__icon {
         @extend .icon_minus;
@@ -85,5 +117,12 @@
         visibility: visible;
       }
     }
+
+    &:hover {
+      .checkbox__item {
+        background-color: $red-40;
+      }
+    }
   }
 }
+/* stylelint-enable */

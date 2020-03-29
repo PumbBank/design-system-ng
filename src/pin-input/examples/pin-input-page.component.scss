@@ -8,6 +8,7 @@
   display: grid;
   grid-gap: 24px;
   grid-template-columns: repeat(3, 1fr);
+
     &__component {
     border: 1px solid #e1e1e8;
     border-radius: 8px;
