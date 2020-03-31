@@ -1,9 +1,9 @@
 import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 import { ErrorMessageHelper } from 'src/utils/error-message.helper';
 import { RequirebleComponent } from 'src/utils/abstract-requireble';
+import { ValidationErrors } from '@angular/forms';
 
 export type CleanFunction = (inputValue: any) => string;
 
