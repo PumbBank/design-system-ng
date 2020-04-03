@@ -1,0 +1,18 @@
+.preview-block {
+  display: grid;
+  grid-gap: 10px;
+  border: 1px solid #E1E1E8;
+  border-radius: 8px;
+  padding: 24px;
+  box-sizing: border-box;
+}
+
+.tooltip {
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-20px);
+
+  transition: 0.6s ease;
+
+  width: 200px;
+}

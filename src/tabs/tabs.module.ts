@@ -3,14 +3,15 @@ import { CommonModule } from '@angular/common';
 import { TabsComponent } from './components/tabs/tabs.component';
 import { TabItemComponent } from './components/tabs/tab-item/tab-item.component';
 import { TabLabelComponent } from './components/tabs/tab-label/tab-label.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 @NgModule({
 	declarations: [
 		TabsComponent,
 		TabItemComponent,
-		TabLabelComponent,
-	],
+		TabLabelComponent
+  ],
 	exports: [
 		TabsComponent,
 		TabItemComponent,
@@ -18,6 +19,7 @@ import { TabLabelComponent } from './components/tabs/tab-label/tab-label.compone
 	],
 	imports: [
 		CommonModule,
+    BrowserAnimationsModule
 	],
 })
 export class TabsModule { }

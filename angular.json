@@ -40,8 +40,7 @@
             "project": "ng-package.json",
             "scripts": [],
             "styles": [
-              "src/assets/style.scss",
-              "node_modules/@mill/figma/icons.scss",
+              "src/assets/styles/_styles.scss",
               "node_modules/@mill/figma/gilroy/gilroy.css"
             ],
             "assets": [

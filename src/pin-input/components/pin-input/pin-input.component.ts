@@ -21,6 +21,7 @@ export class PinInputComponent {
 
 	@Input() invalid: boolean = false;
 	@Input() errorMessage: string = '';
+	@Input() disable = false;
 
 	@Input()
 	pattern: RegExp = DEFAULT_PATTERN;
@@ -62,7 +63,9 @@ export class PinInputComponent {
 	@Output() enter = new EventEmitter<any>();
 
 	handleInput(e: KeyboardEvent): void {
-
+		if (this.disable) {
+			return;
+		  }
 		switch (e.key) {
 			case LEFT_KEY:
 				this.focusedIndex = this.focusedIndex > 0 ? this.focusedIndex - 1 : 0;

@@ -1,21 +1,22 @@
 import { storiesOf } from '@storybook/angular';
 import { withKnobs, text, color } from "@storybook/addon-knobs";
 import { ButtonComponent } from './components/button/button.component';
+import { ButtonOverview } from './examples/button-page/button-page.component';
 
 const buttonStories = storiesOf('Buttons', module);
 buttonStories.addDecorator(withKnobs);
 
-buttonStories.add('regular button', () => ({
+buttonStories.add('Overview', () => ({
   moduleMetadata: {
     declarations: [
-      ButtonComponent
+      ButtonComponent,
+      ButtonOverview
     ]
   },
   props: {
-    label: text('label', 'Regular Button'), // The first param of the knob function has to be exactly the same as the component input.
-    backColor: color('background color', '#cc0812'),
+    label: text('label', 'Button')
   },
   template: `
-    <mill-button [bgColor]="backColor">{{label}}</mill-button>
+    <app-button-overview [label]="label"></app-button-overview>
   `
 }));

@@ -1,0 +1,12 @@
+<div class="h3">Badges</div>
+<br>
+<div class="grid">
+  <div *ngFor="let t of types" class="grid-item-4">
+    <div class="s1">{{t | titlecase}}</div>
+    <div class="preview-block">
+      <ng-container *ngFor="let c of colors">
+        <mill-badge [color]="c" [type]="t">Text label</mill-badge>
+      </ng-container>
+    </div>
+  </div>
+</div>

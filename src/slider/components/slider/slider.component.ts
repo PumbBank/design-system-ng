@@ -1,17 +1,19 @@
 import {
-	Component,
-	ElementRef,
-	EventEmitter,
-	forwardRef,
-	HostListener,
-	Input,
-	OnChanges,
-	OnInit,
-	Output,
-	ViewChild
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter,
+  forwardRef,
+  HostListener,
+  Input,
+  OnChanges,
+  OnInit,
+  Output,
+  ViewChild,
+  ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { Subscription, fromEvent } from 'rxjs';
+import { fromEvent, Subscription } from 'rxjs';
 import { debounceTime } from 'rxjs/operators';
 
 /** Slider config interface */
@@ -49,7 +51,7 @@ export enum ThumbNameEnum {
 }
 
 /** Enum for slider type */
-enum SliderTypeEnum {
+export enum SliderTypeEnum {
 	basic = 'basic',
 	double = 'double',
 	step = 'step',
@@ -61,6 +63,8 @@ enum KeyCodeEnum {
 	keyRight = 'ArrowRight'
 }
 
+const GRAY_20 = '#E1E1E8';
+
 @Component({
 	selector: 'mill-slider',
 	templateUrl: './slider.component.html',
@@ -71,7 +75,8 @@ enum KeyCodeEnum {
 			useExisting: forwardRef(() => SliderComponent),
 			multi: true,
 		}
-	]
+	],
+  encapsulation: ViewEncapsulation.None,
 })
 export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor {
 
@@ -216,7 +221,10 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 	private _rangeFirstArray = [];
 	private _rangeSecondArray = [];
 
-	constructor(private _fb: FormBuilder) {
+	constructor(
+	  private _fb: FormBuilder,
+    private _cd: ChangeDetectorRef
+  ) {
 		this.form = this._fb.group({
 			minValue: [{value: this.minValue, disabled: false}, null],
 			maxValue: [{value: this.maxValue, disabled: false}, null],
@@ -304,20 +312,20 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 	private _onTouched: any = () => {
 	};
 
-	registerOnChange(fn): void {
+	public registerOnChange(fn): void {
 		this.form.valueChanges.pipe(debounceTime(100)).subscribe(fn);
 	}
 
-	registerOnTouched(fn): void {
+	public registerOnTouched(fn): void {
 		this._onTouched = fn;
 	}
 
-	setDisabledState(isDisabled: boolean): void {
+	public setDisabledState(isDisabled: boolean): void {
 		this.disabled = isDisabled;
 	}
 
 	@HostListener('window:resize', ['$event'])
-	onResize(): void {
+	public onResize(): void {
 		this._getSliderContentWidth();
 	}
 
@@ -378,6 +386,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 
 					const endEvents = ['mouseup', 'touchend', 'touchcancel'];
 					if (endEvents.includes(eventName)) {
+					  this._sliderConfig.selectedThumb.name = null;
 						this._clearEvents();
 					}
 				}
@@ -409,10 +418,17 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 			&& event.touches.length > 0 ? (event.touches[0].pageX || event.changedTouches[0].pageX) : event.pageX;
 		}
 
+    // Check if we need to hide one of the tooltips (just for UI)
+    if (this.getType() === SliderTypeEnum.double) {
+      this._checkTooltip();
+    }
+
 	}
 
 	/** Mouse/touch move event */
 	public onMove(event): void {
+
+	  if (!this._sliderWidth) this._getSliderContentWidth();
 
 		// Get X position for our touch or cursor
 		const eventX = this._isTouch(event) && event.touches && event.touches.length > 0 ? (event.touches[0].pageX || event.changedTouches[0].pageX) : event.pageX;
@@ -466,6 +482,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 			this._checkTooltip();
 		}
 
+		this._cd.markForCheck();
 	}
 
 	/** Calculate UI thumb position */
@@ -561,9 +578,9 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 	/** Return css style for the base track */
 	public getBaseTrackStyle(): string {
 		if (this.getType() === SliderTypeEnum.step) {
-			return `repeating-linear-gradient(to right, #E1E1E8, #E1E1E8 ${(100 / this.step) - 1}%, #fff ${(100 / this.step) - 1}%, #fff ${100 / this.step}%)`;
+			return `repeating-linear-gradient(to right, ${GRAY_20}, ${GRAY_20} ${(100 / this.step) - 1}%, transparent ${(100 / this.step) - 1}%, transparent ${100 / this.step}%)`;
 		}
-		return '#E1E1E8';
+		return GRAY_20;
 	}
 
 	/** Return css style for the filled track */

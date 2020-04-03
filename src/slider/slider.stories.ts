@@ -1,13 +1,14 @@
 import { storiesOf } from '@storybook/angular';
 import { withKnobs, number, radios, boolean } from "@storybook/addon-knobs";
 import { SliderModule } from './slider.module';
-
+import { SliderPreview } from './examples/slider-preview/slider-preview.component';
 
 const sliderStories = storiesOf('Slider', module);
 sliderStories.addDecorator(withKnobs);
 
 sliderStories.add('slider', () => ({
 	moduleMetadata: {
+	  declarations: [SliderPreview],
 		imports: [SliderModule]
 	},
 	props: {
@@ -26,6 +27,6 @@ sliderStories.add('slider', () => ({
 		status: boolean('disabled?', false)
 	},
 	template: `
-		<mill-slider [minValue]="min" [maxValue]="max" [startMin]="startMin" [startMax]="startMax" [type]="type" [step]="step" [disabled]="status"></mill-slider>
+	  <slider-preview [minValue]="min" [maxValue]="max" [disable]="status"></slider-preview>
     `
 }));

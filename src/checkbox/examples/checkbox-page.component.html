@@ -1,0 +1,38 @@
+<div class="h3">{{label}}</div>
+<br>
+<div class="preview">
+  <div class="preview__block">
+    <div class="preview__label s1">Unchecked</div>
+    <div class="preview__component">
+      <checkbox class="p1" [hideLabel]="hideLabel">Checkbox</checkbox>
+    </div>
+  </div>
+
+  <div class="preview__block">
+    <div class="preview__label s1">Checked</div>
+    <div class="preview__component">
+      <checkbox class="p1" [hideLabel]="hideLabel" checked="true">Checkbox</checkbox>
+    </div>
+  </div>
+
+  <div class="preview__block">
+    <div class="preview__label s1">Indeterminate</div>
+    <div class="preview__component">
+      <checkbox class="p1" [hideLabel]="hideLabel" [indeterminate]="true">Checkbox</checkbox>
+    </div>
+  </div>
+
+  <div class="preview__block">
+    <div class="preview__label s1">Disabled</div>
+    <div class="preview__component">
+      <checkbox class="p1" [hideLabel]="hideLabel" [disabled]="true">Checkbox</checkbox>
+    </div>
+  </div>
+
+  <div class="preview__block">
+    <div class="preview__label s1">Without label</div>
+    <div class="preview__component">
+      <checkbox class="p1" [hideLabel]="true">Checkbox</checkbox>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,156 @@
+@import "~@mill/figma/icons";
+@import "~@mill/figma/typography";
+@import "~@mill/figma/colors";
+
+%icon_grey-40 {
+  background: $grey-40 !important;
+}
+
+%icon_orange-50 {
+  background: $orange-50;
+}
+
+%icon_green-50 {
+  background: $green-50;
+}
+
+.input {
+  padding: 1px 0 2px 0;
+  display: inline-block;
+  width: 100%;
+
+  &:hover {
+    .input__body {
+      padding: 0;
+      border: 2px solid $grey-60;
+    }
+  }
+}
+
+.input__label {
+  @extend %p2;
+
+  color: $grey-70;
+  margin-bottom: 2px;
+  height: 20px;
+}
+
+.input__icon {
+  @extend .icon_24;
+  @extend %icon_grey-40;
+
+  margin: 0 12px 0 -4px;
+}
+
+.input__body {
+  border: 1px solid $grey-50;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 48px;
+  padding: 1px;
+  background: $other-white;
+
+  &:focus-within {
+    padding: 0;
+    border: 2px solid $grey-60;
+  }
+}
+
+.input__enterence {
+  position: relative;
+  flex-grow: 1;
+  min-height: 44px;
+}
+
+.input__input {
+  @extend %p1;
+
+  position: relative;
+  z-index: 2;
+  border: none;
+  outline: none;
+  background: transparent;
+  height: 44px;
+  padding: 0 16px;
+  box-sizing: border-box;
+  width: 100%;
+  color: $grey-70;
+  min-width: 0;
+}
+
+.input__textarea {
+  @extend %p1;
+
+  position: relative;
+  z-index: 2;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 10px 16px;
+  min-height: 44px;
+  color: $grey-70;
+}
+
+.input__placeholder {
+  @extend %p1;
+
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: $grey-40;
+  padding: 10px 0 0 16px;
+  min-height: 46px;
+}
+
+.input__footer {
+  margin-top: 2px;
+  height: 19px;
+}
+
+.input_disabled {
+  .input__body {
+    border: 1px solid $grey-30;
+  }
+
+  .input__label {
+    color: $grey-40;
+  }
+
+  .input__control-message {
+    @extend .control-message_disabled;
+  }
+}
+
+.input_error {
+  .input__body {
+    padding: 0;
+    border: 2px solid $orange-50 !important;
+  }
+
+  .input__icon {
+    @extend %icon_orange-50;
+  }
+
+  .input__control-message {
+    @extend .control-message_error;
+  }
+}
+
+.input_valid {
+  .input__body {
+    padding: 0;
+    border: 2px solid $green-50 !important;
+  }
+
+  .input__icon {
+    @extend %icon_green-50;
+  }
+
+  .input__control-message {
+    @extend .control-message_valid;
+  }
+}

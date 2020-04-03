@@ -29,7 +29,15 @@ import { fromEvent, Subscription } from 'rxjs';
 export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccessor {
 
 	/** Active state for switcher */
-	@Input() public active = false;
+	@Input() public set active(value: boolean) {
+	  this._active = value;
+  }
+
+  public get active(): boolean | null {
+	  return this._active;
+  }
+
+  private _active: boolean = null;
 
 	/** Disable state for switcher */
 	@Input() public disabled = false;
@@ -44,26 +52,23 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
 	/** Switcher width */
 	private _switcherWidth: number;
 
-	/** The maximum possible position in px*/
+	/** The maximum possible position in px */
 	private _maxPositionPx: number;
 
 	/** Current position in px */
 	public positionPx: number;
 
-	/** The result of moving  */
+	/** The result of moving */
 	private _moveCounter: number;
 
 	/** Current target position */
 	private _targetPosition: number;
 
 	/** Flag if switcher was moved */
-	private _isMoved = false;
+	public isMoved = false;
 
 	/** Object of observables with event binding  */
 	private _eventSubscriptions$: Subscription[] = [];
-
-	constructor() {
-	}
 
 	ngOnChanges(): void {
 		this._checkPosition();
@@ -112,7 +117,6 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
 
 			// Set basic position
 			this._setBasicPosition(eventOutput.event);
-
 		}
 	}
 
@@ -136,15 +140,10 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
 				const endEvents = ['mouseup', 'touchend', 'touchcancel'];
 				if (endEvents.includes(eventName)) {
 					this._clearEvents();
-
-					if (this._isMoved) {
+					if (this.isMoved) {
 						this._onMoveEnd();
-					} else {
-						this.onClick();
 					}
-
 				}
-
 			},
 			error => console.log(error),
 		);
@@ -157,22 +156,27 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
 		this._eventSubscriptions$ = [];
 	}
 
-	public onClick(event?): void {
+	public onClick(): void {
 
-	  if (event && event.target !== this._switcher.nativeElement) return;
+		if (this.disabled || this.active === null) return;
 
-		if (this.disabled) return;
-
-		this.active = !this.active;
-		this._checkPosition();
-
-		this._onChange(this.active);
-		this.statusChange.emit(this.active);
+    if (!this.isMoved) {
+      this._toggleActive();
+    }
+    this.isMoved = false;
 	}
+
+	private _toggleActive(): void {
+    this.active = !this.active;
+    this._checkPosition();
+
+    this._onChange(this.active);
+    this.statusChange.emit(this.active);
+  }
 
 	public onMove(event): void {
 
-		this._isMoved = true;
+		this.isMoved = true;
 
 		// Get X position for our touch or cursor
 		const eventX = this._isTouch(event) && event.touches && event.touches.length > 0 ? (event.touches[0].pageX || event.changedTouches[0].pageX) : event.pageX;
@@ -186,7 +190,7 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
 
 	/** Setting start position for switcher circle */
 	public _setBasicPosition(event): void {
-		if (this.disabled) return;
+		if (this.disabled || this.active === null) return;
 
 		this._targetPosition = (this._isTouch(event)  ? (event.touches[0].pageX || event.changedTouches[0].pageX) : event.pageX);
 
@@ -235,7 +239,7 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
 	/** Calculate new switcher values */
 	private _onMoveEnd(): void {
 
-		if (this.disabled) return;
+		if (this.disabled || this.active === null) return;
 
 		if (this.positionPx >= this._maxPositionPx / 2) {
 			this.active = true;
@@ -245,10 +249,6 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
 			this.positionPx = 0;
 		}
 
-		this._isMoved = false;
-
-		this._onChange(this.active);
-		this.statusChange.emit(this.active);
 	}
 
 	/** Check position while moving */
@@ -271,3 +271,7 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
 	}
 
 }
+
+
+
+

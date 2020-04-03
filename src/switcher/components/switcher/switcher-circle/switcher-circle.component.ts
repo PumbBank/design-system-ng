@@ -1,4 +1,4 @@
-import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
 
 @Component({
 	selector: 'switcher-circle',
@@ -6,18 +6,18 @@ import { Component, ElementRef, EventEmitter, HostListener, OnInit, Output, View
 })
 export class SwitcherCircleComponent implements OnInit {
 
+  /** Active state */
+  @Input() public active: boolean;
+
 	/** Output event (mousedown or touchstart) */
-	@Output() eventOutput: EventEmitter<object> = new EventEmitter<object>();
+	@Output() public eventOutput: EventEmitter<object> = new EventEmitter<object>();
 
 	/** Output circle width */
-	@Output() circleWidth: EventEmitter<number> = new EventEmitter<number>(true);
+	@Output() public circleWidth: EventEmitter<number> = new EventEmitter<number>(true);
 
 	/** Reference to the switcher circle */
 	@ViewChild('switcherCircle', {static: true})
 	private _switcherCircle: ElementRef;
-
-	constructor() {
-	}
 
 	ngOnInit() {
 		this.circleWidth.emit(this._switcherCircle.nativeElement.getBoundingClientRect().width);

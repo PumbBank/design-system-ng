@@ -2,10 +2,19 @@
 @import "~@mill/figma/icons";
 @import "~@mill/figma/typography";
 
+.mill-tabs {
+  display: block;
+  position: relative;
+  width: 100%;
+}
+
 .tab-body {
   display: flex;
-  position: relative;
+  position: absolute;
+  top: 0;
+  left: 0;
   overflow: hidden;
+  width: 100%;
 }
 
 .tab-content {
@@ -14,17 +23,19 @@
 
 %tabs-label {
   padding: 0 24px;
-  min-width: 92px;
   color: $grey-50;
   cursor: pointer;
 
   display: flex;
   align-items: center;
   justify-content: center;
-  flex-grow: 1;
+  flex-grow: 0;
+  flex-shrink: 0;
+  white-space: nowrap;
 
   transition: 0.3s ease;
   transition-property: color, background-color;
+
 }
 
 .tabs-basic {
@@ -53,10 +64,16 @@
     }
   }
 
+  &_full-width {
+    .tabs-basic__item {
+      flex-grow: 1;
+    }
+  }
+
   &__border {
     position: absolute;
     left: 0;
-    bottom: -2px;
+    bottom: -1px;
 
     display: flex;
     justify-content: center;
@@ -77,22 +94,64 @@
     height: 56px;
     position: relative;
     padding: 0 24px;
-    border-bottom: 1px solid $grey-20;
     box-sizing: border-box;
+
+    overflow: hidden;
+  }
+
+  &__list {
+    flex-grow: 1;
+    position: relative;
+
+    transition: 0.2s ease;
+  }
+
+  &__labels {
+    display: flex;
+    height: 100%;
   }
 
   &__item {
-    @extend %p1;
     @extend %tabs-label;
+    border-bottom: 1px solid $grey-20;
+    position: relative;
+
+    &:after {
+      content: '';
+      position: absolute;
+      left: 24px;
+      bottom: -1px;
+      width: calc(100% - 48px);
+      height: 2px;
+      background: $grey-30;
+      opacity: 0;
+      visibility: hidden;
+      transition: .2s ease;
+    }
+
+    &:not(&_active) {
+      @extend %p1;
+
+      &:hover {
+        &:after {
+          opacity: 1;
+          visibility: visible;
+        }
+      }
+    }
 
     &:hover {
       color: $grey-70;
     }
 
     &_active {
-      @extend %s1;
       color: $grey-70;
+      @extend %s1;
     }
+  }
+
+  .tab-nav {
+    top: 12px;
   }
 }
 
@@ -103,15 +162,22 @@
   height: auto;
   border: none;
 
+  position: relative;
+
   &_disabled {
 
     .tabs-ios__header {
-      border: 1px solid $grey-40;
       pointer-events: none;
     }
 
     .tabs-ios__item {
       color: $grey-40;
+
+      border-color: $grey-40;
+
+      &:first-of-type, &:last-of-type {
+        border-color: $grey-40;
+      }
 
       &_active {
         color: #fff;
@@ -121,29 +187,76 @@
     }
   }
 
+  &_full-width {
+    .tabs-ios__item {
+      flex-grow: 1;
+    }
+  }
+
   &__header {
-    display: inline-flex;
+    display: flex;
     height: 40px;
-    border-radius: 50px;
-    border: 1px solid $red-50;
     box-sizing: border-box;
+
+    position: relative;
+
+    overflow: hidden;
+  }
+
+  &__list {
+    flex-grow: 1;
+    position: relative;
+
+    transition: 0.2s ease;
+  }
+
+  &__labels {
+    display: flex;
+    height: 100%;
   }
 
   &__item {
-    @extend %p2;
     @extend %tabs-label;
+
+    position: relative;
+
+    border-top: 1px solid $red-50;
+    border-bottom: 1px solid $red-50;
+
+    transition: 0.3s ease;
+    transition-property: border, background;
 
     &:first-of-type {
       border-radius: 50px 0 0 50px;
+      border-left: 1px solid $red-50;
     }
 
     &:last-of-type {
       border-radius: 0 50px 50px 0;
+      border-right: 1px solid $red-50;
     }
 
-    &:hover:not(&_active) {
-      background: $red-30;
-      color: #fff;
+    &:not(&_active) {
+      @extend %p2;
+
+      &:hover {
+        background: $red-30;
+        color: #fff;
+      }
+
+      &:not(:last-of-type) {
+        &:before {
+          content: '';
+          position: absolute;
+          right: -1px;
+          top: 0;
+          bottom: 0;
+          margin: auto;
+          width: 1px;
+          height: 24px;
+          background: $grey-20;
+        }
+      }
     }
 
     &_active {
@@ -152,40 +265,66 @@
       color: #fff;
       box-shadow: 0 2px 5px rgba(249, 31, 43, 0.35);
     }
-
-    &:not(:last-of-type):not(&_active) {
-
-      &:before {
-        content: '';
-        position: absolute;
-        right: -1px;
-        top: 0;
-        bottom: 0;
-        margin: auto;
-        width: 1px;
-        height: 24px;
-        background: $grey-20;
-      }
-
-    }
   }
+
+  .tab-nav {
+    top: 3px;
+  }
+}
+
+.tab-content {
+  position: relative;
+  overflow: hidden;
 }
 
 .tab-item {
   width: 100%;
+  overflow: hidden;
+}
+
+.tab-nav {
   position: absolute;
-  top: 0;
-  left: 0;
 
-  transition: 0.4s ease;
-  transform: translateX(-100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
 
-  &_active {
-    position: relative;
-    transform: translateX(0);
+  border: 0;
+  outline: none;
+  padding: 0;
 
-    ~ .tab-item {
-      transform: translateX(100%);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+
+  background: #fff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 2px 7px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.2);
+
+  transition: 0.2s ease;
+
+  cursor: pointer;
+
+  .icon {
+    background: $grey-50;
+    transition: 0.2s ease;
+  }
+
+  &:hover {
+    background: $grey-10;
+    .icon {
+      background: $grey-60;
     }
+  }
+
+  &:active {
+    background: $grey-20;
+  }
+
+  &_left {
+    left: 16px;
+  }
+
+  &_right {
+    right: 16px;
   }
 }
