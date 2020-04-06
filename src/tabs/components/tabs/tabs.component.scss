@@ -66,7 +66,7 @@
 
   &_full-width {
     .tabs-basic__item {
-      flex-grow: 1;
+      flex: 1;
     }
   }
 
@@ -93,7 +93,6 @@
     display: inline-flex;
     height: 56px;
     position: relative;
-    padding: 0 24px;
     box-sizing: border-box;
 
     overflow: hidden;
@@ -189,7 +188,7 @@
 
   &_full-width {
     .tabs-ios__item {
-      flex-grow: 1;
+      flex: 1;
     }
   }
 
