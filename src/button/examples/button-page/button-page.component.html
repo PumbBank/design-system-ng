@@ -1,45 +1,111 @@
-<div class="h3">Buttons</div>
-<br>
-<ng-container *ngFor="let t of types">
-  <br><br>
-  <div class="h4">{{ t }}</div>
-  <br>
-  <div class="grid">
-    <div class="grid-item-4">
-      <div class="s1">Basic</div>
-      <div class="preview-block">
-        <mill-button [view]="t" size="large">{{ label }}</mill-button>
-        <div class="p2 preview-block__label">large</div>
-        <mill-button [view]="t" size="middle">{{ label }}</mill-button>
-        <div class="p2 preview-block__label">middle</div>
-        <mill-button [view]="t" size="small">{{ label }}</mill-button>
-        <div class="p2 preview-block__label">small</div>
-      </div>
-    </div>
+<div class="grid overview__block">
+  <div class="grid-item-8">
+    <h3 class="h3">Кнопки</h3>
+    <p class="p1 overview__subtitle overview__subtitle_for_h3">Buttons</p>
 
-    <div class="grid-item-4">
-      <div class="s1">With icon</div>
-      <div class="preview-block">
-        <mill-button [view]="t" size="large" icon="add">{{ label }}</mill-button>
-        <div class="p2 preview-block__label">large</div>
-        <mill-button [view]="t" size="middle" icon="add">{{ label }}</mill-button>
-        <div class="p2 preview-block__label">middle</div>
-        <mill-button [view]="t" size="small" icon="add">{{ label }}</mill-button>
-        <div class="p2 preview-block__label">small</div>
-      </div>
-    </div>
+    <p class="p1">Кнопки повідомляють про дії, які можуть виконувати користувачі. Кнопку має бути легко знайти серед
+      інших
+      елементів, включаючи інші кнопки.</p>
 
-    <div class="grid-item-4">
-      <div class="s1">Only icon</div>
-      <div class="preview-block">
-        <mill-button [view]="t" size="large" icon="add"></mill-button>
-        <div class="p2 preview-block__label">large</div>
-        <mill-button [view]="t" size="middle" icon="add"></mill-button>
-        <div class="p2 preview-block__label">middle</div>
-        <mill-button [view]="t" size="small" icon="add"></mill-button>
-        <div class="p2 preview-block__label">small</div>
+    <div class="grid overview__tags">
+      <div class="grid-item-6">
+        <p class="s1">
+          4 види
+        </p>
+        <p class="p2">
+          З заливкою кольором, з обведенням, текстова і плаваюча
+        </p>
+      </div>
+      <div class="grid-item-6">
+        <p class="s1">
+          4 стани
+        </p>
+        <p class="p2">
+          Звичайне, при наведенні, при натисканні, недоступно
+        </p>
+      </div>
+      <div class="grid-item-6">
+        <p class="s1">
+          3 типи
+        </p>
+        <p class="p2">
+          Звичайна, з іконкою і тільки іконка
+        </p>
+      </div>
+      <div class="grid-item-6">
+        <p class="s1">
+          3 розміра
+        </p>
+        <p class="p2">
+          Маленький, середній і великий
+        </p>
       </div>
     </div>
   </div>
 
-</ng-container>
+  <div class="grid-item-4">
+    <h6 class="h6">
+      Принципи
+    </h6>
+    <div class="s2">Зрозумілість</div>
+    <p class="p2">
+      Кнопка повинні вказувати, на те, що вона робить і які дії будуть виконані далі
+    </p>
+    <div class="s2">Доступність</div>
+    <p class="p2">
+      Кнопку має бути легко знайти серед інших елементів, включаючи інші кнопки
+    </p>
+  </div>
+
+</div>
+
+<br>
+<div class="overview__block" *ngFor="let t of types">
+  <div class="grid">
+    <div class="grid-item-8">
+      <h4 class="h4">{{ t.title }}</h4>
+      <div class="p1 overview__subtitle">{{ t.subtitle }}</div>
+      <p class="p1 overview__type_description">{{ t.description }}</p>
+    </div>
+  </div>
+  <div class="grid">
+    <div class="grid-item-4 preview-block">
+      <div class="s1">Основна</div>
+      <div class="p2 overview__subtitle">Basic</div>
+      <div class="preview-block__content">
+        <mill-button [view]="t.type" size="large">{{ label }}</mill-button>
+        <div class="p2 preview-block__label">Велика</div>
+        <mill-button [view]="t.type" size="middle">{{ label }}</mill-button>
+        <div class="p2 preview-block__label">Середня</div>
+        <mill-button [view]="t.type" size="small">{{ label }}</mill-button>
+        <div class="p2 preview-block__label">Маленька</div>
+      </div>
+    </div>
+
+    <div class="grid-item-4 preview-block">
+      <div class="s1">З іконкою</div>
+      <div class="p2 overview__subtitle">With icon</div>
+      <div class="preview-block__content">
+        <mill-button [view]="t.type" size="large" icon="add">{{ label }}</mill-button>
+        <div class="p2 preview-block__label">Велика</div>
+        <mill-button [view]="t.type" size="middle" icon="add">{{ label }}</mill-button>
+        <div class="p2 preview-block__label">Середня</div>
+        <mill-button [view]="t.type" size="small" icon="add">{{ label }}</mill-button>
+        <div class="p2 preview-block__label">Маленька</div>
+      </div>
+    </div>
+
+    <div class="grid-item-4 preview-block">
+      <div class="s1">Тільки іконка</div>
+      <div class="p2 overview__subtitle">Only icon</div>
+      <div class="preview-block__content">
+        <mill-button [view]="t.type" size="large" icon="add"></mill-button>
+        <div class="p2 preview-block__label">Велика</div>
+        <mill-button [view]="t.type" size="middle" icon="add"></mill-button>
+        <div class="p2 preview-block__label">Середня</div>
+        <!-- <mill-button [view]="t.type" size="small" icon="add"></mill-button>
+        <div class="p2 preview-block__label">Маленька</div> -->
+      </div>
+    </div>
+  </div>
+</div>

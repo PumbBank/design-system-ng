@@ -1,5 +1,6 @@
+@import "~@mill/figma/colors";
+
 :host {
-  padding: 24px;
   box-sizing: border-box;
   display: block;
 }
@@ -7,16 +8,66 @@
 .preview-block {
   display: flex;
   flex-direction: column;
+}
+
+.preview-block__content {
+  display: flex;
+  flex-direction: column;
   align-items: center;
   justify-content: center;
-  border: 1px solid #E1E1E8;
+  border: 1px solid #e1e1e8;
   border-radius: 8px;
   padding: 24px;
-  height: 100%;
   box-sizing: border-box;
-  MARGIN-TOP: 18px;
+  margin-top: 18px;
+  flex-grow: 1;
+}
+
+.overview__block {
+  &:not(:first-child) {
+    border-top: 1px solid $grey-20;
+    margin-top: 48px;
+  }
+  padding: 37px 24px 0;
+}
+
+.overview__subtitle {
+  color: $main-error;
+
+  &_for_h3 {
+    margin-top: -9px;
+  }
 }
 
 .preview-block__label {
   margin: 10px 0 18px;
+}
+
+.h6 + .s2 {
+  margin-top: 19px;
+}
+
+.s2 + .p2 {
+  margin-top: 4px;
+}
+
+.s1 + .p1 {
+  margin-top: 2px;
+}
+
+.p2 + .s2 {
+  margin-top: 20px;
+}
+
+.overview__subtitle + .p1 {
+  margin-top: 16px;
+}
+
+.overview__tags {
+  margin-top: 24px;
+  grid-gap: 18px 24px;
+}
+
+.overview__type_description {
+  margin-bottom: 24px;
 }
