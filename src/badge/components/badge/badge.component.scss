@@ -31,7 +31,9 @@
   &__text {
     @extend %p3;
     line-height: 1;
+  }
 
+  &__text, &__icon {
     .badge_green.badge_basic & { color: $green-50 }
     .badge_red.badge_basic & { color: $red-50 }
     .badge_orange.badge_basic & { color: $orange-50 }
