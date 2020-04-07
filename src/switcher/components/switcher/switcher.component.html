@@ -6,7 +6,7 @@
    [class.switcher_disabled]="disabled"
 >
   <div *ngIf="active === null" class="switcher__loader">
-    <mill-icon [name]="'spinner'" color="#fff"></mill-icon>
+    <mill-icon [name]="'spinner'" class="switcher__icon"></mill-icon>
   </div>
 	<switcher-circle
     *ngIf="active !== null"
