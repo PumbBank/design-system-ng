@@ -6,6 +6,7 @@ import { debounceTime } from 'rxjs/operators';
 export abstract class TabItemBase {
   @Input() public id: string;
   @Input() public label: string;
+  @Input() public icon: string;
   @Input() public position: number;
   public labelElement: ElementRef;
   public inView: boolean;
