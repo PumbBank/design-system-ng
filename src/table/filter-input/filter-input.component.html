@@ -1,0 +1,13 @@
+<label class="table-filter__label">
+  <input
+    class="table-filter__input"
+    type="text"
+    (focus)="onFocus()"
+    [formControl]="inputValue"
+  />
+  <span
+    class="table-filter__icon"
+    [ngClass]="inputValue.value ? 'icon_circle-close' : 'icon_search'"
+    (click)="clearInput()"
+  ></span>
+</label>

@@ -1,0 +1,181 @@
+<div
+  class="mill-table"
+  [class.mill-table_disabled]="loading || (viewData$.getValue() && viewData$.getValue().length === 0)"
+  [class.mill-table_fixed-header]="fixedHeader"
+  [class.mill-table_large]="tableStyle === tableStyleEnum.large"
+  [class.mill-table_small]="tableStyle === tableStyleEnum.small"
+  [class.mill-table_round]="tableStyle === tableStyleEnum.round"
+  [class.mill-table_zebra]="tableType === tableTypeEnum.zebra"
+  [class.mill-table_filter]="isFilterable()"
+  [class.mill-table_no-padding]="!padding"
+  [class.mill-table_paginator]="paginator"
+>
+  <div class="table-container" #table>
+    <div class="table-content">
+      <div
+        class="table-header-row"
+        #header
+        [class.table-header-row_shadow]="fixedHeaderShadow"
+        [class.table-header-row_space]="selectInput === 'radio'"
+      >
+        <div *ngIf="selectInput === 'checkbox'" class="checkbox" (click)="onMainCheckboxClick()">
+          <input
+            type="checkbox"
+            [checked]="groupCheckbox === checkboxStates.checked"
+            [class.indeterminate]="groupCheckbox === checkboxStates.indeterminate"
+          />
+          <span class="checkmark"><span class="icon"></span></span>
+        </div>
+        <div
+          *ngFor="let item of dataModel"
+          class="table-header-row__cell"
+          [style.minWidth]="item.width + 'px'"
+          [style.cursor]="item.sortable ? 'pointer' : 'default'"
+          (click)="onSortClick(item)"
+        >
+          {{ item.title }}
+          <div *ngIf="item.sortable"
+               class="table-arrow"
+               [class.table-arrow_sorted]="sortSettings.sortDirection && item === sortSettings.sortColumn"
+               [class.table-arrow_rotate]="sortSettings.sortDirection === 'asc' && item === sortSettings.sortColumn"
+          >
+            <span class="table-arrow__icon"></span>
+          </div>
+        </div>
+      </div>
+      <div
+        *ngIf="isFilterable()"
+        class="table-header-row table-header-row_filter"
+        [class.table-header-row_selectInput]="selectInput"
+      >
+        <div
+          *ngFor="let item of dataModel;
+          let i = index" class="table-header-row__cell"
+          [style.minWidth]="item.width + 'px'"
+        >
+          <filter-input *ngIf="item.filterable" (value)="onFilterKeyUp($event, item)"></filter-input>
+        </div>
+      </div>
+      <ng-container *ngIf="!loading">
+        <div
+          *ngIf="viewData$.getValue().length === 0"
+          class="table-row"
+          style="align-items: center; font-size: 14px; padding-left: 16px"
+        >
+          Данные отсутствуют или не найдены
+        </div>
+        <div
+          *ngFor="let row of viewData$ | async"
+          class="table-row"
+          (click)="onRowClick($event, row)"
+          [class.table-row_active]="selected.includes(row)"
+          [class.table-row_zebra]="tableType === tableTypeEnum.zebra"
+        >
+          <div *ngIf="selectInput" class="{{ selectInput }}">
+            <input type="{{ selectInput }}" [checked]="selected.includes(row)" name="group"/>
+            <span class="checkmark"><span class="icon"></span></span>
+          </div>
+          <div
+            *ngFor="let dataItem of dataModel"
+            class="table-row__cell"
+            [style.minWidth]="dataItem.width + 'px'"
+            [ngSwitch]="true"
+          >
+            <mill-badge *ngSwitchCase="isValidBadge(dataItem.fieldName, row[dataItem.fieldName])" [color]="'green'"
+                        [icon]="'valid'">
+              {{ row[dataItem.fieldName] }}
+            </mill-badge>
+            <mill-badge *ngSwitchCase="isInvalidBadge(dataItem.fieldName, row[dataItem.fieldName])" [color]="'red'"
+                        [icon]="'warning'">
+              {{ row[dataItem.fieldName] }}
+            </mill-badge>
+            <mill-badge
+              *ngSwitchCase="isWarningBadge(dataItem.fieldName, row[dataItem.fieldName])"
+              [color]="'orange'"
+              [icon]="'warning'"
+            >
+              {{ row[dataItem.fieldName] }}
+            </mill-badge>
+            <ng-container *ngSwitchDefault>
+              {{ row[dataItem.fieldName] }}
+            </ng-container>
+          </div>
+        </div>
+      </ng-container>
+      <ng-container *ngIf="loading">
+        <div class="table-row" [class.table-row_selectInput]="selectInput">
+          <div
+            class="table-row__cell table-row__cell_placeholder"
+            *ngFor="let dataItem of dataModel"
+            [style.minWidth]="dataItem.width + 'px'"
+          ></div>
+        </div>
+        <div class="table-row" [class.table-row_selectInput]="selectInput">
+          <div
+            class="table-row__cell table-row__cell_placeholder"
+            *ngFor="let dataItem of dataModel"
+            [style.minWidth]="dataItem.width + 'px'"
+          ></div>
+        </div>
+        <div class="table-row" [class.table-row_selectInput]="selectInput">
+          <div
+            class="table-row__cell table-row__cell_placeholder"
+            *ngFor="let dataItem of dataModel"
+            [style.minWidth]="dataItem.width + 'px'"
+          ></div>
+        </div>
+        <div class="table-row" [class.table-row_selectInput]="selectInput">
+          <div
+            class="table-row__cell table-row__cell_placeholder"
+            *ngFor="let dataItem of dataModel"
+            [style.minWidth]="dataItem.width + 'px'"
+          ></div>
+        </div>
+        <div class="table-row" [class.table-row_selectInput]="selectInput">
+          <div
+            class="table-row__cell table-row__cell_placeholder"
+            *ngFor="let dataItem of dataModel"
+            [style.minWidth]="dataItem.width + 'px'"
+          ></div>
+        </div>
+      </ng-container>
+    </div>
+  </div>
+
+  <div *ngIf="paginator" class="table-nav">
+    <div class="table-nav__count">
+      <div class="table-nav__label">Строк на странице:</div>
+      <div class="table-nav__select">
+        <div class="table-nav__head" (click)="onCountMenuClick()">
+          <b>{{ paginatorSettings.limit }}</b
+          ><span class="table-arrow" [class.table-arrow_active]="menuState">
+          <span class="table-arrow__icon"></span>
+        </span>
+        </div>
+        <div class="table-menu" [class.table-menu_active]="menuState">
+          <div
+            *ngFor="let num of paginatorShowCount"
+            class="table-menu__option"
+            [class.table-menu__option_selected]="num === paginatorSettings.limit"
+            (click)="onMenuOptionClick(num)"
+          >
+            {{ num }}
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="table-nav__controls">
+      <div class="table-nav__label">{{ counterLabel }}</div>
+      <button
+        class="table-nav__arrow table-nav__prev"
+        [class.table-nav__arrow_disabled]="paginatorSettings.currentPage === 0"
+        (click)="onPaginatorClick(false)"
+      ></button>
+      <button
+        class="table-nav__arrow table-nav__next"
+        [class.table-nav__arrow_disabled]="paginatorSettings.currentPage === paginatorSettings.pages"
+        (click)="onPaginatorClick(true)"
+      ></button>
+    </div>
+  </div>
+</div>
