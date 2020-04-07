@@ -1,0 +1,61 @@
+@import "~@mill/figma/typography";
+@import "~@mill/figma/icons-content";
+@import "~@mill/figma/icons";
+
+
+.table-filter {
+  width: 100%;
+  height: 100%;
+  display: block;
+
+  &_active {
+    .table-filter__label {
+      &:after {
+        border: 2px solid $grey-60;
+      }
+    }
+  }
+
+  &__label {
+    width: 100%;
+    height: 100%;
+
+    display: flex;
+    align-items: center;
+
+    padding-left: 16px;
+    padding-right: 20px;
+
+    position: relative;
+    box-sizing: border-box;
+
+    &:after {
+      content: '';
+      position: absolute;
+      z-index: 0;
+      left: 0;
+      top: 0;
+      right: 0;
+      bottom: 0;
+      box-sizing: border-box;
+    }
+  }
+
+  &__input {
+    flex: 1;
+    border: none;
+    outline: none;
+    background: transparent;
+
+    @extend %p2;
+  }
+
+  &__icon {
+    @extend .icon_24;
+    background: $grey-30;
+    position: relative;
+    z-index: 2;
+  }
+}
+
+
