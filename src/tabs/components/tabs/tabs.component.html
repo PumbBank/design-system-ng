@@ -11,7 +11,10 @@
           [ngClass]="item.id === this.selectedTabId ? 'tabs-' + type + '__item_active' : null"
           [relatedTab]="item"
         >
-          {{item.label}}
+          <mill-icon *ngIf="item.icon; else label" [name]="item.icon" ></mill-icon>
+          <ng-template #label>
+            {{item.label}}
+          </ng-template>
         </tab-label>
       </div>
       <div
