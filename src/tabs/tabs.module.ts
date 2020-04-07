@@ -4,6 +4,7 @@ import { TabsComponent } from './components/tabs/tabs.component';
 import { TabItemComponent } from './components/tabs/tab-item/tab-item.component';
 import { TabLabelComponent } from './components/tabs/tab-label/tab-label.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { IconsModule } from '../icons/icons.module';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 	],
 	imports: [
 		CommonModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    IconsModule
 	],
 })
 export class TabsModule { }

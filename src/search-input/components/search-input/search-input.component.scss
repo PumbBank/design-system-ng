@@ -24,13 +24,15 @@
   &:after {
     content: '';
     position: absolute;
-    top: -1px;
-    left: -1px;
+    top: 0;
+    left: 0;
     width: 100%;
     height: 100%;
     border: 1px solid $grey-50;
     border-radius: inherit;
     z-index: -1;
+
+    box-sizing: border-box;
 
     transition: 0.2s ease;
   }
@@ -38,8 +40,8 @@
   &_active:not(&_disabled), &:hover:not(&_disabled) {
     &:after {
       border: 2px solid $grey-60;
-      top: -2px;
-      left: -2px;
+      top: 0;
+      left: 0;
     }
 
     input {
@@ -119,7 +121,7 @@
 
 .option-list {
   position: absolute;
-  top: calc(100% + 4px);
+  top: 100%;
   left: 0;
 
   max-height: 192px;
