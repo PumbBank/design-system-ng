@@ -1,4 +1,17 @@
-<span class="icon nav-item__icon icon_24" [ngClass]="'icon_' + icon"></span>
-<div class="nav-item__text">
-  Menu item
+<div class="nav-item" [class.nav-item_active]="active" [class.nav-item_collapsed]="collapsed" (click)="expand()">
+
+  <div class="nav-item__icon">
+    <mill-icon [size]="isSubitem ? 12 : 24" [name]="isSubitem ? 'dot' : icon"></mill-icon>
+  </div>
+
+  <div class="nav-item__text">
+    <ng-content></ng-content>
+  </div>
+
+  <mill-icon *ngIf="withSubitems && !collapsed" class="nav-item__icon" size="12"
+    [name]="expanded ? 'small-arrow-up' : 'small-arrow-down'" color="#b6b6bf"></mill-icon>
+</div>
+
+<div class="content" [@slideInOut]="!expanded ? 'out' : 'in'">
+  <ng-content select='mill-nav-item'></ng-content>
 </div>

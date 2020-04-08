@@ -5,9 +5,9 @@
   width: 32px;
   height: 32px;
   box-sizing: border-box;
-  padding: 4px;
   cursor: pointer;
   border-radius: 16px;
+  padding: 4px;
 
   &.mill-user-info-action_disabled {
     background: none !important;
@@ -29,7 +29,7 @@
   }
 
   &:not(:last-child) {
-    margin-right: 16px;
+    margin-right: 24px;
   }
 }
 

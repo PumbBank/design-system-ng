@@ -1,14 +1,20 @@
 @import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
 
 :host {
-  width: 280px;
-  display: block;
+  flex-direction: column;
+  display: flex;
+  
+}
 
+.sidebar {
+  width: 100%;
+  height: 100%;
   transition: width 299ms ease;
+  overflow: hidden;
 
   &.sidebar_collapsed {
     width: 72px;
-    overflow: hidden;
 
     .sidebar__scrollable {
       padding: 0 12px;
@@ -32,7 +38,7 @@
 .sidebar__header {
   display: flex;
   height: 40px;
-  padding: 32px 24px;
+  padding: 32px 20px;
   align-items: center;
   flex-direction: row;
 }
@@ -40,6 +46,11 @@
 .sidebar__burger {
   height: 24px;
   cursor: pointer;
+  border-radius: 24px;
+  padding: 4px;
+  &:hover {
+    background: $grey-70;
+  }
 }
 
 .sidebar__burger-icon {
@@ -74,6 +85,8 @@
   }
 }
 
-.sidebar__navigation {
-  padding-right: 24px;
+.sidebar__crafted {
+  color: $grey-30;
+  @extend %p3;
+  padding: 12px 24px;
 }

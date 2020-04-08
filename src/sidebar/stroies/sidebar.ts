@@ -26,24 +26,41 @@ export const sidebarStorie = () => ({
           </user-info>
           
         <mill-nav-title>Nav title</mill-nav-title>
-        <mill-nav-item icon="mail"></mill-nav-item>
-        <mill-nav-item icon="calendar"></mill-nav-item>
-        <mill-nav-item icon="folder" active="true"></mill-nav-item>
+
+        <mill-nav-item icon="mail">
+          Messagenrs
+          <mill-nav-item >
+            Telegram
+          </mill-nav-item>
+
+          <mill-nav-item>
+            Viber
+          </mill-nav-item>
+          
+          <mill-nav-item>
+            iMessage
+          </mill-nav-item>
+            
+        </mill-nav-item>
+
+        <mill-nav-item icon="calendar">Menu item</mill-nav-item>
+
+        <mill-nav-item icon="folder" active="true">Menu item</mill-nav-item>
         <mill-nav-title>Nav title</mill-nav-title>
-        <mill-nav-item icon="mail"></mill-nav-item>
-        <mill-nav-item icon="calendar"></mill-nav-item>
+        <mill-nav-item icon="mail">Menu item</mill-nav-item>
+        <mill-nav-item icon="calendar">Menu item</mill-nav-item>
         <mill-nav-title>Nav title</mill-nav-title>
-        <mill-nav-item icon="mail"></mill-nav-item>
-        <mill-nav-item icon="calendar"></mill-nav-item>
+        <mill-nav-item icon="mail">Menu item</mill-nav-item>
+        <mill-nav-item icon="calendar">Menu item</mill-nav-item>
         <mill-nav-title>Nav title</mill-nav-title>
-        <mill-nav-item icon="mail"></mill-nav-item>
-        <mill-nav-item icon="calendar"></mill-nav-item>
-        <mill-nav-item icon="mail"></mill-nav-item>
-        <mill-nav-item icon="calendar"></mill-nav-item>
-        <mill-nav-item icon="mail"></mill-nav-item>
-        <mill-nav-item icon="calendar"></mill-nav-item>
-        <mill-nav-item icon="mail"></mill-nav-item>
-        <mill-nav-item icon="calendar"></mill-nav-item>
+        <mill-nav-item icon="mail">Menu item</mill-nav-item>
+        <mill-nav-item icon="calendar">Menu item</mill-nav-item>
+        <mill-nav-item icon="mail">Menu item</mill-nav-item>
+        <mill-nav-item icon="calendar">Menu item</mill-nav-item>
+        <mill-nav-item icon="mail">Menu item</mill-nav-item>
+        <mill-nav-item icon="calendar">Menu item</mill-nav-item>
+        <mill-nav-item icon="mail">Menu item</mill-nav-item>
+        <mill-nav-item icon="calendar">Menu item</mill-nav-item>
       </mill-sidebar>
     </div>
   `
