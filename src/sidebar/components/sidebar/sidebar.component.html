@@ -1,15 +1,21 @@
-<div class="sidebar__header">
-  <div class="sidebar__burger" (click)="collapsedToggle()">
-    <span class="sidebar__burger-icon icon icon_burger icon_24"></span>
+<div class="sidebar" [class.sidebar_collapsed]="collapsed">
+  <div class="sidebar__header">
+    <div class="sidebar__burger" (click)="collapsedToggle()">
+      <span class="sidebar__burger-icon icon icon_burger icon_24"></span>
+    </div>
+    <img class="sidebar__logo" [src]="logo" alt="logo">
   </div>
-  <img class="sidebar__logo" [src]="logo" alt="logo">
+
+  <div class="sidebar__scrollable" [class.sidebar__scrollable_active]="scrolled" (scroll)="onScroll($event)">
+    <div class="sidebar__user-info-wrapper">
+      <ng-content select="user-info"></ng-content>
+    </div>
+    <div class="sidebar__navigation">
+      <ng-content></ng-content>
+    </div>
+  </div>
 </div>
 
-<div class="sidebar__scrollable" [class.sidebar__scrollable_active]="scrolled" (scroll)="onScroll($event)">
-  <div class="sidebar__user-info-wrapper">
-    <ng-content select="user-info"></ng-content>
-  </div>
-  <div class="sidebar__navigation">
-    <ng-content></ng-content>
-  </div>
+<div class="sidebar__crafted">
+  Crafted with <mill-icon size="12" name="heart" color="#F91F2B"></mill-icon> in PUMB
 </div>

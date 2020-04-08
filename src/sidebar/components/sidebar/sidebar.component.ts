@@ -9,11 +9,7 @@ import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubsc
   styleUrls: ['./sidebar.component.scss'],
   providers: [
     SidebarController
-  ],
-  host: {
-    class: 'sidebar',
-    '[class.sidebar_collapsed]': 'collapsed'
-  }
+  ]
 })
 export class SidebarComponent extends ComponentWithUnsubscriber implements OnInit, OnChanges {
   scrolled = false;

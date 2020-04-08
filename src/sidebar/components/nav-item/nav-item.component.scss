@@ -1,7 +1,7 @@
 @import "~@mill/figma/colors";
 @import "~@mill/figma/typography";
 
-:host {
+.nav-item {
   height: 48px;
   border-radius: 0 24px 24px 0;
   cursor: pointer;
@@ -29,7 +29,7 @@
   &:hover {
     background: $grey-70;
 
-    .nav-item__icon {
+    ::ng-deep mill-icon .icon {
       background: $grey-10;
     }
   }
@@ -42,7 +42,7 @@
       color: $grey-10;
     }
 
-    .nav-item__icon {
+    ::ng-deep mill-icon .icon {
       background: $grey-10;
     }
   }
@@ -50,7 +50,7 @@
 
 .nav-item__text {
   @extend %p1;
-  
+
   transition: width 299ms ease, opacity 299ms ease;
   width: 176px;
   white-space: nowrap;
@@ -61,5 +61,27 @@
   transition: margin 299ms ease;
 
   margin: 0 16px 0 24px;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+
+  & mill-icon {
+    height: 24px;
+    display: flex;
+    align-items: center;
+  }
+}
+
+.content {
+  overflow: hidden;
+}
+
+.content__hidden {
+  max-height: 0;
+}
+
+::ng-deep mill-icon .icon {
   background: $grey-40;
 }
