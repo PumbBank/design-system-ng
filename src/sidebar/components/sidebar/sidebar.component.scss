@@ -89,4 +89,9 @@
   color: $grey-30;
   @extend %p3;
   padding: 12px 24px;
+  display: flex;
+   & mill-icon {
+     color: #F91F2B;
+     margin: 0 5px;
+   }
 }

@@ -29,8 +29,8 @@
   &:hover {
     background: $grey-70;
 
-    ::ng-deep mill-icon .icon {
-      background: $grey-10;
+    mill-icon {
+      color: $grey-10;
     }
   }
 
@@ -42,8 +42,8 @@
       color: $grey-10;
     }
 
-    ::ng-deep mill-icon .icon {
-      background: $grey-10;
+    mill-icon {
+      color: $grey-10;
     }
   }
 }
@@ -66,12 +66,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-
-  & mill-icon {
-    height: 24px;
-    display: flex;
-    align-items: center;
-  }
+  color: $grey-40;
 }
 
 .content {
@@ -82,6 +77,3 @@
   max-height: 0;
 }
 
-::ng-deep mill-icon .icon {
-  background: $grey-40;
-}
