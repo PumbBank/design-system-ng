@@ -4,16 +4,22 @@ import { SelectComponent } from './components/select/select.component';
 import { SelectWithoutOptionSourceDirective } from './directives/without-option-source/select-without-option-source.directive';
 import { SelectOptionDirective } from './directives/option/select-option.directive';
 import { SelectValueAccessorDirective } from './directives/select-value-accessor/select-value-accessor.directive';
+import { IconsModule } from 'src/icons/icons.module';
+import { BadgeModule } from 'src/badge/badge.module';
+import { SelectOverviewComponent } from './examples/select-page.component';
 
 @NgModule({
   imports: [
-    CommonModule
+    CommonModule,
+    IconsModule,
+    BadgeModule
   ],
   declarations: [
     SelectComponent,
     SelectWithoutOptionSourceDirective,
     SelectOptionDirective,
-    SelectValueAccessorDirective
+    SelectValueAccessorDirective,
+    
   ],
   exports: [
     SelectComponent,

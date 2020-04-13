@@ -30,7 +30,8 @@
           #searchInput>
 
       </div>
-      <span class="input__icon icon icon_chevron-down"></span>
+      <mill-icon class="chevron-down" size="24" [class.chevron-down_rotate180]="active$.value"
+    name="chevron-down"></mill-icon>
     </div>
 
     <div class="input__footer">
@@ -43,7 +44,7 @@
   Default body template
 -->
 <ng-template #defaultBodyTemplate>
-  <div #selectBodyElement class="option-list" [class.option-list_active]="active$.value" (mouseover)="onBodyMouseOver()"
+  <div #selectBodyElement class="option-list" [class.option-list_active]="true || active$.value" (mouseover)="onBodyMouseOver()"
     (mouseout)="onBodyMouseOut()">
     <ng-container *ngFor="let option of (options$ | async); index as i">
 
@@ -61,9 +62,10 @@
 
 <ng-template #defaultOptionTemplate let-option="option" let-i="i">
   <div #optionElement class="option" [class.option_focused]="focusedOptionIndex == i" (click)="optionClick(option)">
-    <div class="option__text">
+    <div class="option__text" [class.option__text_selected]="checkIsOptionSelected(option)">
       {{ option.value }}
     </div>
-    <span *ngIf="checkIsOptionSelected(option)" class="option__icon icon"></span>
+    <mill-icon class="option__icon" *ngIf="checkIsOptionSelected(option)" size="24"
+    name="check"></mill-icon>
   </div>
 </ng-template>
