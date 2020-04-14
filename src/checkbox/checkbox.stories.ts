@@ -17,7 +17,7 @@ checkboxStories.add('Overview', () => ({
   props: {
     onChange: action('Change fired!'),
     onIndeterminateChange: action('Indeterminate change fired!'),
-    label: text('List label name', 'Checkbox'),
+    label: text('List label name', 'Checkbox item'),
     hideLabel: boolean('Hide labels', false),
   },
   template: `<app-checkbox-overview [label]="label" [hideLabel]="hideLabel"></app-checkbox-overview>`

@@ -88,14 +88,22 @@
     }
 
     .checkbox__label {
-      color: $grey-30;
+      color: $grey-40;
     }
 
     &.checkbox_checked {
-      background: $grey-30;
+      .checkbox__item {
+        background: $grey-30;
+      }
 
       .checkbox__icon {
         visibility: visible;
+      }
+
+      &:hover {
+        .checkbox__label {
+          color: $grey-40;
+        }
       }
     }
 
