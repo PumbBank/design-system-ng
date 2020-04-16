@@ -29,5 +29,6 @@ export class SelectComponent<K = any, P = any> extends AbstractSelectUserCommuni
    */
   @Input() placeholder: string;
 
+  options = { autoHide: false, scrollbarMinSize: 5 };
 }
 

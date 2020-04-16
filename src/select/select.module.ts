@@ -6,13 +6,15 @@ import { SelectOptionDirective } from './directives/option/select-option.directi
 import { SelectValueAccessorDirective } from './directives/select-value-accessor/select-value-accessor.directive';
 import { IconsModule } from 'src/icons/icons.module';
 import { BadgeModule } from 'src/badge/badge.module';
-import { SelectOverviewComponent } from './examples/select-page.component';
+
+import { SimplebarAngularModule } from 'simplebar-angular';
 
 @NgModule({
   imports: [
     CommonModule,
     IconsModule,
-    BadgeModule
+    BadgeModule,
+    SimplebarAngularModule
   ],
   declarations: [
     SelectComponent,

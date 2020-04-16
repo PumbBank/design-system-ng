@@ -44,7 +44,7 @@
   Default body template
 -->
 <ng-template #defaultBodyTemplate>
-  <div #selectBodyElement class="option-list" [class.option-list_active]="true || active$.value" (mouseover)="onBodyMouseOver()"
+  <ngx-simplebar [options]="options" #selectBodyElement class="option-list" [class.option-list_active]="active$.value" (mouseover)="onBodyMouseOver()"
     (mouseout)="onBodyMouseOut()">
     <ng-container *ngFor="let option of (options$ | async); index as i">
 
@@ -52,7 +52,7 @@
 
       </ng-container>
     </ng-container>
-  </div>
+  </ngx-simplebar>
 </ng-template>
 
 
