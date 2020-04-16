@@ -61,6 +61,12 @@ export class CheckboxComponent implements AfterViewInit {
    * Reflects the required attribute of the `input` element.
    */
   @Input() required: boolean;
+  /**
+   * Attribute indicates how checkbox can be sequential navigated with keyboard (usually Tab button).
+   * '0' value means that the element should be focusable in sequential keyboard navigation,
+   * but its order is defined by the document's source order.
+   */
+  @Input() tabindex = 0;
 
   /**
    * Reflects whether the checkbox state is indeterminate.
@@ -159,15 +165,27 @@ export class CheckboxComponent implements AfterViewInit {
    */
   onClick(event) {
     if (event && !this.disabled) {
-      this.toggle();
-      this.transitionCheckboxState(this._CHECKED ? CheckboxState.Checked : CheckboxState.Unchecked);
-      this.emitChangeEvent();
+      this.checkboxStateToggle();
     }
   }
 
   /**
-   * Called when checkbox is blurred. Needed to properly implement `ControlValueAccessor`.
+   * Handles keyup events on the `Checkbox` with space bar and emits changes to other classes.
    */
+  onKeyup(event) {
+    if (event && event.keyCode === 32) {
+      this.checkboxStateToggle();
+    }
+  }
+
+  /**
+   * Toggle state of checkbox
+   */
+  checkboxStateToggle() {
+    this.toggle();
+    this.transitionCheckboxState(this._CHECKED ? CheckboxState.Checked : CheckboxState.Unchecked);
+    this.emitChangeEvent();
+  }
 
   /**
    * Handles changes between checkbox states.
