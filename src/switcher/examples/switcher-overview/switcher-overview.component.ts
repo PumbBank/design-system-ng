@@ -5,6 +5,7 @@ import { Component } from '@angular/core';
   templateUrl: './switcher-overview.component.html',
   styleUrls: ['./switcher-overview.component.scss']
 })
+
 export class SwitcherOverview {
   constructor() { }
 }
