@@ -1,4 +1,4 @@
-<div role="listbox" class="select">
+<div role="listbox" class="select" [class.isDisabled]="disabled">
   <ng-container *ngTemplateOutlet="defaultHeaderTemplate; context: this"></ng-container>
 
   <ng-container *ngIf="active$.value || !isNotRenderInactiveBodyMode">

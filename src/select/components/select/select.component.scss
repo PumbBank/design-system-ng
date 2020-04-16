@@ -14,13 +14,24 @@
   display: inline-block;
 }
 
+.isDisabled {
+  pointer-events: none;
+
+  & .input__body {
+    border-color: $grey-30;
+  }
+
+  & .input__label {
+    color: $grey-40 !important;
+  }
+}
+
 .option-list {
   max-height: 230px;
   background: #fff;
   overflow: auto;
   border-radius: 8px;
   @extend %shadow-10;
-  // display: none;
   position: absolute;
   min-width: 200px;
   width: 100%;
@@ -82,7 +93,6 @@
   margin-right: 12px;
   
   &_rotate180 {
-    
     transform: rotate(180deg);
   }
 }
