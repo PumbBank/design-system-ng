@@ -1,0 +1,16 @@
+<div class="radio" (click)="onClick($event)">
+  <input
+    class="radio__input"
+    type="radio"
+    [checked]="checked"
+    [disabled]="disabled"
+    [name]="name"
+    [id]="id"
+    [required]="required"
+    [value]="value"
+    (change)="onChange($event)">
+  <span class="radio__checkmark">
+    <span class="icon radio__icon"></span>
+  </span>
+</div>
+<ng-content></ng-content>
