@@ -35,9 +35,8 @@
   position: absolute;
   min-width: 200px;
   width: 100%;
-  transform: translateY(6px);
+  transform: translateY(-18px);
   z-index: 10;
-  top: 68px;
   opacity: 0;
   transition: opacity 0.299s ease-in-out;
 }
@@ -91,7 +90,7 @@
   transform: rotate(0);
   color: $grey-50;
   margin-right: 12px;
-  
+  cursor: pointer;
   &_rotate180 {
     transform: rotate(180deg);
   }
@@ -99,20 +98,49 @@
 
 ::ng-deep .simplebar-vertical .simplebar-scrollbar:before {
   position: absolute;
-  content: '';
-  background: $grey-100 ;
+  content: "";
+  background: $grey-100;
   border-radius: 50px;
   left: 2px;
   right: 2px;
   top: 6px !important;
   bottom: 6px !important;
   opacity: 0;
-  -webkit-transition: opacity .2s linear;
-  transition: opacity .2s linear;
+  -webkit-transition: opacity 0.2s linear;
+  transition: opacity 0.2s linear;
   width: 4px;
 }
 
 ::ng-deep .simplebar-vertical .simplebar-visible:before {
   opacity: 0.22 !important;
   transition: opacity linear;
+}
+
+// chip не подтянулся  из stylesheets
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.chip {
+  border: 1px solid $grey-30;
+  width: fit-content;
+  padding: 4px 12px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  margin: 8px 0px 8px 8px;
+
+  & .chip__text {
+    margin-right: 12px;
+    @extend %p1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #4d4d5c;
+  }
+
+  & .chip__icon {
+    color: $grey-40;
+    cursor: pointer;
+  }
 }
