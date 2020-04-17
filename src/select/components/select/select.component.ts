@@ -23,11 +23,13 @@ export class SelectComponent<K = any, P = any> extends AbstractSelectUserCommuni
    * @description This value will be displayed as select header
    */
   @Input() caption: string;
+  @Input() disabled: boolean;
 
   /**
    * @description This value will be displayed while any option not selected
    */
   @Input() placeholder: string;
 
+  options = { autoHide: false, scrollbarMinSize: 5 };
 }
 

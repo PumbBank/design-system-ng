@@ -1,4 +1,4 @@
-<div role="listbox" class="select">
+<div role="listbox" class="select" [class.isDisabled]="disabled">
   <ng-container *ngTemplateOutlet="defaultHeaderTemplate; context: this"></ng-container>
 
   <ng-container *ngIf="active$.value || !isNotRenderInactiveBodyMode">
@@ -17,20 +17,23 @@
     <div class="input__body">
 
       <ng-container *ngIf="multiple">
-        <div class="chip" *ngFor="let option of selectedOption">
-          <div class="chip__text">{{ option.value }}</div>
-          <div class="chip__icon icon" (click)="ontionChipCloseClick(option)"></div>
+        <div class="chips">
+          <div class="chip" *ngFor="let option of selectedOption">
+            <div class="chip__text">{{ option.value }}</div>
+            <mill-icon class="chip__icon" size="24" name="close" (click)="ontionChipCloseClick(option)"></mill-icon>
+          </div>
         </div>
       </ng-container>
 
-      <div class="input__enterence">
+      <div class="input__enterence" style="min-width: 128px;">
         <div class="input__placeholder" *ngIf="!searchInputValue"> {{ placeholder }} </div>
         <input class="input__input" (focus)="onSearchInputFocus()" (blur)="onSearchInputBlur()"
           [value]="searchInputValue" (input)="onSearchInput(searchInput.value)" (keydown)="onSearchInputKeydown($event)"
           #searchInput>
 
       </div>
-      <span class="input__icon icon icon_chevron-down"></span>
+      <mill-icon class="chevron-down" size="24" [class.chevron-down_rotate180]="active$.value" name="chevron-down">
+      </mill-icon>
     </div>
 
     <div class="input__footer">
@@ -43,15 +46,15 @@
   Default body template
 -->
 <ng-template #defaultBodyTemplate>
-  <div #selectBodyElement class="option-list" [class.option-list_active]="active$.value" (mouseover)="onBodyMouseOver()"
-    (mouseout)="onBodyMouseOut()">
+  <ngx-simplebar [options]="options" #selectBodyElement class="option-list" [class.option-list_active]="active$.value"
+    (mouseover)="onBodyMouseOver()" (mouseout)="onBodyMouseOut()">
     <ng-container *ngFor="let option of (options$ | async); index as i">
 
       <ng-container *ngTemplateOutlet="defaultOptionTemplate; context: { option: option, i: i }">
 
       </ng-container>
     </ng-container>
-  </div>
+  </ngx-simplebar>
 </ng-template>
 
 
@@ -61,9 +64,9 @@
 
 <ng-template #defaultOptionTemplate let-option="option" let-i="i">
   <div #optionElement class="option" [class.option_focused]="focusedOptionIndex == i" (click)="optionClick(option)">
-    <div class="option__text">
+    <div class="option__text" [class.option__text_selected]="checkIsOptionSelected(option)">
       {{ option.value }}
     </div>
-    <span *ngIf="checkIsOptionSelected(option)" class="option__icon icon"></span>
+    <mill-icon class="option__icon" *ngIf="checkIsOptionSelected(option)" size="24" name="check"></mill-icon>
   </div>
 </ng-template>

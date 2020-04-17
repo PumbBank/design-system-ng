@@ -1,14 +1,12 @@
 @import "~@mill/figma/colors";
-@import '~@mill/figma/typography';
+@import "~@mill/figma/typography";
 
 %icon_red-50 {
-  background: $red-50;
+  color: $red-50;
 }
 
 %shadow-10 {
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.03), 
-              0px 2px 7px rgba(0, 0, 0, 0.05),
-              0px 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.03), 0px 2px 7px rgba(0, 0, 0, 0.05), 0px 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 :host {
@@ -16,25 +14,36 @@
   display: inline-block;
 }
 
+.isDisabled {
+  pointer-events: none;
+
+  & .input__body {
+    border-color: $grey-30;
+  }
+
+  & .input__label {
+    color: $grey-40 !important;
+  }
+}
+
 .option-list {
-  max-height: 200px;
+  max-height: 230px;
   background: #fff;
   overflow: auto;
   border-radius: 8px;
   @extend %shadow-10;
-  display: none;
   position: absolute;
   min-width: 200px;
   width: 100%;
-  transform: translateY(4px);
+  transform: translateY(-18px);
   z-index: 10;
-  top: 68px;
+  opacity: 0;
+  transition: opacity 0.299s ease-in-out;
 }
 
 .option-list_active {
-  display: block;
+  opacity: 1;
 }
-
 
 .option {
   padding: 0 14px;
@@ -44,7 +53,7 @@
   justify-content: space-between;
   box-sizing: border-box;
   min-height: 48px;
-  
+
   &:hover {
     cursor: pointer;
     background: $grey-10;
@@ -65,8 +74,73 @@
   @extend %p1;
   white-space: nowrap;
   text-overflow: ellipsis;
+  color: $grey-60;
+
+  &_selected {
+    color: $grey-70;
+  }
 }
 
 .option__icon {
   @extend %icon_red-50;
+}
+
+.chevron-down {
+  transition: transform 299ms ease;
+  transform: rotate(0);
+  color: $grey-50;
+  margin-right: 12px;
+  cursor: pointer;
+  &_rotate180 {
+    transform: rotate(180deg);
+  }
+}
+
+::ng-deep .simplebar-vertical .simplebar-scrollbar:before {
+  position: absolute;
+  content: "";
+  background: $grey-100;
+  border-radius: 50px;
+  left: 2px;
+  right: 2px;
+  top: 6px !important;
+  bottom: 6px !important;
+  opacity: 0;
+  -webkit-transition: opacity 0.2s linear;
+  transition: opacity 0.2s linear;
+  width: 4px;
+}
+
+::ng-deep .simplebar-vertical .simplebar-visible:before {
+  opacity: 0.22 !important;
+  transition: opacity linear;
+}
+
+// chip не подтянулся  из stylesheets
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+}
+
+.chip {
+  border: 1px solid $grey-30;
+  width: fit-content;
+  padding: 4px 12px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  margin: 8px 0px 8px 8px;
+
+  & .chip__text {
+    margin-right: 12px;
+    @extend %p1;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+    color: #4d4d5c;
+  }
+
+  & .chip__icon {
+    color: $grey-40;
+    cursor: pointer;
+  }
 }

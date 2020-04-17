@@ -1,18 +1,19 @@
-import {  text } from '@storybook/addon-knobs';
+import { text } from '@storybook/addon-knobs';
 import { SelectModule } from '../select.module';
+import { SelectOverviewComponent } from '../examples/select-page.component';
 
 export const DEFAULT_SELECT = () => ({
   moduleMetadata: {
-    imports: [SelectModule]
+    imports: [SelectModule],
+    declarations: [
+      SelectOverviewComponent
+    ]
   },
   props: {
-    caption: text('caption', 'Select'),
-    placeholder: text('placeholder', 'Placeholder')
+    caption: text('caption', 'Overview'),
+    label: text('select', 'Select')
   },
   template: `
-    <mill-select [caption]="caption" [placeholder]="placeholder">
-      <span millSelectOption key="1" value="Option 1"></span>
-      <span millSelectOption key="2" value="Option 2"></span>
-    </mill-select>
+    <app-select-overview [label]="label"></app-select-overview>
     `
 });

@@ -1,0 +1,18 @@
+:host {
+  padding: 24px;
+  box-sizing: border-box;
+  display: block;
+}
+
+.preview {
+  display: grid;
+  grid-gap: 24px;
+  grid-template-columns: repeat(2, 1fr);
+
+    &__component {
+    border: 1px solid #e1e1e8;
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 16px;
+  }
+}
