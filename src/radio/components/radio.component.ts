@@ -1,8 +1,6 @@
 import { Component, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
-import { RadioChange } from './radio-change.class';
-
 @Component({
   selector: 'radio',
   templateUrl: 'radio.component.html',
@@ -36,14 +34,19 @@ export class RadioComponent {
    */
   @Input() value = '';
   /**
+   * Set to `true` to hide the checkbox labels.
+   */
+  @Input() hideLabel = false;
+  /**
    * The id for the `Radio`.
    */
   @Input() id = `radio-${RadioComponent.radioCount++}`;
-
   /**
-   * Handler provided by the `RadioGroup` to bubble events up
+   * Attribute indicates how radio button can be sequential navigated with keyboard (usually Tab button).
+   * '0' value means that the element should be focusable in sequential keyboard navigation,
+   * but its order is defined by the document's source order.
    */
-  radioChangeHandler = (event: RadioChange) => {};
+  @Input() tabindex = 0;
 
   /**
    * Synchronizes with the `RadioGroup` in the event of a changed `Radio`.
@@ -52,22 +55,27 @@ export class RadioComponent {
   onChange(event: Event) {
     event.stopPropagation();
     this.checked = (event.target as HTMLInputElement).checked;
-    // const radioEvent = new RadioChange(this, this.value);
-    // this.change.emit(radioEvent);
-    // this.radioChangeHandler(radioEvent);
   }
 
   onClick(event) {
     if (event && !this.disabled) {
-      this.checked = true;
+      this.checkboxStateToggle();
     }
   }
 
   /**
-   * Method called by `RadioGroup` with a callback function to bubble `RadioChange` events
-   * @param fn callback that expects a `RadioChange` as an argument
+   * Handles keyup events on the `Radio` with space bar and emits changes to other classes.
    */
-  registerRadioChangeHandler(fn: (event: RadioChange) => void) {
-    this.radioChangeHandler = fn;
+  onKeyup(event) {
+    if (event && event.keyCode === 32) {
+      this.checkboxStateToggle();
+    }
+  }
+
+  /**
+   * Toggle state of radio button
+   */
+  checkboxStateToggle() {
+    this.checked = true;
   }
 }

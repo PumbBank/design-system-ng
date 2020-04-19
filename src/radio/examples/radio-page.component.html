@@ -4,21 +4,38 @@
   <div class="preview__block">
     <div class="preview__label s1">Unchecked</div>
     <div class="preview__component">
-      <radio class="p1">{{label}}</radio>
+      <radio class="p1" [hideLabel]="hideLabel">{{label}}</radio>
     </div>
   </div>
 
   <div class="preview__block">
     <div class="preview__label s1">Checked</div>
     <div class="preview__component">
-      <radio class="p1" [checked]="true">{{label}}</radio>
+      <radio class="p1" [hideLabel]="hideLabel" [checked]="true">{{label}}</radio>
     </div>
   </div>
 
   <div class="preview__block">
-    <div class="preview__label s1">Disabled</div>
+    <div class="preview__label s1">Disabled / Unchecked</div>
     <div class="preview__component">
-      <radio class="p1" [disabled]="true">{{label}}</radio>
+      <radio class="p1" [hideLabel]="hideLabel" [disabled]="true">{{label}}</radio>
+    </div>
+  </div>
+
+  <div class="preview__block">
+    <div class="preview__label s1">Disabled / Checked</div>
+    <div class="preview__component">
+      <radio class="p1" [hideLabel]="hideLabel" [checked]="true" [disabled]="true">{{label}}</radio>
+    </div>
+  </div>
+
+  <div class="preview__block preview__block_full-width">
+    <div class="preview__label s1">Group</div>
+    <div class="preview__component">
+      <radio class="p1" [hideLabel]="hideLabel" [tabindex]="-1" [name]="oneGroup">{{label}}</radio>
+      <radio class="p1" [hideLabel]="hideLabel" [tabindex]="-1" [name]="oneGroup">{{label}}</radio>
+      <radio class="p1" [hideLabel]="hideLabel" [tabindex]="-1" [name]="oneGroup">{{label}}</radio>
+      <radio class="p1" [hideLabel]="hideLabel" [tabindex]="-1" [name]="oneGroup">{{label}}</radio>
     </div>
   </div>
 </div>
