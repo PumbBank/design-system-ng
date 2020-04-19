@@ -1,4 +1,10 @@
-<div class="radio" (click)="onClick($event)">
+<div
+  class="radio"
+  [class.radio_checked]="checked"
+  [class.radio_disabled]="disabled"
+  (click)="onClick($event)"
+  (keyup)="onKeyup($event)"
+  [tabIndex]="tabindex">
   <input
     class="radio__input"
     type="radio"
@@ -12,5 +18,8 @@
   <span class="radio__checkmark">
     <span class="icon radio__icon"></span>
   </span>
+
+  <label class="radio__label" [for]="id" [ngClass]="{'radio__label_hidden' : hideLabel}">
+    <ng-content></ng-content>
+  </label>
 </div>
-<ng-content></ng-content>

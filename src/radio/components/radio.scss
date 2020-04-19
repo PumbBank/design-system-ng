@@ -3,47 +3,92 @@
 
 .radio {
   position: relative;
-  min-width: 20px;
-  width: 20px;
-  height: 20px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  justify-content: center;
-  margin: auto -2px auto 16px;
 
   &__checkmark {
-    position: absolute;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
+    min-width: 20px;
+    width: 20px;
+    height: 20px;
     border-radius: 50%;
     display: flex;
     align-items: center;
     justify-content: center;
     border: 2px solid $grey-50;
     box-sizing: border-box;
+    transition: border-color 0.2s ease-in-out;
 
     .radio__icon {
       display: inline-block;
-      background: #ffffff;
+      background-color: #ffffff;
+      transition: background-color 0.2s ease-in-out;
+    }
+  }
+
+  &__label {
+    color: $grey-60;
+    cursor: pointer;
+    margin-left: 14px;
+    transition: color 0.2s ease-in-out;
+
+    &_hidden {
+      display: none;
     }
   }
 
   &__input {
     appearance: none;
     visibility: hidden;
+  }
 
-    &:checked ~ .radio__checkmark {
-      border-color: $red-50;
+  &:hover,
+  &_checked:hover {
+    .radio__checkmark {
+      border-color: $red-40;
+    }
 
-      .radio__icon {
-        width: 12px;
-        height: 12px;
-        background: $red-50;
-        border-radius: 50%;
-      }
+    .radio__icon {
+      background-color: $red-40;
+    }
+
+    .radio__label {
+      color: $grey-70;
     }
   }
+
+  /* stylelint-disable no-descending-specificity */
+  &_checked {
+    .radio__checkmark {
+      border-color: $red-50;
+    }
+
+    .radio__icon {
+      width: 12px;
+      height: 12px;
+      background-color: $red-50;
+      border-radius: 50%;
+    }
+  }
+
+  &_disabled,
+  &_disabled#{&}_checked,
+  &_disabled:hover,
+  &_disabled#{&}_checked:hover {
+    cursor: default;
+
+    .radio__label {
+      cursor: default;
+      color: $grey-40;
+    }
+
+    .radio__checkmark {
+      border-color: $grey-30;
+    }
+
+    .radio__icon {
+      background-color: $grey-30;
+    }
+  }
+  /* stylelint-enable */
 }

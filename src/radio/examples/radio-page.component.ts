@@ -8,4 +8,7 @@ import { Component, Input } from '@angular/core';
 
 export class RadioOverviewComponent {
   @Input() label: string;
+  @Input() hideLabel: boolean;
+
+  oneGroup = 'oneGroup';
 }
