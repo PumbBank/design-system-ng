@@ -10,7 +10,7 @@
   <div class="checkbox__item">
     <div class="checkbox__icon icon" role="checkbox" [id]="id"></div>
   </div>
-  <label class="checkbox__label" [for]="id" [ngClass]="{'checkbox__label_hidden' : hideLabel}">
+  <label class="checkbox__label" [for]="id" *ngIf="!hideLabel">
     <ng-content></ng-content>
   </label>
 </div>
