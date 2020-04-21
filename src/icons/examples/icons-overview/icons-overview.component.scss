@@ -1,10 +1,81 @@
-.preview-block {
-  display: grid;
-  grid-gap: 10px;
-  border: 1px solid #E1E1E8;
-  border-radius: 8px;
-  padding: 24px;
-  box-sizing: border-box;
+@import "~@mill/figma/colors";
+
+.overview {
+  &__column {
+    .overview__container {
+      flex-direction: row !important;
+      justify-content: flex-start !important;
+      flex-flow: row wrap;
+      border: none !important;
+      padding: 0 0 24px !important;
+    }
+    &:not(:last-of-type) {
+      .overview__container {
+        border-bottom: 1px solid $grey-20 !important;
+      }
+    }
+  }
+}
+
+.icon {
+  &-header {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    padding-right: 80px;
+  }
+  &-small {
+    font-size: 18px;
+  }
+  &-block {
+    position: relative;
+
+    width: 64px;
+    height: 64px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    border: 1px solid $grey-20;
+    border-radius: 8px;
+    box-sizing: border-box;
+
+    margin-right: 24px;
+    margin-bottom: 24px;
+
+    transition: 0.3s ease;
+    cursor: pointer;
+
+
+    &:hover {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2), 0 0 4px rgba(0, 0, 0, 0.12);
+      .icon-preview {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        transition: 0.2s ease;
+      }
+    }
+  }
+
+  &-preview {
+    position: absolute;
+    top: calc(100% + 8px);
+    white-space: nowrap;
+    height: 32px;
+    padding: 0 12px;
+    background: $grey-60;
+    color: $other-white;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.1s ease;
+    transform: translateY(10px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    z-index: 1;
+  }
 }
 
 .tooltip {

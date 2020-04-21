@@ -86,6 +86,7 @@
       "/\\S+/": ["initial", "revert", "unset"]
     },
     "property-blacklist": ["all"],
+    "font-weight-notation": "numeric",
     "function-comma-newline-after": "always-multi-line",
     "function-comma-space-after": "always-single-line",
     "function-comma-space-before": "never",
@@ -93,6 +94,7 @@
     "function-name-case": "lower",
     "function-parentheses-newline-inside": "always-multi-line",
     "function-parentheses-space-inside": "never-single-line",
+    "function-url-quotes": "always",
     "function-whitespace-after": "always",
     "indentation": [
       2,
@@ -140,12 +142,10 @@
     "selector-attribute-quotes": "always",
     "declaration-no-important": true,
     "property-no-vendor-prefix": true,
-    "font-weight-notation": "numeric",
     "selector-descendant-combinator-no-non-space": true,
     "selector-list-comma-newline-after": "always",
     "selector-list-comma-space-before": "never",
     "selector-max-empty-lines": 1,
-    "function-url-quotes": "always",
     "at-rule-no-vendor-prefix": true,
     "at-rule-no-unknown":  [ true, {
       "ignoreAtRules": [
@@ -156,10 +156,26 @@
     "value-no-vendor-prefix": true,
     "selector-pseudo-class-case": "lower",
     "selector-pseudo-class-parentheses-space-inside": "never",
-    "selector-no-vendor-prefix": true,
+    "selector-pseudo-element-no-unknown": [
+      true,
+      {
+        "ignorePseudoElements": [
+          "ng-deep"
+        ]
+      }
+    ],
     "selector-pseudo-element-case": "lower",
     "selector-pseudo-element-colon-notation": "double",
+    "selector-no-vendor-prefix": true,
     "selector-type-case": "lower",
+    "selector-type-no-unknown": [
+      true,
+      {
+        "ignoreTypes": [
+          "/^mill-/", "custom-"
+        ]
+      }
+    ],
     "unit-case": "lower",
     "value-list-comma-newline-after": "always-multi-line",
     "value-list-comma-space-after": "always-single-line",

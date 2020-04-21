@@ -1,4 +1,5 @@
 @import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
 @import "~@mill/figma/icons";
 
 /* stylelint-disable no-descending-specificity */
@@ -32,11 +33,12 @@
     cursor: pointer;
     margin-left: 14px;
     transition: color 0.2s ease-in-out;
+
+    @extend %p1;
   }
 
   &__input {
     appearance: none;
-    //visibility: hidden;
 
     &:checked ~ .radio__checkmark {
       border-color: $red-50;

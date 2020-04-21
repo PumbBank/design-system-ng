@@ -15,12 +15,12 @@ enum BadgeTypeEnum {
   minimal = 'minimal'
 }
 
-
 @Component({
   selector: 'mill-badge',
   templateUrl: './badge.component.html',
   styleUrls: ['./badge.component.scss']
 })
+
 export class BadgeComponent {
   @Input() public type = BadgeTypeEnum.basic;
   @Input() public color = BadgeColorEnum.green;

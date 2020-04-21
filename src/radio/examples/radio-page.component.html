@@ -1,41 +1,45 @@
-<div class="h3">Radio button</div>
-<br>
-<div class="preview">
-  <div class="preview__block">
-    <div class="preview__label s1">Unchecked</div>
-    <div class="preview__component">
-      <radio class="p1" [hideLabel]="hideLabel">{{label}}</radio>
+<div class="overview">
+  <div class="overview__header">
+    <div class="h4">Radio button</div>
+    <div class="overview__links">
+<!--      <a href="" class="overview__link s1"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>-->
+<!--      <a href="" class="overview__link s1"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>-->
     </div>
   </div>
-
-  <div class="preview__block">
-    <div class="preview__label s1">Checked</div>
-    <div class="preview__component">
-      <radio class="p1" [hideLabel]="hideLabel" [checked]="true">{{label}}</radio>
+  <div class="overview__content grid">
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Unchecked</div>
+      <div class="overview__container">
+        <radio [hideLabel]="hideLabel">{{label}}</radio>
+      </div>
     </div>
-  </div>
-
-  <div class="preview__block">
-    <div class="preview__label s1">Disabled / Unchecked</div>
-    <div class="preview__component">
-      <radio class="p1" [hideLabel]="hideLabel" [disabled]="true">{{label}}</radio>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Checked</div>
+      <div class="overview__container">
+        <radio [hideLabel]="hideLabel" [checked]="true">{{label}}</radio>
+      </div>
     </div>
-  </div>
-
-  <div class="preview__block">
-    <div class="preview__label s1">Disabled / Checked</div>
-    <div class="preview__component">
-      <radio class="p1" [hideLabel]="hideLabel" [checked]="true" [disabled]="true">{{label}}</radio>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled unchecked</div>
+      <div class="overview__container">
+        <radio [hideLabel]="hideLabel" [disabled]="true">{{label}}</radio>
+      </div>
     </div>
-  </div>
-
-  <div class="preview__block preview__block_full-width">
-    <div class="preview__label s1">Group</div>
-    <div class="preview__component">
-      <radio class="p1" [hideLabel]="hideLabel" [name]="oneGroup">{{label}}</radio>
-      <radio class="p1" [hideLabel]="hideLabel" [tabindex]="-1" [name]="oneGroup">{{label}}</radio>
-      <radio class="p1" [hideLabel]="hideLabel" [tabindex]="-1" [name]="oneGroup">{{label}}</radio>
-      <radio class="p1" [hideLabel]="hideLabel" [tabindex]="-1" [name]="oneGroup">{{label}}</radio>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled checked</div>
+      <div class="overview__container">
+        <radio [hideLabel]="hideLabel" [checked]="true" [disabled]="true">{{label}}</radio>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Without label</div>
+      <div class="overview__container overview__container_row">
+        <radio [hideLabel]="hideLabel" [name]="oneGroup"></radio>
+        <radio [hideLabel]="hideLabel" [name]="oneGroup" [tabindex]="-1"></radio>
+        <radio [hideLabel]="hideLabel" [name]="oneGroup" [tabindex]="-1"></radio>
+        <radio [hideLabel]="hideLabel" [name]="oneGroup" [tabindex]="-1" [disabled]="true"></radio>
+      </div>
     </div>
   </div>
 </div>
+

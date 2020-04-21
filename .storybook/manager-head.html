@@ -1,0 +1,52 @@
+<style>
+  /* stylelint-disable declaration-no-important */
+  @font-face {
+    font-family: "Gilroy";
+    src:
+      url("fonts/Gilroy-Bold.woff2") format("woff2"),
+      url("fonts/Gilroy-Bold.woff") format("woff");
+    font-weight: 700;
+    font-style: normal;
+  }
+
+  .sidebar-item {
+    font-size: 14px !important;
+    font-weight: 500 !important;
+    letter-spacing: 0.18px;
+    padding-left: 19px !important;
+  }
+
+  .sidebar-item.selected {
+    background: #4d4d5c;
+  }
+
+  .sidebar-expander,
+  .sidebar-svg-icon {
+    display: none !important;
+  }
+
+  .sidebar-subheading {
+    font-size: 12px !important;
+    letter-spacing: 4.5px !important;
+    color: #93939e !important;
+  }
+
+  a[title = "Component"] .sidebar-item,
+  a[title = "Огляд"] .sidebar-item {
+    padding-left: 30px !important;
+  }
+
+  .sidebar-header ~ div > a[title] {
+    padding-left: 10px;
+  }
+
+  .simplebar-content label {
+    color: #4d4d5c;
+    border-bottom-color: transparent;
+  }
+
+  .simplebar-content textarea {
+    border-radius: 4px;
+  }
+  /* stylelint-enable */
+</style>

@@ -2,11 +2,11 @@ import { MillSelectOption } from '../../select-option';
 import { Input, OnInit, EventEmitter, Output } from '@angular/core';
 import { MillOptionSource } from '../../option-source';
 import { BehaviorSubject } from 'rxjs';
-import { RequirebleComponent } from '../../abstract-requireble';
+import { RequiredComponent } from '../../abstract-requireble';
 
 
-export abstract class AbstractSelectOptions<K = any, P = any> extends RequirebleComponent implements OnInit {
-  private _multiple: boolean = false;
+export abstract class AbstractSelectOptions<K = any, P = any> extends RequiredComponent implements OnInit {
+  private _multiple = false;
   private _selectedOption: MillSelectOption<K, P> | Array<MillSelectOption<K, P>>;
   private _selected: K | Array<K>;
 
@@ -58,8 +58,8 @@ export abstract class AbstractSelectOptions<K = any, P = any> extends Requireble
 
   ngOnInit(): void {
     this.waitForSettingOptionSource().then(() => {
-      if (this.optionSource.registerOnCanhges) {
-        this.optionSource.registerOnCanhges(() => {
+      if (this.optionSource.registerOnChanges) {
+        this.optionSource.registerOnChanges(() => {
           this.loadOptionsFromSource();
         });
       }

@@ -3,35 +3,36 @@ import { create } from '@storybook/theming';
 export default create({
   base: 'light',
   // Storybook-specific color palette
-  colorPrimary: '#FF4785',
+  colorPrimary: '#ff4785',
   // coral
   colorSecondary: '#41494f',
   // ocean
 
   // UI
-  appBg: '#2d2f36',
+  appBg: '#2c2c3b',
   appContentBg: '#ffffff',
-  appBorderColor: '#eeeeee',
-  appBorderRadius: 4,
+  appBorderColor: '#e1e1e8',
+  appBorderRadius: 0,
 
   // Typography
-  fontBase: '"Open Sans", sans-serif',
+  fontBase: '"Gilroy", sans-serif',
   fontCode: 'monospace',
+  fontSize: 14,
 
   // Text colors
-  textColor: '#c4cbcf',
-  textInverseColor: 'rgba(255,255,255,0.9)',
+  textColor: '#b6b6bf',
+  textInverseColor: '#ffffff',
 
   // Toolbar default and active colors
-  barTextColor: 'silver',
-  barSelectedColor: '#ffffff',
-  barBg: '#eeeeee',
+  barTextColor: '#93939e',
+  barSelectedColor: '#4d4d5c',
+  barBg: '#ffffff',
 
   // Form colors
-  inputBg: 'white',
+  inputBg: '#ffffff',
   inputBorder: '#ff9900',
-  inputTextColor: 'black',
-  inputBorderRadius: 4,
+  inputTextColor: '#000000',
+  inputBorderRadius: 0,
 
   brandTitle: 'FUIB Design System',
   brandUrl: '/',

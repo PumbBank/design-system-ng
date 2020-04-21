@@ -1,0 +1,23 @@
+<div class="overview">
+  <div class="overview__header">
+    <div class="h4">Search input</div>
+    <div class="overview__links">
+      <a href="" class="overview__link s1"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>
+      <a href="" class="overview__link s1"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>
+    </div>
+  </div>
+  <div class="overview__content grid">
+    <div class="overview__column overview__column_offset grid-item-8">
+      <div class="overview__label s1">Normal</div>
+      <div class="overview__container">
+        <mill-search [list]="list"></mill-search>
+      </div>
+    </div>
+    <div class="overview__column grid-item-8">
+      <div class="overview__label s1">Disabled</div>
+      <div class="overview__container">
+        <mill-search disabled="true" [list]="list"></mill-search>
+      </div>
+    </div>
+  </div>
+</div>

@@ -3,9 +3,9 @@
 		<ng-content></ng-content>
 	</div>
 	<div class="pin-input__enterence">
-		<input (keydown)="handleInput($event, i)" class="pin-input__input" (focus)="onFocus()" (blur)="onBlur()">
-		<div 
-			*ngFor="let char of charsArray; index as i; trackBy: trackByFn" 
+		<input (keydown)="handleInput($event)" class="pin-input__input" (focus)="onFocus()" (blur)="onBlur()">
+		<div
+			*ngFor="let char of charsArray; index as i; trackBy: trackByFn"
 			(click)="onCeilClick(i)"
 		  class="pin-input__ceil" [class.pin-input__ceil_focused]="focused && focusedIndex == i && !disable" [class.pin-input__ceil_disabled]="disable">
 			{{ char }}

@@ -1,16 +1,11 @@
-<div
-  #inputCheckbox class="checkbox"
-  [class.checkbox_checked]="checked"
-  [class.checkbox_disabled]="disabled"
-  [class.checkbox_indeterminate]="indeterminate"
-  [tabIndex]="tabindex"
-  (change)="onChange($event)"
-  (keyup)="onKeyup($event)"
-  (click)="onClick($event)">
+<div #inputCheckbox class="checkbox" [class.checkbox_checked]="checked" [class.checkbox_disabled]="disabled"
+  [class.checkbox_indeterminate]="indeterminate" (change)="onChange($event)" (click)="onClick($event)">
   <div class="checkbox__item">
     <div class="checkbox__icon icon" role="checkbox" [id]="id"></div>
   </div>
-  <label class="checkbox__label" [for]="id" *ngIf="!hideLabel">
-    <ng-content></ng-content>
+  <label *ngIf="!hideLabel" class="checkbox__label" [for]="id">
+    <span>
+      <ng-content></ng-content>
+    </span>
   </label>
 </div>

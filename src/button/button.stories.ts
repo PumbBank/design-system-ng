@@ -1,22 +1,30 @@
-import { storiesOf } from '@storybook/angular';
-import { withKnobs, text, color } from "@storybook/addon-knobs";
+import { text, withKnobs } from "@storybook/addon-knobs";
 import { ButtonComponent } from './components/button/button.component';
-import { ButtonOverview } from './examples/button-page/button-page.component';
+import { IconsModule } from '../icons/icons.module';
+import { ButtonOverview } from './examples/button-overview/button-overview.component';
 
-const buttonStories = storiesOf('Buttons', module);
-buttonStories.addDecorator(withKnobs);
+export default {
+  title: 'Компоненти|Buttons',
+  parameters: {
+    options: { showPanel: false },
+  },
+  decorators: [withKnobs]
+};
 
-buttonStories.add('Overview', () => ({
+export const component = () => ({
   moduleMetadata: {
     declarations: [
       ButtonComponent,
       ButtonOverview
+    ],
+    imports: [
+      IconsModule
     ]
   },
   props: {
-    label: text('label', 'Button')
+    label: text('label', 'Button text')
   },
   template: `
-    <app-button-overview [label]="label"></app-button-overview>
+    <button-overview [label]="label"></button-overview>
   `
-}));
+});

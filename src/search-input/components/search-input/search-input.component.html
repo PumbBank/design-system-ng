@@ -1,9 +1,8 @@
 <div class="search-input"
-	 [style.width.px]="width"
 	 [class.search-input_disabled]="disabled"
    [class.search-input_active]="active">
   <label class="search-input__label">
-    <span class="search-input__search-icon"></span>
+    <mill-icon name="search" class="search-input__search-icon"></mill-icon>
     <input type="text" placeholder="{{placeholder}}"
            #inputEl
            [formControl]="inputValue"
@@ -11,7 +10,7 @@
            [attr.aria-expanded]="active"
            (focus)="onFocus()"
     >
-    <span *ngIf="inputValue.value && inputValue.value.length > 0" class="search-input__close-icon" (click)="clearInput()"></span>
+    <mill-icon name="circle-close" *ngIf="inputValue.value && inputValue.value.length > 0" class="search-input__close-icon" (click)="clearInput()"></mill-icon>
   </label>
 	<div *ngIf="active" [class.option-list_active]="active" class="option-list">
 		<div *ngFor="let item of showList; let i = index" class="option" id="mill-option-{{ i }}" tabindex="0"
@@ -26,7 +25,7 @@
 				[style.fontWeight]="isBold(value, item.isHistory, i) ? 'bold' : null"
 			>{{value}}</span></div>
 
-			<span *ngIf="item.isHistory" class="search-input__close-icon" (click)="removeFromHistory($event, item.value)"></span>
+      <mill-icon name="clock" *ngIf="item.isHistory" class="search-input__close-icon" (click)="removeFromHistory($event, item.value)"></mill-icon>
 		</div>
 	</div>
 </div>

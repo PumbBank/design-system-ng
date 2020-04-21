@@ -5,15 +5,21 @@ import { BadgeIconService } from './services/badge-icon.service';
 import { BadgeIconDirective } from './directives/badge-icon.directive';
 import { IconsModule } from '../icons/icons.module';
 
-
 @NgModule({
-	declarations: [BadgeComponent, BadgeIconDirective],
-	exports: [BadgeComponent, BadgeIconDirective],
-	imports: [
-		CommonModule,
+  declarations: [
+    BadgeComponent,
+    BadgeIconDirective
+  ],
+  exports: [
+    BadgeComponent,
+    BadgeIconDirective
+  ],
+  imports: [
+    CommonModule,
     IconsModule
-	],
+  ],
   providers: [BadgeIconService]
 })
-export class BadgeModule {}
+export class BadgeModule {
+}
 

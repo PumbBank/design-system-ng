@@ -11,14 +11,14 @@ import { InputMoneyDirective } from './directives/input-money.directive';
     InputDigitDirective,
     InputNumberDirective,
     InputDateDirective,
-    InputMoneyDirective
+    InputMoneyDirective,
   ],
   exports: [
     InputTextDirective,
     InputDigitDirective,
     InputNumberDirective,
     InputDateDirective,
-    InputMoneyDirective
+    InputMoneyDirective,
   ]
 })
 export class InputModule { }

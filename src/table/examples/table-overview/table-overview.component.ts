@@ -1,26 +1,113 @@
 import { Component, Input } from '@angular/core';
+import { TableStyleEnum, TableTypeEnum } from '../../table';
 
 @Component({
   selector: 'table-overview',
   templateUrl: './table-overview.component.html',
-  styleUrls: ['./table-overview.component.scss']
+  styleUrls: ['./table-overview.component.scss', '../../../assets/styles/overview.scss']
 })
 export class TableOverview {
-  @Input() public data;
-  @Input() public dataBig;
-  @Input() public dataModel;
-  @Input() public dataModelWithSort;
-  @Input() public dataModelWithFilter;
-  @Input() public dataModelWithSortAndFilter;
+  @Input() public type: TableTypeEnum;
+  @Input() public style: TableStyleEnum;
+  @Input() public selectInput: 'checkbox' | 'radio';
+  @Input() public fixedHeader: boolean;
+  @Input() public darkHeader: boolean;
 
-  public showSelected;
-  public showOutput;
-
-  public onSelectRow(event): void {
-    this.showSelected = JSON.stringify(event);
-  }
-
-  public onTableOutput(event): void {
-    this.showOutput = JSON.stringify(event);
-  }
+  public data = [{
+    name: 'Jon',
+    age: 28,
+    job: 'Lawyer',
+  }, {
+    name: 'Andrew',
+    age: 22,
+    job: 'Programmer',
+  }, {
+    name: 'Annie',
+    age: 32,
+    job: 'Doctor',
+  }, {
+    name: 'Fred',
+    age: 45,
+    job: 'Captain',
+  }, {
+    name: 'Jon',
+    age: 28,
+    job: 'Lawyer',
+  }, {
+    name: 'Andrew',
+    age: 22,
+    job: 'Programmer',
+  }, {
+    name: 'Annie',
+    age: 32,
+    job: 'Doctor',
+  }, {
+    name: 'Fred',
+    age: 45,
+    job: 'Captain',
+  }, {
+    name: 'Jon',
+    age: 28,
+    job: 'Lawyer',
+  }, {
+    name: 'Andrew',
+    age: 22,
+    job: 'Programmer',
+  }, {
+    name: 'Annie',
+    age: 32,
+    job: 'Doctor',
+  }, {
+    name: 'Fred',
+    age: 45,
+    job: 'Captain',
+  }, {
+    name: 'Jon',
+    age: 28,
+    job: 'Lawyer',
+  }, {
+    name: 'Andrew',
+    age: 22,
+    job: 'Programmer',
+  }, {
+    name: 'Annie',
+    age: 32,
+    job: 'Doctor',
+  }, {
+    name: 'Annie',
+    age: 32,
+    job: 'Doctor',
+  }, {
+    name: 'Fred',
+    age: 45,
+    job: 'Captain',
+  }, {
+    name: 'Jon',
+    age: 28,
+    job: 'Lawyer',
+  }, {
+    name: 'Andrew',
+    age: 22,
+    job: 'Programmer',
+  }, {
+    name: 'Annie',
+    age: 32,
+    job: 'Doctor',
+  }];
+  public dataModel = [{
+    fieldName: 'name',
+    title: 'Name',
+    filterable: true,
+    sortable: true,
+  }, {
+    fieldName: 'age',
+    title: 'Age',
+    filterable: false,
+    sortable: true,
+  }, {
+    fieldName: 'job',
+    title: 'Profession',
+    filterable: true,
+    sortable: true,
+  }];
 }

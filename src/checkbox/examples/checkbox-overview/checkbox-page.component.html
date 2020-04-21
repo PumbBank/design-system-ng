@@ -1,0 +1,52 @@
+<div class="overview">
+  <div class="overview__header">
+    <div class="h4">Checkbox</div>
+    <div class="overview__links">
+      <a href="" class="overview__link s1"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>
+      <a href="" class="overview__link s1"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>
+    </div>
+  </div>
+  <div class="overview__content grid">
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Unchecked</div>
+      <div class="overview__container">
+        <checkbox [hideLabel]="hideLabel">{{label}}</checkbox>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Checked</div>
+      <div class="overview__container">
+        <checkbox [hideLabel]="hideLabel" checked="true">{{label}}</checkbox>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Partly checked</div>
+      <div class="overview__container">
+        <checkbox [hideLabel]="hideLabel" [indeterminate]="true">{{label}}</checkbox>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled unchecked</div>
+      <div class="overview__container">
+        <checkbox [hideLabel]="hideLabel" [disabled]="true">{{label}}</checkbox>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled checked</div>
+      <div class="overview__container">
+        <checkbox [hideLabel]="hideLabel" checked="true" [disabled]="true">{{label}}</checkbox>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Without label</div>
+      <div class="overview__container overview__container_row">
+        <checkbox [hideLabel]="true" [disabled]="true"></checkbox>
+        <checkbox [hideLabel]="true" [disabled]="true" checked="true"></checkbox>
+        <checkbox [hideLabel]="true"></checkbox>
+        <checkbox [hideLabel]="true" checked="true"></checkbox>
+        <checkbox [hideLabel]="true" [indeterminate]="true"></checkbox>
+      </div>
+    </div>
+  </div>
+</div>
+

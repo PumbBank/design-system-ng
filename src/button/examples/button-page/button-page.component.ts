@@ -6,7 +6,7 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./button-page.component.scss']
 })
 
-export class ButtonOverview {
+export class ButtonGuideline {
   @Input() label;
   icon = 'home';
   types = [

@@ -3,22 +3,105 @@
 @import "./grid";
 @import "./icon";
 @import "~@mill/figma/typography";
+@import url("https://fonts.googleapis.com/css2?family=Roboto+Mono&display=swap");
 
 body {
   margin: 0;
+  font-size: 62.5%;
 }
 
 %icon_white {
   background: #ffffff;
 }
 
-.h1 { @extend %h1; color: $main-primary-dark; margin: 0; }
-.h2 { @extend %h2; color: $main-primary-dark; margin: 0; }
-.h3 { @extend %h3; color: $main-primary-dark; margin: 0; }
-.h4 { @extend %h4; color: $main-primary-dark; margin: 0; }
-.h5 { @extend %h5; color: $main-primary-dark; margin: 0; }
-.h6 { @extend %h6; color: $main-primary-dark; margin: 0; }
-.s1 { @extend %s1; color: $main-primary-dark; margin: 0; }
-.s2 { @extend %s2; color: $main-primary-dark; margin: 0; }
-.p1 { @extend %p1; color: $main-primary-dark; margin: 0; }
-.p2 { @extend %p2; color: $main-error; margin: 0; }
+.h1 {
+  @extend %h1;
+
+  color: $main-primary-dark;
+  margin: 0;
+}
+
+.h2 {
+  @extend %h2;
+
+  color: $main-primary-dark;
+  margin: 0;
+}
+
+.h3 {
+  @extend %h3;
+
+  color: $main-primary-dark;
+  margin: 0;
+}
+
+.h4 {
+  @extend %h4;
+
+  color: $main-primary-dark;
+  margin: 0;
+}
+
+.h5 {
+  @extend %h5;
+
+  color: $main-primary-dark;
+  margin: 0;
+}
+
+.h6 {
+  @extend %h6;
+
+  color: $main-primary-dark;
+  margin: 0;
+}
+
+.overline {
+  @extend %overline;
+
+  color: $main-primary-medium;
+  margin: 0;
+}
+
+.s1 {
+  @extend %s1;
+
+  color: $main-primary-dark;
+  margin: 0;
+}
+
+.s2 {
+  @extend %s2;
+
+  color: $main-primary-dark;
+  margin: 0;
+}
+
+.p1 {
+  @extend %p1;
+
+  color: $main-primary-dark;
+  margin: 0;
+}
+
+.p2 {
+  @extend %p2;
+
+  color: $main-primary-dark;
+  margin: 0;
+}
+
+.p2.monospaced {
+  @extend %p2;
+
+  color: $main-primary-dark;
+  font-family: "Roboto Mono", monospace;
+  margin: 0;
+}
+
+.p3 {
+  @extend %p3;
+
+  color: $main-primary-dark;
+  margin: 0;
+}

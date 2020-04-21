@@ -91,6 +91,8 @@ export class TableComponent implements OnInit {
   @Input() fixedHeader = false;
   public fixedHeaderShadow = false;
 
+  @Input() darkStyleHeader = false;
+
   @Input() tableStyle: TableStyleEnum = TableStyleEnum.normal;
   public tableStyleEnum = TableStyleEnum;
 

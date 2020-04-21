@@ -10,10 +10,8 @@
  * @param payload Additional data for option if you need
  * @param P Type of payload
  *
- **/
+ */
 export class MillSelectOption<K = any, P = any> {
-
-
   constructor(
     public key: K,
     public value: string,

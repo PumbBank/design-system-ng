@@ -47,7 +47,7 @@ export class SelectWithoutOptionSourceDirective<K = any, P = any> implements Mil
     const _this = this;
 
     this.millSelectComponent.optionSource = {
-      registerOnCanhges: (onchangesCallback: () => void) => {
+      registerOnChanges: (onchangesCallback: () => void) => {
         _this.onchangesCallback = onchangesCallback;
       },
 

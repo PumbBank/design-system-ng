@@ -8,13 +8,12 @@ import {
   OnInit,
   Output,
   ViewChild,
-  ViewEncapsulation
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { BehaviorSubject, fromEvent } from 'rxjs';
 import { map, startWith } from 'rxjs/operators';
 
-export interface ListInterface {
+interface ListInterface {
   value: any;
   isHistory: boolean;
 }
@@ -40,7 +39,6 @@ enum KeyEnum {
       multi: true,
     }
   ],
-  encapsulation: ViewEncapsulation.None
 })
 export class SearchInputComponent implements OnInit, ControlValueAccessor {
 
@@ -49,9 +47,6 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 
   /** Selected item index */
   public activeItemIndex = -1;
-
-  /** Customize width */
-  @Input() public width: number;
 
   /** Disable state */
   @Input() public disabled = false;

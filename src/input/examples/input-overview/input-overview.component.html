@@ -1,33 +1,75 @@
-<div class="h3">Inputs</div>
-<br>
-<div class="grid">
-  <div class="grid-item-3">
-    <h5 class="h5">Text input</h5>
-    <div class="preview-block">
-      <input icon="user" millInput="text" [formControl]="nameControl" [valid]="nameControl.valid"
-        [errors]="nameControl.errors" required caption="Enter Name" placeholder="Ivanov Ivan">
-
+<div class="overview">
+  <div class="overview__header">
+    <div class="h4">Inputs</div>
+    <div class="overview__links">
+      <a href="" class="overview__link s1"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>
+      <a href="" class="overview__link s1"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>
     </div>
   </div>
-  <div class="grid-item-3">
-    <h5 class="h5">Date Input</h5>
-    <div class="preview-block">
-      <input millInput="date" [formControl]="dateControl" [valid]="dateControl.valid" [errors]="dateControl.errors"
-        required caption="Enter Date" placeholder="dd.mm.yyyy">
+  <div class="overview__content grid">
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Basic</div>
+      <div class="overview__container">
+        <input millInput="text" [formControl]="nameControl" [valid]="nameControl.valid"
+               [errors]="nameControl.errors" required caption="Enter Name" placeholder="Placeholder">
+      </div>
     </div>
-  </div>
-  <div class="grid-item-3">
-    <h5 class="h5">Digit input</h5>
-    <div class="preview-block">
-      <input millInput="digit" [formControl]="digitControl" [valid]="digitControl.valid ? 'Valid' : null"
-        [errors]="digitControl.errors" required caption="Enter digit" placeholder="Enter digit">
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">With icon</div>
+      <div class="overview__container">
+        <input icon="user" millInput="text" [formControl]="nameControlWithIcon" [valid]="nameControlWithIcon.valid"
+               [errors]="nameControlWithIcon.errors" required caption="Enter Name" placeholder="Placeholder">
+      </div>
     </div>
-  </div>
-  <div class="grid-item-3">
-    <h5 class="h5">Money input</h5>
-    <div class="preview-block">
-      <input millInput="money" [formControl]="moneyControl" [errors]="moneyControl.errors" required
-        caption="Enter price" placeholder="Enter price">
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Date</div>
+      <div class="overview__container">
+        <input millInput="date" [formControl]="dateControl" [valid]="dateControl.valid" [errors]="dateControl.errors"
+        required caption="Enter Date" placeholder="дд.мм.гггг">
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Digits</div>
+      <div class="overview__container">
+        <input millInput="digit" [formControl]="digitControl" [valid]="digitControl.valid ? 'Valid' : null"
+               [errors]="digitControl.errors" required caption="Enter digit" placeholder="1234567890">
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Valid alert</div>
+      <div class="overview__container">
+        <input millInput="text" [formControl]="validControl" [valid]="'Message Text'"
+              [errors]="validControl.errors" required caption="Enter Name" placeholder="Placeholder">
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Error alert</div>
+      <div class="overview__container overview__container_row">
+        <input millInput="text" [formControl]="errorControl" [valid]="false"
+               [errors]="errorControl.errors" caption="Enter Name" placeholder="Placeholder">
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Info alert</div>
+      <div class="overview__container">
+        <input millInput="text" [formControl]="infoControl" [valid]="false"
+               [errors]="infoControl.errors" required caption="Enter Name" placeholder="Placeholder">
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled</div>
+      <div class="overview__container overview__container_row">
+        <input millInput="text" [formControl]="disabledControl"
+               [errors]="disabledControl.errors" required caption="Enter Name" placeholder="Placeholder">
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">From the cleanup button</div>
+      <div class="overview__container overview__container_row">
+        <input  millInput="text" [cleanup]="true"
+              caption="Enter Name" placeholder="Placeholder">
+      </div>
     </div>
   </div>
 </div>
+

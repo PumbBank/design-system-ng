@@ -1,7 +1,7 @@
 import { MillSelectOption } from './select-option';
 
 export interface MillOptionSource<K = any, P = any, Q = any> {
-  registerOnCanhges?(onchangeCallback: () => void): void;
+  registerOnChanges?(onchangeCallback: () => void): void;
 
   /**
    * @description Promis that wait initing of source and resolve after option-source inited.

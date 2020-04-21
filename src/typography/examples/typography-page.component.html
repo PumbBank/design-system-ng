@@ -1,0 +1,47 @@
+<div class="overview mill-typography">
+  <div class="overview__header">
+    <div class="h4">Типографiка</div>
+    <div class="overview__links">
+      <a
+        href="https://www.figma.com/file/IHQsCKTmPqgkCFbo4rj6ra2f/Typography?node-id=152%3A2"
+        class="overview__link s1">
+        <mill-icon name="figma"></mill-icon>Компонент в Figma
+      </a>
+    </div>
+  </div>
+
+  <div class="overview__content grid">
+    <div class="overview__column grid-item-12 mill-typography__container">
+      <div class="mill-typography__item" *ngFor="let item of typographyItems">
+        <div class="mill-typography__item-header {{item.header}}">{{item.headerValue}}</div>
+
+        <div class="mill-typography__item-options p1">
+          <div class="mill-typography__item-option">
+            <div class="mill-typography__item-label">Font:</div>
+            <div class="mill-typography__item-value">{{item.font}}</div>
+          </div>
+
+          <div class="mill-typography__item-option">
+            <div class="mill-typography__item-label">Size:</div>
+            <div class="mill-typography__item-value">{{item.size}}</div>
+          </div>
+
+          <div class="mill-typography__item-option">
+            <div class="mill-typography__item-label">Line Height:</div>
+            <div class="mill-typography__item-value">{{item.lineHeight}}</div>
+          </div>
+
+          <div class="mill-typography__item-option">
+            <div class="mill-typography__item-label">Letter Spacing</div>
+            <div class="mill-typography__item-value">{{item.letterSpacing}}</div>
+          </div>
+
+          <div *ngIf="item.transform" class="mill-typography__item-option">
+            <div class="mill-typography__item-label">Transform</div>
+            <div class="mill-typography__item-value">{{item.transform}}</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

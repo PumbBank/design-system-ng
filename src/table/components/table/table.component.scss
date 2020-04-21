@@ -2,6 +2,10 @@
 @import "~@mill/figma/typography";
 @import "~@mill/figma/icons";
 
+:host {
+  width: 100%;
+}
+
 .mill-table {
   background: #ffffff;
   padding: 20px 24px;
@@ -25,24 +29,28 @@
 
   &_small {
 
-    .table-container {
-      border: none;
-      border-radius: 0;
+    .table-header-row, .table-row {
+      min-height: 40px;
     }
 
-    .table-header-row, .table-row {
-      border-bottom: none;
+    .table-header-row_filter {
+      .table-header-row__cell {
+        border-right: 0;
+      }
     }
+
+  }
+
+  &_dark-header {
 
     .table-header-row__cell {
       color: $grey-30;
-
     }
-
 
     .table-header-row:not(.table-header-row_filter) {
       background: #4D4D5C;
       border-radius: 4px;
+      border-bottom: none;
     }
 
     .table-arrow {
@@ -52,17 +60,12 @@
          }
       }
     }
-
   }
 
   &_large {
-    .table-header-row__cell, .table-row__cell {
-      min-height: 58px;
-
-      &:not(:last-of-type) {
-        border-right: 1px solid $grey-20;
-      }
-    }
+    .table-header-row, .table-row {
+       min-height: 58px;
+     }
     .table-header-row_filter {
       .table-header-row__cell {
         border-right: 0;
@@ -91,7 +94,7 @@
     }
   }
 
-  &_zebra, &_round, &_small {
+  &_zebra, &_round {
     .table-header-row {
       &_filter {
         border-top: 1px solid $grey-20;
@@ -125,7 +128,7 @@
     }
   }
 
-  &:not(&_zebra):not(&_round):not(&_small) {
+  &:not(&_zebra):not(&_round) {
     .table-header-row_filter {
       .table-header-row__cell {
         &:first-of-type {
@@ -553,6 +556,7 @@
 
 .table-menu {
   width: 60px;
+  padding: 8px 0;
 
   position: absolute;
   bottom: calc(100% + 4px);
@@ -560,15 +564,11 @@
 
   background: #fff;
 
-
-  padding: 8px 0;
-
   border-radius: 8px;
   box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 2px 7px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.2);
 
   opacity: 0;
   visibility: hidden;
-
   transition: 0.3s ease;
 
   &_active {

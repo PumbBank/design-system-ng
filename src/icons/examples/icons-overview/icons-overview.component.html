@@ -1,34 +1,34 @@
-<div class="h3">Icons</div>
-<br>
-<div>
-  <div class="grid-item-6">
-    <div class="h4">Icons 12</div>
-    <br>
-    <div class="preview-block" style="grid-template-columns: repeat(auto-fill, 12px); grid-template-rows: repeat(auto-fill, 12px);">
-      <mill-icon *ngFor="let icon of icons12" size="12" [name]="icon" (mouseover)="onHover(icon)" (click)="onClick($event, input)"></mill-icon>
-    </div>
+<div class="overview">
+  <div class="overview__header">
+    <div class="h4">Иконки</div>
   </div>
-  <br><br>
-  <div class="grid-item-6">
-    <div class="h4">Icons 24</div>
-    <br>
-    <div class="preview-block" style="grid-template-columns: repeat(auto-fill, 24px); grid-template-rows: repeat(auto-fill, 24px);">
-      <mill-icon *ngFor="let icon of icons24" size="24" [name]="icon" (mouseover)="onHover(icon)" (click)="onClick($event, input)"></mill-icon>
+  <div class="overview__content grid">
+    <div class="overview__column grid-item-12">
+      <div class="icon-header">
+        <div class="overview__label h5">Маленькі <span class="icon-small">12x12px</span></div>
+        <a href="" class="overview__link s1"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>
+      </div>
+      <div class="overview__container">
+        <div *ngFor="let icon of icons12" class="icon-block">
+          <mill-icon size="12" [name]="icon" (mouseover)="onHover(icon)" (click)="onClick($event, input)"></mill-icon>
+          <div class="icon-preview p2">{{icon}}</div>
+        </div>
+      </div>
     </div>
-  </div>
-  <br><br>
-  <div class="grid-item-6">
-    <div class="h4">Icons 24 with badge</div>
-    <br>
-    <div class="preview-block" style="grid-template-columns: repeat(auto-fill, 24px); grid-template-rows: repeat(auto-fill, 24px);">
-      <mill-icon badge="0" size="24" [name]="'bell'" ></mill-icon>
-      <mill-icon badge="6" size="24" [name]="'lock-pass'" ></mill-icon>
-      <mill-icon badge="78"size="24" [name]="'cart'"></mill-icon>
-      <mill-icon badge="200" size="24" [name]="'lightbulb'"></mill-icon>
+    <div class="overview__column grid-item-12">
+      <div class="icon-header">
+        <div class="overview__label h5">Середні <span class="icon-small">24x24px</span></div>
+        <a href="" class="overview__link s1"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>
+      </div>
+      <div class="overview__container">
+        <div *ngFor="let icon of icons24" class="icon-block">
+          <mill-icon [name]="icon" (mouseover)="onHover(icon)" (click)="onClick($event, input)"></mill-icon>
+          <div class="icon-preview p2">{{icon}}</div>
+        </div>
+      </div>
     </div>
   </div>
 </div>
-<br><br>
 <div style="opacity: 0">
   <input type="text" [value]="iconName" #input>
 </div>

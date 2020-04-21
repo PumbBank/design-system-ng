@@ -1,10 +1,27 @@
-import { storiesOf } from '@storybook/angular';
-import { withKnobs } from '@storybook/addon-knobs';
-import { DEFAULT_SELECT } from './stories/default-select';
-import { OS_SELECT } from './stories/select-with-os';
+import { withKnobs, text } from '@storybook/addon-knobs';
+import { SelectModule } from './select.module';
+import { SelectOverviewComponent } from './examples/select-page.component';
 
-const sliderStories = storiesOf('Select', module);
-sliderStories.addDecorator(withKnobs);
+export default {
+  title: 'Компоненти|Select',
+  parameters: {
+    options: { showPanel: false },
+  },
+  decorators: [withKnobs]
+};
 
-sliderStories.add('Select', DEFAULT_SELECT);
-sliderStories.add('Select With options From API', OS_SELECT);
+export const component = () => ({
+  moduleMetadata: {
+    declarations: [
+      SelectOverviewComponent
+    ],
+    imports: [SelectModule]
+  },
+  props: {
+    caption: text('caption', 'Overview'),
+    label: text('select', 'Select')
+  },
+  template: `
+    <app-select-overview [label]="label"></app-select-overview>
+    `
+});

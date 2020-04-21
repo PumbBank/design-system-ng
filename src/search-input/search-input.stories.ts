@@ -1,9 +1,7 @@
-import { storiesOf } from '@storybook/angular';
 import { boolean, number, object, text, withKnobs } from '@storybook/addon-knobs';
 import { SearchInputModule } from './search-input.module';
-
-const searchStories = storiesOf('Search Input', module);
-searchStories.addDecorator(withKnobs);
+import { SearchInputOverviewComponent } from './examples/seacrh-input-overview/search-input-overview.component';
+import { IconsModule } from '../icons/icons.module';
 
 const data = [
   {name: 'Евгений', surname: 'Александрович'},
@@ -14,9 +12,23 @@ const data = [
   {name: 'Алексей'}
 ];
 
-searchStories.add('search input', () => ({
+export default {
+  title: 'Компоненти|Search Input',
+  parameters: {
+    options: { showPanel: false },
+  },
+  decorators: [withKnobs]
+};
+
+export const component = () => ({
   moduleMetadata: {
-    imports: [SearchInputModule],
+    declarations: [
+      SearchInputOverviewComponent
+    ],
+    imports: [
+      SearchInputModule,
+      IconsModule
+    ],
   },
   props: {
     width: number('width', 200),
@@ -25,6 +37,6 @@ searchStories.add('search input', () => ({
     ng: text('text', ''),
   },
   template: `
-      <search-input-overview-example [list]="array" [disabled]="status" [(ngModel)]="ng" [width]="width"></search-input-overview-example>
+      <search-input-overview [list]="array" [disabled]="status" [(ngModel)]="ng" [width]="width"></search-input-overview>
   	`
-}));
+});

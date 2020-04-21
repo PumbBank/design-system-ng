@@ -1,7 +1,6 @@
 import { Component, Input, ViewEncapsulation } from '@angular/core';
 import { TabsBase } from '../../tabs';
 
-
 @Component({
   selector: 'mill-tabs',
   templateUrl: './tabs.component.html',

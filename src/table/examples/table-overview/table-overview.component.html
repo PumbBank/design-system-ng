@@ -1,118 +1,26 @@
-<div class="h3">Tables</div>
-<div class="preview-block">
-  <div>
-    <div class="h4">Types</div>
-    <br><br>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 32px;">
-      <div>
-        <div class="s1">Basic</div>
-        <br>
-        <mill-table [data]="data" [dataModel]="dataModel" [padding]="false"></mill-table>
-      </div>
-      <div>
-        <div class="s1">Zebra</div>
-        <br>
-        <mill-table [data]="data" [dataModel]="dataModel" [padding]="false" [tableType]="'zebra'"></mill-table>
-      </div>
+<div class="overview">
+  <div class="overview__header">
+    <div class="h4">Data table</div>
+    <div class="overview__links">
+      <a href="" class="overview__link s1"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>
+      <a href="" class="overview__link s1"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>
     </div>
   </div>
-  <br><br>
-  <div>
-    <div class="h4">Behaviours</div>
-    <br><br>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 32px;">
-      <div>
-        <div class="s1">Sortable</div>
-        <br>
-        <mill-table [data]="data" [dataModel]="dataModelWithSort" [padding]="false"></mill-table>
-      </div>
-      <div>
-        <div class="s1">Filterable</div>
-        <br>
-        <mill-table [data]="data" [dataModel]="dataModelWithFilter" [padding]="false"></mill-table>
-      </div>
-      <div style="grid-column-start: 1; grid-column-end: 3;">
-        <div class="s1">Sortable and Filterable</div>
-        <br>
-        <mill-table [data]="data" [dataModel]="dataModelWithSortAndFilter" [padding]="false"></mill-table>
-      </div>
-      <div>
-        <div class="s1">Checkboxes</div>
-        <br>
-        <mill-table [data]="data" [dataModel]="dataModelWithSort" [selectInput]="'checkbox'" [padding]="false"></mill-table>
-      </div>
-      <div>
-        <div class="s1">Radios</div>
-        <br>
-        <mill-table [data]="data" [dataModel]="dataModelWithSort" [selectInput]="'radio'" [padding]="false"></mill-table>
-      </div>
-      <div style="grid-column-start: 1; grid-column-end: 3;">
-        <div class="s1">Pagination with fixed header</div>
-        <br>
-        <mill-table [data]="dataBig" [dataModel]="dataModelWithSort" [padding]="false" [paginator]="true" [paginatorShowCount]="[5, 10, 15, 20]" [fixedHeader]="true"></mill-table>
-      </div>
-    </div>
-  </div>
-  <br><br>
-  <div>
-    <div class="h4">Styles</div>
-    <br><br>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 32px;">
-      <div>
-        <div class="s1">Small style with zebra type</div>
-        <br>
-        <mill-table [data]="data" [dataModel]="dataModelWithSortAndFilter" [padding]="false" [tableStyle]="'small'" [tableType]="'zebra'"></mill-table>
-      </div>
-      <div>
-        <div class="s1">Round style with zebra type</div>
-        <br>
-        <mill-table [data]="data" [dataModel]="dataModelWithSortAndFilter" [padding]="false" [tableStyle]="'round'" [tableType]="'zebra'"></mill-table>
-      </div>
-      <div style="grid-column-start: 1; grid-column-end: 3;">
-        <div class="s1">Large style</div>
-        <br>
-        <mill-table [data]="data" [dataModel]="dataModelWithSortAndFilter" [padding]="false" [tableStyle]="'large'"></mill-table>
-      </div>
-    </div>
-  </div>
-  <br><br>
-  <div>
-    <div class="h4">Async</div>
-    <br><br>
-    <div style="display: grid; grid-template-columns: 1fr 1fr; grid-gap: 32px;">
-      <div>
-        <div class="s1">Small style with zebra type</div>
-        <br>
-        <mill-table
-          [async]="true"
-          [data]="data"
-          [dataModel]="dataModelWithSortAndFilter"
-          [paginator]="true"
-          [rowCount]="20"
-          [paginatorShowCount]="[4, 8, 12]"
-          [selectInput]="'checkbox'"
-          [padding]="false"
-          (selectedRows)="onSelectRow($event)"
-          (tableOutput)="onTableOutput($event)"
-        >
-        </mill-table>
-      </div>
-      <div>
-        <div>
-          <div class="s2">Selected rows</div>
-          <code>
-            {{showSelected}}
-          </code>
-        </div>
-        <br><br>
-        <div>
-          <div class="s2">Table output</div>
-          <code>
-            {{showOutput}}
-          </code>
-        </div>
-        <br><br>
-      </div>
+  <div class="overview__content grid">
+    <div class="overview__column grid-item-12">
+      <mill-table
+        [fixedHeader]="fixedHeader"
+        [darkStyleHeader]="darkHeader"
+        [data]="data"
+        [dataModel]="dataModel"
+        [tableType]="type"
+        [tableStyle]="style"
+        [selectInput]="selectInput"
+        [padding]="false"
+        [paginator]="true"
+        [paginatorShowCount]="[5, 10, 15, 20]"
+      ></mill-table>
     </div>
   </div>
 </div>
+
