@@ -14,7 +14,27 @@
   display: inline-block;
 }
 
-.isDisabled {
+.input-select__body {
+  align-items: flex-start !important;
+}
+
+.input-select__enterence {
+  margin: -6px -6px -2px -6px;
+  min-width: 128px;
+}
+
+.input-select__label {
+  @extend %p2;
+  color: $grey-70;
+  margin-bottom: 3px;
+  height: 19px;
+}
+
+.input-select__input {
+  padding: 0 14px !important;
+}
+
+.select__isDisabled {
   pointer-events: none;
 
   & .input__body {
@@ -35,7 +55,7 @@
   position: absolute;
   min-width: 200px;
   width: 100%;
-  transform: translateY(-18px);
+  transform: translateY(-19px);
   z-index: 10;
   opacity: 0;
   height: 0;
@@ -48,7 +68,7 @@
 }
 
 .option {
-  padding: 0 14px;
+  padding: 0 16px;
   display: flex;
   flex-direction: row;
   align-items: center;
@@ -91,8 +111,11 @@
   transition: transform 299ms ease;
   transform: rotate(0);
   color: $grey-50;
-  margin-right: 12px;
+  margin-right: 14px;
   cursor: pointer;
+  display: flex;
+  align-items: center;
+  height: 44px;
   &_rotate180 {
     transform: rotate(180deg);
   }
@@ -122,16 +145,20 @@
 .chips {
   display: flex;
   flex-wrap: wrap;
+  padding: 6px 6px 2px 6px;
 }
 
 .chip {
   border: 1px solid $grey-30;
   width: fit-content;
-  padding: 4px 12px;
+  padding: 3px 12px;
   display: inline-flex;
   align-items: center;
   border-radius: 4px;
-  margin: 8px 0px 8px 8px;
+
+  &_gap {
+    margin: 0 4px 4px 0;
+  }
 
   & .chip__text {
     margin-right: 12px;
@@ -144,5 +171,13 @@
   & .chip__icon {
     color: $grey-40;
     cursor: pointer;
+  }
+
+  &:hover {
+    border-color: transparent;
+    background: $grey-10;
+    & .chip__icon {
+      color: $grey-50;
+    }
   }
 }
