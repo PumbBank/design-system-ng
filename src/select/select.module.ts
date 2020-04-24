@@ -8,13 +8,15 @@ import { IconsModule } from 'src/icons/icons.module';
 import { BadgeModule } from 'src/badge/badge.module';
 
 import { SimplebarAngularModule } from 'simplebar-angular';
+import { CheckboxModule } from 'src/checkbox/checkbox.module';
 
 @NgModule({
   imports: [
     CommonModule,
     IconsModule,
     BadgeModule,
-    SimplebarAngularModule
+    SimplebarAngularModule,
+    CheckboxModule
   ],
   declarations: [
     SelectComponent,

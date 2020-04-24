@@ -1,4 +1,4 @@
-<div role="listbox" class="select" [class.isDisabled]="disabled">
+<div role="listbox" class="select" [class.select__isDisabled]="disabled">
   <ng-container *ngTemplateOutlet="defaultHeaderTemplate; context: this"></ng-container>
 
   <ng-container *ngIf="active$.value || !isNotRenderInactiveBodyMode">
@@ -12,28 +12,31 @@
 -->
 <ng-template #defaultHeaderTemplate>
   <label class="select__header input" [class.input_required]="this.required">
-    <div class="input__label">
+    <div class="input__label input-select__label">
       {{ caption }}</div>
-    <div class="input__body">
+    <div class="input__body input-select__body">
 
-      <ng-container *ngIf="multiple">
+      <ng-container >
         <div class="chips">
-          <div class="chip" *ngFor="let option of selectedOption">
+          <div class="chip chip_gap" *ngFor="let option of selectedOption">
             <div class="chip__text">{{ option.value }}</div>
-            <mill-icon class="chip__icon" size="24" name="close" (click)="ontionChipCloseClick(option)"></mill-icon>
+            <mill-icon class="chip__icon" size="12" name="close"
+              (click)="ontionChipCloseClick(option); $event.preventDefault();"></mill-icon>
+          </div>
+          <div class="input__enterence input-select__enterence">
+            <div class="input__placeholder" *ngIf="!searchInputValue"> {{ placeholder }} </div>
+            <input class="input__input input-select__input" (focus)="onSearchInputFocus()" (blur)="onSearchInputBlur()"
+              [value]="searchInputValue" (input)="onSearchInput(searchInput.value)" (keydown)="onSearchInputKeydown($event)"
+              #searchInput>
+    
           </div>
         </div>
       </ng-container>
 
-      <div class="input__enterence" style="min-width: 128px;">
-        <div class="input__placeholder" *ngIf="!searchInputValue"> {{ placeholder }} </div>
-        <input class="input__input" (focus)="onSearchInputFocus()" (blur)="onSearchInputBlur()"
-          [value]="searchInputValue" (input)="onSearchInput(searchInput.value)" (keydown)="onSearchInputKeydown($event)"
-          #searchInput>
-
+      <div class="chevron-down" [class.chevron-down_rotate180]="active$.value">
+        <mill-icon size="24"  name="chevron-down">
+        </mill-icon>
       </div>
-      <mill-icon class="chevron-down" size="24" [class.chevron-down_rotate180]="active$.value" name="chevron-down">
-      </mill-icon>
     </div>
 
     <div class="input__footer">
@@ -67,6 +70,9 @@
     <div class="option__text" [class.option__text_selected]="checkIsOptionSelected(option)">
       {{ option.value }}
     </div>
-    <mill-icon class="option__icon" *ngIf="checkIsOptionSelected(option)" size="24" name="check"></mill-icon>
+    <mill-icon class="option__icon" *ngIf="checkIsOptionSelected(option) && !multiple" size="24" name="check">
+    </mill-icon>
+    <checkbox class="p1" *ngIf="multiple" [hideLabel]="true" [checked]="checkIsOptionSelected(option)">Checkbox
+    </checkbox>
   </div>
 </ng-template>
