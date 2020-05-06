@@ -1,6 +1,6 @@
 {
   "name": "@mill/ng",
-  "version": "0.2.0-beta.5",
+  "version": "0.2.0-beta.6",
   "scripts": {
     "start": "start-storybook -p 6006 && npm run lint",
     "build": "npm run build:clear && npm run build:package && npm run build:storybook",
@@ -17,7 +17,8 @@
     "@angular/core": "",
     "@angular/forms": "",
     "@mill/figma": "latest",
-    "simplebar-angular": "^2.1.0"
+    "simplebar-angular": "^2.1.0",
+    "text-mask-core": "^5.1.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "~0.801.2",
@@ -47,7 +48,6 @@
     "stylelint": "^12.0.1",
     "stylelint-config-recommended": "^3.0.0",
     "stylelint-scss": "^3.13.0",
-    "text-mask-core": "^5.1.2",
     "tslint": "^5.20.1",
     "typescript": "~3.4.5",
     "zone.js": "~0.9.1"
