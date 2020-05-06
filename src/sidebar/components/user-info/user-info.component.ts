@@ -1,7 +1,7 @@
 import { Component, Input, OnInit, SimpleChanges, OnChanges, Optional } from '@angular/core';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
-import { SidebarController } from 'src/sidebar/services/sidebar-cotroller.service';
-import { ComponentWithUnsubscriber } from 'src/utils/component-with-unsubscriber';
+import { SidebarController } from '../../../sidebar/services/sidebar-cotroller.service';
+import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubscriber';
 import { takeUntil } from 'rxjs/operators';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
