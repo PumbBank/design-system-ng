@@ -1,6 +1,6 @@
 {
   "name": "@mill/ng",
-  "version": "0.2.0-beta.8",
+  "version": "0.2.0-beta.9",
   "scripts": {
     "start": "start-storybook -p 6006 && npm run lint",
     "build": "npm run build:clear && npm run build:package && npm run build:storybook",
@@ -43,7 +43,7 @@
     "babel-loader": "^8.1.0",
     "codelyzer": "^5.2.2",
     "fs-extra": "^8.1.0",
-    "ng-packagr": "^5.1.0",
+    "ng-packagr": "^9.1.3",
     "rimraf": "^3.0.2",
     "stylelint": "^12.0.1",
     "stylelint-config-recommended": "^3.0.0",
