@@ -34,11 +34,14 @@
 
     &:hover {
       background: $grey-70;
+      .sidebar__burger-icon {
+        color: $grey-10;
+      }
     }
   }
 
   &__burger-icon {
-    background: $grey-40;
+    color: $grey-40;
   }
 
   &__user-info-wrapper {

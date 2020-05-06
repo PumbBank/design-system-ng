@@ -115,8 +115,10 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       if (this.input.value !== cleanValue) {
         this.input.value = cleanValue;
       }
-
-      this.onChangeCallback(cleanValue);
+      
+      if (this.onChangeCallback) {
+        this.onChangeCallback(cleanValue);
+      }
 
       this.checkVisibilityCleanupIcon();
     });
@@ -228,7 +230,9 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
 
   private watchTouches(): void {
     this.input.addEventListener('blur', () => {
-      this.onTouchedCallback();
+      if (this.onTouchedCallback) {
+        this.onTouchedCallback();
+      }
     });
   }
 
