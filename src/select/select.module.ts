@@ -9,6 +9,7 @@ import { BadgeModule } from 'src/badge/badge.module';
 
 import { SimplebarAngularModule } from 'simplebar-angular';
 import { CheckboxModule } from 'src/checkbox/checkbox.module';
+import { ClickOutsideDirective } from './directives/click-outside/click-outside.directive';
 
 @NgModule({
   imports: [
@@ -23,7 +24,8 @@ import { CheckboxModule } from 'src/checkbox/checkbox.module';
     SelectWithoutOptionSourceDirective,
     SelectOptionDirective,
     SelectValueAccessorDirective,
-    
+    ClickOutsideDirective,
+
   ],
   exports: [
     SelectComponent,
@@ -32,4 +34,5 @@ import { CheckboxModule } from 'src/checkbox/checkbox.module';
     SelectValueAccessorDirective
   ]
 })
+
 export class SelectModule { }

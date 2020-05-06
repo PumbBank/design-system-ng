@@ -11,7 +11,6 @@
   display: inline-flex;
   align-items: center;
   color: $grey-60;
-  padding-right: 10px;
   transition: color 0.2s ease-in-out;
 
   &:hover {
@@ -53,9 +52,7 @@
     margin-left: 14px;
     pointer-events: none;
 
-    &_hidden {
-      display: none;
-    }
+    @extend %p1;
   }
 
   &_checked {
@@ -72,10 +69,6 @@
       .checkbox__item {
         background-color: $red-40;
         border-color: $red-40;
-      }
-
-      .checkbox__label {
-        color: $grey-70;
       }
     }
   }

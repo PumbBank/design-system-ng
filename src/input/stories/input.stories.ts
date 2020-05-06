@@ -1,9 +1,32 @@
-import { storiesOf } from '@storybook/angular';
+import { ReactiveFormsModule } from '@angular/forms';
+import { CommonModule } from '@angular/common';
 import { withKnobs } from '@storybook/addon-knobs';
+import { InputModule } from '../input.module';
+import { IconsModule } from '../../icons/icons.module';
+import { InputOverview } from '../examples/input-overview/input-overview.component';
 
-import { inputDateStory } from './input-date.stories';
+export default {
+  title: 'Компоненти|Inputs',
+  parameters: {
+    options: { showPanel: false },
+  },
+  decorators: [withKnobs]
+};
 
-const inputStories = storiesOf('Inputs', module);
-inputStories.addDecorator(withKnobs);
+export const component = () => ({
+  moduleMetadata: {
+    imports: [
+      ReactiveFormsModule,
+      CommonModule,
+      InputModule,
+      IconsModule
+    ],
+    declarations: [
+      InputOverview
+    ]
+  },
+  template: `
+    <input-overview></input-overview>
+	`
+});
 
-inputStories.add('Overview', () => inputDateStory());

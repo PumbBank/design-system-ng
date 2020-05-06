@@ -3,7 +3,7 @@ import { Component, Renderer2 } from '@angular/core';
 @Component({
   selector: 'icons-overview',
   templateUrl: './icons-overview.component.html',
-  styleUrls: ['./icons-overview.component.scss'],
+  styleUrls: ['./icons-overview.component.scss', '../../../assets/styles/overview.scss'],
 })
 export class IconsOverview {
   public icons12 = ['heart', 'circle-minus', 'circle-close', 'valid', 'close', 'chevron-right-double', 'chevron-right', 'minus', 'plus', 'exit', 'time', 'small-arrow-up', 'small-arrow-down',
@@ -24,7 +24,6 @@ export class IconsOverview {
   }
 
   public onClick(event, input) {
-    this._createTooltip(event);
     this._copyToClipboard(input);
   }
 
@@ -34,27 +33,6 @@ export class IconsOverview {
     input.setSelectionRange(0, 0);
   }
 
-  private _createTooltip(event) {
-    console.log(event);
-    const {offsetTop, offsetLeft} = event.target;
-
-    const el = document.createElement('span');
-    el.textContent = 'copied!';
-    el.style.position = 'absolute';
-    el.style.left = `${offsetLeft}px`;
-    el.style.top = `${offsetTop}px`;
-    el.style.transition = '0.6s ease';
-    document.body.appendChild(el);
-
-    setTimeout(() => {
-      el.style.transform = 'translateY(-20px)';
-      el.style.opacity = '0';
-    }, 0);
-
-    setTimeout(() => {
-      document.body.removeChild(el);
-    }, 600)
-  }
 
 }
 

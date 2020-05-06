@@ -1,18 +1,24 @@
-import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
-import { withKnobs, boolean, text } from '@storybook/addon-knobs/angular';
+import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
-import { CheckboxOverviewComponent } from './examples/checkbox-page.component';
+import { CheckboxOverviewComponent } from './examples/checkbox-overview/checkbox-page.component';
+import { IconsModule } from '../icons/icons.module';
 
-const checkboxStories = storiesOf('Checkbox', module);
-checkboxStories.addDecorator(withKnobs);
+export default {
+  title: 'Компоненти|Checkbox',
+  parameters: {
+    options: { showPanel: true },
+  },
+  decorators: [withKnobs]
+};
 
-checkboxStories.add('Overview', () => ({
+export const component = () => ({
   moduleMetadata: {
     declarations: [
       CheckboxComponent,
       CheckboxOverviewComponent
-    ]
+    ],
+    imports: [IconsModule]
   },
   props: {
     onChange: action('Change fired!'),
@@ -20,5 +26,6 @@ checkboxStories.add('Overview', () => ({
     label: text('List label name', 'Checkbox item'),
     hideLabel: boolean('Hide labels', false),
   },
-  template: `<app-checkbox-overview [label]="label" [hideLabel]="hideLabel"></app-checkbox-overview>`
-}));
+  template: `<checkbox-overview [label]="label" [hideLabel]="hideLabel"></checkbox-overview>`
+});
+

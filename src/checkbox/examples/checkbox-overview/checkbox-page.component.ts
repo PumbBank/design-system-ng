@@ -1,9 +1,9 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-checkbox-overview',
+  selector: 'checkbox-overview',
   templateUrl: './checkbox-page.component.html',
-  styleUrls: ['./checkbox-page.component.scss']
+  styleUrls: ['./checkbox-page.component.scss', '../../../assets/styles/overview.scss']
 })
 
 export class CheckboxOverviewComponent {

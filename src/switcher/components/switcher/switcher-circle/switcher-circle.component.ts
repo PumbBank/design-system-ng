@@ -26,7 +26,7 @@ export class SwitcherCircleComponent implements OnInit {
 	/** Event listeners */
 	@HostListener('touchstart', ['$event'])
 	@HostListener('mousedown', ['$event'])
-	private _onEvent (e: any): void {
+	public onEvent (e: any): void {
 		const obj = {
 			event: e,
 		};

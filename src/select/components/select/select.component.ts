@@ -2,7 +2,6 @@ import { Component, Input, OnInit } from '@angular/core';
 import { AbstractSelectUserCommunication } from './abstract-select-user-communication';
 
 @Component({
-  // tslint:disable-next-line:component-selector
   selector: 'mill-select',
   templateUrl: './select.component.html',
   styles: [

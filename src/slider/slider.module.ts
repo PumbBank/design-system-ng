@@ -6,18 +6,19 @@ import { SliderThumbComponent } from './components/slider/slider-thumb/slider-th
 
 
 @NgModule({
-	declarations: [
-		SliderComponent,
-		SliderThumbComponent
-	],
-	exports: [
-		SliderComponent,
-	],
-	imports: [
-		CommonModule,
-		FormsModule,
-		ReactiveFormsModule,
-	],
+  declarations: [
+    SliderComponent,
+    SliderThumbComponent
+  ],
+  exports: [
+    SliderComponent,
+  ],
+  imports: [
+    CommonModule,
+    FormsModule,
+    ReactiveFormsModule,
+  ],
 })
-export class SliderModule { }
+export class SliderModule {
+}
 

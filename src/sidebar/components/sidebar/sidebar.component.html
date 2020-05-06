@@ -3,7 +3,9 @@
     <div class="sidebar__burger" (click)="collapsedToggle()">
       <span class="sidebar__burger-icon icon icon_burger icon_24"></span>
     </div>
-    <img class="sidebar__logo" [src]="logo" alt="logo">
+    <div class="sidebar__logo">
+      <img class="sidebar__logo-image" [src]="logo" alt="logo">
+    </div>
   </div>
 
   <div class="sidebar__scrollable" [class.sidebar__scrollable_active]="scrolled" (scroll)="onScroll($event)">

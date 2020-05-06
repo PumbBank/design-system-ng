@@ -1,12 +1,15 @@
 import { Component, Input } from '@angular/core';
-import { ListInterface } from '../../components/search-input/search-input.component';
+
+interface ListInterface {
+  value: any;
+  isHistory: boolean;
+}
 
 @Component({
-  selector: 'search-input-overview-example',
+  selector: 'search-input-overview',
   templateUrl: './search-input-overview.component.html',
-  styleUrls: ['./search-input-overview.component.scss']
+  styleUrls: ['./search-input-overview.component.scss', '../../../assets/styles/overview.scss']
 })
-
 export class SearchInputOverviewComponent {
   @Input() list: ListInterface;
   @Input() disabled: boolean;

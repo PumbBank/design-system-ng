@@ -35,6 +35,14 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
     }
   }
 
+  onChevronClick(): void {
+    if (!this.active$.value) {
+      this.onSearchInputFocus();
+    } else {
+      super.close();
+    }
+  }
+
   onSearchInputFocus() {
 
     super.onSearchInputFocus();

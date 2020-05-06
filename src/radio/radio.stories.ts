@@ -1,13 +1,17 @@
-import { storiesOf } from '@storybook/angular';
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs/angular';
 import { RadioComponent } from './components/radio.component';
 import { RadioOverviewComponent } from './examples/radio-page.component';
 
-const checkboxStories = storiesOf('Radio', module);
-checkboxStories.addDecorator(withKnobs);
+export default {
+  title: 'Компоненти|Radio',
+  parameters: {
+    options: { showPanel: true },
+  },
+  decorators: [withKnobs]
+};
 
-checkboxStories.add('Overview', () => ({
+export const component = () => ({
   moduleMetadata: {
     declarations: [
       RadioComponent,
@@ -21,4 +25,4 @@ checkboxStories.add('Overview', () => ({
     hideLabel: boolean('Hide labels', false),
   },
   template: `<app-radio-overview [label]="label" [hideLabel]="hideLabel"></app-radio-overview>`
-}));
+});

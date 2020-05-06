@@ -1,0 +1,60 @@
+@import "~@mill/figma/colors";
+
+:host {
+  box-sizing: border-box;
+  display: block;
+}
+
+.mill-typography {
+  &__container {
+    width: 100%;
+    max-width: 712px;
+    justify-self: center;
+  }
+
+  &__item {
+    display: flex;
+    align-items: center;
+    border: 1px solid transparent;
+    transition: border-color 0.3s ease-in-out;
+
+    &:hover {
+      cursor: default;
+      border-color: $grey-20 transparent $grey-20 transparent;
+
+      .mill-typography__item-options {
+        color: $main-primary-dark;
+      }
+    }
+  }
+
+  &__item-header,
+  &__item-options {
+    width: 50%;
+  }
+
+  &__item-header {
+    color: $main-primary-dark;
+    padding: 16px 24px 16px 0;
+    text-align: right;
+  }
+
+  &__item-options {
+    border-left: 1px solid $grey-20;
+    color: $main-primary-medium;
+    padding: 16px 0 16px 25px;
+    transition: color 0.3s ease-in-out;
+  }
+
+  &__item-option {
+    display: flex;
+  }
+
+  &__item-label {
+    width: 115px;
+  }
+
+  &__item-value {
+    margin-left: 24px;
+  }
+}

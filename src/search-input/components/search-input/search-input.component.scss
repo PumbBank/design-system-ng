@@ -2,24 +2,18 @@
 @import "~@mill/figma/typography";
 @import "~@mill/figma/icons";
 
-%icon_red-40 {
-  background: $red-50;
-}
 
-%icon_grey-40 {
-  background: $grey-40;
-}
-
-%icon_grey-30 {
-  background: $grey-30;
+:host {
+  width: 100%;
+  display: block;
 }
 
 .search-input {
   position: relative;
+  width: 100%;
   height: 48px;
   box-sizing: border-box;
   border-radius: 50px;
-  z-index: 1;
 
   &:after {
     content: '';
@@ -76,22 +70,15 @@
   }
 
   &__search-icon {
-    @extend .icon_search;
-
-    @extend .icon_24;
-    @extend %icon_red-40;
+    color: $red-50;
   }
 
   &__close-icon {
-    @extend .icon_circle-close;
-    @extend .icon_24;
-    @extend %icon_grey-40;
+    color: $grey-40;
   }
 
   &__clock-icon {
-    @extend .icon_clock;
-    @extend .icon_24;
-    @extend %icon_grey-40
+    color: $grey-30;
   }
 
 
@@ -113,7 +100,7 @@
     }
 
     .search-input__search-icon, .search-input__close-icon {
-      @extend %icon_grey-30;
+      color: $grey-30;
     }
   }
 
@@ -129,12 +116,12 @@
   width: 100%;
 
   box-shadow: 0 4px 10px rgba(0,0,0,0.03), 0 2px 7px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.2);
-  background: #fff;
+  background: $other-white;
   border-radius: 8px;
 
   transform: translateY(4px);
 
-  z-index: 10;
+  z-index: 11;
   overflow: hidden;
 }
 
@@ -151,7 +138,7 @@
   cursor: pointer;
 
   &_active {
-    background: #f5f5fa;
+    background: $grey-10;
   }
 
   &_with-icon {
@@ -174,7 +161,7 @@
   }
 
   &:hover {
-    background: #f5f5fa;
+    background: $grey-10;
   }
 }
 

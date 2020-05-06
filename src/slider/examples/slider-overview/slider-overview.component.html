@@ -1,0 +1,49 @@
+<div class="overview">
+  <div class="overview__header">
+    <div class="h4">Range Slider</div>
+    <div class="overview__links">
+      <a href="" class="overview__link s1"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>
+      <a href="" class="overview__link s1"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>
+    </div>
+  </div>
+  <div class="overview__content grid">
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Basic</div>
+      <div class="overview__container">
+        <mill-slider [minValue]="0" [maxValue]="100" startMax="50"></mill-slider>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled</div>
+      <div class="overview__container">
+        <mill-slider [minValue]="0" [maxValue]="100" startMax="50" [disabled]="true"></mill-slider>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Double</div>
+      <div class="overview__container">
+        <mill-slider [minValue]="0" [maxValue]="100" startMin="30" startMax="60" type="double"></mill-slider>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled</div>
+      <div class="overview__container">
+        <mill-slider [minValue]="0" [maxValue]="100" startMin="30" startMax="60" type="double" [disabled]="true"></mill-slider>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Discrete</div>
+      <div class="overview__container">
+        <mill-slider [minValue]="0" [maxValue]="100" startMax="50" [step]="10" type="step"></mill-slider>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled</div>
+      <div class="overview__container">
+        <mill-slider [minValue]="0" [maxValue]="100" type="step" [step]="10" startMax="50" [disabled]="true"></mill-slider>
+      </div>
+    </div>
+  </div>
+</div>
+
+

@@ -1,4 +1,4 @@
-<div role="listbox" class="select" [class.select__isDisabled]="disabled">
+<div role="listbox" class="select" [class.select__isDisabled]="disabled" (clickOutside)="onSearchInputBlur()">
   <ng-container *ngTemplateOutlet="defaultHeaderTemplate; context: this"></ng-container>
 
   <ng-container *ngIf="active$.value || !isNotRenderInactiveBodyMode">
@@ -11,30 +11,30 @@
   Default header template
 -->
 <ng-template #defaultHeaderTemplate>
-  <label class="select__header input" [class.input_required]="this.required">
-    <div class="input__label input-select__label">
-      {{ caption }}</div>
-    <div class="input__body input-select__body">
+  <div class="select__header input" [class.input_required]="this.required">
+    <div class="input__label input-select__label">{{ caption }}</div>
+    <div class="input__body input-select__body" >
 
-      <ng-container >
-        <div class="chips">
+      <div class="chips">
+        <ng-container *ngIf="multiple">
           <div class="chip chip_gap" *ngFor="let option of selectedOption">
             <div class="chip__text">{{ option.value }}</div>
             <mill-icon class="chip__icon" size="12" name="close"
               (click)="ontionChipCloseClick(option); $event.preventDefault();"></mill-icon>
           </div>
-          <div class="input__enterence input-select__enterence">
+        </ng-container>
+        <div class="input__enterence input-select__enterence">
             <div class="input__placeholder" *ngIf="!searchInputValue"> {{ placeholder }} </div>
-            <input class="input__input input-select__input" (focus)="onSearchInputFocus()" (blur)="onSearchInputBlur()"
+            <input class="input__input input-select__input" (focus)="onSearchInputFocus()"
               [value]="searchInputValue" (input)="onSearchInput(searchInput.value)" (keydown)="onSearchInputKeydown($event)"
               #searchInput>
-    
+
           </div>
         </div>
-      </ng-container>
+
 
       <div class="chevron-down" [class.chevron-down_rotate180]="active$.value">
-        <mill-icon size="24"  name="chevron-down">
+        <mill-icon size="24" (click)="onChevronClick()" name="chevron-down">
         </mill-icon>
       </div>
     </div>
@@ -42,7 +42,7 @@
     <div class="input__footer">
       <ng-content select="mill-hint"></ng-content>
     </div>
-  </label>
+  </div>
 </ng-template>
 
 <!--

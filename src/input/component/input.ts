@@ -1,24 +1,38 @@
-import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy } from '@angular/core';
+import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy, OnInit } from '@angular/core';
+import { ValidationErrors } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 
 import { ErrorMessageHelper } from 'src/utils/error-message.helper';
 import { RequirebleComponent } from 'src/utils/abstract-requireble';
-import { ValidationErrors } from '@angular/forms';
 
 export type CleanFunction = (inputValue: any) => string;
 
-const DEFAULT_CLEN_FUNCTION = (inputValue: any): string => inputValue;
+const DEFAULT_CLEAN_FUNCTION = (inputValue: any): string => inputValue;
 
 export class MillInput extends RequirebleComponent implements OnChanges, OnDestroy {
+
+  constructor(
+    private input: HTMLInputElement,
+    public renderer: Renderer2,
+  ) {
+    super();
+    this.createDom();
+    this.watchInputValueChanges();
+    this.watchTouches();
+    this.watchValidationChangesByClassName();
+    this.errorsUpdateText();
+    this.watchValidationMessageChanges();
+  }
   private invalid: boolean;
   private touched: boolean;
 
-  protected cleanFunction: CleanFunction = DEFAULT_CLEN_FUNCTION;
+  protected cleanFunction: CleanFunction = DEFAULT_CLEAN_FUNCTION;
 
   @Input() errors: ValidationErrors | null = null;
   @Input() valid: string | boolean = null;
   @Input() caption = '';
   @Input() icon: string;
+  @Input() cleanup = false;
 
   wrapperElement: HTMLElement;
   captionElement: HTMLElement;
@@ -29,23 +43,14 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   msgIconElement: HTMLElement;
   msgTextElement: HTMLElement;
   iconElement: HTMLElement;
+  iconCleanupElement: HTMLElement;
 
   value: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   validationStateObserver: MutationObserver;
-  messagePresantationObserver: MutationObserver;
+  messagePresentationObserver: MutationObserver;
 
-  constructor(
-    private input: HTMLInputElement,
-    private renderer: Renderer2,
-  ) {
-    super();
-    this.createDom();
-    this.watchInputValueChanges();
-    this.watchTouches();
-    this.watchValidationChangesByClassName();
-    this.errorsUpdateText();
-    this.watchValidationMessageChanges();
-  }
+  onChangeCallback: (cleanValue: string) => void;
+  onTouchedCallback: () => void;
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.errors || changes.valid) {
@@ -61,15 +66,15 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
 
   ngOnDestroy(): void {
     this.validationStateObserver.disconnect();
-    this.messagePresantationObserver.disconnect();
+    this.messagePresentationObserver.disconnect();
   }
 
-  registerOnChange(fn: Function) {
+  registerOnChange(fn: (value: string) => void) {
     this.onChangeCallback = fn;
     setTimeout(() => fn(this.input.value));
   }
 
-  registerOnTouched(fn: Function) {
+  registerOnTouched(fn: () => void) {
     this.onTouchedCallback = fn;
   }
 
@@ -83,11 +88,11 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     this.input.value = cleanValue;
   }
 
-  onChangeCallback: Function = () => { };
-  onTouchedCallback: Function = () => { };
-
   setDisabledState?(isDisabled: boolean): void {
     this.renderer.setProperty(this.input, 'disabled', isDisabled);
+    isDisabled
+      ? this.renderer.addClass(this.wrapperElement, 'input_disabled')
+      : this.renderer.removeClass(this.wrapperElement, 'input_disabled');
   }
 
   private updateValidationState(invalid: boolean = false): void {
@@ -112,6 +117,28 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       }
 
       this.onChangeCallback(cleanValue);
+
+      this.checkVisibilityCleanupIcon();
+    });
+  }
+
+  private checkVisibilityCleanupIcon() {
+    if (this.cleanup && this.input.value.length > 0) {
+      if (!this.wrapperElement.classList.contains('input__btnCleanup') && !this.input.classList.contains('input__input-cleanup')) {
+        this.renderer.addClass(this.wrapperElement, 'input__btnCleanup');
+        this.renderer.addClass(this.input, 'input__input-cleanup');
+        this.setBtnCleanup();
+      }
+    } else if (this.wrapperElement.classList.contains('input__btnCleanup') && this.input.classList.contains('input__input-cleanup')) {
+      this.renderer.removeClass(this.wrapperElement, 'input__btnCleanup');
+      this.renderer.removeClass(this.input, 'input__input-cleanup');
+    }
+  }
+
+  private watchClickCleanupInput(): void {
+    this.iconCleanupElement.addEventListener('click', () => {
+      this.input.value = '';
+      this.checkVisibilityCleanupIcon();
     });
   }
 
@@ -126,11 +153,11 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   }
 
   private watchValidationMessageChanges(): void {
-    this.messagePresantationObserver = new MutationObserver(() => {
+    this.messagePresentationObserver = new MutationObserver(() => {
       this.updateMessagePresentation();
     });
 
-    this.messagePresantationObserver.observe(
+    this.messagePresentationObserver.observe(
       this.msgTextElement,
       { characterData: false, attributes: false, childList: true, subtree: false }
     );
@@ -143,7 +170,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
 
       this.renderer.removeClass(this.msgIconElement, 'icon_info');
       this.renderer.removeClass(this.msgIconElement, 'icon_valid');
-      this.renderer.addClass(this.msgIconElement, 'icon_close');
+      this.renderer.addClass(this.msgIconElement, 'icon_warning');
 
     } else if (this.valid) {
       this.renderer.removeClass(this.wrapperElement, 'input_error');
@@ -152,14 +179,15 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
 
       this.renderer.removeClass(this.msgIconElement, 'icon_info');
       this.renderer.addClass(this.msgIconElement, 'icon_valid');
-      this.renderer.removeClass(this.msgIconElement, 'icon_close');
+      this.renderer.removeClass(this.msgIconElement, 'icon_warning');
     } else {
-      this.renderer.removeClass(this.wrapperElement, 'input_error');
+      this.renderer.removeClass(this.wrapperElement, 'input_warning');
       this.renderer.removeClass(this.wrapperElement, 'input_valid');
+      this.renderer.addClass(this.wrapperElement, 'input_info');
 
       this.renderer.addClass(this.msgIconElement, 'icon_info');
       this.renderer.removeClass(this.msgIconElement, 'icon_valid');
-      this.renderer.removeClass(this.msgIconElement, 'icon_close');
+      this.renderer.removeClass(this.msgIconElement, 'icon_warning');
     }
   }
 
@@ -184,10 +212,18 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       });
 
       this.renderer.addClass(this.iconElement, 'icon_' + this.icon);
-      this.renderer.appendChild(this.bodyElement, this.iconElement);
+      this.renderer.appendChild(this.entranceElement, this.iconElement);
     } else {
-      this.renderer.removeChild(this.bodyElement, this.iconElement);
+      this.renderer.removeChild(this.entranceElement, this.iconElement);
     }
+  }
+
+  private setBtnCleanup(): void {
+
+    this.renderer.addClass(this.iconCleanupElement, 'icon');
+    this.renderer.addClass(this.iconCleanupElement, 'input__icon');
+
+    this.renderer.addClass(this.iconCleanupElement, 'icon_circle-close');
   }
 
   private watchTouches(): void {
@@ -222,7 +258,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
 
     this.renderer.addClass(this.captionElement, 'input__label');
     this.renderer.addClass(this.bodyElement, 'input__body');
-    this.renderer.addClass(this.entranceElement, 'input__enterence');
+    this.renderer.addClass(this.entranceElement, 'input__entrance');
     this.renderer.addClass(this.input, 'input__input');
     this.renderer.addClass(this.footerElement, 'input__footer');
     this.renderer.addClass(this.msgWrapperElement, 'control-message');
@@ -233,6 +269,13 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     this.renderer.addClass(this.msgTextElement, 'control-message__text');
     this.renderer.addClass(this.iconElement, 'icon');
     this.renderer.addClass(this.iconElement, 'input__icon');
+    this.setCleanupIcon();
+  }
+
+  private setCleanupIcon() {
+    this.iconCleanupElement = this.renderer.createElement('div');
+    this.renderer.appendChild(this.entranceElement, this.iconCleanupElement);
+    this.watchClickCleanupInput();
   }
 
   private errorsUpdateText() {
@@ -241,7 +284,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     } else if (!!this.valid && this.valid !== 'true' && this.valid !== true) {
       this.msgTextElement.innerText = this.valid as string;
     } else {
-      this.msgTextElement.innerText = '';
+      this.msgTextElement.innerText = '123';
     }
     this.updateMessagePresentation();
     this.updateMsgTextStyles();

@@ -1,0 +1,36 @@
+@import "~@mill/figma/colors";
+
+.button-header {
+  grid-column-start: 3;
+  grid-column-end: 11;
+  margin-top: 40px;
+}
+
+.button-separator {
+  background: $grey-20;
+  height: 1px;
+}
+
+.overview {
+  &__column {
+    @media screen and (max-width: 1340px) {
+      grid-column: span 6;
+    }
+
+    &:nth-of-type(2n) {
+      grid-column-start: 3; grid-column-end: 7;
+
+      @media screen and (max-width: 1340px) {
+        grid-column-start: 1; grid-column-end: 7;
+      }
+    }
+  }
+}
+
+mill-button {
+  &:not(:last-of-type) {
+    margin-bottom: 24px;
+  }
+}
+
+

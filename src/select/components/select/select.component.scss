@@ -6,7 +6,10 @@
 }
 
 %shadow-10 {
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.03), 0px 2px 7px rgba(0, 0, 0, 0.05), 0px 1px 2px rgba(0, 0, 0, 0.2);
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.03),
+    0 2px 7px rgba(0, 0, 0, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.2);
 }
 
 :host {
@@ -19,12 +22,14 @@
 }
 
 .input-select__enterence {
-  margin: -6px -6px -2px -6px;
+  position: relative;
   min-width: 128px;
+  margin: -6px -6px -2px -6px;
 }
 
 .input-select__label {
   @extend %p2;
+
   color: $grey-70;
   margin-bottom: 3px;
   height: 19px;
@@ -47,18 +52,19 @@
 }
 
 .option-list {
-  max-height: 230px;
-  background: #fff;
-  overflow: auto;
-  border-radius: 8px;
   @extend %shadow-10;
+
   position: absolute;
   min-width: 200px;
   width: 100%;
-  transform: translateY(-19px);
-  z-index: 10;
-  opacity: 0;
   height: 0;
+  max-height: 230px;
+  z-index: 10;
+  background: #ffffff;
+  border-radius: 8px;
+  opacity: 0;
+  overflow: auto;
+  transform: translateY(-19px);
   transition: opacity 0.299s ease-in-out;
 }
 
@@ -77,8 +83,9 @@
   min-height: 48px;
 
   &:hover {
-    cursor: pointer;
     background: $grey-10;
+    cursor: pointer;
+
     .checkbox {
       &:not(.checkbox_disabled) {
         border-color: $red-40;
@@ -92,11 +99,12 @@
 }
 
 .option__text {
-  margin-right: 12px;
   @extend %p1;
-  white-space: nowrap;
-  text-overflow: ellipsis;
+
   color: $grey-60;
+  margin-right: 12px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
 
   &_selected {
     color: $grey-70;
@@ -108,20 +116,21 @@
 }
 
 .chevron-down {
-  transition: transform 299ms ease;
-  transform: rotate(0);
+  height: 44px;
   color: $grey-50;
-  margin-right: 14px;
   cursor: pointer;
   display: flex;
   align-items: center;
-  height: 44px;
+  margin-right: 14px;
+  transform: rotate(0);
+  transition: transform 299ms ease;
+
   &_rotate180 {
     transform: rotate(180deg);
   }
 }
 
-::ng-deep .simplebar-vertical .simplebar-scrollbar:before {
+::ng-deep .simplebar-vertical .simplebar-scrollbar::before {
   position: absolute;
   content: "";
   background: $grey-100;
@@ -136,7 +145,7 @@
   width: 4px;
 }
 
-::ng-deep .simplebar-vertical .simplebar-visible:before {
+::ng-deep .simplebar-vertical .simplebar-visible::before {
   opacity: 0.22 !important;
   transition: opacity linear;
 }
@@ -161,11 +170,12 @@
   }
 
   & .chip__text {
-    margin-right: 12px;
     @extend %p1;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+
     color: #4d4d5c;
+    margin-right: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
   }
 
   & .chip__icon {
@@ -176,6 +186,7 @@
   &:hover {
     border-color: transparent;
     background: $grey-10;
+
     & .chip__icon {
       color: $grey-50;
     }

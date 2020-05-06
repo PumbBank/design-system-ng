@@ -26,6 +26,9 @@
   color: $grey-50;
   cursor: pointer;
 
+  //Не рофлите, так надо
+  font-size: 16.1px;
+
   display: flex;
   align-items: center;
   justify-content: center;
@@ -128,8 +131,9 @@
       transition: .2s ease;
     }
 
+    @extend %p1;
+
     &:not(&_active) {
-      @extend %p1;
 
       &:hover {
         &:after {
@@ -145,7 +149,7 @@
 
     &_active {
       color: $grey-70;
-      @extend %s1;
+      font-weight: 600;
     }
   }
 

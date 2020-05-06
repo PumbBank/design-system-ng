@@ -1,22 +1,43 @@
-<div class="h3">Switcher</div>
-<br><br>
-<div class="grid">
-  <div class="grid-item-2">
-    <div class="s1">Off</div>
-    <div class="preview-block">
-      <mill-switcher [active]="false"></mill-switcher>
+<div class="overview">
+  <div class="overview__header">
+    <div class="h4">Switcher</div>
+    <div class="overview__links">
+      <a href="" class="overview__link s1"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>
+      <a href="" class="overview__link s1"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>
     </div>
   </div>
-  <div class="grid-item-2">
-    <div class="s1">On</div>
-    <div class="preview-block">
-      <mill-switcher [active]="true"></mill-switcher>
+  <div class="overview__content grid">
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Off</div>
+      <div class="overview__container">
+        <mill-switcher [active]="false"></mill-switcher>
+      </div>
     </div>
-  </div>
-  <div class="grid-item-2">
-    <div class="s1">Loading...</div>
-    <div class="preview-block">
-      <mill-switcher></mill-switcher>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">On</div>
+      <div class="overview__container">
+        <mill-switcher [active]="true"></mill-switcher>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Off disabled</div>
+      <div class="overview__container">
+        <mill-switcher [active]="false" [disabled]="true"></mill-switcher>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">On disabled</div>
+      <div class="overview__container">
+        <mill-switcher [active]="true" [disabled]="true"></mill-switcher>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">On load</div>
+      <div class="overview__container">
+        <mill-switcher></mill-switcher>
+      </div>
     </div>
   </div>
 </div>
+
+

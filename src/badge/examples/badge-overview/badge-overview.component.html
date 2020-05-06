@@ -1,12 +1,65 @@
-<div class="h3">Badges</div>
-<br>
-<div class="grid">
-  <div *ngFor="let t of types" class="grid-item-4">
-    <div class="s1">{{t | titlecase}}</div>
-    <div class="preview-block">
-      <ng-container *ngFor="let c of colors">
-        <mill-badge [color]="c" [type]="t" [icon]="c === 'red' || c === 'orange' ? 'warning' : 'valid'">Text label</mill-badge>
-      </ng-container>
+<div class="overview">
+  <div class="overview__header">
+    <div class="h4">Badges</div>
+    <div class="overview__links">
+      <a href="" class="overview__link s1"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>
+      <a href="" class="overview__link s1"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>
+    </div>
+  </div>
+  <div class="overview__content grid">
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Basic</div>
+      <div class="overview__container">
+        <mill-badge color="black" icon="valid">Text Label</mill-badge>
+        <mill-badge color="grey" icon="warning">Text Label</mill-badge>
+        <mill-badge color="red" icon="warning">Text Label</mill-badge>
+        <mill-badge color="green" icon="valid">Text Label</mill-badge>
+        <mill-badge color="blue" icon="info">Text Label</mill-badge>
+        <mill-badge color="orange" icon="info">Text Label</mill-badge>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Filled</div>
+      <div class="overview__container">
+        <mill-badge color="black" type="filled">Text Label</mill-badge>
+        <mill-badge color="red" type="filled">Text Label</mill-badge>
+        <mill-badge color="green" type="filled">Text Label</mill-badge>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Minimal</div>
+      <div class="overview__container">
+        <mill-badge color="black" type="minimal">Text Label</mill-badge>
+        <mill-badge color="red" type="minimal">Text Label</mill-badge>
+        <mill-badge color="green" type="minimal">Text Label</mill-badge>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Digits</div>
+      <div class="overview__container">
+        <div class="icon-badge icon-badge_overview" style="width: 16px">9</div>
+        <div class="icon-badge icon-badge_overview" style="width: 22px">99</div>
+        <div class="icon-badge icon-badge_overview" style="width: 29px">99+</div>
+        <div class="icon-badge icon-badge_overview icon-badge_minimal" style="width: 4px"></div>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Light digital badge button</div>
+      <div class="overview__container">
+        <mill-icon badge="badge" name="bell"></mill-icon>
+        <mill-icon badge="9" name="bell"></mill-icon>
+        <mill-icon badge="99" name="bell"></mill-icon>
+        <mill-icon badge="999" name="bell"></mill-icon>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Dark digital badge button</div>
+      <div class="overview__container dark-bg">
+        <mill-icon badge="badge" name="bell"></mill-icon>
+        <mill-icon badge="9" name="bell"></mill-icon>
+        <mill-icon badge="99" name="bell"></mill-icon>
+        <mill-icon badge="999" name="bell"></mill-icon>
+      </div>
     </div>
   </div>
 </div>

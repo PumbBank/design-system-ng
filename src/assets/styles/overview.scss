@@ -1,0 +1,63 @@
+@import "~@mill/figma/typography";
+@import "~@mill/figma/colors";
+
+.overview {
+  display: block;
+  padding-bottom: 100px;
+
+  &__header {
+    height: 104px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 104px 0 24px;
+    border-bottom: 1px solid $grey-20;
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  &__link {
+    padding: 6px 0;
+    display: flex;
+    color: $grey-70;
+    text-decoration: none;
+
+    mill-icon {
+      margin-right: 6px;
+      color: $red-50;
+    }
+  }
+
+  &__content {
+    padding: 0 24px;
+  }
+
+  &__column {
+    display: flex;
+    flex-direction: column;
+    margin-top: 32px;
+  }
+
+  &__label {
+    margin-bottom: 16px;
+  }
+
+  &__container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    flex: 1 1 auto;
+    padding: 32px;
+    border: 1px solid $grey-20;
+    border-radius: 8px;
+
+    &_row {
+      flex-direction: row;
+    }
+  }
+}

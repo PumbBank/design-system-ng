@@ -23,16 +23,23 @@
   flex-grow: 1;
 }
 
+.mill-button-overview {
+  &:last-child {
+    margin-bottom: 100px;
+  }
+}
+
 .overview__block {
   &:not(:first-child) {
     border-top: 1px solid $grey-20;
     margin-top: 48px;
   }
+
   padding: 37px 24px 0;
 }
 
 .overview__subtitle {
-  color: $main-error;
+  color: $main-primary-medium;
 
   &_for_h3 {
     margin-top: -9px;
@@ -70,4 +77,8 @@
 
 .overview__type_description {
   margin-bottom: 24px;
+}
+
+.mill-button-overview-p2 {
+  color: $main-primary-medium;
 }

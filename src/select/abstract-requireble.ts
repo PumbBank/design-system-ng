@@ -1,6 +1,6 @@
 import { Input } from '@angular/core';
 
-export abstract class RequirebleComponent {
+export abstract class RequiredComponent {
   private _required: boolean;
 
   @Input()

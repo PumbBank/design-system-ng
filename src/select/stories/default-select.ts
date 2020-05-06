@@ -4,10 +4,10 @@ import { SelectOverviewComponent } from '../examples/select-page.component';
 
 export const DEFAULT_SELECT = () => ({
   moduleMetadata: {
-    imports: [SelectModule],
     declarations: [
       SelectOverviewComponent
-    ]
+    ],
+    imports: [SelectModule]
   },
   props: {
     caption: text('caption', 'Overview'),

@@ -19,11 +19,35 @@
   display: inline-block;
   width: 100%;
 
-  &:hover {
+  &:not(&_disabled):hover {
     .input__body {
       padding: 0;
       border: 2px solid $grey-60;
     }
+  }
+}
+
+.input__btnCleanup {
+  &:not(.input_disabled):hover {
+    .input__body {
+      & .icon_circle-close {
+        display: block;
+      }
+
+      & .input__icon:not(.icon_circle-close) {
+        display: none;
+      }
+    }
+  }
+}
+
+.input__input-cleanup {
+  &:focus + .icon_circle-close {
+    display: block;
+  }
+  
+  &:focus ~ .input__icon:not(.icon_circle-close) {
+    display: none;
   }
 }
 
@@ -39,7 +63,7 @@
   @extend .icon_24;
   @extend %icon_grey-40;
 
-  margin: 0 12px 0 -4px;
+  margin: 0 13px 0 -4px;
 }
 
 .input__body {
@@ -57,12 +81,19 @@
     padding: 0;
     border: 2px solid $grey-60;
   }
+
+  .icon_circle-close {
+    display: none;
+    cursor: pointer;
+  }
 }
 
-.input__enterence {
+.input__entrance {
   position: relative;
   flex-grow: 1;
   min-height: 44px;
+  display: flex;
+  align-items: center;
 }
 
 .input__input {
@@ -74,11 +105,15 @@
   outline: none;
   background: transparent;
   height: 44px;
-  padding: 0 16px;
+  padding: 0 18px;
   box-sizing: border-box;
   width: 100%;
   color: $grey-70;
   min-width: 0;
+}
+
+input::placeholder {
+  color: $grey-40;
 }
 
 .input__textarea {
@@ -122,6 +157,10 @@
 
   .input__control-message {
     @extend .control-message_disabled;
+  }
+
+  input::placeholder {
+    color: $grey-40;
   }
 }
 

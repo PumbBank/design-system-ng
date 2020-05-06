@@ -8,6 +8,7 @@ export abstract class TabItemBase {
   @Input() public label: string;
   @Input() public icon: string;
   @Input() public position: number;
+  @Input() public selected;
   public labelElement: ElementRef;
   public inView: boolean;
 }
@@ -192,17 +193,19 @@ export abstract class TabsBase extends TabsPagination implements OnInit {
   private _setItemsPosition(id = this.selectedTabId) {
     const items = this.tabItems.getValue();
 
-    if (!id) {
-      id = items[0].id;
-    }
-
     let active = -1;
 
     for (let i = 0; i < items.length; i++) {
       items[i].position = -1;
 
-      if (items[i].id === id) {
-        active = i;
+      if (id) {
+        if (items[i].id === id) {
+          active = i;
+        }
+      } else {
+        if (items[i].selected) {
+          active = i;
+        }
       }
 
       if (active > -1) {

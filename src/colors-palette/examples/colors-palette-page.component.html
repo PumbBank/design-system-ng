@@ -1,0 +1,54 @@
+<div class="overview mill-typography">
+  <div class="overview__header">
+    <div class="h4">Кольори</div>
+    <div class="overview__links">
+      <a
+        href="https://www.figma.com/file/0gHVKatvE9ypi6snwMpjeXCG/Colors?node-id=0%3A1"
+        class="overview__link s1">
+        <mill-icon name="figma"></mill-icon>Компонент в Figma
+      </a>
+    </div>
+  </div>
+
+  <div class="overview__content grid">
+    <div class="overview__column grid-item-12 mill-color-palette__container">
+      <div class="mill-color-palette__item" *ngFor="let colorPaletteItem of colorPaletteItems">
+        <div class="mill-color-palette__title h5">{{colorPaletteItem.title}}</div>
+
+        <div class="mill-color-palette__content grid">
+          <div class="mill-color-palette__color-item grid-item-3" *ngFor="let colorItem of colorPaletteItem.colorItems">
+            <div
+              class="mill-color-palette__color-view"
+              [style.background-color]="colorItem.hex"
+              [ngClass]="{
+                'mill-color-palette__color-view_bordered': colorItem.colorName === colorNameWhite,
+                'mill-color-palette__color-view_gradient-dark': colorItem.colorName === colorNameDarkGradient,
+                'mill-color-palette__color-view_gradient-light': colorItem.colorName === colorNameLightGradient
+              }"></div>
+            <div class="mill-color-palette__color-name s2">{{colorItem.colorName}}</div>
+            <div class="mill-color-palette__color-sub-name s2" *ngIf="colorItem.colorSubName">
+              {{colorItem.colorSubName}}
+            </div>
+            <div class="mill-color-palette__color-code p3" *ngIf="!colorItem.gradient">
+              <div class="mill-color-palette__color-label">hex</div>
+              <div class="mill-color-palette__color-value">{{colorItem.hex}}</div>
+            </div>
+            <div class="mill-color-palette__color-code p3" *ngIf="!colorItem.gradient">
+              <div class="mill-color-palette__color-label">rgb</div>
+              <div class="mill-color-palette__color-value">{{colorItem.rgb}}</div>
+            </div>
+
+            <div class="mill-color-palette__color-code p3" *ngIf="colorItem.gradient">
+              <div class="mill-color-palette__color-gradient-label">From</div>
+              <div class="mill-color-palette__color-value">{{colorItem.gradientFrom}}</div>
+            </div>
+            <div class="mill-color-palette__color-code p3" *ngIf="colorItem.gradient">
+              <div class="mill-color-palette__color-gradient-label">To</div>
+              <div class="mill-color-palette__color-value">{{colorItem.gradientTo}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
