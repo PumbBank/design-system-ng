@@ -1,6 +1,6 @@
 <div class="nav-item" [class.nav-item_active]="active" [class.nav-item_collapsed]="collapsed" (click)="expand()">
 
-  <div class="nav-item__icon">
+  <div class="nav-item__icon nav-item__icon_hover">
     <mill-icon [size]="isSubitem ? 12 : 24" [name]="isSubitem ? 'dot' : icon"></mill-icon>
   </div>
 
@@ -9,7 +9,7 @@
   </div>
 
   <mill-icon *ngIf="withSubitems && !collapsed" class="nav-item__icon" size="12"
-    [name]="expanded ? 'small-arrow-up' : 'small-arrow-down'"></mill-icon>
+    [name]="'small-arrow-down'" [class.nav-item__icon_expanded]="expanded"></mill-icon>
 </div>
 
 <div class="content" [@slideInOut]="!expanded ? 'out' : 'in'">

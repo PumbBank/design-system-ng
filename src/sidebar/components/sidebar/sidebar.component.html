@@ -1,7 +1,8 @@
 <div class="sidebar" [class.sidebar_collapsed]="collapsed">
   <div class="sidebar__header">
     <div class="sidebar__burger" (click)="collapsedToggle()">
-      <span class="sidebar__burger-icon icon icon_burger icon_24"></span>
+      <mill-icon class="sidebar__burger-icon" size="24" name="burger">
+      </mill-icon>
     </div>
     <div class="sidebar__logo">
       <img class="sidebar__logo-image" [src]="logo" alt="logo">
