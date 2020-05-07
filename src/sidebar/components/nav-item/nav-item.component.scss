@@ -59,6 +59,9 @@
   width: 176px;
   white-space: nowrap;
   color: $grey-30;
+  &-sub-item {
+    color: $grey-50;
+  }
 }
 
 .nav-item__icon {

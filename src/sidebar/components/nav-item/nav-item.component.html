@@ -4,7 +4,7 @@
     <mill-icon [size]="isSubitem ? 12 : 24" [name]="isSubitem ? 'dot' : icon"></mill-icon>
   </div>
 
-  <div class="nav-item__text">
+  <div class="nav-item__text" [class.nav-item__text-sub-item]="isSubitem">
     <ng-content></ng-content>
   </div>
 
