@@ -24,6 +24,9 @@
     transition: opacity 299ms ease;
     height: 40px;
     margin-left: 20px;
+    &-image {
+      height: 100%;
+    }
   }
 
   &__burger {
