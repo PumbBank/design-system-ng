@@ -3,12 +3,11 @@ import { PinInputComponent } from './components/pin-input/pin-input.component';
 import { PinInputOverviewComponent } from './examples/pin-input-page.component';
 
 export default {
-  title: 'Pin',
+  title: 'Компоненти|Pin',
   parameters: {
     options: { showPanel: false },
   },
-  decorators: [withKnobs],
-  includeStories: []
+  decorators: [withKnobs]
 };
 
 export const component = () => ({

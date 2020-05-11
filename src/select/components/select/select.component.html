@@ -72,7 +72,7 @@
     </div>
     <mill-icon class="option__icon" *ngIf="checkIsOptionSelected(option) && !multiple" size="24" name="check">
     </mill-icon>
-    <checkbox class="p1" *ngIf="multiple" [hideLabel]="true" [checked]="checkIsOptionSelected(option)">Checkbox
-    </checkbox>
+    <mill-checkbox class="p1" *ngIf="multiple" [hideLabel]="true" [checked]="checkIsOptionSelected(option)">Checkbox
+    </mill-checkbox>
   </div>
 </ng-template>
