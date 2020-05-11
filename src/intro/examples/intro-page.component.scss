@@ -39,7 +39,7 @@ $card-border-width: 1px;
   }
 
   &__logo-dsys-mill {
-    animation: mill-rotation-exponential linear infinite 3s;
+    animation: mill-rotation-simple linear infinite 6s;
     transform-origin: 66.975% 37.5%;
     will-change: transform;
   }
@@ -59,6 +59,7 @@ $card-border-width: 1px;
     position: relative;
     display: flex;
     align-items: flex-end;
+    margin-top: 24px;
   }
 
   &__title-text {
@@ -76,8 +77,21 @@ $card-border-width: 1px;
 
   &__divider {
     border-bottom: 1px solid $grey-20;
-    margin-top: 40px;
-    margin-bottom: 20px;
+
+    &_top {
+      margin-top: 48px;
+      margin-bottom: 30px;
+    }
+
+    &_middle {
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
+
+    &_bottom {
+      margin-top: 40px;
+      margin-bottom: 20px;
+    }
   }
 
   &__description {
