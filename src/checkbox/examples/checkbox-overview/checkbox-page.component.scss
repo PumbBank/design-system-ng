@@ -1,6 +1,6 @@
 @import "~@mill/figma/colors";
 
-checkbox {
+mill-checkbox {
   &:not(:last-of-type) {
     margin-right: 12px;
   }

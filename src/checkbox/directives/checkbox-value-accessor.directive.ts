@@ -5,7 +5,7 @@ import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
 @Directive({
-  selector: 'checkbox[ngModel], checkbox[formControl], checkbox[formControlName]',
+  selector: 'mill-checkbox[ngModel], mill-checkbox[formControl], mill-checkbox[formControlName]',
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
