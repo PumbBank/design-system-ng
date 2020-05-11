@@ -6,7 +6,7 @@
       Basic
     </div>
     <div class="preview__component">
-      <mill-pin-input [value]="1332" [length]="4" (enter)="fn($event.value)">
+      <mill-pin-input [value]="'1332'" [length]="4" (enter)="fn($event.value)">
         Enter OTP
       </mill-pin-input>
     </div>
@@ -17,7 +17,7 @@
       Disabled
     </div>
     <div class="preview__component">
-      <mill-pin-input [value]="4322" [length]="4" (enter)="fn($event.value)" [disable]="true">
+      <mill-pin-input [value]="'4322'" [length]="4" (enter)="fn($event.value)" [disable]="true">
         Enter OTP
       </mill-pin-input>
     </div>
@@ -28,7 +28,7 @@
       Invalid
     </div>
     <div class="preview__component">
-      <mill-pin-input [value]="3322" [length]="4" (enter)="fn($event.value)" [errorMessage]="'Wrong OTP'"
+      <mill-pin-input [value]="'3322'" [length]="4" (enter)="fn($event.value)" [errorMessage]="'Wrong OTP'"
         [invalid]="true">
         Enter OTP
       </mill-pin-input>

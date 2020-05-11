@@ -18,7 +18,9 @@ export const component = () => ({
       CheckboxComponent,
       CheckboxOverviewComponent
     ],
-    imports: [IconsModule]
+    imports: [
+      IconsModule
+    ]
   },
   props: {
     onChange: action('Change fired!'),
