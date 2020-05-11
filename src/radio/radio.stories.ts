@@ -24,5 +24,5 @@ export const component = () => ({
     label: text('List label name', 'Radio button'),
     hideLabel: boolean('Hide labels', false),
   },
-  template: `<app-radio-overview [label]="label" [hideLabel]="hideLabel"></app-radio-overview>`
+  template: `<mill-radio-overview [label]="label" [hideLabel]="hideLabel"></mill-radio-overview>`
 });

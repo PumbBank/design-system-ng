@@ -10,34 +10,34 @@
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Unchecked</div>
       <div class="overview__container">
-        <radio [hideLabel]="hideLabel">{{label}}</radio>
+        <mill-radio [hideLabel]="hideLabel">{{label}}</mill-radio>
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Checked</div>
       <div class="overview__container">
-        <radio [hideLabel]="hideLabel" [checked]="true">{{label}}</radio>
+        <mill-radio [hideLabel]="hideLabel" [checked]="true">{{label}}</mill-radio>
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Disabled unchecked</div>
       <div class="overview__container">
-        <radio [hideLabel]="hideLabel" [disabled]="true">{{label}}</radio>
+        <mill-radio [hideLabel]="hideLabel" [disabled]="true" [tabindex]="-1">{{label}}</mill-radio>
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Disabled checked</div>
       <div class="overview__container">
-        <radio [hideLabel]="hideLabel" [checked]="true" [disabled]="true">{{label}}</radio>
+        <mill-radio [hideLabel]="hideLabel" [checked]="true" [disabled]="true" [tabindex]="-1">{{label}}</mill-radio>
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Without label</div>
       <div class="overview__container overview__container_row">
-        <radio [hideLabel]="hideLabel" [name]="oneGroup"></radio>
-        <radio [hideLabel]="hideLabel" [name]="oneGroup" [tabindex]="-1"></radio>
-        <radio [hideLabel]="hideLabel" [name]="oneGroup" [tabindex]="-1"></radio>
-        <radio [hideLabel]="hideLabel" [name]="oneGroup" [tabindex]="-1" [disabled]="true"></radio>
+        <mill-radio [hideLabel]="hideLabel" [name]="oneGroup"></mill-radio>
+        <mill-radio [hideLabel]="hideLabel" [name]="oneGroup"></mill-radio>
+        <mill-radio [hideLabel]="hideLabel" [name]="oneGroup"></mill-radio>
+        <mill-radio [hideLabel]="hideLabel" [name]="oneGroup" [tabindex]="-1" [disabled]="true"></mill-radio>
       </div>
     </div>
   </div>
