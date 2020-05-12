@@ -31,12 +31,13 @@
   @extend %icon_grey-70;
 
   margin-right: 8px;
+  min-width: 12px;
 }
 
 .control-message__text {
   @extend %p2;
 
-  white-space: nowrap;
+  white-space: normal;
   text-overflow: ellipsis;
 }
 
