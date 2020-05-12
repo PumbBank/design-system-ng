@@ -1,14 +1,14 @@
 import { boolean, number, text, withKnobs } from '@storybook/addon-knobs';
 import { PinInputComponent } from './components/pin-input/pin-input.component';
 import { PinInputOverviewComponent } from './examples/pin-input-page.component';
+import { IconsModule } from '../icons/icons.module';
 
 export default {
-  title: 'Pin',
+  title: 'Компоненти|Pin',
   parameters: {
     options: { showPanel: false },
   },
-  decorators: [withKnobs],
-  includeStories: []
+  decorators: [withKnobs]
 };
 
 export const component = () => ({
@@ -16,6 +16,9 @@ export const component = () => ({
     declarations: [
       PinInputComponent,
       PinInputOverviewComponent
+    ],
+    imports: [
+      IconsModule
     ]
   },
   props: {

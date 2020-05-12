@@ -1,7 +1,7 @@
 import { Component, Input } from '@angular/core';
 
 @Component({
-  selector: 'app-radio-overview',
+  selector: 'mill-radio-overview',
   templateUrl: './radio-page.component.html',
   styleUrls: ['./radio-page.component.scss', '../../assets/styles/overview.scss']
 })

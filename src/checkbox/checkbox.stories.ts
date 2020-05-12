@@ -18,7 +18,9 @@ export const component = () => ({
       CheckboxComponent,
       CheckboxOverviewComponent
     ],
-    imports: [IconsModule]
+    imports: [
+      IconsModule
+    ]
   },
   props: {
     onChange: action('Change fired!'),
@@ -26,6 +28,6 @@ export const component = () => ({
     label: text('List label name', 'Checkbox item'),
     hideLabel: boolean('Hide labels', false),
   },
-  template: `<checkbox-overview [label]="label" [hideLabel]="hideLabel"></checkbox-overview>`
+  template: `<mill-checkbox-overview [label]="label" [hideLabel]="hideLabel"></mill-checkbox-overview>`
 });
 

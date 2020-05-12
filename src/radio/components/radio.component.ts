@@ -2,7 +2,7 @@ import { Component, Input } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
-  selector: 'radio',
+  selector: 'mill-radio',
   templateUrl: 'radio.component.html',
   styleUrls: ['./radio.scss'],
   providers: [

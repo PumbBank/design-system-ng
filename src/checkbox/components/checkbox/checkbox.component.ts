@@ -34,7 +34,7 @@ export class CheckboxChange {
 }
 
 @Component({
-  selector: 'checkbox',
+  selector: 'mill-checkbox',
   templateUrl: 'checkbox.component.html',
   styleUrls: ['./checkbox.scss']
 })
@@ -56,7 +56,7 @@ export class CheckboxComponent implements AfterViewInit {
   /**
    * The unique id for the checkbox component.
    */
-  @Input() id = `checkbox-${CheckboxComponent.checkboxCount}`;
+  @Input() id = `mill-checkbox-${CheckboxComponent.checkboxCount}`;
   /**
    * Reflects the required attribute of the `input` element.
    */

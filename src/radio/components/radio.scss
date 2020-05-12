@@ -3,7 +3,7 @@
 @import "~@mill/figma/icons";
 
 /* stylelint-disable no-descending-specificity */
-.radio {
+.mill-radio {
   position: relative;
   cursor: pointer;
   display: flex;
@@ -21,7 +21,7 @@
     box-sizing: border-box;
     transition: border-color 0.2s ease-in-out;
 
-    .radio__icon {
+    .mill-radio__icon {
       display: inline-block;
       background-color: #ffffff;
       transition: background-color 0.2s ease-in-out;
@@ -40,10 +40,10 @@
   &__input {
     appearance: none;
 
-    &:checked ~ .radio__checkmark {
+    &:checked ~ .mill-radio__checkmark {
       border-color: $red-50;
 
-      .radio__icon {
+      .mill-radio__icon {
         width: 12px;
         height: 12px;
         background-color: $red-50;
@@ -53,15 +53,15 @@
   }
 
   &:hover {
-    .radio__checkmark {
+    .mill-radio__checkmark {
       border-color: $red-40;
     }
 
-    .radio__icon {
+    .mill-radio__icon {
       background-color: $red-40;
     }
 
-    .radio__label {
+    .mill-radio__label {
       color: $grey-70;
     }
   }
@@ -70,24 +70,24 @@
   &_disabled:hover {
     cursor: not-allowed;
 
-    .radio__label {
+    .mill-radio__label {
       cursor: not-allowed;
       color: $grey-40;
     }
 
-    .radio__checkmark {
+    .mill-radio__checkmark {
       border-color: $grey-30;
     }
 
-    .radio__icon {
+    .mill-radio__icon {
       background-color: $grey-30;
     }
 
-    .radio__input:checked {
-      & ~ .radio__checkmark {
+    .mill-radio__input:checked {
+      & ~ .mill-radio__checkmark {
         border-color: $grey-30;
 
-        .radio__icon {
+        .mill-radio__icon {
           background-color: $grey-30;
         }
       }

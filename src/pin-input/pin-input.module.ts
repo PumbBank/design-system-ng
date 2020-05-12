@@ -4,16 +4,16 @@ import { CommonModule } from '@angular/common';
 import { PinInputOverviewComponent } from './examples/pin-input-page.component';
 
 @NgModule({
-    imports: [
-        CommonModule
-    ],
-    declarations: [
-        PinInputComponent,
-        PinInputOverviewComponent
-    ],
-    exports: [
-        PinInputComponent
-    ]
+  declarations: [
+    PinInputComponent,
+    PinInputOverviewComponent
+  ],
+  exports: [
+    PinInputComponent
+  ],
+  imports: [
+    CommonModule
+  ]
 })
 export class PinInputModule {
 
