@@ -45,7 +45,7 @@
   &:focus + .icon_circle-close {
     display: block;
   }
-  
+
   &:focus ~ .input__icon:not(.icon_circle-close) {
     display: none;
   }
@@ -64,6 +64,7 @@
   @extend %icon_grey-40;
 
   margin: 0 13px 0 -4px;
+  min-width: 24px;
 }
 
 .input__body {
@@ -144,6 +145,13 @@ input::placeholder {
 .input__footer {
   margin-top: 2px;
   height: 19px;
+}
+
+.input__control-message {
+  overflow: hidden;
+  height: fit-content;
+  display: flex;
+  align-items: baseline;
 }
 
 .input_disabled {
