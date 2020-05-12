@@ -199,6 +199,5 @@ input::placeholder {
 
   .input__control-message {
     @extend .control-message_valid;
-    overflow: hidden;
   }
 }
