@@ -18,7 +18,7 @@ import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubsc
 export class SidebarComponent extends ComponentWithUnsubscriber implements OnInit, OnChanges {
   scrolled = false;
 
-  @Input() collapsed = true;
+  @Input() collapsed = false;
   @Input() collapsedChange = new EventEmitter<boolean>();
 
   @Input() logo: string;
