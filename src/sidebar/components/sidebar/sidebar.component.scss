@@ -2,103 +2,11 @@
 @import "~@mill/figma/typography";
 
 :host {
-  flex-direction: column;
-  display: flex;
-}
 
-.sidebar {
-  width: 100%;
-  height: 100%;
+  width: 282px;
   transition: width 0.3s ease;
-  overflow: hidden;
 
-  &__header {
-    display: flex;
-    height: 40px;
-    padding: 32px 20px;
-    align-items: center;
-    flex-direction: row;
-  }
-
-  &__logo {
-    transition: opacity 299ms ease;
-    height: 40px;
-    margin-left: 20px;
-    &-image {
-      height: 100%;
-    }
-  }
-
-  &__burger {
-    height: 24px;
-    cursor: pointer;
-    border-radius: 24px;
-    padding: 4px;
-
-    &:hover {
-      background: $grey-70;
-      .sidebar__burger-icon {
-        color: $grey-10;
-      }
-    }
-  }
-
-  &__burger-icon {
-    color: $grey-40;
-  }
-
-  &__user-info-wrapper {
-    transition: padding 299ms ease;
-    padding: 0 24px 36px;
-  }
-
-  &__scrollable {
-    -ms-overflow-style: none;
-    scrollbar-width: none;
-
-    &::-webkit-scrollbar {
-      display: none;
-    }
-
-    transition: padding 0.3s ease;
-    overflow-y: auto;
-    overflow-x: hidden;
-    height: calc(100% - 104px);
-
-    &_active {
-      border-top: 1px solid $grey-70;
-    }
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-  }
-
-  &__crafted {
-    @extend %p3;
-
-    color: $grey-30;
-    display: flex;
-    justify-content: space-between;
-    padding: 12px 24px;
-    white-space: nowrap;
-
-    & span:first-child {
-      display: flex;
-      align-items: center;
-    }
-
-    & mill-icon {
-      color: #f91f2b;
-      margin: 0 5px;
-    }
-    transition: opacity 0.2s ease;
-  }
-
-  &__crafted_hidden {
-    opacity: 0;
-  }
-
-  &#{&}_collapsed {
+  &.sidebar_collapsed {
     width: 72px;
 
     .sidebar__scrollable {
@@ -113,9 +21,94 @@
       opacity: 0;
     }
   }
+}
+.sidebar__header {
+  display: flex;
+  height: 40px;
+  padding: 32px 20px;
+  align-items: center;
+  flex-direction: row;
+}
 
-  &_collapsed {
-    width: 72px;
-    overflow: hidden;
+.sidebar__logo {
+  transition: opacity 299ms ease;
+  height: 40px;
+  margin-left: 20px;
+  &-image {
+    height: 100%;
   }
+}
+
+.sidebar__burger {
+  height: 24px;
+  cursor: pointer;
+  border-radius: 24px;
+  padding: 4px;
+
+  &:hover {
+    background: $grey-70;
+    .sidebar__burger-icon {
+      color: $grey-10;
+    }
+  }
+}
+
+.sidebar__burger-icon {
+  color: $grey-40;
+}
+
+.sidebar__user-info-wrapper {
+  transition: padding 299ms ease;
+  padding: 0 24px 36px;
+}
+
+.sidebar__scrollable {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  transition: padding 0.3s ease;
+  overflow-y: auto;
+  overflow-x: hidden;
+  height: calc(100% - 104px);
+
+  &_active {
+    border-top: 1px solid $grey-70;
+  }
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+}
+
+.sidebar__crafted {
+  @extend %p3;
+
+  color: $grey-30;
+  display: flex;
+  justify-content: space-between;
+  padding: 12px 24px;
+  white-space: nowrap;
+
+  & span:first-child {
+    display: flex;
+    align-items: center;
+  }
+
+  & mill-icon {
+    color: #f91f2b;
+    margin: 0 5px;
+  }
+  transition: opacity 0.2s ease;
+}
+
+.sidebar__crafted_hidden {
+  opacity: 0;
+}
+
+.sidebar_collapsed {
+  width: 72px;
+  overflow: hidden;
 }
