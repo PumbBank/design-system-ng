@@ -80,16 +80,18 @@
     display: flex;
     justify-content: space-between;
     padding: 12px 24px;
+    white-space: nowrap;
 
     & span:first-child {
       display: flex;
+      align-items: center;
     }
 
     & mill-icon {
       color: #f91f2b;
       margin: 0 5px;
     }
-    transition: opacity 0.25s ease;
+    transition: opacity 0.2s ease;
   }
 
   &__crafted_hidden {

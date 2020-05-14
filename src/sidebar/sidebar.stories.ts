@@ -23,7 +23,7 @@ export const story = () => ({
     avatar: text('A vatar', 'https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg')
   },
   template: `
-    <div style="background: linear-gradient(106.15deg, #3C3C4E 0%, #00000D 100%); padding: 0; height: 600px; width: 100%">
+    <div style="background: linear-gradient(106.15deg, #3C3C4E 0%, #00000D 100%); padding: 0; height: 600px; width: 100%; display:flex">
       <mill-sidebar logo="/cid.svg" style="height: 100%">
         <user-info
           [username]="username"
@@ -45,7 +45,7 @@ export const story = () => ({
         <mill-nav-item icon="calendar">Menu item</mill-nav-item>
         <mill-nav-item icon="folder" active="true">Menu item</mill-nav-item>
 
-        <mill-nav-title>Nav title</mill-nav-title>
+        <!--<mill-nav-title>Nav title</mill-nav-title>
         <mill-nav-item icon="mail">Menu item</mill-nav-item>
         <mill-nav-item icon="calendar">Menu item</mill-nav-item>
 
@@ -61,7 +61,14 @@ export const story = () => ({
         <mill-nav-item icon="mail">Menu item</mill-nav-item>
         <mill-nav-item icon="calendar">Menu item</mill-nav-item>
         <mill-nav-item icon="mail">Menu item</mill-nav-item>
-        <mill-nav-item icon="calendar">Menu item</mill-nav-item>
+        <mill-nav-item icon="calendar">Menu item</mill-nav-item>-->
       </mill-sidebar>
-  </div>`
+
+      <div class="content" style="    background: red;
+      width: 100%;
+      transition: width 0.3s ease;">
+        <div class="content__head" style=""></div>
+        <div class="content__place" style=""></div>
+      </div>
+  </div>`,
 });
