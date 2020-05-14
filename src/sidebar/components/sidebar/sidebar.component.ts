@@ -18,6 +18,7 @@ export class SidebarComponent extends ComponentWithUnsubscriber implements OnIni
   @Input() collapsedChange = new EventEmitter<boolean>();
 
   @Input() logo: string;
+  @Input() version: string = 'v3.4.2';
 
   constructor(
     public sidebarController: SidebarController

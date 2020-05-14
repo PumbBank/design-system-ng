@@ -10,15 +10,17 @@
   </div>
 
   <div class="sidebar__scrollable" [class.sidebar__scrollable_active]="scrolled" (scroll)="onScroll($event)">
-    <div class="sidebar__user-info-wrapper">
-      <ng-content select="user-info"></ng-content>
+    <div>
+      <div class="sidebar__user-info-wrapper">
+        <ng-content select="user-info"></ng-content>
+      </div>
+      <div class="sidebar__navigation">
+        <ng-content></ng-content>
+      </div>
     </div>
-    <div class="sidebar__navigation">
-      <ng-content></ng-content>
+    <div class="sidebar__crafted" [class.sidebar__crafted_hidden]="collapsed">
+      <span>Crafted with <mill-icon size="12" name="heart"></mill-icon> in PUMB</span>
+      <span>{{version}}</span>
     </div>
   </div>
-</div>
-
-<div class="sidebar__crafted">
-  Crafted with <mill-icon size="12" name="heart"></mill-icon> in PUMB
 </div>
