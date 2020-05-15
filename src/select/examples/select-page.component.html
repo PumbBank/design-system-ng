@@ -10,7 +10,7 @@
     <div class="overview__column overview__column_offset grid-item-8">
       <div class="overview__label s1">Basic</div>
       <div class="overview__container">
-        <mill-select caption="caption" placeholder="placeholder">
+        <mill-select caption="caption" placeholder="placeholder" [formControl]="form">
           <span millSelectOption key="1" value="Option 1"></span>
           <span millSelectOption key="2" value="Option 2"></span>
           <span millSelectOption key="3" value="Option 3"></span>
@@ -19,6 +19,7 @@
           <span millSelectOption key="6" value="Option 6"></span>
           <span millSelectOption key="7" value="Option 7"></span>
           <span millSelectOption key="8" value="Option 8"></span>
+          <mill-hint hintControl></mill-hint>
         </mill-select>
       </div>
     </div>
