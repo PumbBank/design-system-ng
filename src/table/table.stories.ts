@@ -20,10 +20,11 @@ export const component = () => ({
     types: radios('Type', {normal: 'normal', zebra: 'zebra' }, 'normal'),
     styles: radios('Style', {normal: 'normal', small: 'small', large: 'large', round: 'round'}, 'normal'),
     control: radios('Control Input', {none: '', checkbox: 'checkbox', radio: 'radio'}, ''),
+    filter: boolean('Filter', true),
     fixed: boolean('Fixed Header', false),
     dark: boolean('Dark style Header', false),
   },
   template: `
-    <table-overview [type]="types" [style]="styles" [selectInput]="control" [darkHeader]="dark"></table-overview>
+    <table-overview [type]="types" [style]="styles" [selectInput]="control" [darkHeader]="dark" [fixedHeader]="fixed" [filter]="filter"></table-overview>
     `
 });

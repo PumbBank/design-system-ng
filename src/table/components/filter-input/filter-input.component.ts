@@ -8,12 +8,14 @@ import { FormControl } from '@angular/forms';
   encapsulation: ViewEncapsulation.None,
   host: {
     'class': 'table-filter',
-    '[class.table-filter_active]' : 'active'
+    '[class.table-filter_active]' : 'active',
+    '[class.table-filter_filled]' : 'filled'
   }
 })
 export class FilterInputComponent {
 
-  public active = false;
+  public active: boolean;
+  public filled: boolean;
   public inputValue = new FormControl();
 
   @Output() public value: EventEmitter<string> = new EventEmitter<string>();
@@ -26,7 +28,10 @@ export class FilterInputComponent {
   }
 
   constructor(private _elementRef: ElementRef) {
-    this.inputValue.valueChanges.subscribe(value => this.value.emit(value));
+    this.inputValue.valueChanges.subscribe(value => {
+      this.value.emit(value);
+      this.filled = !!value;
+    });
   }
 
   public onFocus(): void {

@@ -8,6 +8,14 @@
   height: 100%;
   display: block;
 
+  &_filled {
+    .table-filter__label {
+      &:after {
+        border: 1px solid $grey-60;
+      }
+    }
+  }
+
   &_active {
     .table-filter__label {
       &:after {
