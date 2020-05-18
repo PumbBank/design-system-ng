@@ -45,6 +45,7 @@
   min-width: 128px;
   margin: -6px -6px -2px -6px;
   // width: 100%;
+  flex-grow: 1;
 }
 
 .input-select__label {
@@ -175,6 +176,7 @@
   display: flex;
   flex-wrap: wrap;
   padding: 6px 6px 2px 6px;
+  flex-grow: 1;
 }
 
 .chip {

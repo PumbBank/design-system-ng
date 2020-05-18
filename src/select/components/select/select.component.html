@@ -28,7 +28,7 @@
             <div class="input__placeholder" *ngIf="!searchInputValue"> {{ placeholder }} </div>
             <input class="input__input input-select__input" (focus)="onSearchInputFocus()"
               [value]="searchInputValue" (input)="onSearchInput(searchInput.value)" (keydown)="onSearchInputKeydown($event)"
-               #searchInput autoWidth>
+               #searchInput >
               
           </div>
         </div>
