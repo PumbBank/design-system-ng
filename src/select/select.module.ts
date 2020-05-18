@@ -10,6 +10,7 @@ import { BadgeModule } from '../badge/badge.module';
 import { SimplebarAngularModule } from 'simplebar-angular';
 import { CheckboxModule } from '../checkbox/checkbox.module';
 import { ClickOutsideDirective } from './directives/click-outside/click-outside.directive';
+import { AutoWidthDirective } from './directives/auto-width/auto-width.directive';
 
 @NgModule({
   imports: [
@@ -25,6 +26,7 @@ import { ClickOutsideDirective } from './directives/click-outside/click-outside.
     SelectOptionDirective,
     SelectValueAccessorDirective,
     ClickOutsideDirective,
+    AutoWidthDirective,
 
   ],
   exports: [
