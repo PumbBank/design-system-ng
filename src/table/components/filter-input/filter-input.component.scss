@@ -16,6 +16,7 @@
     }
   }
 
+  &:hover,
   &_active {
     .table-filter__label {
       &:after {
@@ -46,6 +47,8 @@
       right: 0;
       bottom: 0;
       box-sizing: border-box;
+
+      transition: 0.1s ease;
     }
   }
 

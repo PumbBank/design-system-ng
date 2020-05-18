@@ -1,4 +1,12 @@
-import { Component, ElementRef, EventEmitter, HostListener, Output, ViewEncapsulation } from '@angular/core';
+import {
+  ChangeDetectorRef,
+  Component,
+  ElementRef,
+  EventEmitter, HostBinding,
+  HostListener,
+  Output,
+  ViewEncapsulation
+} from '@angular/core';
 import { FormControl } from '@angular/forms';
 
 @Component({
@@ -8,8 +16,6 @@ import { FormControl } from '@angular/forms';
   encapsulation: ViewEncapsulation.None,
   host: {
     'class': 'table-filter',
-    '[class.table-filter_active]' : 'active',
-    '[class.table-filter_filled]' : 'filled'
   }
 })
 export class FilterInputComponent {
@@ -27,7 +33,15 @@ export class FilterInputComponent {
     }
   }
 
-  constructor(private _elementRef: ElementRef) {
+  @HostBinding('class.table-filter_active') get activeClass() {
+    return this.active
+  }
+
+  @HostBinding('class.table-filter_filled') get activeFilled() {
+    return this.filled
+  }
+
+  constructor(private _elementRef: ElementRef, private _cd: ChangeDetectorRef) {
     this.inputValue.valueChanges.subscribe(value => {
       this.value.emit(value);
       this.filled = !!value;
@@ -36,6 +50,7 @@ export class FilterInputComponent {
 
   public onFocus(): void {
     this.active = true;
+    this._cd.detectChanges()
   }
 
   public clearInput(): void {
