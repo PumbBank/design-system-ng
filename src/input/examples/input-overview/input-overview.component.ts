@@ -14,7 +14,7 @@ export class InputOverview implements OnInit {
   moneyControl = new FormControl('', (v) => v.value > 99.99 ? { errorMessage: 'Max price 99.99' } : null);
   validControl = new FormControl('');
   errorControl = new FormControl('', (v) => !v.value ? { errorMessage: 'Message Text' } : null);
-  infoControl = new FormControl('123');
+  infoControl = new FormControl('');
   disabledControl = new FormControl('');
 
   validControlErrors: ValidationErrors | null;
