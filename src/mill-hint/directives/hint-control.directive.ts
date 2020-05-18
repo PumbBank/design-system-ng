@@ -28,7 +28,7 @@ export class HintControlDirective implements OnInit {
     } else {
       throw new Error(`[HintControlDirective] Can't find any abstractControl source (ngModel, formConrtol, formControlName)`);
     }
-
+    this.matchStatuses();
     this.control.statusChanges
       .subscribe(() => {
         this.matchStatuses();
@@ -43,7 +43,7 @@ export class HintControlDirective implements OnInit {
       this.hint.color = 'error';
       this.hint.show = true;
       this.hint.caption = ErrorMessageHelper.getMessage(this.control.errors);
-    } else if (this.hint.valid) {
+    } else if (this.control.touched && this.hint.valid) {
       this.hint.icon = 'valid';
       this.hint.color = 'valid';
       this.hint.show = true;
