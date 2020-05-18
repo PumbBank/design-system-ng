@@ -3,8 +3,18 @@
   display: block;
 }
 
-.grid-select {
-  display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  grid-column-gap: 24px;
+.overview {
+  &__column {
+    @media screen and (max-width: 1340px) {
+      grid-column: span 6;
+    }
+
+    &:nth-of-type(2n - 1) {
+      grid-column-start: 3;grid-column-end: 7;
+
+      @media screen and (max-width: 1340px) {
+        grid-column-start: 1;grid-column-end: 7;
+      }
+    }
+  }
 }
