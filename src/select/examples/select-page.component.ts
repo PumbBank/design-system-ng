@@ -11,4 +11,9 @@ export class SelectOverviewComponent {
 
   invalid =  new FormControl('', Validators.required);
   valid =  new FormControl('');
+
+  ngOnInit() {
+    this.invalid.markAsTouched();
+    this.valid.markAsTouched();
+  }
 }
