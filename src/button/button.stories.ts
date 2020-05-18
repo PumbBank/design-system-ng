@@ -1,7 +1,7 @@
 import { text, withKnobs } from "@storybook/addon-knobs";
 import { ButtonComponent } from './components/button/button.component';
 import { IconsModule } from '../icons/icons.module';
-import { ButtonOverview } from './examples/button-overview/button-overview.component';
+import { ButtonOverviewComponent } from './examples/button-overview/button-overview.component';
 
 export default {
   title: 'Компоненти|Buttons',
@@ -15,7 +15,7 @@ export const component = () => ({
   moduleMetadata: {
     declarations: [
       ButtonComponent,
-      ButtonOverview
+      ButtonOverviewComponent
     ],
     imports: [
       IconsModule

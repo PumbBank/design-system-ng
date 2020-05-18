@@ -1,9 +1,9 @@
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { SelectModule } from './select.module';
 import { SelectOverviewComponent } from './examples/select-page.component';
-import { MillHintModule } from 'src/mill-hint/mill-hint.module';
+import { MillHintModule } from '../hint/hint.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IconsModule } from 'src/icons/icons.module';
+import { IconsModule } from '../icons/icons.module';
 
 export default {
   title: 'Компоненти|Select',

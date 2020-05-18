@@ -1,9 +1,9 @@
+import { Subject } from 'rxjs';
 import { Directive, OnInit, Optional } from '@angular/core';
 import { AbstractControl, NgModel, FormControlDirective } from '@angular/forms';
 import { HintComponent } from '../components/hint/hint.component';
-import { propertyChangeInterceptor } from 'src/utils/property-change-interceptor';
-import { Subject } from 'rxjs';
-import { ErrorMessageHelper } from 'src/utils/error-message.helper';
+import { propertyChangeInterceptor } from '../../utils/property-change-interceptor';
+import { ErrorMessageHelper } from '../../utils/error-message.helper';
 
 @Directive({
   selector: 'mill-hint[hintControl]'

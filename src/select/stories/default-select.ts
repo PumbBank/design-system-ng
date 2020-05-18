@@ -1,7 +1,7 @@
 import { text } from '@storybook/addon-knobs';
 import { SelectModule } from '../select.module';
 import { SelectOverviewComponent } from '../examples/select-page.component';
-import { MillHintModule } from 'src/mill-hint/mill-hint.module';
+import { MillHintModule } from '../../hint/hint.module';
 
 export const DEFAULT_SELECT = () => ({
   moduleMetadata: {

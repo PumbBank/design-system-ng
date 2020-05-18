@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Output, EventEmitter, HostListener } from '@angular/core';
-import { SelectComponent } from 'src/select/components/select/select.component';
+import { SelectComponent } from '../../components/select/select.component';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 @Directive({
@@ -12,7 +12,7 @@ export class ClickOutsideDirective {
   constructor(private _elementRef : ElementRef,
     private select: SelectComponent) {
       select.active$.pipe(takeUntil(this.unsubscriber)).subscribe((active: boolean) => {
-        this.active = active;        
+        this.active = active;
       });
      }
 
@@ -25,7 +25,7 @@ export class ClickOutsideDirective {
       if (!clickedInside && this.active) {
           this.clickOutside.emit();
       }
-      
+
   }
 
 }

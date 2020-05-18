@@ -5,6 +5,6 @@ import { Component, Input } from '@angular/core';
   templateUrl: './button-overview.component.html',
   styleUrls: ['./button-overview.component.scss', '../../../assets/styles/overview.scss']
 })
-export class ButtonOverview {
+export class ButtonOverviewComponent {
   @Input() public label: string;
 }

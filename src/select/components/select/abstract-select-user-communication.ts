@@ -2,8 +2,8 @@
 import { CODE_TAB, CODE_ARROW_UP, CODE_ARROW_DOWN, CODE_ENTER } from '../../key-code';
 import { MillSelectOption } from '../../select-option';
 import { AbstractSelectSearch } from './abstract-select-search';
-import { ViewChild, ViewChildren, ElementRef, QueryList, ContentChildren, ContentChild } from '@angular/core';
-import { HintComponent } from 'src/mill-hint/components/hint/hint.component';
+import { ViewChild, ViewChildren, ElementRef, QueryList, ContentChild } from '@angular/core';
+import { HintComponent } from '../../../hint/components/hint/hint.component';
 
 export abstract class AbstractSelectUserCommunication<K = any, P = any> extends AbstractSelectSearch<K, P> {
   focusedOptionIndex: number = -1;
