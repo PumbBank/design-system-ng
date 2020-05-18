@@ -59,7 +59,7 @@ export const story = () => ({
         <mill-nav-item icon="mail">Menu item</mill-nav-item>
         <mill-nav-item icon="calendar">Menu item</mill-nav-item>-->
         <mill-nav-item icon="mail">Menu item</mill-nav-item>
-        <mill-nav-item icon="calendar">Menu item</mill-nav-item>
+        <mill-nav-item icon="calendar" active="true">Menu item</mill-nav-item>
         <mill-nav-item icon="mail">Menu item</mill-nav-item>
         <mill-nav-item icon="calendar">Menu item</mill-nav-item>
       </mill-sidebar>
