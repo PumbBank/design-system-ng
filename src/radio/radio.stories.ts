@@ -2,7 +2,7 @@ import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { RadioComponent } from './components/radio.component';
 import { RadioOverviewComponent } from './examples/radio-page.component';
-import { IconsModule } from '../icons/icons.module';
+import { IconsModule } from '../2-icons/icons.module';
 
 export default {
   title: 'Компоненти|Radio',

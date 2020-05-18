@@ -5,7 +5,7 @@ import { UserInfoActionComponent } from './components/user-info-action/user-info
 import { NavItemComponent } from './components/nav-item/nav-item.component';
 import { NavTitleComponent } from './components/nav-title/nav-title.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { IconsModule } from '../icons/icons.module';
+import { IconsModule } from '../2-icons/icons.module';
 import { BadgeModule } from '../badge/badge.module';
 
 @NgModule({

@@ -1,5 +1,5 @@
 import { withKnobs } from '@storybook/addon-knobs';
-import { IconsModule } from '../icons/icons.module';
+import { IconsModule } from '../2-icons/icons.module';
 import { ColorsPaletteGuideline } from './examples/colors-palette-page.component';
 
 export default {

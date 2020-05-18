@@ -1,7 +1,7 @@
 import { withKnobs } from '@storybook/addon-knobs';
 import { SliderModule } from './slider.module';
 import { SliderOverview } from './examples/slider-overview/slider-overview.component';
-import { IconsModule } from '../icons/icons.module';
+import { IconsModule } from '../2-icons/icons.module';
 
 export default {
   title: 'Компоненти|Slider',
