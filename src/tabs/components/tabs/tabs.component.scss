@@ -26,9 +26,6 @@
   color: $grey-50;
   cursor: pointer;
 
-  //Не рофлите, так надо
-  font-size: 16.1px;
-
   display: flex;
   align-items: center;
   justify-content: center;
@@ -99,6 +96,10 @@
     box-sizing: border-box;
 
     overflow: hidden;
+
+    padding: 3px;
+    margin-top: -3px;
+    margin-left: -3px;
   }
 
   &__list {
@@ -118,23 +119,27 @@
     border-bottom: 1px solid $grey-20;
     position: relative;
 
+    //Фикс прыгающего шрифта
+    font-size: 16.1px;
+
     &:after {
       content: '';
       position: absolute;
       left: 24px;
-      bottom: -1px;
+      bottom: -3px;
       width: calc(100% - 48px);
-      height: 2px;
+      height: 3px;
       background: $grey-30;
       opacity: 0;
       visibility: hidden;
       transition: .2s ease;
+
+      border-radius: 5px;
     }
 
     @extend %p1;
 
     &:not(&_active) {
-
       &:hover {
         &:after {
           opacity: 1;
@@ -199,11 +204,15 @@
   &__header {
     display: flex;
     height: 40px;
-    box-sizing: border-box;
+    box-sizing: content-box;
 
     position: relative;
 
     overflow: hidden;
+
+    padding: 8px;
+    margin-left: -8px;
+    margin-top: -8px;
   }
 
   &__list {
