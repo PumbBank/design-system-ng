@@ -3,6 +3,7 @@ import { SelectModule } from './select.module';
 import { SelectOverviewComponent } from './examples/select-page.component';
 import { MillHintModule } from 'src/mill-hint/mill-hint.module';
 import { ReactiveFormsModule } from '@angular/forms';
+import { IconsModule } from 'src/icons/icons.module';
 
 export default {
   title: 'Компоненти|Select',
@@ -17,7 +18,7 @@ export const component = () => ({
     declarations: [
       SelectOverviewComponent
     ],
-    imports: [SelectModule, MillHintModule, ReactiveFormsModule]
+    imports: [SelectModule, MillHintModule, ReactiveFormsModule, IconsModule]
   },
   props: {
     caption: text('caption', 'Overview'),
