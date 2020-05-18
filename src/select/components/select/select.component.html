@@ -13,8 +13,9 @@
 <ng-template #defaultHeaderTemplate>
   <div class="select__header input" [class.input_required]="this.required">
     <div class="input__label input-select__label">{{ caption }}</div>
-    <div class="input__body input-select__body" >
-
+    <div class="input__body input-select__body " 
+    [class.input-select__body_error]="touched && isInvalid"
+    [class.input-select__body_valid]="touched && !isInvalid && hintComponent.valid"> 
       <div class="chips">
         <ng-container *ngIf="multiple">
           <div class="chip chip_gap" *ngFor="let option of selectedOption">
@@ -27,14 +28,14 @@
             <div class="input__placeholder" *ngIf="!searchInputValue"> {{ placeholder }} </div>
             <input class="input__input input-select__input" (focus)="onSearchInputFocus()"
               [value]="searchInputValue" (input)="onSearchInput(searchInput.value)" (keydown)="onSearchInputKeydown($event)"
-              #searchInput>
-
+               #searchInput >
+              
           </div>
         </div>
 
 
       <div class="chevron-down" [class.chevron-down_rotate180]="active$.value">
-        <mill-icon size="24" (click)="onChevronClick()" name="chevron-down">
+        <mill-icon class="chevron__icon" size="24" (click)="onChevronClick()" name="chevron-down">
         </mill-icon>
       </div>
     </div>

@@ -1,4 +1,5 @@
 import { Component, Input } from '@angular/core';
+import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-select-overview',
@@ -7,4 +8,7 @@ import { Component, Input } from '@angular/core';
 })
 export class SelectOverviewComponent {
   @Input() label: string;
+
+  invalid =  new FormControl('', Validators.required);
+  valid =  new FormControl('');
 }

@@ -24,7 +24,7 @@ import { ClickOutsideDirective } from './directives/click-outside/click-outside.
     SelectWithoutOptionSourceDirective,
     SelectOptionDirective,
     SelectValueAccessorDirective,
-    ClickOutsideDirective,
+    ClickOutsideDirective
 
   ],
   exports: [

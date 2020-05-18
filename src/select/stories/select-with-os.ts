@@ -3,7 +3,6 @@ import { SelectModule } from '../select.module';
 import { MillOptionSource } from '../option-source';
 import { MillSelectOption } from '../select-option';
 
-
 const optionSource: MillOptionSource = {
   get(key: string): Promise<MillSelectOption> {
     return Promise.resolve({

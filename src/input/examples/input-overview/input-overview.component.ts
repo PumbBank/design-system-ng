@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl } from '@angular/forms';
+import { FormControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'input-overview',
@@ -13,13 +13,21 @@ export class InputOverview implements OnInit {
   digitControl = new FormControl('', (v) => v.value < 1000 ? { errorMessage: 'Count more then 1000' } : null);
   moneyControl = new FormControl('', (v) => v.value > 99.99 ? { errorMessage: 'Max price 99.99' } : null);
   validControl = new FormControl('');
-  errorControl = new FormControl('', (v) => !v.value ? {errorMessage: 'Message Text'}: null);
-  infoControl = new FormControl('', );
+  errorControl = new FormControl('', (v) => !v.value ? { errorMessage: 'Message Text' } : null);
+  infoControl = new FormControl('');
   disabledControl = new FormControl('');
+
+  validControlErrors: ValidationErrors | null;
 
   ngOnInit(): void {
     this.errorControl.markAsTouched()
     this.errorControl.updateValueAndValidity();
     this.disabledControl.disable();
+
+    this.validControlErrors = this.validateTaxId();
+  }
+
+  validateTaxId(): ValidationErrors | null {
+    return { errorMessage: 'Перевірте дату народження, стать, ІПН' };
   }
 }

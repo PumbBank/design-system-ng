@@ -16,3 +16,4 @@ export * from './switcher/public-api';
 export * from './table/public-api';
 export * from './tabs/public-api';
 export * from './utils/public-api';
+export * from './mill-hint/public_api';
