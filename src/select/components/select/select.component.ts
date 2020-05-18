@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { AbstractSelectUserCommunication } from './abstract-select-user-communication';
 
 @Component({
@@ -28,6 +28,18 @@ export class SelectComponent<K = any, P = any> extends AbstractSelectUserCommuni
    * @description This value will be displayed while any option not selected
    */
   @Input() placeholder: string;
+
+  get touched(): boolean {
+    return this.element.nativeElement.classList.contains('ng-touched');
+  }
+
+  get isInvalid(): boolean {
+    return this.element.nativeElement.classList.contains('ng-invalid');
+  }
+
+  constructor(private element: ElementRef) {
+    super();
+  }
 
   options = { autoHide: false, scrollbarMinSize: 5 };
 }

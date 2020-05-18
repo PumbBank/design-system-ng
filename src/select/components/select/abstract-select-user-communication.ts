@@ -2,17 +2,20 @@
 import { CODE_TAB, CODE_ARROW_UP, CODE_ARROW_DOWN, CODE_ENTER } from '../../key-code';
 import { MillSelectOption } from '../../select-option';
 import { AbstractSelectSearch } from './abstract-select-search';
-import { ViewChild, ViewChildren, ElementRef, QueryList } from '@angular/core';
+import { ViewChild, ViewChildren, ElementRef, QueryList, ContentChildren, ContentChild } from '@angular/core';
+import { HintComponent } from 'src/mill-hint/components/hint/hint.component';
 
 export abstract class AbstractSelectUserCommunication<K = any, P = any> extends AbstractSelectSearch<K, P> {
   focusedOptionIndex: number = -1;
 
   searchInputFocused = false;
   bodyMouseOvered = false;
+  parentOffsetWidth: number;
 
   @ViewChildren('optionElement') optionsRefs: QueryList<ElementRef>;
   @ViewChild('selectBodyElement', { static: false }) bodyRef: ElementRef;
   @ViewChild('searchInput', { static: false }) searchInputRef: ElementRef;
+  @ContentChild(HintComponent, { static: false }) hintComponent: HintComponent;
 
   optionClick(option: MillSelectOption<K, P>): void {
 
@@ -73,7 +76,7 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
   }
 
   onSearchInputKeydown(event: KeyboardEvent) {
-
+    console.log(this.searchInputRef.nativeElement.offsetParent.offsetParent.clientWidth);
 
     if (event.code === CODE_ARROW_UP && this.active$.value) {
       event.preventDefault();

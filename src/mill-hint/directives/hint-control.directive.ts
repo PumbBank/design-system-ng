@@ -38,13 +38,17 @@ export class HintControlDirective implements OnInit {
   }
 
   private matchStatuses(): void {
-    if (this.control.valid || !this.control.touched) {
-      this.hint.show = false;
-    } else {
+    if (!this.control.valid && this.control.touched) {
       this.hint.icon = 'warning';
       this.hint.color = 'error';
       this.hint.show = true;
       this.hint.caption = ErrorMessageHelper.getMessage(this.control.errors);
+    } else if (this.hint.valid) {
+      this.hint.icon = 'valid';
+      this.hint.color = 'valid';
+      this.hint.show = true;
+    } else {
+      this.hint.show = false;
     }
   }
 }

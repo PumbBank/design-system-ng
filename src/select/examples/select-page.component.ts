@@ -9,5 +9,6 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
 export class SelectOverviewComponent {
   @Input() label: string;
 
-  form =  new FormControl('', Validators.required);
+  invalid =  new FormControl('', Validators.required);
+  valid =  new FormControl('');
 }

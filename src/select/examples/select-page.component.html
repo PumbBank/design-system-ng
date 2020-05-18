@@ -6,11 +6,28 @@
 <!--            <a href="" class="overview__link s1"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>-->
     </div>
   </div>
-  <div class="overview__content grid">
-    <div class="overview__column overview__column_offset grid-item-8">
+  <div class="overview__content grid-select">
+    <div class="overview__column overview__column_offset">
       <div class="overview__label s1">Basic</div>
       <div class="overview__container">
-        <mill-select caption="caption" placeholder="placeholder" [formControl]="form">
+        <mill-select caption="caption" placeholder="placeholder">
+          <span millSelectOption key="1" value="Option 1"></span>
+          <span millSelectOption key="2" value="Option 2"></span>
+          <span millSelectOption key="3" value="Option 3"></span>
+          <span millSelectOption key="4" value="Option 4"></span>
+          <span millSelectOption key="5" value="Option 5"></span>
+          <span millSelectOption key="6" value="Option 6"></span>
+          <span millSelectOption key="7" value="Option 7"></span>
+          <span millSelectOption key="8" value="Option 8"></span>
+        </mill-select>
+        
+      </div>
+    </div>
+
+    <div class="overview__column overview__column_offset">
+      <div class="overview__label s1">Invalid</div>
+      <div class="overview__container">
+        <mill-select caption="caption" placeholder="placeholder" [formControl]="invalid">
           <span millSelectOption key="1" value="Option 1"></span>
           <span millSelectOption key="2" value="Option 2"></span>
           <span millSelectOption key="3" value="Option 3"></span>
@@ -21,10 +38,47 @@
           <span millSelectOption key="8" value="Option 8"></span>
           <mill-hint hintControl></mill-hint>
         </mill-select>
+        
       </div>
     </div>
 
-    <div class="overview__column overview__column_offset grid-item-8">
+    <div class="overview__column overview__column_offset">
+      <div class="overview__label s1">Valid</div>
+      <div class="overview__container">
+        <mill-select caption="caption" placeholder="placeholder" [formControl]="valid">
+          <span millSelectOption key="1" value="Option 1"></span>
+          <span millSelectOption key="2" value="Option 2"></span>
+          <span millSelectOption key="3" value="Option 3"></span>
+          <span millSelectOption key="4" value="Option 4"></span>
+          <span millSelectOption key="5" value="Option 5"></span>
+          <span millSelectOption key="6" value="Option 6"></span>
+          <span millSelectOption key="7" value="Option 7"></span>
+          <span millSelectOption key="8" value="Option 8"></span>
+          <mill-hint hintControl [valid]="true" caption="Valid true"></mill-hint>
+        </mill-select>
+        
+      </div>
+    </div>
+
+    <div class="overview__column overview__column_offset">
+      <div class="overview__label s1">Info alert</div>
+      <div class="overview__container">
+        <mill-select caption="caption" placeholder="placeholder">
+          <span millSelectOption key="1" value="Option 1"></span>
+          <span millSelectOption key="2" value="Option 2"></span>
+          <span millSelectOption key="3" value="Option 3"></span>
+          <span millSelectOption key="4" value="Option 4"></span>
+          <span millSelectOption key="5" value="Option 5"></span>
+          <span millSelectOption key="6" value="Option 6"></span>
+          <span millSelectOption key="7" value="Option 7"></span>
+          <span millSelectOption key="8" value="Option 8"></span>
+          <mill-hint caption="Info alert"></mill-hint>
+        </mill-select>
+        
+      </div>
+    </div>
+
+    <div class="overview__column overview__column_offset">
       <div class="overview__label s1">Disabled</div>
       <div class="overview__container">
         <mill-select caption="caption" placeholder="placeholder" [disabled]="true">
@@ -40,7 +94,7 @@
       </div>
     </div>
 
-    <div class="overview__column overview__column_offset grid-item-8">
+    <div class="overview__column overview__column_offset">
       <div class="overview__label s1">Multi-select</div>
       <div class="overview__container">
         <mill-select caption="caption" placeholder="placeholder" [multiple]="true">

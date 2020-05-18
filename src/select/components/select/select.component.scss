@@ -15,16 +15,36 @@
 :host {
   position: relative;
   display: inline-block;
+  width: 100%;
 }
 
 .input-select__body {
   align-items: flex-start !important;
+  justify-content: space-between;
+
+  &_error {
+    padding: 0;
+    border: 2px solid $orange-50 !important;
+    & .chevron__icon {
+      color: $orange-50 !important;
+    }
+  }
+
+  &_valid {
+    padding: 0;
+    border: 2px solid $green-50 !important;
+    & .chevron__icon {
+      color: $green-50 !important;
+    }
+  }
+  
 }
 
 .input-select__enterence {
   position: relative;
   min-width: 128px;
   margin: -6px -6px -2px -6px;
+  // width: 100%;
 }
 
 .input-select__label {
