@@ -1,6 +1,6 @@
 {
   "name": "@mill/ng",
-  "version": "0.2.0-beta.14",
+  "version": "0.2.0-beta.15",
   "scripts": {
     "start": "start-storybook -p 6006 && npm run lint",
     "build": "npm run build:clear && npm run build:package && npm run build:storybook",
