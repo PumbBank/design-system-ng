@@ -13,7 +13,7 @@ export const sidebarStorie = () => ({
   },
   template: `
     <div style="background: linear-gradient(106.15deg, #3C3C4E 0%, #00000D 100%); padding: 0; height: 600px; width: 100%">
-      <mill-sidebar logo="/cid.svg" style="height: 100%">
+      <mill-sidebar logo="/assets/images/logoplace.png" style="height: 100%">
         <user-info
           [username]="username"
           [avatar]="avatar"
