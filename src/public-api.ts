@@ -1,19 +1,19 @@
 /*
  * Public API Surface of mill-ng
  */
-export * from './badge/public-api';
-export * from './button/public-api';
-export * from './checkbox/public-api';
-export * from './icons/public-api';
-export * from './input/public-api';
-export * from './pin-input/public-api';
-export * from './radio/public-api';
-export * from './search-input/public-api';
-export * from './select/public-api';
-export * from './sidebar/public-api';
-export * from './slider/public-api';
-export * from './switcher/public-api';
-export * from './table/public-api';
-export * from './tabs/public-api';
-export * from './utils/public-api';
-export * from './hint/public-api';
+export * from './badge/index';
+export * from './button/index';
+export * from './checkbox/index';
+export * from './2-icons/index';
+export * from './input/index';
+export * from './pin-input/index';
+export * from './radio/index';
+export * from './search-input/index';
+export * from './select/index';
+export * from './sidebar/index';
+export * from './slider/index';
+export * from './switcher/index';
+export * from './table/index';
+export * from './tabs/index';
+export * from './utils/index';
+export * from './hint/index';

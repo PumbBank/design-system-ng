@@ -1,7 +1,7 @@
 import { withKnobs, text } from '@storybook/addon-knobs';
 import { BadgeModule } from './badge.module';
 import { BadgeOverviewComponent } from './examples/badge-overview/badge-overview.component';
-import { IconsModule } from '../icons/icons.module';
+import { IconsModule } from '../2-icons/icons.module';
 
 export default {
   title: 'Компоненти|Badge',

@@ -1,7 +1,7 @@
 import { withKnobs, radios, boolean } from "@storybook/addon-knobs";
 import { TableModule } from './table.module';
 import { TableOverview } from './examples/table-overview/table-overview.component';
-import { IconsModule } from '../icons/icons.module';
+import { IconsModule } from '../2-icons/icons.module';
 
 export default {
   title: 'Компоненти|Table',

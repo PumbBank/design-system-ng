@@ -1,7 +1,7 @@
 import { withKnobs } from '@storybook/addon-knobs';
 import { SwitcherModule } from './switcher.module';
 import { SwitcherOverview } from './examples/switcher-overview/switcher-overview.component';
-import { IconsModule } from '../icons/icons.module';
+import { IconsModule } from '../2-icons/icons.module';
 
 export default {
   title: 'Компоненти|Switcher',
