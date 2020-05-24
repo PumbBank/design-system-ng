@@ -1,3 +1,6 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+
 .file-attach__utils__ml-16 {
   margin-left: 16px !important;
 }
@@ -11,25 +14,16 @@
 }
 
 .file-attach__colors__orange {
-  color: #F57F17;
+  color: $orange-50;
 }
 
 .file-attach__fonts__warn {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.25px;
-  color: #F57F17;
+  @extend %p2;
+  color: $orange-50;
 }
 
 .file-attach__fonts__base {
-  font-style: normal;
-  font-weight: 500;
-  font-size: 14px;
-  line-height: 20px;
-  letter-spacing: 0.25px;
-  color: #4D4D5C;
+  @extend %p2;
 }
 
 .file-attach__content {
