@@ -18,7 +18,7 @@
   <span class="file-attach__fonts__p2 file-attach__colors__orange file-attach__utils__ml-8">Файл пошкоджений</span>
 </ng-template>
 
-<ng-template #fileLabelWrap let-isError="isError" let-name="name" let-idx="idx">
+<ng-template #fileLabelWrap let-isError="isError" let-name="name" let-index="index">
   <div class="file-attach__content_label"
        [class.error-state]="isError"
        [class.file-attach__utils__flex-start]="isError"
@@ -28,7 +28,7 @@
                    [ngTemplateOutlet]="fileLabelWithError"></ng-template>
       <ng-template *ngSwitchDefault
                    [ngTemplateOutlet]="fileLabelWithDelete"
-                   [ngTemplateOutletContext]="{name: name, idx: idx}"></ng-template>
+                   [ngTemplateOutletContext]="{name: name, index: index}"></ng-template>
     </ng-container>
   </div>
 </ng-template>
