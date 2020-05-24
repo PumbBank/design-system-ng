@@ -10,6 +10,7 @@ export class FileAttachOverviewComponent {
   public files: any[] = [];
 
   @Input() view: FileAttachView;
+  @Input() accepted: string;
 
   constructor() {
     this.generateStabs();

@@ -1,4 +1,4 @@
-import { select, withKnobs } from '@storybook/addon-knobs';
+import { select, text, withKnobs } from '@storybook/addon-knobs';
 import { FileAttachModule } from "./file-attach.module";
 import { FileAttachOverviewComponent } from "./examples/file-attach-overview/file-attach-overview.component";
 import { IconsModule } from "../2-icons";
@@ -30,8 +30,9 @@ export const component = () => ({
   },
   props: {
     view: select('View', viewOptions, viewDefaultOption),
+    accepted: text('Accepted file types', '')
   },
   template: `
-      <file-attach-overview [view]="view"></file-attach-overview>
+      <file-attach-overview [view]="view" [accepted]="accepted"></file-attach-overview>
   `
 });
