@@ -17,12 +17,7 @@
   color: $orange-50;
 }
 
-.file-attach__fonts__warn {
-  @extend %p2;
-  color: $orange-50;
-}
-
-.file-attach__fonts__base {
+.file-attach__fonts__p2 {
   @extend %p2;
 }
 
