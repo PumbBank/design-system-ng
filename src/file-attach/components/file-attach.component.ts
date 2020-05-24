@@ -2,23 +2,28 @@ import {
   AfterViewInit,
   ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
-  ElementRef,
+  ElementRef, EventEmitter,
   Input,
-  OnChanges,
+  OnChanges, Output,
   SimpleChanges,
   ViewChild
 } from '@angular/core';
 
-type FileAttach = {
+export type FileAttach = {
   name: string;
   file?: any;
-  state?: 'load' | 'error';
+  isError?: boolean;
 };
 
-enum ListSide {
+export enum ListSide {
   Left = 'left',
   Right = 'right',
   Bottom = 'bottom'
+}
+
+export enum FileAttachView {
+  Ghost = 'ghost',
+  Hidden = 'hidden'
 }
 
 @Component({
@@ -31,8 +36,11 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
   files: FileAttach[] = [];
   side: string;
 
+  @Input() view: FileAttachView = FileAttachView.Ghost;
   @Input() addedFiles: FileAttach[];
+  @Input() fileAcceptedTypes: string;
   @Input() listSide: ListSide = ListSide.Left;
+  @Output() filesChanged: EventEmitter<FileAttach[]> = new EventEmitter<FileAttach[]>();
   @ViewChild('fileInput', {static: true}) fileInput: ElementRef;
 
   constructor(private _cdr: ChangeDetectorRef) { }
@@ -62,6 +70,7 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
       const files = event.currentTarget.files as FileList;
       const singleFile = files.item(0);
       this.files.push({file: singleFile, name: singleFile.name});
+      this.filesChanged.emit(this.files);
     }
   }
 

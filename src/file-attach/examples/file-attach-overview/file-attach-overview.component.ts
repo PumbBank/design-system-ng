@@ -19,7 +19,7 @@ export class FileAttachOverviewComponent {
         type: "text/plain",
       });
       if (i === 2) {
-        files.push({name: file.name, state: 'error', file});
+        files.push({name: file.name, isError: true, file});
       } else {
         files.push({name: file.name, file});
       }

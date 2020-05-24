@@ -1,22 +1,22 @@
 <div class="file-attach__content" [ngClass]="[side]">
   <div class="file-attach__content_files">
     <ng-template *ngFor="let file of files; index as idx"
-                 [ngTemplateOutlet]="file?.state === 'error' ? fileError : fileLabel"
+                 [ngTemplateOutlet]="file?.isError ? fileError : fileLabel"
                  [ngTemplateOutletContext]="{name: file?.name, idx: idx}"></ng-template>
   </div>
   <mill-button view="ghost" icon="attach" (click)="chooseFileClick()">Обрати</mill-button>
-  <input #fileInput name="img" type="file" hidden (change)="onFileLoaded($event)"/>
+  <input #fileInput name="img" type="file" [accept]="fileAcceptedTypes" hidden (change)="onFileLoaded($event)"/>
 </div>
 
 <ng-template #fileLabel let-name="name" let-idx="idx">
-  <div class="file-attach__content_label" [ngClass]="[side]">
-    <span>{{ name }}</span>
+  <div class="file-attach__content_label" [ngClass]="[side, view + '-view']">
+    <span class="file-attach__fonts__base">{{ name }}</span>
     <mill-button view="hidden" icon="trash" class="file-attach__utils__ml-16" (click)="removeFileClick(idx)"></mill-button>
   </div>
 </ng-template>
 
 <ng-template #fileError>
-  <div class="file-attach__content_label file-attach__utils__flex-start" [ngClass]="[side]">
+  <div class="file-attach__content_label error-state file-attach__utils__flex-start" [ngClass]="[side, view + '-view']">
     <mill-icon name="warning" class="file-attach__colors__orange" size="12"></mill-icon>
     <span class="file-attach__fonts__warn file-attach__utils__ml-8">Файл пошкоджений</span>
   </div>
