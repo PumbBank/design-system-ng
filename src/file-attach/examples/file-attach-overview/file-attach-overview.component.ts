@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Input } from '@angular/core';
+import { FileAttachView } from "../..";
 
 @Component({
   selector: 'file-attach-overview',
@@ -7,6 +8,8 @@ import { Component } from '@angular/core';
 })
 export class FileAttachOverviewComponent {
   public files: any[] = [];
+
+  @Input() view: FileAttachView;
 
   constructor() {
     this.generateStabs();
