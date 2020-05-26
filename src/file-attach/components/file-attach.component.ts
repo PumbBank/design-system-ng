@@ -8,6 +8,7 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
+import { animate, style, transition, trigger } from "@angular/animations";
 
 export type FileAttach = {
   name: string;
@@ -30,7 +31,18 @@ export enum FileAttachView {
   selector: 'mill-file-attach',
   templateUrl: './file-attach.component.html',
   styleUrls: ['./file-attach.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('flyInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('100ms', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('100ms', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class FileAttachComponent implements OnChanges, AfterViewInit {
   files: FileAttach[] = [];

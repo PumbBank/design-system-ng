@@ -20,6 +20,7 @@
 
 <ng-template #fileLabelWrap let-isError="isError" let-name="name" let-index="index">
   <div class="file-attach__content_label"
+       @flyInOut
        [class.error-state]="isError"
        [class.file-attach__utils__flex-start]="isError"
        [ngClass]="[side, view + '-view']">
