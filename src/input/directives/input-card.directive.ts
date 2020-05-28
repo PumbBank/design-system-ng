@@ -1,17 +1,19 @@
-import { MillInput } from '../component/input';
+import { MillInput } from '..';
 import {
   AbstractControl,
   ControlValueAccessor,
   NG_VALIDATORS,
-  NG_VALUE_ACCESSOR,
-  ValidationErrors,
-  Validator
+  NG_VALUE_ACCESSOR, ValidationErrors, Validator,
 } from '@angular/forms';
 import { Directive, ElementRef, forwardRef, OnInit, Renderer2 } from '@angular/core';
 import { createTextMaskInputElement } from 'text-mask-core/dist/textMaskCore';
 import { CleanFunction } from '..';
 
-const VISA_LOGO = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMjQiIHZpZXdCb3g9IjAgMCAzMCAyNCIgZmlsbD0ibm9uZSIgeG1sbnM9Imh0dHA6Ly93d3cudzMub3JnLzIwMDAvc3ZnIj4KPGcgY2xpcC1wYXRoPSJ1cmwoI2NsaXAwKSI+CjxwYXRoIGQ9Ik0xOC4yNDk5IDE3LjQ3NzVIMTEuNzYwNVY1LjYwODY0SDE4LjI0OTlWMTcuNDc3NVoiIGZpbGw9IiNGRjVGMDAiLz4KPHBhdGggZD0iTTEyLjE2NyAxMS41QzEyLjE2NyA5LjEwNzc2IDEzLjI3NDcgNi45NzY4MyAxNC45OTk3IDUuNjAzNTdDMTMuNzM4MyA0LjU5OTM3IDEyLjE0NjMgNCAxMC40MTYxIDRDNi4zMjAyMiA0IDMgNy4zNTc4MSAzIDExLjVDMyAxNS42NDIyIDYuMzIwMjIgMTkgMTAuNDE2MSAxOUMxMi4xNDYzIDE5IDEzLjczODMgMTguNDAwNiAxNC45OTk3IDE3LjM5NjRDMTMuMjc0NyAxNi4wMjMyIDEyLjE2NyAxMy44OTIyIDEyLjE2NyAxMS41WiIgZmlsbD0iI0VCMDAxQiIvPgo8cGF0aCBkPSJNMjcuMDAwMSAxMS41QzI3LjAwMDEgMTUuNjQyMiAyMy42Nzk5IDE5IDE5LjU4NCAxOUMxNy44NTM5IDE5IDE2LjI2MTkgMTguNDAwNiAxNSAxNy4zOTY0QzE2LjcyNTQgMTYuMDIzMiAxNy44MzMxIDEzLjg5MjIgMTcuODMzMSAxMS41QzE3LjgzMzEgOS4xMDc3NiAxNi43MjU0IDYuOTc2ODMgMTUgNS42MDM1N0MxNi4yNjE5IDQuNTk5MzcgMTcuODUzOSA0IDE5LjU4NCA0QzIzLjY3OTkgNCAyNy4wMDAxIDcuMzU3ODEgMjcuMDAwMSAxMS41WiIgZmlsbD0iI0Y3OUUxQiIvPgo8L2c+CjxkZWZzPgo8Y2xpcFBhdGggaWQ9ImNsaXAwIj4KPHJlY3QgeD0iMyIgeT0iNCIgd2lkdGg9IjI0IiBoZWlnaHQ9IjE1IiBmaWxsPSJ3aGl0ZSIvPgo8L2NsaXBQYXRoPgo8L2RlZnM+Cjwvc3ZnPgo=";
+enum PaymentSystem {
+  Visa,
+  Master,
+  Maestro
+}
 
 @Directive({
   selector: '[millInput="card"][type="text"], [millInput="card"]:not([type])',
@@ -29,6 +31,23 @@ const VISA_LOGO = "data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMzAiIGhlaWdodD0iMjQ
   ]
 })
 export class InputCardDirective extends MillInput implements ControlValueAccessor, OnInit, Validator {
+  private static getCardType(value: string): PaymentSystem {
+    const cardBin = value.substr(0, 6);
+
+    if (cardBin[0] === '4') {
+      return PaymentSystem.Visa;
+    }
+
+    const firstFour = parseInt(cardBin.substr(0, 4), 10);
+    const firstTwo = parseInt(cardBin.substr(0, 4), 10);
+    if ((firstFour >= 2221 && firstFour <= 2720) || (firstTwo >= 51 && firstTwo <=55)) {
+      return PaymentSystem.Master;
+    }
+    if (firstTwo === 50 || firstTwo.toString()[0] === '6' || (firstTwo >= 56 && firstTwo <=58)) {
+      return PaymentSystem.Maestro;
+    }
+  }
+
   private _textMaskInput: any;
   private _mask: Array<string | RegExp> = [/\d/, /\d/, /\d/, /\d/, ' ',
     /\d/, /\d/, /\d/, /\d/, ' ',
@@ -51,18 +70,26 @@ export class InputCardDirective extends MillInput implements ControlValueAccesso
     });
   }
 
-  validate(control: AbstractControl): ValidationErrors {
-    if (!control.value) {
-      return null;
-    }
-  }
-
   registerOnChange(fn: Function) {
-    super.registerOnChange(this.onChange);
+    super.registerOnChange((value: string) => fn(this.onChange(value)));
   }
 
   writeValue(value: string) {
     super.writeValue(value);
+  }
+
+  validate(control: AbstractControl): ValidationErrors {
+    if (!control.value) {
+      return null;
+    }
+
+    const message = 'Невірний формат';
+
+    if (/^\d{16}$/.test(control.value)) {
+      return null;
+    } else {
+      return { errorMessage: message };
+    }
   }
 
   protected cleanFunction: CleanFunction = function (inputValue: string) {
@@ -73,16 +100,16 @@ export class InputCardDirective extends MillInput implements ControlValueAccesso
 
   private onChange(value: string) {
     if (!value) {
-      super.replaceIconToImage();
-      return;
+      super.replaceIconToImage('');
     }
-    if (value[0] === '4') {
-      super.replaceIconToImage('assets/images/visa_logo.svg');
+    value = value.replace(/\s/g, '');
+    if (InputCardDirective.getCardType(value) === PaymentSystem.Visa) {
+      super.replaceIconToImage('assets/images/visa_logo.svg', '36px');
     }
-
-    if (value[0] === '5') {
-      super.replaceIconToImage('assets/images/mc_logo.svg');
+    if ([PaymentSystem.Master, PaymentSystem.Maestro].indexOf(InputCardDirective.getCardType(value)) > -1) {
+      super.replaceIconToImage('assets/images/mc_logo.svg', '36px');
     }
+    return value;
   }
 
 }

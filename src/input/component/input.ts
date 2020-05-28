@@ -1,9 +1,7 @@
-import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy, OnInit } from '@angular/core';
+import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { RequirebleComponent } from '../../utils/abstract-requireble';
-import { ErrorMessageHelper } from '../../utils/error-message.helper';
-
+import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
 
 export type CleanFunction = (inputValue: any) => string;
 
@@ -43,7 +41,6 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   msgIconElement: HTMLElement;
   msgTextElement: HTMLElement;
   iconElement: HTMLElement;
-  iconImageElement: HTMLElement;
   iconCleanupElement: HTMLElement;
 
   value: BehaviorSubject<string> = new BehaviorSubject<string>(null);
@@ -96,7 +93,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       : this.renderer.removeClass(this.wrapperElement, 'input_disabled');
   }
 
-  replaceIconToImage(src?: string):void {
+  protected replaceIconToImage(src: string, width?: string, height?: string):void {
     if (!this) {
       return;
     }
@@ -104,6 +101,8 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       this.renderer.addClass(this.iconElement, 'icon');
       this.renderer.addClass(this.iconElement, 'input__icon');
       this.renderer.removeClass(this.iconElement, 'icon__image');
+      this.renderer.removeStyle(this.iconElement, 'width');
+      this.renderer.removeStyle(this.iconElement, 'height');
       this.updateIcon();
       return;
     }
@@ -116,6 +115,13 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     this.renderer.removeClass(this.iconElement, 'input__icon');
     this.renderer.addClass(this.iconElement, 'icon__image');
     this.renderer.setStyle(this.iconElement, 'background-image', `url('${src}')`);
+    this.renderer.setStyle(this.iconElement, 'background-repeat', 'no-repeat');
+    if (width) {
+      this.renderer.setStyle(this.iconElement, 'width', width);
+    }
+    if (height) {
+      this.renderer.setStyle(this.iconElement, 'height', height);
+    }
     this.renderer.appendChild(this.entranceElement, this.iconElement);
   }
 
@@ -130,7 +136,6 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     }
     this.touched = false;
   }
-
 
   private watchInputValueChanges(): void {
     this.input.addEventListener('input', () => {
@@ -270,7 +275,6 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     this.msgIconElement = this.renderer.createElement('div');
     this.msgTextElement = this.renderer.createElement('div');
     this.iconElement = this.renderer.createElement('div');
-    this.iconImageElement = this.renderer.createElement('img');
 
     this.renderer.insertBefore(this.input.parentElement, this.wrapperElement, this.input);
     this.renderer.appendChild(this.wrapperElement, this.captionElement);
