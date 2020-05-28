@@ -43,6 +43,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   msgIconElement: HTMLElement;
   msgTextElement: HTMLElement;
   iconElement: HTMLElement;
+  iconImageElement: HTMLElement;
   iconCleanupElement: HTMLElement;
 
   value: BehaviorSubject<string> = new BehaviorSubject<string>(null);
@@ -95,6 +96,29 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       : this.renderer.removeClass(this.wrapperElement, 'input_disabled');
   }
 
+  replaceIconToImage(src?: string):void {
+    if (!this) {
+      return;
+    }
+    if (!src) {
+      this.renderer.addClass(this.iconElement, 'icon');
+      this.renderer.addClass(this.iconElement, 'input__icon');
+      this.renderer.removeClass(this.iconElement, 'icon__image');
+      this.updateIcon();
+      return;
+    }
+    this.iconElement.classList.forEach((cl) => {
+      if (cl.match(/icon_/)) {
+        this.renderer.removeClass(this.iconElement, cl);
+      }
+    });
+    this.renderer.removeClass(this.iconElement, 'icon');
+    this.renderer.removeClass(this.iconElement, 'input__icon');
+    this.renderer.addClass(this.iconElement, 'icon__image');
+    this.renderer.setStyle(this.iconElement, 'background-image', `url('${src}')`);
+    this.renderer.appendChild(this.entranceElement, this.iconElement);
+  }
+
   private updateValidationState(invalid: boolean = false): void {
     this.invalid = invalid;
   }
@@ -115,7 +139,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       if (this.input.value !== cleanValue) {
         this.input.value = cleanValue;
       }
-      
+
       if (this.onChangeCallback) {
         this.onChangeCallback(cleanValue);
       }
@@ -246,6 +270,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     this.msgIconElement = this.renderer.createElement('div');
     this.msgTextElement = this.renderer.createElement('div');
     this.iconElement = this.renderer.createElement('div');
+    this.iconImageElement = this.renderer.createElement('img');
 
     this.renderer.insertBefore(this.input.parentElement, this.wrapperElement, this.input);
     this.renderer.appendChild(this.wrapperElement, this.captionElement);

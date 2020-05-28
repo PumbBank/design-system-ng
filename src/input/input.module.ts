@@ -4,6 +4,8 @@ import { InputTextDirective } from './directives/input-text.directive';
 import { InputNumberDirective } from './directives/input-number.derective';
 import { InputDateDirective } from './directives/input-date.directive';
 import { InputMoneyDirective } from './directives/input-money.directive';
+import { InputCardDirective } from "./directives/input-card.directive";
+import { IconsModule } from '../2-icons';
 
 @NgModule({
   declarations: [
@@ -12,6 +14,10 @@ import { InputMoneyDirective } from './directives/input-money.directive';
     InputNumberDirective,
     InputDateDirective,
     InputMoneyDirective,
+    InputCardDirective
+  ],
+  imports: [
+    IconsModule
   ],
   exports: [
     InputTextDirective,
@@ -19,6 +25,7 @@ import { InputMoneyDirective } from './directives/input-money.directive';
     InputNumberDirective,
     InputDateDirective,
     InputMoneyDirective,
+    InputCardDirective
   ]
 })
 export class InputModule { }
