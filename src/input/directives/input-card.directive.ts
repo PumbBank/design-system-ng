@@ -39,7 +39,7 @@ export class InputCardDirective extends MillInput implements ControlValueAccesso
     }
 
     const firstFour = parseInt(cardBin.substr(0, 4), 10);
-    const firstTwo = parseInt(cardBin.substr(0, 4), 10);
+    const firstTwo = parseInt(cardBin.substr(0, 2), 10);
     if ((firstFour >= 2221 && firstFour <= 2720) || (firstTwo >= 51 && firstTwo <=55)) {
       return PaymentSystem.Master;
     }
