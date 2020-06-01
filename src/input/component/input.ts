@@ -98,12 +98,14 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       return;
     }
     if (!src) {
-      this.renderer.addClass(this.iconElement, 'icon');
-      this.renderer.addClass(this.iconElement, 'input__icon');
       this.renderer.removeClass(this.iconElement, 'icon__image');
       this.renderer.removeStyle(this.iconElement, 'width');
       this.renderer.removeStyle(this.iconElement, 'height');
-      this.updateIcon();
+      this.renderer.removeStyle(this.iconElement, 'background-image');
+      this.renderer.removeStyle(this.iconElement, 'background-repeat');
+      this.renderer.addClass(this.iconElement, 'icon');
+      this.renderer.addClass(this.iconElement, 'input__icon');
+      this.renderer.addClass(this.iconElement, 'icon_' + this.icon);
       return;
     }
     this.iconElement.classList.forEach((cl) => {
@@ -122,7 +124,6 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     if (height) {
       this.renderer.setStyle(this.iconElement, 'height', height);
     }
-    this.renderer.appendChild(this.entranceElement, this.iconElement);
   }
 
   private updateValidationState(invalid: boolean = false): void {
