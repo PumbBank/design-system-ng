@@ -94,9 +94,6 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   }
 
   protected replaceIconToImage(src: string, width?: string, height?: string):void {
-    if (!this) {
-      return;
-    }
     if (!src) {
       this.renderer.removeClass(this.iconElement, 'icon__image');
       this.renderer.removeStyle(this.iconElement, 'width');
@@ -106,23 +103,23 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       this.renderer.addClass(this.iconElement, 'icon');
       this.renderer.addClass(this.iconElement, 'input__icon');
       this.renderer.addClass(this.iconElement, 'icon_' + this.icon);
-      return;
-    }
-    this.iconElement.classList.forEach((cl) => {
-      if (cl.match(/icon_/)) {
-        this.renderer.removeClass(this.iconElement, cl);
+    } else {
+      this.iconElement.classList.forEach((cl) => {
+        if (cl.match(/icon_/)) {
+          this.renderer.removeClass(this.iconElement, cl);
+        }
+      });
+      this.renderer.removeClass(this.iconElement, 'icon');
+      this.renderer.removeClass(this.iconElement, 'input__icon');
+      this.renderer.addClass(this.iconElement, 'icon__image');
+      this.renderer.setStyle(this.iconElement, 'background-image', `url('${src}')`);
+      this.renderer.setStyle(this.iconElement, 'background-repeat', 'no-repeat');
+      if (width) {
+        this.renderer.setStyle(this.iconElement, 'width', width);
       }
-    });
-    this.renderer.removeClass(this.iconElement, 'icon');
-    this.renderer.removeClass(this.iconElement, 'input__icon');
-    this.renderer.addClass(this.iconElement, 'icon__image');
-    this.renderer.setStyle(this.iconElement, 'background-image', `url('${src}')`);
-    this.renderer.setStyle(this.iconElement, 'background-repeat', 'no-repeat');
-    if (width) {
-      this.renderer.setStyle(this.iconElement, 'width', width);
-    }
-    if (height) {
-      this.renderer.setStyle(this.iconElement, 'height', height);
+      if (height) {
+        this.renderer.setStyle(this.iconElement, 'height', height);
+      }
     }
   }
 
