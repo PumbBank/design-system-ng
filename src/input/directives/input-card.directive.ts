@@ -105,9 +105,10 @@ export class InputCardDirective extends MillInput implements ControlValueAccesso
     value = value.replace(/\s/g, '');
     if (InputCardDirective.getCardType(value) === PaymentSystem.Visa) {
       super.replaceIconToImage('assets/images/visa_logo.svg', '36px');
-    }
-    if ([PaymentSystem.Master, PaymentSystem.Maestro].indexOf(InputCardDirective.getCardType(value)) > -1) {
+    } else if ([PaymentSystem.Master, PaymentSystem.Maestro].indexOf(InputCardDirective.getCardType(value)) > -1) {
       super.replaceIconToImage('assets/images/mc_logo.svg', '36px');
+    } else {
+      super.replaceIconToImage('');
     }
     return value;
   }
