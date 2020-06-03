@@ -9,7 +9,10 @@
     </div>
   </div>
 
-  <div class="sidebar__scrollable" [class.sidebar__scrollable_active]="scrolled" (scroll)="onScroll($event)">
+  <div class="sidebar__scrollable"
+       [class.sidebar__scrollable_active]="scrolled"
+       [class.sidebar__scrollable_collapsed]="collapsed"
+       (scroll)="onScroll($event)">
     <div>
       <div class="sidebar__user-info-wrapper">
         <ng-content select="user-info"></ng-content>
