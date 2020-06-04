@@ -40,6 +40,10 @@ const COMBO_PHONE_MASK = (input) => {
   ]
 })
 export class InputPhoneDirective extends MillInput implements ControlValueAccessor, OnInit {
+  private static cleanMask(maskedValue: string) {
+    return maskedValue.replace(/[-+()\s]/g, '');
+  }
+
   private _textMaskInput: any;
   private _host: any;
 
@@ -72,7 +76,7 @@ export class InputPhoneDirective extends MillInput implements ControlValueAccess
   }
 
   registerOnChange(fn: Function) {
-    super.registerOnChange((value: string) => fn(value));
+    super.registerOnChange((value: string) => fn(InputPhoneDirective.cleanMask(value)));
   }
 
   writeValue(value: string) {
