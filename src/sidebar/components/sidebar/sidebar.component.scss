@@ -3,11 +3,12 @@
 
 :host {
 
+  --sidebar_collapsed_width: 72px;
   width: 282px;
   transition: width 0.3s ease;
 
   &.sidebar_collapsed {
-    width: 72px;
+    width: var(--sidebar_collapsed_width);
 
     .sidebar__scrollable {
       padding: 0 12px;
@@ -19,6 +20,16 @@
 
     .sidebar__logo {
       opacity: 0;
+    }
+  }
+
+  @media (max-width: 600px) {
+    --sidebar_collapsed_width: 24px !important;
+
+    .sidebar__scrollable {
+      &.sidebar__scrollable_collapsed{
+        display: none;
+      }
     }
   }
 }
@@ -109,6 +120,6 @@
 }
 
 .sidebar_collapsed {
-  width: 72px;
+  width: var(--sidebar_collapsed_width);
   overflow: hidden;
 }
