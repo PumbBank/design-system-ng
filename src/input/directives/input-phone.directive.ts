@@ -1,4 +1,4 @@
-import { MillInput } from '..';
+import { CleanFunction, MillInput } from '..';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Directive, ElementRef, forwardRef, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { createTextMaskInputElement } from 'text-mask-core/dist/textMaskCore';
@@ -23,7 +23,7 @@ const PHONE_MASK = (input) => {
 const COMBO_PHONE_MASK = (input) => {
   input = input.replace(/[^0-9]/g, '');
   if (input.slice(0, 3) === '380') {
-    return ['+', /\d/, /\d/, /\d/, '(', /\d/, /\d/, ')', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
+    return ['+', /\d/, /\d/, /\d/, ' ', '(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
   } else {
     return PHONE_MASK(input);
   }
@@ -43,20 +43,6 @@ export class InputPhoneDirective extends MillInput implements ControlValueAccess
   private _textMaskInput: any;
   private _host: any;
 
-  constructor(
-    renderer: Renderer2,
-    public inputElementRef: ElementRef
-  ) {
-    super(inputElementRef.nativeElement, renderer);
-    this._host = inputElementRef.nativeElement;
-    this._textMaskInput = createTextMaskInputElement({
-      inputElement: this.inputElementRef.nativeElement,
-      mask: COMBO_PHONE_MASK,
-      guide: false,
-      keepCharPositions: false
-    });
-  }
-
   @HostListener('focus') setUkrainianCode() {
     if (typeof this._host.value === 'undefined' || this._host.value === '') {
       this._host.value = UA_PHONE_CODE;
@@ -69,8 +55,34 @@ export class InputPhoneDirective extends MillInput implements ControlValueAccess
     }
   }
 
-  ngOnInit() {
-
+  constructor(
+    renderer: Renderer2,
+    public inputElementRef: ElementRef
+  ) {
+    super(inputElementRef.nativeElement, renderer);
+    this._host = inputElementRef.nativeElement;
   }
+
+  ngOnInit() {
+    this._textMaskInput = createTextMaskInputElement({
+      inputElement: this.inputElementRef.nativeElement,
+      mask: COMBO_PHONE_MASK,
+      keepCharPositions: false
+    });
+  }
+
+  registerOnChange(fn: Function) {
+    super.registerOnChange((value: string) => fn(value));
+  }
+
+  writeValue(value: string) {
+    super.writeValue(value);
+  }
+
+  protected cleanFunction: CleanFunction = function(inputValue: string) {
+    this.input.value = inputValue;
+    this._textMaskInput.update();
+    return this.input.value;
+  };
 
 }
