@@ -31,7 +31,7 @@ export class NavItemComponent extends ComponentWithUnsubscriber implements After
     return this.componentContent && this.componentContent.length > 1;
   }
 
-  isSubitem: boolean = false;
+  isSubitem = false;
 
   collapsed: boolean;
   expanded: boolean;

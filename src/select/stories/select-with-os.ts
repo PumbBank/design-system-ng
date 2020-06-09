@@ -6,7 +6,7 @@ import { MillSelectOption } from '../select-option';
 const optionSource: MillOptionSource = {
   get(key: string): Promise<MillSelectOption> {
     return Promise.resolve({
-      key: key,
+      key,
       value: `Value ${key}`
     });
   },
@@ -16,7 +16,7 @@ const optionSource: MillOptionSource = {
       (v, i) => ({ key: `${q} ${i}`, value: `${q} ${i}` })
     ));
   }
-}
+};
 
 export const OS_SELECT = () => ({
   moduleMetadata: {
@@ -25,7 +25,7 @@ export const OS_SELECT = () => ({
   props: {
     caption: text('caption', 'Select'),
     placeholder: text('placeholder', 'Placeholder'),
-    optionSource: optionSource
+    optionSource
   },
   template: `
     <mill-select [caption]="caption" [placeholder]="placeholder" [optionSource]="optionSource">

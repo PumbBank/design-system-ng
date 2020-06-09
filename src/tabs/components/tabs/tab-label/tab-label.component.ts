@@ -29,7 +29,7 @@ export class TabLabelComponent implements AfterViewInit {
 
 	constructor(
 		private _el: ElementRef,
-    private _tabs: TabsBase,
+  private _tabs: TabsBase,
 	) {}
 
   ngAfterViewInit(): void {

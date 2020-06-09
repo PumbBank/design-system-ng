@@ -1,4 +1,4 @@
-import { Component, Input, ViewEncapsulation, HostListener } from "@angular/core";
+import { Component, Input, ViewEncapsulation, HostListener } from '@angular/core';
 
 @Component({
   selector: 'mill-user-info-action',
@@ -17,7 +17,7 @@ export class UserInfoActionComponent {
 
   @Input()
   set disabled(value: any) {
-    this._disabled = value === "true" || value === true;
+    this._disabled = value === 'true' || value === true;
   }
   get disabled() {
     return this._disabled;

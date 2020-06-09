@@ -6,7 +6,7 @@ import { ViewChild, ViewChildren, ElementRef, QueryList, ContentChild } from '@a
 import { HintComponent } from '../../../hint/components/hint/hint.component';
 
 export abstract class AbstractSelectUserCommunication<K = any, P = any> extends AbstractSelectSearch<K, P> {
-  focusedOptionIndex: number = -1;
+  focusedOptionIndex = -1;
 
   searchInputFocused = false;
   bodyMouseOvered = false;

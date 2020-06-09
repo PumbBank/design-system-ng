@@ -6,7 +6,7 @@ import { animatedTab } from '../../../tabs.animation';
 	selector: 'mill-tab',
 	templateUrl: './tab-item.component.html',
 	host: {
-		'class': 'tab-item',
+		class: 'tab-item',
 	},
   animations: [animatedTab.tabAnimation, animatedTab.contentAnimation]
 })
@@ -17,17 +17,17 @@ export class TabItemComponent extends TabItemBase implements OnInit, OnDestroy {
   @Input() public set position(position: number) {
     this._tabPositionIndex = position;
     this._setTabPosition();
-  };
+  }
 
   private _tabPositionIndex: number;
 
   private _setTabPosition() {
     if (this._tabPositionIndex < 0) {
-      this.tabPosition = 'left'
+      this.tabPosition = 'left';
     } else if (this._tabPositionIndex > 0) {
-      this.tabPosition = 'right'
+      this.tabPosition = 'right';
     } else {
-      this.tabPosition = 'center'
+      this.tabPosition = 'center';
     }
   }
 

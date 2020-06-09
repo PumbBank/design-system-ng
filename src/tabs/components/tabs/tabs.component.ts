@@ -8,7 +8,7 @@ import { TabsBase } from '../../tabs';
   encapsulation: ViewEncapsulation.None,
   providers: [{provide: TabsBase, useExisting: TabsComponent}],
   host: {
-    'class': 'mill-tabs'
+    class: 'mill-tabs'
   }
 })
 export class TabsComponent extends TabsBase {

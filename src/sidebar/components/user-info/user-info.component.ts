@@ -55,7 +55,7 @@ export class UserInfoComponent extends ComponentWithUnsubscriber implements OnIn
 
   private bindCollapsedWithController(): void {
     if (!this.sidebarController) { return; }
-    
+
     this.collapsed = this.sidebarController.collapsed$.value;
     this.sidebarController.collapsed$
       .pipe(takeUntil(this.unsubscriber$))

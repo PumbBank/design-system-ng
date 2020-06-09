@@ -261,7 +261,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
     const list = this._historyList.length > 0 ? this._historyList.filter(item => item.value !== value) : [];
 
     const obj = {
-      value: value,
+      value,
       isHistory: true
     };
 
@@ -300,7 +300,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 
   /** Control value accessor methods */
   private _onTouched: any = () => {
-  };
+  }
 
   public registerOnChange(fn: any): void {
     this.inputValue.valueChanges.subscribe(fn);

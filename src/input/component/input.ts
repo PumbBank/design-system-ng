@@ -95,11 +95,11 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       : this.renderer.removeClass(this.wrapperElement, 'input_disabled');
   }
 
-  private updateValidationState(invalid: boolean = false): void {
+  private updateValidationState(invalid = false): void {
     this.invalid = invalid;
   }
 
-  private updateTouchedState(touched: boolean = false): void {
+  private updateTouchedState(touched = false): void {
     if (touched) {
       this.touched = true;
       return;
@@ -115,7 +115,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       if (this.input.value !== cleanValue) {
         this.input.value = cleanValue;
       }
-      
+
       if (this.onChangeCallback) {
         this.onChangeCallback(cleanValue);
       }

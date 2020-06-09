@@ -9,8 +9,8 @@ export class ClickOutsideDirective {
   private unsubscriber = new Subject<void>();
   active: boolean;
 
-  constructor(private _elementRef : ElementRef,
-    private select: SelectComponent) {
+  constructor(private _elementRef: ElementRef,
+              private select: SelectComponent) {
       select.active$.pipe(takeUntil(this.unsubscriber)).subscribe((active: boolean) => {
         this.active = active;
       });

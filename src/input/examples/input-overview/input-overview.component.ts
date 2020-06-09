@@ -20,7 +20,7 @@ export class InputOverview implements OnInit {
   validControlErrors: ValidationErrors | null;
 
   ngOnInit(): void {
-    this.errorControl.markAsTouched()
+    this.errorControl.markAsTouched();
     this.errorControl.updateValueAndValidity();
     this.disabledControl.disable();
 

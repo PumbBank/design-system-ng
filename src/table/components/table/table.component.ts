@@ -303,8 +303,8 @@ export class TableComponent implements OnInit {
       console.log('View data length', this.viewData$.getValue().length);
     }
     this.counterLabel = `
-            ${this.paginatorSettings.offset + 1}—${this.paginatorSettings.offset + this.viewData$.getValue().length} 
-            ${this.counterSeparator} 
+            ${this.paginatorSettings.offset + 1}—${this.paginatorSettings.offset + this.viewData$.getValue().length}
+            ${this.counterSeparator}
             ${this._dataLength}
         `;
   }

@@ -12,7 +12,7 @@ const TEXT_FOR_REPLACE_LARGE_VALUE = '99+';
 @Directive({
   selector: 'mill-icon[badge]',
   host: {
-    'class': 'mill-icon-badge',
+    class: 'mill-icon-badge',
   }
 })
 export class BadgeIconDirective implements OnInit, OnChanges {
@@ -29,7 +29,7 @@ export class BadgeIconDirective implements OnInit, OnChanges {
     } else {
       this.badgeText = TEXT_FOR_REPLACE_LARGE_VALUE;
     }
-  };
+  }
 
   public badgeText: string;
 

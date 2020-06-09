@@ -110,7 +110,7 @@ export abstract class AbstractSelectOptions<K = any, P = any> extends RequiredCo
     this.selectedChange.emit(this.selected);
   }
 
-  protected async loadOptionsFromSource(query: string = ''): Promise<any> {
+  protected async loadOptionsFromSource(query = ''): Promise<any> {
 
     await this.waitForSettingOptionSource();
 
@@ -207,7 +207,7 @@ export abstract class AbstractSelectOptions<K = any, P = any> extends RequiredCo
     }
   }
 
-  private async waitForSettingOptionSource(checkInterval: number = 100): Promise<void> {
+  private async waitForSettingOptionSource(checkInterval = 100): Promise<void> {
     return new Promise((resolve: any) => {
       const tryToSet = () => {
         if (!this.optionSource) {

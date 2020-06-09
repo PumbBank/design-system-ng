@@ -13,7 +13,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 export class NavTitleComponent extends ComponentWithUnsubscriber implements OnInit {
   collapsed: boolean;
-  
+
   constructor(
     @Optional() public sidebarController: SidebarController
   ) { super(); }
@@ -21,7 +21,7 @@ export class NavTitleComponent extends ComponentWithUnsubscriber implements OnIn
   ngOnInit(): void {
     this.bindCollapsedWithController();
   }
-  
+
   private bindCollapsedWithController(): void {
     if (!this.sidebarController) { return; }
 

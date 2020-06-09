@@ -22,7 +22,7 @@ export class SidebarComponent extends ComponentWithUnsubscriber implements OnIni
   @Input() collapsedChange = new EventEmitter<boolean>();
 
   @Input() logo: string;
-  @Input() version: string = 'v3.4.2';
+  @Input() version = 'v3.4.2';
 
   constructor(
     public sidebarController: SidebarController
@@ -34,7 +34,7 @@ export class SidebarComponent extends ComponentWithUnsubscriber implements OnIni
 
   ngOnChanges(changes: SimpleChanges) {
     if (changes.collapsed) {
-      this.sidebarController.collapsed$
+      this.sidebarController.collapsed$;
     }
   }
 

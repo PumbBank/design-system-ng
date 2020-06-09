@@ -44,7 +44,7 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
 
   get scrollOffset(): number {
     return this._scrollOffset;
-  };
+  }
 
   set scrollOffset(value: number) {
     this._scroll(value);
@@ -134,15 +134,15 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
     const afterLabelPosition = this.scrollOffset + wrapperWidth;
 
     if (labelStartPosition < beforeLabelPosition) {
-      this.scrollOffset -= beforeLabelPosition - labelStartPosition + SCROLL_OVERFLOW
+      this.scrollOffset -= beforeLabelPosition - labelStartPosition + SCROLL_OVERFLOW;
     } else if (labelEndPosition > afterLabelPosition) {
-      this.scrollOffset += labelEndPosition - afterLabelPosition + SCROLL_OVERFLOW
+      this.scrollOffset += labelEndPosition - afterLabelPosition + SCROLL_OVERFLOW;
     }
   }
 
   private _scroll(value: number) {
     const maxScroll = this._maxScrollLength();
-    if (maxScroll - value <= 10) value = maxScroll;
+    if (maxScroll - value <= 10) { value = maxScroll; }
     this._scrollOffset = Math.max(0, Math.min(maxScroll, value));
     this._checkScrollControls();
   }
@@ -161,7 +161,7 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
   }
 
   private _maxScrollLength() {
-    return this.labelWrapper.nativeElement.scrollWidth - this.wrapper.nativeElement.offsetWidth + SCROLL_OVERFLOW
+    return this.labelWrapper.nativeElement.scrollWidth - this.wrapper.nativeElement.offsetWidth + SCROLL_OVERFLOW;
   }
 
   public getTransformStyle() {
@@ -171,23 +171,45 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
 }
 
 export abstract class TabsBase extends TabsPagination implements OnInit {
-  @Input() public type: 'basic' | 'ios' = 'basic';
-  @Input() public fullWidth: boolean;
-  @Input() public disabled: boolean;
-
-  ngOnInit(): void {
-    this.tabItems.pipe(
-      debounceTime(100)
-    ).subscribe(() => {
-      this._setItemsPosition();
-    })
-  }
 
   public set selectedTabId(id: string) {
     if (id) {
       this._selectedTabId = id;
       this._setItemsPosition(id);
     }
+  }
+
+  public get selectedTabId(): string {
+    return this._selectedTabId;
+  }
+
+  public set selectedLabel(label: HTMLElement) {
+    if (label) {
+      this._selectedLabel = label;
+
+      if (this.overflow) {
+        this.scrollTo(label);
+        this.checkLabelInView();
+      }
+    }
+  }
+
+  public get selectedLabel(): HTMLElement {
+    return this._selectedLabel;
+  }
+  @Input() public type: 'basic' | 'ios' = 'basic';
+  @Input() public fullWidth: boolean;
+  @Input() public disabled: boolean;
+  private _selectedTabId: string;
+
+  private _selectedLabel: HTMLElement;
+
+  ngOnInit(): void {
+    this.tabItems.pipe(
+      debounceTime(100)
+    ).subscribe(() => {
+      this._setItemsPosition();
+    });
   }
 
   private _setItemsPosition(id = this.selectedTabId) {
@@ -209,30 +231,8 @@ export abstract class TabsBase extends TabsPagination implements OnInit {
       }
 
       if (active > -1) {
-        items[i].position = (active === i) ? 0 : 1
+        items[i].position = (active === i) ? 0 : 1;
       }
     }
   }
-
-  public get selectedTabId(): string {
-    return this._selectedTabId;
-  }
-  private _selectedTabId: string;
-
-  public set selectedLabel(label: HTMLElement) {
-    if (label) {
-      this._selectedLabel = label;
-
-      if (this.overflow) {
-        this.scrollTo(label);
-        this.checkLabelInView();
-      }
-    }
-  }
-
-  public get selectedLabel(): HTMLElement {
-    return this._selectedLabel
-  }
-
-  private _selectedLabel: HTMLElement;
 }

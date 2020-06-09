@@ -15,7 +15,7 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./filter-input.component.scss'],
   encapsulation: ViewEncapsulation.None,
   host: {
-    'class': 'table-filter',
+    class: 'table-filter',
   }
 })
 export class FilterInputComponent {
@@ -34,11 +34,11 @@ export class FilterInputComponent {
   }
 
   @HostBinding('class.table-filter_active') get activeClass() {
-    return this.active
+    return this.active;
   }
 
   @HostBinding('class.table-filter_filled') get activeFilled() {
-    return this.filled
+    return this.filled;
   }
 
   constructor(private _elementRef: ElementRef, private _cd: ChangeDetectorRef) {
@@ -50,7 +50,7 @@ export class FilterInputComponent {
 
   public onFocus(): void {
     this.active = true;
-    this._cd.detectChanges()
+    this._cd.detectChanges();
   }
 
   public clearInput(): void {

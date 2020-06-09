@@ -14,7 +14,7 @@ export class TableOverview {
   @Input() public darkHeader: boolean;
 
   @Input() set filter(value: boolean) {
-    this.dataModel.forEach(m => m.filterable = value)
+    this.dataModel.forEach(m => m.filterable = value);
   }
 
   public data = [{
