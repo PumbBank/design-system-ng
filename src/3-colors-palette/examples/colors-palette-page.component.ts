@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
 
 @Component({
   selector: 'mill-colors-palette-overview',
@@ -6,12 +6,12 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./colors-palette-page.component.scss', '../../assets/styles/overview.scss']
 })
 
-export class ColorsPaletteGuideline {
-  colorNameDarkGradient = 'Dark Gradient';
-  colorNameLightGradient = 'Light Gradient';
-  colorNameWhite = 'White';
+export class ColorsPaletteGuidelineComponent {
+  public colorNameDarkGradient: string = 'Dark Gradient';
+  public colorNameLightGradient: string = 'Light Gradient';
+  public colorNameWhite: string = 'White';
 
-  colorPaletteItems = [
+  public colorPaletteItems: any[] = [
     {
       title: 'Колірна палітра',
       colorItems: [

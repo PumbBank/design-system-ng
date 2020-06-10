@@ -1,6 +1,6 @@
 import { Directive, OnInit, OnDestroy } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
-import { CheckboxComponent, CheckboxChange } from '../components/checkbox/checkbox.component';
+import { CheckboxComponent, CheckboxChange } from '..';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
 
@@ -16,7 +16,7 @@ import { takeUntil } from 'rxjs/operators';
 })
 
 export class CheckboxValueAccessorDirective implements ControlValueAccessor, OnInit, OnDestroy {
-  private unsubscriber = new Subject();
+  private unsubscribe: Subject<any> = new Subject();
 
   constructor(
     private checkboxComponent: CheckboxComponent
@@ -24,11 +24,11 @@ export class CheckboxValueAccessorDirective implements ControlValueAccessor, OnI
 
   public ngOnInit(): void { }
 
-  public writeValue(value: boolean | string) {
+  public writeValue(value: boolean | string): void {
     this.checkboxComponent.checked = value === true || value === 'true';
   }
 
-  public registerOnChange(onChangeCallback: any) {
+  public registerOnChange(onChangeCallback: any): void {
 
     // Need to set initial value from checkbox
     setTimeout(() => {
@@ -36,20 +36,20 @@ export class CheckboxValueAccessorDirective implements ControlValueAccessor, OnI
     });
 
     this.checkboxComponent.changeEventEmitter
-      .pipe(takeUntil(this.unsubscriber))
+      .pipe(takeUntil(this.unsubscribe))
       .subscribe((e: CheckboxChange) => {
         this.onTouched();
         onChangeCallback(e.checked);
       });
   }
 
-  public registerOnTouched(fn: any) {
+  public registerOnTouched(fn: any): void {
     this.onTouched = fn;
   }
 
   public ngOnDestroy(): void {
-    this.unsubscriber.next();
-    this.unsubscriber.complete();
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   public onTouched: () => any = () => { };

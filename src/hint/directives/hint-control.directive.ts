@@ -1,15 +1,15 @@
 import { Subject } from 'rxjs';
 import { Directive, OnInit, Optional } from '@angular/core';
 import { AbstractControl, NgModel, FormControlDirective } from '@angular/forms';
-import { HintComponent } from '../components/hint/hint.component';
-import { propertyChangeInterceptor } from '../../utils/property-change-interceptor';
-import { ErrorMessageHelper } from '../../utils/error-message.helper';
+import { HintComponent } from '..';
+import { propertyChangeInterceptor } from '../../utils';
+import { ErrorMessageHelper } from '../../utils';
 
 @Directive({
   selector: 'mill-hint[hintControl]'
 })
 export class HintControlDirective implements OnInit {
-  private unsubscriber = new Subject();
+  private unsubscribe: Subject<any> = new Subject();
   control: AbstractControl;
 
   constructor(

@@ -18,9 +18,9 @@ import { Component, Input } from '@angular/core';
 ]
 })
 export class HintComponent  {
-  @Input() icon = 'info';
-  @Input() valid = false;
+  @Input() icon: string = 'info';
+  @Input() valid: boolean = false;
   @Input() caption: string;
-  @Input() show = true;
+  @Input() show: boolean = true;
   @Input() color: 'error' | 'disabled' | 'info' | 'valid' = 'info';
 }

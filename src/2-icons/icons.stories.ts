@@ -1,6 +1,6 @@
 import { withKnobs } from '@storybook/addon-knobs';
 import { IconPreviewModule } from './icon-preview.module';
-import { IconsOverview } from './examples/icons-overview/icons-overview.component';
+import { IconsOverviewComponent } from './examples/icons-overview/icons-overview.component';
 import { IconsModule } from './icons.module';
 
 export default {
@@ -13,7 +13,7 @@ export default {
 
 export const component = () => ({
   moduleMetadata: {
-    declarations: [IconsOverview],
+    declarations: [IconsOverviewComponent],
     imports: [IconPreviewModule, IconsModule]
   },
   template: `

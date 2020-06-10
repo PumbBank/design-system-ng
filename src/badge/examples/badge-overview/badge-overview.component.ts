@@ -6,6 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./badge-overview.component.scss', '../../../assets/styles/overview.scss']
 })
 export class BadgeOverviewComponent {
-  public types = ['basic', 'filled', 'minimal'];
-  public colors = ['green', 'orange', 'red', 'black', 'grey', 'blue'];
+  public types: string[] = ['basic', 'filled', 'minimal'];
+  public colors: string[] = ['green', 'orange', 'red', 'black', 'grey', 'blue'];
 }

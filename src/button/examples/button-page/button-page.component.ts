@@ -6,10 +6,10 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./button-page.component.scss']
 })
 
-export class ButtonGuideline {
-  @Input() label;
-  icon = 'home';
-  types = [
+export class ButtonGuidelineComponent {
+  @Input() label: string;
+  public icon: string = 'home';
+  public types: any[] = [
     {
       type: 'filled',
       title: 'З заливкою',
