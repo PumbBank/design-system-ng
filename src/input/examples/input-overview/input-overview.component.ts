@@ -16,6 +16,7 @@ export class InputOverview implements OnInit {
   validControl = new FormControl('');
   errorControl = new FormControl('', (v) => !v.value ? { errorMessage: 'Message Text' } : null);
   infoControl = new FormControl('');
+  phoneControl = new FormControl('');
   disabledControl = new FormControl('');
 
   validControlErrors: ValidationErrors | null;
