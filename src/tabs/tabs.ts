@@ -71,29 +71,7 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
     this._checkScrollControls();
   }
 
-  private _checkOverflow(): void {
-    const el = this.wrapper.nativeElement;
-    const elArr = this.tabItems.getValue();
-
-    let childrenWidth = 0;
-
-    for (const item of elArr) {
-      childrenWidth += item.labelElement.nativeElement.offsetWidth;
-    }
-
-    this.overflow = el.offsetWidth < childrenWidth;
-  }
-
-  private _checkScrollControls(): void {
-    if (!this.overflow) {
-      this.disableAfter = this.disableBefore = true;
-    } else {
-      this.disableBefore = this.scrollOffset === 0;
-      this.disableAfter = this.scrollOffset === this._maxScrollLength();
-    }
-  }
-
-  public scrollHeader(direction: 'left' | 'right') {
+  public scrollHeader(direction: 'left' | 'right'): void {
     const items = this.tabItems.getValue();
 
     if (direction === 'right') {
@@ -121,8 +99,8 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
     this.checkLabelInView();
   }
 
-  public scrollTo(label: HTMLElement) {
-    const {offsetWidth, offsetLeft} = label;
+  public scrollTo(label: HTMLElement): void {
+    const {offsetWidth, offsetLeft}: {offsetWidth: number, offsetLeft: number} = label;
     const wrapperWidth = this.wrapper.nativeElement.offsetWidth;
 
     const labelStartPosition = offsetLeft;
@@ -138,7 +116,25 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
     }
   }
 
-  private _scroll(value: number) {
+  public checkLabelInView(): void {
+    if (!this.overflow) {
+      return;
+    }
+
+    this.tabItems.getValue().forEach(i => {
+      const {offsetWidth, offsetLeft}: {offsetWidth: number, offsetLeft: number} = i.labelElement.nativeElement;
+      const offsetView = offsetLeft + offsetWidth;
+
+      i.inView = !(offsetLeft < this.scrollOffset ||
+        (offsetView > (this.wrapper.nativeElement.offsetWidth + this.scrollOffset)));
+    });
+  }
+
+  public getTransformStyle(): string {
+    return `translateX(-${this.scrollOffset}px)`;
+  }
+
+  private _scroll(value: number): void {
     const maxScroll = this._maxScrollLength();
     if (maxScroll - value <= 10) {
       value = maxScroll;
@@ -147,26 +143,30 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
     this._checkScrollControls();
   }
 
-  public checkLabelInView() {
-    if (!this.overflow) {
-      return;
+  private _checkOverflow(): void {
+    const el = this.wrapper.nativeElement;
+    const elArr = this.tabItems.getValue();
+
+    let childrenWidth = 0;
+
+    for (const item of elArr) {
+      childrenWidth += item.labelElement.nativeElement.offsetWidth;
     }
 
-    this.tabItems.getValue().forEach(i => {
-      const {offsetWidth, offsetLeft} = i.labelElement.nativeElement;
-      const offsetView = offsetLeft + offsetWidth;
-
-      i.inView = !(offsetLeft < this.scrollOffset ||
-        (offsetView > (this.wrapper.nativeElement.offsetWidth + this.scrollOffset)));
-    });
+    this.overflow = el.offsetWidth < childrenWidth;
   }
 
-  private _maxScrollLength() {
+  private _checkScrollControls(): void {
+    if (!this.overflow) {
+      this.disableAfter = this.disableBefore = true;
+    } else {
+      this.disableBefore = this.scrollOffset === 0;
+      this.disableAfter = this.scrollOffset === this._maxScrollLength();
+    }
+  }
+
+  private _maxScrollLength(): number {
     return this.labelWrapper.nativeElement.scrollWidth - this.wrapper.nativeElement.offsetWidth + SCROLL_OVERFLOW;
-  }
-
-  public getTransformStyle() {
-    return `translateX(-${this.scrollOffset}px)`;
   }
 
 }
@@ -205,7 +205,6 @@ export abstract class TabsBase extends TabsPagination implements OnInit {
     return this._selectedLabel;
   }
 
-
   ngOnInit(): void {
     this.tabItems.pipe(
       debounceTime(100)
@@ -214,12 +213,12 @@ export abstract class TabsBase extends TabsPagination implements OnInit {
     });
   }
 
-  private _setItemsPosition(id: string = this.selectedTabId) {
+  private _setItemsPosition(id: string = this.selectedTabId): void {
     const items = this.tabItems.getValue();
 
     let active = -1;
 
-    for (let [index, item] of items.entries()) {
+    for (const [index, item] of items.entries()) {
       item.position = -1;
 
       if (id) {
