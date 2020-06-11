@@ -4,4 +4,5 @@ export * from './directives/input-digit.directive';
 export * from './directives/input-money.directive';
 export * from './directives/input-number.derective';
 export * from './directives/input-text.directive';
+export * from './directives/input-phone.directive';
 export * from './input.module';
