@@ -7,6 +7,7 @@ interface ITypographyItem {
   size: string;
   lineHeight: string;
   letterSpacing: string;
+  transform?: string;
 }
 
 @Component({
