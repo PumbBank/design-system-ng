@@ -67,6 +67,12 @@
   min-width: 24px;
 }
 
+.icon__image {
+  min-height: 24px;
+  min-width: 24px;
+  margin: 0 10px 0 0;
+}
+
 .input__body {
   border: 1px solid $grey-50;
   border-radius: 8px;

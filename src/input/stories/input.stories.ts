@@ -2,7 +2,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { withKnobs } from '@storybook/addon-knobs';
 import { InputModule } from '../input.module';
-import { IconsModule } from '../../2-icons/icons.module';
+import { IconsModule } from '../../2-icons';
 import { InputOverview } from '../examples/input-overview/input-overview.component';
 
 export default {
