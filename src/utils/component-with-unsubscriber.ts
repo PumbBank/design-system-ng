@@ -2,7 +2,7 @@ import { OnDestroy } from '@angular/core';
 import { Subject } from 'rxjs';
 
 export class ComponentWithUnsubscriber implements OnDestroy {
-  unsubscriber$ = new Subject();
+  unsubscriber$: Subject<void> = new Subject();
 
   ngOnDestroy(): void {
     this.unsubscriber$.next();

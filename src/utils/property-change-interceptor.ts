@@ -1,4 +1,4 @@
-export function propertyChangeInterceptor(object: {}, p: string, set?: Function, get?: Function): void {
+export function propertyChangeInterceptor(object: {}, p: string, set?: (value: any) => void, get?: () => void): void {
   const propertyDescriptor = Object.getOwnPropertyDescriptor(object, p);
   const interceptorPropertyDescriptor: PropertyDescriptor = {};
 

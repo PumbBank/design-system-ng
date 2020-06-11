@@ -2,20 +2,20 @@ import { BehaviorSubject, fromEvent } from 'rxjs';
 import { AfterViewInit, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
 import { debounceTime } from 'rxjs/operators';
 
-
 export abstract class TabItemBase {
   @Input() public id: string;
   @Input() public label: string;
   @Input() public icon: string;
   @Input() public position: number;
-  @Input() public selected;
+  @Input() public selected: boolean;
   public labelElement: ElementRef;
   public inView: boolean;
 }
 
 export abstract class TabsItems {
   public tabItems: BehaviorSubject<TabItemBase[]> = new BehaviorSubject<TabItemBase[]>([]);
-  public tabItemCount = 0;
+  public tabItemCount: number = 0;
+
   public registerTabItem(tab: TabItemBase): void {
     this.tabItems.getValue().push(tab);
 
@@ -23,6 +23,7 @@ export abstract class TabsItems {
       tab.id = `${this.tabItemCount++}`;
     }
   }
+
   public unregisterTabItem(tab: TabItemBase): void {
     this.tabItems.next(this.tabItems.getValue().filter(i => i !== tab));
   }
@@ -31,14 +32,13 @@ export abstract class TabsItems {
 const SCROLL_OVERFLOW = 48;
 
 export abstract class TabsPagination extends TabsItems implements AfterViewInit {
+  private _scrollOffset: number = 0;
 
   @Input() hideControls: boolean;
-
   @ViewChild('wrapper', {static: true}) public wrapper: ElementRef;
   @ViewChild('labelWrapper', {static: true}) public labelWrapper: ElementRef;
 
   public overflow: boolean;
-
   public disableAfter: boolean;
   public disableBefore: boolean;
 
@@ -50,13 +50,11 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
     this._scroll(value);
   }
 
-  private _scrollOffset = 0;
-
   constructor() {
     super();
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     fromEvent(window, 'resize')
       .pipe(debounceTime(100))
       .subscribe(() => {
@@ -79,8 +77,8 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
 
     let childrenWidth = 0;
 
-    for (let i = 0; i < elArr.length; i++) {
-      childrenWidth += elArr[i].labelElement.nativeElement.offsetWidth;
+    for (const item of elArr) {
+      childrenWidth += item.labelElement.nativeElement.offsetWidth;
     }
 
     this.overflow = el.offsetWidth < childrenWidth;
@@ -142,7 +140,9 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
 
   private _scroll(value: number) {
     const maxScroll = this._maxScrollLength();
-    if (maxScroll - value <= 10) { value = maxScroll; }
+    if (maxScroll - value <= 10) {
+      value = maxScroll;
+    }
     this._scrollOffset = Math.max(0, Math.min(maxScroll, value));
     this._checkScrollControls();
   }
@@ -156,7 +156,8 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
       const {offsetWidth, offsetLeft} = i.labelElement.nativeElement;
       const offsetView = offsetLeft + offsetWidth;
 
-      i.inView = !(offsetLeft < this.scrollOffset || (offsetView > (this.wrapper.nativeElement.offsetWidth + this.scrollOffset)));
+      i.inView = !(offsetLeft < this.scrollOffset ||
+        (offsetView > (this.wrapper.nativeElement.offsetWidth + this.scrollOffset)));
     });
   }
 
@@ -171,6 +172,12 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
 }
 
 export abstract class TabsBase extends TabsPagination implements OnInit {
+  private _selectedTabId: string;
+  private _selectedLabel: HTMLElement;
+
+  @Input() public type: 'basic' | 'ios' = 'basic';
+  @Input() public fullWidth: boolean;
+  @Input() public disabled: boolean;
 
   public set selectedTabId(id: string) {
     if (id) {
@@ -197,12 +204,7 @@ export abstract class TabsBase extends TabsPagination implements OnInit {
   public get selectedLabel(): HTMLElement {
     return this._selectedLabel;
   }
-  @Input() public type: 'basic' | 'ios' = 'basic';
-  @Input() public fullWidth: boolean;
-  @Input() public disabled: boolean;
-  private _selectedTabId: string;
 
-  private _selectedLabel: HTMLElement;
 
   ngOnInit(): void {
     this.tabItems.pipe(
@@ -212,26 +214,26 @@ export abstract class TabsBase extends TabsPagination implements OnInit {
     });
   }
 
-  private _setItemsPosition(id = this.selectedTabId) {
+  private _setItemsPosition(id: string = this.selectedTabId) {
     const items = this.tabItems.getValue();
 
     let active = -1;
 
-    for (let i = 0; i < items.length; i++) {
-      items[i].position = -1;
+    for (let [index, item] of items.entries()) {
+      item.position = -1;
 
       if (id) {
-        if (items[i].id === id) {
-          active = i;
+        if (item.id === id) {
+          active = index;
         }
       } else {
-        if (items[i].selected) {
-          active = i;
+        if (item.selected) {
+          active = index;
         }
       }
 
       if (active > -1) {
-        items[i].position = (active === i) ? 0 : 1;
+        item.position = (active === index) ? 0 : 1;
       }
     }
   }
