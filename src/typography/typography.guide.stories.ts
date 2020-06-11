@@ -1,6 +1,6 @@
 import { withKnobs } from '@storybook/addon-knobs';
-import { IconsModule } from '../2-icons/icons.module';
-import { TypographyGuideline } from './examples/typography-page.component';
+import { IconsModule } from '../2-icons';
+import { TypographyPageComponent } from './examples/typography-page.component';
 
 export default {
   title: 'Гайдлайни|Типографiка',
@@ -13,7 +13,7 @@ export default {
 export const component = () => ({
   moduleMetadata: {
     declarations: [
-      TypographyGuideline,
+      TypographyPageComponent,
     ],
     imports: [IconsModule]
   },

@@ -1,18 +1,26 @@
-import { Component, Input } from '@angular/core';
+import { Component } from '@angular/core';
+
+interface ITypographyItem {
+  header: string;
+  headerValue: string;
+  font: string;
+  size: string;
+  lineHeight: string;
+  letterSpacing: string;
+}
 
 @Component({
   selector: 'mill-typography-overview',
   templateUrl: './typography-page.component.html',
   styleUrls: ['./typography-page.component.scss', '../../assets/styles/overview.scss']
 })
+export class TypographyPageComponent {
+  private readonly fontGilroyBold: string = 'Gilroy Bold';
+  private readonly fontGilroyMedium: string = 'Gilroy Medium';
+  private readonly fontGilroySemibold: string = 'Gilroy Semibold';
+  private readonly fontRobotoMonoRegular: string = 'Roboto Mono Regular';
 
-export class TypographyGuideline {
-  private readonly fontGilroyBold = 'Gilroy Bold';
-  private readonly fontGilroyMedium = 'Gilroy Medium';
-  private readonly fontGilroySemibold = 'Gilroy Semibold';
-  private readonly fontRobotoMonoRegular = 'Roboto Mono Regular';
-
-  typographyItems = [
+  typographyItems: ITypographyItem[] = [
     {
       header: 'h1',
       headerValue: 'Title H1',
