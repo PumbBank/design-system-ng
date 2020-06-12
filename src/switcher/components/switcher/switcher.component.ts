@@ -31,44 +31,34 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
   /** Reference to the switcher */
   @ViewChild('switcher', {static: true})
   private _switcher: ElementRef;
-
   /** Switcher width */
   private _switcherWidth: number;
-
   /** The maximum possible position in px */
   private _maxPositionPx: number;
+  /** The result of moving */
+  private _moveCounter: number;
+  /** Current target position */
+  private _targetPosition: number;
+  /** Object of observables with event binding  */
+  private _eventSubscriptions$: Subscription[] = [];
+  /** Disable state for switcher */
+  @Input() public disabled: boolean = false;
+  /** Output */
+    // tslint:disable-next-line:no-output-rename
+  @Output('value') public statusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
+  /** Current position in px */
+  public positionPx: number;
+  /** Flag if switcher was moved */
+  public isMoved: boolean = false;
 
   /** Active state for switcher */
   @Input()
   public set active(value: boolean) {
     this._active = value;
   }
-
   public get active(): boolean | null {
     return this._active;
   }
-
-  /** Disable state for switcher */
-  @Input() public disabled: boolean = false;
-
-  /** Output */
-  // tslint:disable-next-line:no-output-rename
-  @Output('value') public statusChange: EventEmitter<boolean> = new EventEmitter<boolean>();
-
-  /** Current position in px */
-  public positionPx: number;
-
-  /** The result of moving */
-  private _moveCounter: number;
-
-  /** Current target position */
-  private _targetPosition: number;
-
-  /** Flag if switcher was moved */
-  public isMoved: boolean = false;
-
-  /** Object of observables with event binding  */
-  private _eventSubscriptions$: Subscription[] = [];
 
   ngOnChanges(): void {
     this._checkPosition();
@@ -89,7 +79,8 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
     this._onChange = fn;
   }
 
-  registerOnTouched(fn: any): void {}
+  registerOnTouched(fn: any): void {
+  }
 
   setDisabledState(isDisabled: boolean): void {
     this.disabled = isDisabled;
