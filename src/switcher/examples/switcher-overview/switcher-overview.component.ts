@@ -7,4 +7,11 @@ import { Component } from '@angular/core';
 })
 
 export class SwitcherOverviewComponent {
+  switcherActive: any = null;
+
+  constructor() {
+    setTimeout(() => {
+      this.switcherActive = true;
+    }, 10000);
+  }
 }

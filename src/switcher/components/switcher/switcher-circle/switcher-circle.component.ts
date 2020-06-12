@@ -1,8 +1,19 @@
-import { Component, ElementRef, EventEmitter, HostListener, Input, OnInit, Output, ViewChild } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  ElementRef,
+  EventEmitter,
+  HostListener,
+  Input,
+  OnInit,
+  Output,
+  ViewChild
+} from '@angular/core';
 
 @Component({
   selector: 'switcher-circle',
   templateUrl: './switcher-circle.component.html',
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SwitcherCircleComponent implements OnInit {
 

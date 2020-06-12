@@ -1,4 +1,5 @@
 import {
+  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
   ElementRef,
   EventEmitter,
@@ -24,7 +25,8 @@ import { fromEvent, Subscription } from 'rxjs';
       useExisting: forwardRef(() => SwitcherComponent),
       multi: true,
     }
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccessor {
   private _active: boolean = null;
@@ -55,17 +57,21 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
   @Input()
   public set active(value: boolean) {
     this._active = value;
+    this._cdr.markForCheck();
   }
   public get active(): boolean | null {
     return this._active;
   }
 
-  ngOnChanges(): void {
-    this._checkPosition();
+  constructor(private _cdr: ChangeDetectorRef) {
   }
 
   ngOnInit(): void {
     this._setSwitcherWidth();
+  }
+
+  ngOnChanges(): void {
+    this._checkPosition();
   }
 
   /** Control value accessor methods */
