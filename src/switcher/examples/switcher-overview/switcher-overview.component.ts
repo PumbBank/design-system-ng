@@ -6,5 +6,5 @@ import { Component } from '@angular/core';
   styleUrls: ['./switcher-overview.component.scss', '../../../assets/styles/overview.scss']
 })
 
-export class SwitcherOverview {
+export class SwitcherOverviewComponent {
 }
