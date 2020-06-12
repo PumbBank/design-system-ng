@@ -67,7 +67,7 @@ export class TableBadge {
     this.badge = badge;
   }
 
-  getBadgeByType(type: string) {
+  getBadgeByType(type: string): {color: string, icon: string} {
     const badgeType = {
       color: null,
       icon: null
