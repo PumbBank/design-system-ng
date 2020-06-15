@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
 import { FormGroup, Validators, FormControl } from '@angular/forms';
 
 @Component({
@@ -6,13 +6,13 @@ import { FormGroup, Validators, FormControl } from '@angular/forms';
   templateUrl: './select-page.component.html',
   styleUrls: ['./select-page.component.scss', '../../assets/styles/overview.scss']
 })
-export class SelectOverviewComponent {
+export class SelectOverviewComponent implements OnInit {
   @Input() label: string;
 
-  invalid =  new FormControl('', Validators.required);
-  valid =  new FormControl('');
+  invalid: FormControl =  new FormControl('', Validators.required);
+  valid: FormControl =  new FormControl('');
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.invalid.markAsTouched();
     this.valid.markAsTouched();
   }
