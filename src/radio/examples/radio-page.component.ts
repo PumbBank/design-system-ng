@@ -10,5 +10,5 @@ export class RadioOverviewComponent {
   @Input() label: string;
   @Input() hideLabel: boolean;
 
-  oneGroup = 'oneGroup';
+  oneGroup: string = 'oneGroup';
 }
