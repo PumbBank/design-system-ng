@@ -1,8 +1,7 @@
 import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy } from '@angular/core';
 import { ValidationErrors } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
-import { RequirebleComponent } from '../../utils';
-import { ErrorMessageHelper } from '../../utils';
+import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
 
 
 export type CleanFunction = (inputValue: any) => string;
@@ -12,7 +11,7 @@ const DEFAULT_CLEAN_FUNCTION = (inputValue: any): string => inputValue;
 export class MillInput extends RequirebleComponent implements OnChanges, OnDestroy {
 
   constructor(
-    private input: HTMLInputElement,
+    public input: HTMLInputElement,
     public renderer: Renderer2,
   ) {
     super();
@@ -69,7 +68,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     this.messagePresentationObserver.disconnect();
   }
 
-  registerOnChange(fn: (value: string) => void): void {
+  registerOnChange(fn: (value: string | number) => void): void {
     this.onChangeCallback = fn;
     setTimeout(() => fn(this.input.value));
   }

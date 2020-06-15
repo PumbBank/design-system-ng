@@ -22,11 +22,11 @@ export class InputNumberDirective extends MillInput implements ControlValueAcces
     super(inputElementRef.nativeElement, renderer);
   }
 
-  registerOnChange(fn: Function) {
+  registerOnChange(fn: (v: string | number) => void): void {
     super.registerOnChange((value: string) => !!value ? fn(parseFloat(value)) : fn(value));
   }
 
-  protected cleanFunction: CleanFunction = function(inputValue: any) {
+  protected cleanFunction: CleanFunction = (inputValue: any): string => {
 
     inputValue = inputValue || inputValue === 0 ? String(inputValue) : '';
 
@@ -35,6 +35,5 @@ export class InputNumberDirective extends MillInput implements ControlValueAcces
       .replace(/[\,]/g, '.')
       .replace(/(\.+\d{0,})(?:\.)/g, '$1')
       .replace(/[^0-9\.-]/g, '');
-
-  };
+  }
 }
