@@ -65,8 +65,7 @@
     "no-consecutive-blank-lines": false,
     "no-console": [
       true,
-      "log",
-      "error"
+      "log"
     ],
     "no-constant-condition": true,
     "no-duplicate-imports": true,

@@ -6,5 +6,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./switcher-overview.component.scss', '../../../assets/styles/overview.scss']
 })
 
-export class SwitcherOverview {
+export class SwitcherOverviewComponent {
+  switcherActive: any = null;
+
+  constructor() {
+    setTimeout(() => {
+      this.switcherActive = true;
+    }, 10000);
+  }
 }
