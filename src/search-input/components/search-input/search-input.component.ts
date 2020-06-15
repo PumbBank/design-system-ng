@@ -43,22 +43,22 @@ enum KeyEnum {
 export class SearchInputComponent implements OnInit, ControlValueAccessor {
 
   /** State for the whole input */
-  public active = false;
+  public active: boolean = false;
 
   /** Selected item index */
-  public activeItemIndex = -1;
+  public activeItemIndex: number = -1;
 
   /** Disable state */
-  @Input() public disabled = false;
+  @Input() public disabled: boolean = false;
 
   /** While async true, component output object with current value and wait for the search list */
-  @Input() public async = false;
+  @Input() public async: boolean = false;
 
   /** Placeholder for the input */
-  @Input() public placeholder = 'Placeholder';
+  @Input() public placeholder: string = 'Placeholder';
 
   /** Search input, */
-  public inputValue = new FormControl();
+  public inputValue: FormControl = new FormControl();
 
   /** Array of elements to show in UI */
   public showList: ListInterface[] = [];
@@ -95,7 +95,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
   }
 
   /** Output object with value */
-  @Output('search') public searchOutput: EventEmitter<OutputInterface> = new EventEmitter<OutputInterface>();
+  @Output() public searchOutput: EventEmitter<OutputInterface> = new EventEmitter<OutputInterface>();
 
   /** View input element ref */
   @ViewChild('inputEl', {static: true})
@@ -103,7 +103,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 
   /** Disable active when clicked outside input */
   @HostListener('document:click', ['$event.target'])
-  public clickOutside(target) {
+  public clickOutside(target: HTMLElement): void {
     if (!this._elementRef.nativeElement.contains(target)) {
       this.active = false;
     }
@@ -112,7 +112,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
   constructor(private _elementRef: ElementRef) {
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     // Subscribe to input value changes
     this.inputValue.valueChanges
       .pipe(
@@ -155,8 +155,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
       this._resultList.subscribe(result => {
         // If result list exist concat him with history, otherwise show last 4 elements from history list
         if (result && result.length > 0) {
-          const history = this._filter(this._historyList, this.inputValue.value);
-          this.showList = history.concat(result);
+          this.showList = this._filter(this._historyList, this.inputValue.value).concat(result);
         } else {
           this.showList = this._historyList.slice(0, 4);
         }
@@ -239,7 +238,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
   }
 
   /** Remove record from history (local storage) */
-  public removeFromHistory(event, value: string): void {
+  public removeFromHistory(event: Event, value: string): void {
     event.stopPropagation();
 
     this._historyList = this._historyList.filter(item => item.value !== value);
@@ -291,7 +290,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
   }
 
   /** Modify result option text with bold style */
-  public isBold(value: string, isHistory: boolean, index): boolean {
+  public isBold(value: string, isHistory: boolean, index: number): boolean {
     const input = this.inputValue.value ? this.inputValue.value.toLowerCase() : '';
     value = value.toLowerCase();
 
@@ -299,8 +298,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
   }
 
   /** Control value accessor methods */
-  private _onTouched: any = () => {
-  }
+  private _onTouched: any = () => {};
 
   public registerOnChange(fn: any): void {
     this.inputValue.valueChanges.subscribe(fn);
