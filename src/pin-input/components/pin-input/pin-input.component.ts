@@ -1,5 +1,4 @@
 import { Component, Input, Output, EventEmitter } from '@angular/core';
-import { BehaviorSubject } from 'rxjs';
 
 const DEFAULT_LENGTH = 4;
 const DEFAULT_PATTERN = /\d/;
@@ -14,17 +13,16 @@ const RIGHT_KEY = 'ArrowRight';
   styleUrls: ['./pin-input.scss']
 })
 export class PinInputComponent {
-  charsArray = new Array(DEFAULT_LENGTH).fill('');
+  charsArray: string[] = new Array(DEFAULT_LENGTH).fill('');
 
-  focused = false;
-  focusedIndex = 0;
+  focused: boolean = false;
+  focusedIndex: number = 0;
 
-  @Input() invalid = false;
-  @Input() errorMessage = '';
-  @Input() disable = false;
+  @Input() invalid: boolean = false;
+  @Input() errorMessage: string = '';
+  @Input() disable: boolean = false;
 
-  @Input()
-  pattern: RegExp = DEFAULT_PATTERN;
+  @Input() pattern: RegExp = DEFAULT_PATTERN;
 
   @Input()
   set length(value: number) {
@@ -59,8 +57,8 @@ export class PinInputComponent {
     return this.charsArray.join('');
   }
 
-  @Output() valueChanges = new EventEmitter<string>();
-  @Output() enter = new EventEmitter<any>();
+  @Output() valueChanges: EventEmitter<string> = new EventEmitter<string>();
+  @Output() enter: EventEmitter<any> = new EventEmitter<any>();
 
   handleInput(e: KeyboardEvent): void {
     if (this.disable) {
@@ -105,24 +103,23 @@ export class PinInputComponent {
     e.preventDefault();
   }
 
-  onCeilClick(index: number) {
+  onCeilClick(index: number): void {
     this.focusedIndex = index;
     while (this.focusedIndex > 0 && this.charsArray[this.focusedIndex - 1] === '') {
       this.focusedIndex--;
     }
   }
 
-  onFocus() {
+  onFocus(): void {
     // this.focusedIndex = 0;
     this.focused = true;
   }
 
-  onBlur() {
+  onBlur(): void {
     this.focused = false;
   }
 
-
-  trackByFn(index: number) {
+  trackByFn(index: number): number {
     return index;
   }
 }
