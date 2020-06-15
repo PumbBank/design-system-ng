@@ -5,6 +5,6 @@ import { Component } from '@angular/core';
   templateUrl: './slider-overview.component.html',
   styleUrls: ['./slider-overview.component.scss', '../../../assets/styles/overview.scss']
 })
-export class SliderOverview {
+export class SliderOverviewComponent {
 
 }

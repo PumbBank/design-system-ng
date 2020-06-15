@@ -1,14 +1,12 @@
-import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
+import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { EventOutputInterface, SliderConfigInterface, ThumbNameEnum } from '../../../slider';
 
 @Component({
   selector: 'slider-thumb',
   templateUrl: './slider-thumb.component.html',
-  host: {
-    '[tabIndex]': '0',
-  }
 })
 export class SliderThumbComponent {
+  @HostBinding('tabIndex') private _tabIndex: number = 0;
 
   /** Thumb name (min or max value) */
   @Input() thumbName: ThumbNameEnum;
