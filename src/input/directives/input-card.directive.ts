@@ -1,4 +1,4 @@
-import { MillInput } from '..';
+import { MillInput } from '../component/input';
 import {
   AbstractControl,
   ControlValueAccessor,
