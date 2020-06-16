@@ -57,7 +57,7 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
 
   constructor(private _cdr: ChangeDetectorRef) { }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.listSide && changes.listSide.currentValue) {
       this.setListSide(changes.listSide.currentValue);
     }
@@ -67,17 +67,17 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     this._cdr.markForCheck();
   }
 
-  chooseFileClick() {
+  chooseFileClick(): void {
     if (this.fileInput && this.fileInput.nativeElement) {
       this.fileInput.nativeElement.click();
     }
   }
 
-  onFileLoaded(event: any) {
+  onFileLoaded(event: any): void {
     if (event && event.currentTarget) {
       const files = event.currentTarget.files as FileList;
       const singleFile = files.item(0);
@@ -86,11 +86,11 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
     }
   }
 
-  removeFileClick(index: number) {
+  removeFileClick(index: number): void {
     this.files.splice(index, 1);
   }
 
-  private setListSide(side: ListSide) {
+  private setListSide(side: ListSide): void {
     switch (side) {
       case ListSide.Left:
         this.side = 'ltr';
