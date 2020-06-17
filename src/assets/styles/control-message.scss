@@ -21,7 +21,7 @@
 .control-message {
   display: flex;
   flex-direction: row;
-  align-items: center;
+  align-items: baseline;
   color: $grey-70;
   height: 19px;
 }
@@ -37,8 +37,11 @@
 .control-message__text {
   @extend %p2;
 
-  white-space: normal;
-  text-overflow: ellipsis;
+  overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
 }
 
 .control-message_disabled {

@@ -1,4 +1,4 @@
-<div role="listbox" class="select" [class.select__isDisabled]="disabled" (clickOutside)="onSearchInputBlur()">
+<div role="listbox" class="select" [style.minWidth]="multiple ? '200px': '100px'" [class.select__isDisabled]="disabled" (clickOutside)="onSearchInputBlur()">
   <ng-container *ngTemplateOutlet="defaultHeaderTemplate; context: this"></ng-container>
 
   <ng-container *ngIf="active$.value || !isNotRenderInactiveBodyMode">
@@ -51,7 +51,7 @@
 -->
 <ng-template #defaultBodyTemplate>
   <ngx-simplebar [options]="options" #selectBodyElement class="option-list" [class.option-list_active]="active$.value"
-    (mouseover)="onBodyMouseOver()" (mouseout)="onBodyMouseOut()">
+    (mouseover)="onBodyMouseOver()" (mouseout)="onBodyMouseOut()" [style.minWidth]="multiple ? '200px': '100px'">
     <ng-container *ngFor="let option of (options$ | async); index as i">
 
       <ng-container *ngTemplateOutlet="defaultOptionTemplate; context: { option: option, i: i }">
