@@ -75,7 +75,7 @@
     "no-eval": true,
     "no-hardcoded-credentials": false,
     "no-host-metadata-property": true,
-    "no-inferrable-types": [true, "ignore-properties"],
+    "no-inferrable-types": [true, "ignore-properties", "ignore-params"],
     "no-inner-declarations": [
       true,
       "function"

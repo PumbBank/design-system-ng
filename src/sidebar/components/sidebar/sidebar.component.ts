@@ -1,4 +1,4 @@
-import { Component, Input, OnChanges, SimpleChanges, EventEmitter, OnInit } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, EventEmitter, OnInit, HostBinding, Host } from '@angular/core';
 import { SidebarController } from '../../services/sidebar-cotroller.service';
 import { takeUntil } from 'rxjs/operators';
 import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubscriber';
@@ -10,19 +10,18 @@ import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubsc
   providers: [
     SidebarController
   ],
-  host: {
-    class: 'sidebar',
-    '[class.sidebar_collapsed]': 'collapsed'
-  }
 })
 export class SidebarComponent extends ComponentWithUnsubscriber implements OnInit, OnChanges {
-  scrolled = false;
+  scrolled: boolean = false;
 
-  @Input() collapsed = false;
-  @Input() collapsedChange = new EventEmitter<boolean>();
+  @HostBinding('class') readonly hostClass: string = 'sidebar';
+  @HostBinding('class.sidebar_collapsed') get collapsedClass(): boolean { return this.collapsed; }
+
+  @Input() collapsed: boolean = false;
+  @Input() collapsedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   @Input() logo: string;
-  @Input() version = 'v3.4.2';
+  @Input() version: string = 'v3.4.2';
 
   constructor(
     public sidebarController: SidebarController
@@ -32,13 +31,13 @@ export class SidebarComponent extends ComponentWithUnsubscriber implements OnIni
     this.bindCollapsedWithController();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
-    if (changes.collapsed) {
-      this.sidebarController.collapsed$;
-    }
+  ngOnChanges(changes: SimpleChanges): void {
+    // if (changes.collapsed) {
+    //   this.sidebarController.collapsed$;
+    // }
   }
 
-  onScroll(e: Event) {
+  onScroll(e: Event): void {
     this.scrolled = (e.target as HTMLElement).scrollTop > 0;
   }
 
