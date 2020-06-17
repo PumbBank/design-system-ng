@@ -269,6 +269,30 @@
 
 }
 
+.table-row__not_found {
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 0;
+}
+
+.table-row__not_found_text {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  margin-left: 12px;
+
+  & >.h6 {
+    margin-bottom: 9px;
+  }
+
+  & >.p1 {
+    max-width: 180px;
+  }
+}
+
 .table-header-row__cell, .table-row__cell {
 
   padding: 4px 0 4px 16px;
