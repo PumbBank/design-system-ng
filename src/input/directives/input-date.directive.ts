@@ -31,6 +31,8 @@ export class InputDateDirective extends MillInput implements ControlValueAccesso
     public inputElementRef: ElementRef
   ) {
     super(inputElementRef.nativeElement, renderer);
+    renderer.setStyle(this.wrapperElement, 'minWidth', '124px');
+    
   }
 
   ngOnInit() {
