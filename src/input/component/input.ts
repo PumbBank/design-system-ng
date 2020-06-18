@@ -210,6 +210,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       this.renderer.addClass(this.msgIconElement, 'icon_valid');
       this.renderer.removeClass(this.msgIconElement, 'icon_warning');
     } else {
+      this.renderer.removeClass(this.wrapperElement, 'input_error');
       this.renderer.removeClass(this.wrapperElement, 'input_warning');
       this.renderer.removeClass(this.wrapperElement, 'input_valid');
       this.renderer.addClass(this.wrapperElement, 'input_info');
