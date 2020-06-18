@@ -37,6 +37,10 @@ export class SelectComponent<K = any, P = any> extends AbstractSelectUserCommuni
     return this.element.nativeElement.classList.contains('ng-invalid');
   }
 
+  get selectMinWidth(): string {
+    return this.multiple ? '200px' : '100px';
+  }
+
   constructor(private element: ElementRef) {
     super();
   }
