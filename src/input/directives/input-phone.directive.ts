@@ -1,4 +1,4 @@
-import { CleanFunction, MillInput } from '..';
+import { CleanFunction, MillInput } from '../component/input';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Directive, ElementRef, forwardRef, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { createTextMaskInputElement } from 'text-mask-core/dist/textMaskCore';
