@@ -3,7 +3,7 @@ import { CommonModule } from '@angular/common';
 import { withKnobs } from '@storybook/addon-knobs';
 import { InputModule } from '../input.module';
 import { InputOverviewComponent } from '../examples/input-overview/input-overview.component';
-import { IconsModule } from '../../2-icons/icons.module';
+import { IconsModule } from '../../2-icons';
 
 export default {
   title: 'Компоненти|Inputs',

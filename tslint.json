@@ -156,7 +156,8 @@
       "check-operator",
       "check-separator",
       "check-type"
-    ]
+    ],
+    "interface-over-type-literal": false
   },
   "rulesDirectory": [
     "codelyzer"

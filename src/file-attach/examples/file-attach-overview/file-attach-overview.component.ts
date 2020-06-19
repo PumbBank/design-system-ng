@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FileAttachView } from "../..";
+import { FileAttachView } from '../..';
 
 @Component({
   selector: 'file-attach-overview',
@@ -16,11 +16,11 @@ export class FileAttachOverviewComponent {
     this.generateStabs();
   }
 
-  private generateStabs() {
+  private generateStabs(): void {
     const files = [];
     for (let i = 0; i < 10; i++) {
-      const file = new File(["foo"], `foo_${i + 1}.txt`, {
-        type: "text/plain",
+      const file = new File(['foo'], `foo_${i + 1}.txt`, {
+        type: 'text/plain',
       });
       if (i === 2) {
         files.push({name: file.name, isError: true, file});

@@ -12,7 +12,6 @@ export class InputOverviewComponent implements OnInit {
   dateControl: FormControl = new FormControl('', (v) => new Date(v.value).getFullYear() < 2000 ? { errorMessage: 'Рік менше 2000' } : null);
   cardControl: FormControl = new FormControl('', Validators.required);
   digitControl: FormControl = new FormControl('', (v) => v.value < 1000 ? { errorMessage: 'Кількість більше 1000' } : null);
-  moneyControl: FormControl = new FormControl('', (v) => v.value > 99.99 ? { errorMessage: 'Максимальна ціна 99,99' } : null);
   validControl: FormControl = new FormControl('');
   errorControl: FormControl = new FormControl('', (v) => !v.value ? { errorMessage: 'Текст повідомлення' } : null);
   infoControl: FormControl = new FormControl('');
