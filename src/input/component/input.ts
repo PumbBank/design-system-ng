@@ -3,7 +3,6 @@ import { ValidationErrors } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
 
-
 export type CleanFunction = (inputValue: any) => string;
 
 const DEFAULT_CLEAN_FUNCTION = (inputValue: any): string => inputValue;
@@ -94,6 +93,36 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       : this.renderer.removeClass(this.wrapperElement, 'input_disabled');
   }
 
+  protected replaceIconToImage(src: string, width?: string, height?: string): void {
+    if (!src) {
+      this.renderer.removeClass(this.iconElement, 'icon__image');
+      this.renderer.removeStyle(this.iconElement, 'width');
+      this.renderer.removeStyle(this.iconElement, 'height');
+      this.renderer.removeStyle(this.iconElement, 'background-image');
+      this.renderer.removeStyle(this.iconElement, 'background-repeat');
+      this.renderer.addClass(this.iconElement, 'icon');
+      this.renderer.addClass(this.iconElement, 'input__icon');
+      this.renderer.addClass(this.iconElement, 'icon_' + this.icon);
+    } else {
+      this.iconElement.classList.forEach((cl) => {
+        if (cl.match(/icon_/)) {
+          this.renderer.removeClass(this.iconElement, cl);
+        }
+      });
+      this.renderer.removeClass(this.iconElement, 'icon');
+      this.renderer.removeClass(this.iconElement, 'input__icon');
+      this.renderer.addClass(this.iconElement, 'icon__image');
+      this.renderer.setStyle(this.iconElement, 'background-image', `url('${src}')`);
+      this.renderer.setStyle(this.iconElement, 'background-repeat', 'no-repeat');
+      if (width) {
+        this.renderer.setStyle(this.iconElement, 'width', width);
+      }
+      if (height) {
+        this.renderer.setStyle(this.iconElement, 'height', height);
+      }
+    }
+  }
+
   private updateValidationState(invalid: boolean = false): void {
     this.invalid = invalid;
   }
@@ -105,7 +134,6 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     }
     this.touched = false;
   }
-
 
   private watchInputValueChanges(): void {
     this.input.addEventListener('input', () => {
@@ -182,6 +210,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       this.renderer.addClass(this.msgIconElement, 'icon_valid');
       this.renderer.removeClass(this.msgIconElement, 'icon_warning');
     } else {
+      this.renderer.removeClass(this.wrapperElement, 'input_error');
       this.renderer.removeClass(this.wrapperElement, 'input_warning');
       this.renderer.removeClass(this.wrapperElement, 'input_valid');
       this.renderer.addClass(this.wrapperElement, 'input_info');

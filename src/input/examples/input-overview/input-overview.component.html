@@ -10,21 +10,28 @@
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Basic</div>
       <div class="overview__container">
-        <input millInput="text" [formControl]="nameControl" [valid]="nameControl.valid"
-               [errors]="nameControl.errors" required caption="Enter Name" placeholder="Placeholder">
+        <input millInput="text" [formControl]="nameControl" 
+               [errors]="nameControl.errors"  caption="Enter Name" placeholder="Placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">With icon</div>
       <div class="overview__container">
-        <input icon="user" millInput="text" [formControl]="nameControlWithIcon" [valid]="nameControlWithIcon.valid"
+        <input icon="user" millInput="text" [formControl]="nameControlWithIcon"
                [errors]="nameControlWithIcon.errors" required caption="Enter Name" placeholder="Placeholder">
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Card number</div>
+      <div class="overview__container">
+        <input icon="card" millInput="card" [formControl]="cardControl" [valid]="cardControl.valid"
+               [errors]="cardControl.errors" required caption="Enter card number" placeholder="0000 0000 0000 0000">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Date</div>
       <div class="overview__container">
-        <input millInput="date" [formControl]="dateControl" [valid]="dateControl.valid" [errors]="dateControl.errors"
+        <input millInput="date" [formControl]="dateControl" [errors]="dateControl.errors"
         required caption="Enter Date" placeholder="дд.мм.гггг">
       </div>
     </div>
@@ -68,6 +75,13 @@
       <div class="overview__container overview__container_row">
         <input  millInput="text" [cleanup]="true"
               caption="Enter Name" placeholder="Placeholder">
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Phone</div>
+      <div class="overview__container overview__container_row">
+        <input  millInput="phone" type="tel" icon="phone" inputmode="tel" [formControl]="phoneControl"
+                caption="Enter phone" placeholder="+380 (00) 000-00-00">
       </div>
     </div>
   </div>

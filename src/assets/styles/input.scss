@@ -18,6 +18,7 @@
   padding: 1px 0 2px 0;
   display: inline-block;
   width: 100%;
+  min-width: 100px;
 
   &:not(&_disabled):hover {
     .input__body {
@@ -57,6 +58,9 @@
   color: $grey-70;
   margin-bottom: 2px;
   height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
 }
 
 .input__icon {
@@ -65,6 +69,12 @@
 
   margin: 0 13px 0 -4px;
   min-width: 24px;
+}
+
+.icon__image {
+  min-height: 24px;
+  min-width: 24px;
+  margin: 0 10px 0 0;
 }
 
 .input__body {
@@ -106,11 +116,10 @@
   outline: none;
   background: transparent;
   height: 44px;
-  padding: 0 18px;
+  padding: 0 16px;
   box-sizing: border-box;
   width: 100%;
   color: $grey-70;
-  min-width: 128px;
 }
 
 input::placeholder {
@@ -140,6 +149,8 @@ input::placeholder {
   color: $grey-40;
   padding: 10px 0 0 16px;
   min-height: 46px;
+  width: calc(100% - 14px);
+  overflow: hidden;
 }
 
 .input__footer {

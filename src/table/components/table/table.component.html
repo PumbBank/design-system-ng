@@ -63,7 +63,13 @@
           class="table-row"
           style="align-items: center; font-size: 14px; padding-left: 16px"
         >
-          Данные отсутствуют или не найдены
+          <div class="table-row__not_found">
+            <img src="/assets/images/states/not-found.svg" alt="not-found">
+            <div class="table-row__not_found_text">
+              <span class="h6">Нічого не знайшлося</span>
+              <span class="p1">Спробуйте пошукати по-іншому, будь ласка</span>
+            </div>
+          </div>
         </div>
         <div
           *ngFor="let row of viewData$ | async"
