@@ -31,11 +31,25 @@
             </div>
             <div class="mill-color-palette__color-code p3" *ngIf="!colorItem.gradient">
               <div class="mill-color-palette__color-label">hex</div>
-              <div class="mill-color-palette__color-value">{{colorItem.hex}}</div>
+              <div
+                class="mill-color-palette__color-value"
+                title="Copy to clipboard"
+                (click)="copyColor(colorItem.hex)"
+              >
+                {{colorItem.hex}}
+                <div class="mill-color-palette__preview p2">copy</div>
+              </div>
             </div>
             <div class="mill-color-palette__color-code p3" *ngIf="!colorItem.gradient">
               <div class="mill-color-palette__color-label">rgb</div>
-              <div class="mill-color-palette__color-value">{{colorItem.rgb}}</div>
+              <div
+                class="mill-color-palette__color-value"
+                title="Copy to clipboard"
+                (click)="copyColor(colorItem.rgb)"
+              >
+                {{colorItem.rgb}}
+                <div class="mill-color-palette__preview p2">copy</div>
+              </div>
             </div>
 
             <div class="mill-color-palette__color-code p3" *ngIf="colorItem.gradient">

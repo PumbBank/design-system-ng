@@ -105,3 +105,43 @@ body {
   color: $main-primary-dark;
   margin: 0;
 }
+
+.copy-color-popup {
+  position: fixed;
+  top: 0;
+  left: 50%;
+  animation: copy-color-popup-appearance 1.9s linear forwards;
+  background-color: rgba($main-primary-dark, 90%);
+  border-radius: 5px;
+  box-shadow: 0 0 6px 3px rgba($main-primary-dark, 30%);
+  color: $other-white;
+  font-family: "Gilroy", sans-serif;
+  padding: 5px 10px;
+  transform: translate(-50%, 10vh);
+}
+
+@keyframes copy-color-popup-appearance {
+  0% {
+    opacity: 0;
+    transform: translate(-50%, 0);
+    visibility: hidden;
+  }
+
+  10% {
+    opacity: 1;
+    transform: translate(-50%, 3vh);
+    visibility: visible;
+  }
+
+  90% {
+    opacity: 1;
+    transform: translate(-50%, 3vh);
+    visibility: visible;
+  }
+
+  100% {
+    opacity: 0;
+    transform: translate(-50%, 0);
+    visibility: hidden;
+  }
+}
