@@ -13,8 +13,10 @@
   color: $grey-60;
   transition: color 0.2s ease-in-out;
 
-  &:hover {
+  &:hover,
+  &:focus {
     color: $grey-70;
+    outline: none;
 
     .mill-checkbox__item {
       border-color: $red-40;
