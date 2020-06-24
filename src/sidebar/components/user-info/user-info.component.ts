@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, SimpleChanges, OnChanges, Optional } from '@angular/core';
+import { Component, Input, OnInit, SimpleChanges, OnChanges, Optional, HostBinding } from '@angular/core';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
 import { SidebarController } from '../../../sidebar/services/sidebar-cotroller.service';
 import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubscriber';
@@ -9,10 +9,6 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
   selector: 'user-info',
   templateUrl: './user-info.component.html',
   styleUrls: ['./user-info.component.scss'],
-  host: {
-    '[class.uesr-info_collapsed]': 'collapsed',
-    '[@collapsing]': 'collapsed ? "collapsed" : "uncollapsed"'
-  },
   animations: [
     trigger('collapsing', [
       state('collapsed', style({ height: '0px', width: '0px', border: '0px transparent solid' })),
@@ -25,6 +21,9 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
 })
 export class UserInfoComponent extends ComponentWithUnsubscriber implements OnInit, OnChanges {
   avatarStyle: SafeStyle;
+
+  @HostBinding('class.nav-item_collapsed') get collapsedClass(): boolean { return this.collapsed; }
+  @HostBinding('@collapsing') get animation(): string { return this.collapsed ? 'collapsed' : 'uncollapsed'; }
 
   @Input() avatar: string;
   @Input() username: string;
@@ -55,7 +54,7 @@ export class UserInfoComponent extends ComponentWithUnsubscriber implements OnIn
 
   private bindCollapsedWithController(): void {
     if (!this.sidebarController) { return; }
-    
+
     this.collapsed = this.sidebarController.collapsed$.value;
     this.sidebarController.collapsed$
       .pipe(takeUntil(this.unsubscriber$))

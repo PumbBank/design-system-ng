@@ -2,7 +2,7 @@ import { AbstractSelectState } from './abstract-select-state';
 
 export abstract class AbstractSelectSearch<K = any, P = any> extends AbstractSelectState<K, P> {
 
-  onSearchInput(query: string) {
+  onSearchInput(query: string): void {
 
     if (this.single) {
       this.clearSelected();
@@ -12,10 +12,10 @@ export abstract class AbstractSelectSearch<K = any, P = any> extends AbstractSel
     this.loadOptionsFromSource(query);
   }
 
-  onSearchInputFocus() {
+  onSearchInputFocus(): void {
     this.open(true);
   }
 
-  onSearchInputBlur() {
+  onSearchInputBlur(): void {
   }
 }

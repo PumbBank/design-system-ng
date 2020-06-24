@@ -6,26 +6,25 @@ import { takeUntil } from 'rxjs/operators';
   selector: '[clickOutside]'
 })
 export class ClickOutsideDirective {
-  private unsubscriber = new Subject<void>();
+  private unsubscriber: Subject<void> = new Subject<void>();
   active: boolean;
 
-  constructor(private _elementRef : ElementRef,
-    private select: SelectComponent) {
+  constructor(private _elementRef: ElementRef,
+              private select: SelectComponent) {
       select.active$.pipe(takeUntil(this.unsubscriber)).subscribe((active: boolean) => {
         this.active = active;
       });
      }
 
   @Output()
-  public clickOutside = new EventEmitter();
+  public clickOutside: EventEmitter<any> = new EventEmitter();
 
   @HostListener('document:click', ['$event.target'])
-  public onClick(targetElement) {
+  public onClick(targetElement: HTMLElement): void {
       const clickedInside = this._elementRef.nativeElement.contains(targetElement);
       if (!clickedInside && this.active) {
           this.clickOutside.emit();
       }
-
   }
 
 }

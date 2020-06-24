@@ -1,4 +1,4 @@
-import { CleanFunction, MillInput } from '..';
+import { CleanFunction, MillInput } from '../component/input';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Directive, ElementRef, forwardRef, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { createTextMaskInputElement } from 'text-mask-core/dist/textMaskCore';
@@ -20,7 +20,7 @@ const PHONE_MASK = (input) => {
   }
   return coreMask;
 };
-const COMBO_PHONE_MASK = (input) => {
+const COMBO_PHONE_MASK = (input): Array<any> => {
   input = input.replace(/[^0-9]/g, '');
   if (input.slice(0, 3) === '380') {
     return ['+', /\d/, /\d/, /\d/, ' ', '(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
@@ -40,24 +40,8 @@ const COMBO_PHONE_MASK = (input) => {
   ]
 })
 export class InputPhoneDirective extends MillInput implements ControlValueAccessor, OnInit {
-  private static cleanMask(maskedValue: string) {
-    return maskedValue.replace(/[-+()\s]/g, '');
-  }
-
   private _textMaskInput: any;
   private _host: any;
-
-  @HostListener('focus') setUkrainianCode() {
-    if (typeof this._host.value === 'undefined' || this._host.value === '') {
-      this._host.value = UA_PHONE_CODE;
-    }
-  }
-
-  @HostListener('blur') clearUkrainianCode() {
-    if (this._host.value === UA_PHONE_CODE) {
-      this._host.value = '';
-    }
-  }
 
   constructor(
     renderer: Renderer2,
@@ -67,7 +51,23 @@ export class InputPhoneDirective extends MillInput implements ControlValueAccess
     this._host = inputElementRef.nativeElement;
   }
 
-  ngOnInit() {
+  private static cleanMask(maskedValue: string): string {
+    return maskedValue.replace(/[-+()\s]/g, '');
+  }
+
+  @HostListener('focus') setUkrainianCode(): void {
+    if (typeof this._host.value === 'undefined' || this._host.value === '') {
+      this._host.value = UA_PHONE_CODE;
+    }
+  }
+
+  @HostListener('blur') clearUkrainianCode(): void {
+    if (this._host.value === UA_PHONE_CODE) {
+      this._host.value = '';
+    }
+  }
+
+  ngOnInit(): void {
     this._textMaskInput = createTextMaskInputElement({
       inputElement: this.inputElementRef.nativeElement,
       mask: COMBO_PHONE_MASK,
@@ -75,18 +75,17 @@ export class InputPhoneDirective extends MillInput implements ControlValueAccess
     });
   }
 
-  registerOnChange(fn: Function) {
+  registerOnChange(fn: any): void {
     super.registerOnChange((value: string) => fn(InputPhoneDirective.cleanMask(value)));
   }
 
-  writeValue(value: string) {
+  writeValue(value: string): void {
     super.writeValue(value);
   }
 
-  protected cleanFunction: CleanFunction = function(inputValue: string) {
+  protected cleanFunction: CleanFunction = function(inputValue: string): string {
     this.input.value = inputValue;
     this._textMaskInput.update();
     return this.input.value;
   };
-
 }

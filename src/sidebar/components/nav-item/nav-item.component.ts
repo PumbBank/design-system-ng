@@ -1,4 +1,12 @@
-import { Component, Input, Optional, ViewChild, ElementRef, ContentChildren, QueryList, AfterContentInit } from '@angular/core';
+import {
+  Component,
+  Input,
+  Optional,
+  ContentChildren,
+  QueryList,
+  AfterContentInit,
+  OnInit
+} from '@angular/core';
 import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubscriber';
 import { SidebarController } from '../../services/sidebar-cotroller.service';
 import { takeUntil } from 'rxjs/operators';
@@ -22,8 +30,8 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
     ])
   ]
 })
-export class NavItemComponent extends ComponentWithUnsubscriber implements AfterContentInit {
-  private _active;
+export class NavItemComponent extends ComponentWithUnsubscriber implements OnInit, AfterContentInit {
+  private _active: boolean | string;
 
   @ContentChildren(NavItemComponent) componentContent: QueryList<NavItemComponent>;
 
@@ -40,10 +48,10 @@ export class NavItemComponent extends ComponentWithUnsubscriber implements After
   @Input() icon: string;
 
   @Input()
-  public set active(value: any) {
+  public set active(value: boolean | string) {
     this._active = value === 'true' || value === true;
   }
-  public get active() {
+  public get active(): boolean | string {
     return this._active;
   }
 
@@ -59,7 +67,7 @@ export class NavItemComponent extends ComponentWithUnsubscriber implements After
     this.markChildMenuItemsAsSubitem();
   }
 
-  expand() {
+  expand(): void {
     if (!this.withSubitems) { return; }
     this.expanded = !this.expanded;
   }
@@ -76,7 +84,7 @@ export class NavItemComponent extends ComponentWithUnsubscriber implements After
   }
 
 
-  private markChildMenuItemsAsSubitem() {
+  private markChildMenuItemsAsSubitem(): void {
     this.componentContent
       .filter(item => item !== this)
       .forEach(item => {

@@ -6,7 +6,7 @@ import { TableStyleEnum, TableTypeEnum } from '../../table';
   templateUrl: './table-overview.component.html',
   styleUrls: ['./table-overview.component.scss', '../../../assets/styles/overview.scss']
 })
-export class TableOverview {
+export class TableOverviewComponent {
   @Input() public type: TableTypeEnum;
   @Input() public style: TableStyleEnum;
   @Input() public selectInput: 'checkbox' | 'radio';
@@ -14,10 +14,10 @@ export class TableOverview {
   @Input() public darkHeader: boolean;
 
   @Input() set filter(value: boolean) {
-    this.dataModel.forEach(m => m.filterable = value)
+    this.dataModel.forEach(m => m.filterable = value);
   }
 
-  public data = [{
+  public data: any[] = [{
     name: 'Jon',
     age: 28,
     job: 'Lawyer',
@@ -98,7 +98,7 @@ export class TableOverview {
     age: 32,
     job: 'Doctor',
   }];
-  public dataModel = [{
+  public dataModel: any[] = [{
     fieldName: 'name',
     title: 'Name',
     filterable: true,

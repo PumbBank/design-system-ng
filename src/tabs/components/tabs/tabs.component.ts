@@ -1,4 +1,11 @@
-import { Component, Input, ViewEncapsulation } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy, ChangeDetectorRef,
+  Component,
+  HostBinding,
+  Input,
+  ViewEncapsulation
+} from '@angular/core';
 import { TabsBase } from '../../tabs';
 
 @Component({
@@ -7,17 +14,26 @@ import { TabsBase } from '../../tabs';
   styleUrls: ['./tabs.component.scss'],
   encapsulation: ViewEncapsulation.None,
   providers: [{provide: TabsBase, useExisting: TabsComponent}],
-  host: {
-    'class': 'mill-tabs'
-  }
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class TabsComponent extends TabsBase {
+export class TabsComponent extends TabsBase implements AfterViewInit {
 
   @Input()
   public set selected(value: string) {
     if (value) {
       this.selectedTabId = value;
     }
+  }
+
+  @HostBinding('class.mill-tabs') public cssMillTabs: boolean = true;
+
+  constructor(private _cdr: ChangeDetectorRef) {
+    super();
+  }
+
+  ngAfterViewInit(): void {
+    super.ngAfterViewInit();
+    this._cdr.markForCheck();
   }
 
   public barStyles(): { left: string, width: string } {

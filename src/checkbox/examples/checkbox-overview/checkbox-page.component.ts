@@ -9,5 +9,5 @@ import { Component, Input } from '@angular/core';
 export class CheckboxOverviewComponent {
   @Input() label: string;
   @Input() hideLabel: boolean;
-  @Input() tabindex = 0;
+  @Input() tabindex: number = 0;
 }

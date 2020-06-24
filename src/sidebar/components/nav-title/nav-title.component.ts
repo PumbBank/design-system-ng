@@ -1,19 +1,18 @@
-import { Component, OnInit, Optional } from '@angular/core';
-import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubscriber';
-import { SidebarController } from '../../services/sidebar-cotroller.service';
+import { Component, HostBinding, OnInit, Optional } from '@angular/core';
+import { ComponentWithUnsubscriber } from '../../../utils';
+import { SidebarController } from '../..';
 import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'mill-nav-title',
   template: '<ng-content></ng-content>',
   styleUrls: ['./nav-title.component.scss'],
-  host: {
-    '[class.nav-item_collapsed]': 'collapsed'
-  }
 })
 export class NavTitleComponent extends ComponentWithUnsubscriber implements OnInit {
   collapsed: boolean;
-  
+
+  @HostBinding('class.nav-item_collapsed') get collapsedClass(): boolean { return this.collapsed; }
+
   constructor(
     @Optional() public sidebarController: SidebarController
   ) { super(); }
@@ -21,7 +20,7 @@ export class NavTitleComponent extends ComponentWithUnsubscriber implements OnIn
   ngOnInit(): void {
     this.bindCollapsedWithController();
   }
-  
+
   private bindCollapsedWithController(): void {
     if (!this.sidebarController) { return; }
 

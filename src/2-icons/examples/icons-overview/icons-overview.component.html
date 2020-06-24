@@ -10,7 +10,7 @@
       </div>
       <div class="overview__container">
         <div *ngFor="let icon of icons12" class="icon-block">
-          <mill-icon size="12" [name]="icon" (mouseover)="onHover(icon)" (click)="onClick($event, input)"></mill-icon>
+          <mill-icon size="12" [name]="icon" (mouseover)="onHover(icon)" (click)="onClick(input)"></mill-icon>
           <div class="icon-preview p2">{{icon}}</div>
         </div>
       </div>
@@ -22,7 +22,7 @@
       </div>
       <div class="overview__container">
         <div *ngFor="let icon of icons24" class="icon-block">
-          <mill-icon [name]="icon" (mouseover)="onHover(icon)" (click)="onClick($event, input)"></mill-icon>
+          <mill-icon [name]="icon" (mouseover)="onHover(icon)" (click)="onClick(input)"></mill-icon>
           <div class="icon-preview p2">{{icon}}</div>
         </div>
       </div>

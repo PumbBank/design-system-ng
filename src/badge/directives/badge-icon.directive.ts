@@ -1,6 +1,6 @@
-import { Directive, ElementRef, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
-import { BadgeIconService } from '../services/badge-icon.service';
-import { IconComponent } from '../../2-icons/components/icon/icon.component';
+import { Directive, ElementRef, HostBinding, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { BadgeIconService } from '..';
+import { IconComponent } from '../../2-icons';
 
 const EMPTY_BADGE_WIDTH = '4px';
 const ONE_SYMBOL_BADGE_WIDTH = '16px';
@@ -10,10 +10,7 @@ const THREE_SYMBOL_BADGE_WIDTH = '29px';
 const TEXT_FOR_REPLACE_LARGE_VALUE = '99+';
 
 @Directive({
-  selector: 'mill-icon[badge]',
-  host: {
-    'class': 'mill-icon-badge',
-  }
+  selector: 'mill-icon[badge]'
 })
 export class BadgeIconDirective implements OnInit, OnChanges {
   private _badgeElement: HTMLElement;
@@ -29,9 +26,11 @@ export class BadgeIconDirective implements OnInit, OnChanges {
     } else {
       this.badgeText = TEXT_FOR_REPLACE_LARGE_VALUE;
     }
-  };
+  }
 
   public badgeText: string;
+
+  @HostBinding('class') public hostClass: string = 'mill-icon-badge';
 
   constructor(
     private _iconElementRef: ElementRef,
@@ -40,7 +39,7 @@ export class BadgeIconDirective implements OnInit, OnChanges {
     private _host: IconComponent
   ) { }
 
-  ngOnInit() {
+  ngOnInit(): void {
     if (this._host.size === '24') {
       this._badgeService.appendSvg();
       this.createBadgeElement();
@@ -54,7 +53,7 @@ export class BadgeIconDirective implements OnInit, OnChanges {
     }
   }
 
-  public createBadgeElement() {
+  public createBadgeElement(): void {
       this._iconElement = this._iconElementRef.nativeElement.querySelector('.icon');
       const iconContainer: HTMLElement = this._iconElementRef.nativeElement;
 

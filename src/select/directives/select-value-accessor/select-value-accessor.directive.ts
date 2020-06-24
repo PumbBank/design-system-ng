@@ -15,7 +15,7 @@ import { Subject } from 'rxjs';
   ]
 })
 export class SelectValueAccessorDirective implements ControlValueAccessor {
-  private unsubscriber = new Subject<void>();
+  private unsubscriber: Subject<void> = new Subject<void>();
 
   constructor(
     private select: SelectComponent
@@ -35,15 +35,15 @@ export class SelectValueAccessorDirective implements ControlValueAccessor {
     });
   }
 
-  writeValue(value: any) {
+  writeValue(value: any): void {
     this.select.selected = value;
   }
 
-  registerOnChange(fn: any) {
+  registerOnChange(fn: any): void {
     this.onChangeCallback = fn;
   }
 
-  registerOnTouched(fn: any) {
+  registerOnTouched(fn: any): void {
     this.onTouchedCallback = fn;
   }
 

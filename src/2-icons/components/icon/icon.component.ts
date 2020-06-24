@@ -9,19 +9,19 @@ export class IconComponent {
   @Input() public size: '12' | '24' | '36' = '24';
   @Input() public name: string;
 
-  get iconSize() {
+  public get iconSize(): string {
     return `icon_${this.size}`;
   }
 
-  get iconName() {
+  public get iconName(): string {
     return this.name ? `icon_${this.name}` : null;
   }
 
-  @HostBinding('style.width') get iconWidth() {
+  @HostBinding('style.width') get iconWidth(): string {
     return `${this.size}px`;
   }
 
-  @HostBinding('style.height') get iconHeight() {
+  @HostBinding('style.height') get iconHeight(): string {
     return `${this.size}px`;
   }
 }

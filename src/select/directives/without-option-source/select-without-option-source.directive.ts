@@ -15,7 +15,7 @@ import { InactiveBodyMode } from '../../components/select/abstract-select-state'
 })
 export class SelectWithoutOptionSourceDirective<K = any, P = any> implements MillOptionRegistrator, AfterContentInit {
   private initSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
-  private options = new Map<K, MillSelectOption<K, P>>();
+  private options: Map<K, MillSelectOption<K, P>> = new Map<K, MillSelectOption<K, P>>();
 
   constructor(
     private millSelectComponent: SelectComponent<K, P>
@@ -43,7 +43,7 @@ export class SelectWithoutOptionSourceDirective<K = any, P = any> implements Mil
     this.options.delete(option.key);
   }
 
-  private initOptionSource() {
+  private initOptionSource(): void {
     const _this = this;
 
     this.millSelectComponent.optionSource = {

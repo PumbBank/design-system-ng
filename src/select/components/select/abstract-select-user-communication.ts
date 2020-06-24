@@ -8,8 +8,8 @@ import { HintComponent } from '../../../hint/components/hint/hint.component';
 export abstract class AbstractSelectUserCommunication<K = any, P = any> extends AbstractSelectSearch<K, P> {
   focusedOptionIndex: number = -1;
 
-  searchInputFocused = false;
-  bodyMouseOvered = false;
+  searchInputFocused: boolean = false;
+  bodyMouseOvered: boolean = false;
   parentOffsetWidth: number;
 
   @ViewChildren('optionElement') optionsRefs: QueryList<ElementRef>;
@@ -46,19 +46,19 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
     }
   }
 
-  onSearchInputFocus() {
+  onSearchInputFocus(): void {
 
     super.onSearchInputFocus();
 
     this.searchInputFocused = true;
   }
 
-  open(updateOptionList = false) {
+  open(updateOptionList: boolean = false): void {
     super.open(updateOptionList);
     this.focusedOptionIndex = -1;
   }
 
-  onSearchInputBlur() {
+  onSearchInputBlur(): void {
 
     super.onSearchInputBlur();
 
@@ -75,8 +75,8 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
     this.updateState();
   }
 
-  onSearchInputKeydown(event: KeyboardEvent) {
-    console.log(this.searchInputRef.nativeElement.offsetParent.offsetParent.clientWidth);
+  onSearchInputKeydown(event: KeyboardEvent): void {
+    // console.log(this.searchInputRef.nativeElement.offsetParent.offsetParent.clientWidth);
 
     if (event.code === CODE_ARROW_UP && this.active$.value) {
       event.preventDefault();
@@ -126,12 +126,12 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
     }
   }
 
-  onBodyMouseOver() {
+  onBodyMouseOver(): void {
 
     this.bodyMouseOvered = true;
   }
 
-  onBodyMouseOut() {
+  onBodyMouseOut(): void {
 
     this.bodyMouseOvered = false;
 
@@ -158,7 +158,7 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
     }
   }
 
-  private scrollToOption(index: number) {
+  private scrollToOption(index: number): void {
     const optionListElement = this.bodyRef.nativeElement;
     const optionElement = this.optionsRefs.toArray()[index].nativeElement;
 

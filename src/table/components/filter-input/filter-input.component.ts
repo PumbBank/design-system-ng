@@ -13,32 +13,33 @@ import { FormControl } from '@angular/forms';
   selector: 'filter-input',
   templateUrl: './filter-input.component.html',
   styleUrls: ['./filter-input.component.scss'],
-  encapsulation: ViewEncapsulation.None,
-  host: {
-    'class': 'table-filter',
-  }
+  encapsulation: ViewEncapsulation.None
 })
 export class FilterInputComponent {
 
   public active: boolean;
   public filled: boolean;
-  public inputValue = new FormControl();
+  public inputValue: FormControl = new FormControl();
 
   @Output() public value: EventEmitter<string> = new EventEmitter<string>();
 
+  @HostBinding('class.table-filter') cssTableFilter: boolean = true;
+
   @HostListener('document:click', ['$event.target'])
-  public clickOutside(target) {
+  public clickOutside(target: any): void {
     if (!this._elementRef.nativeElement.contains(target)) {
       this.active = false;
     }
   }
 
-  @HostBinding('class.table-filter_active') get activeClass() {
-    return this.active
+  @HostBinding('class.table-filter_active')
+  get activeClass(): boolean {
+    return this.active;
   }
 
-  @HostBinding('class.table-filter_filled') get activeFilled() {
-    return this.filled
+  @HostBinding('class.table-filter_filled')
+  get activeFilled(): boolean {
+    return this.filled;
   }
 
   constructor(private _elementRef: ElementRef, private _cd: ChangeDetectorRef) {
@@ -50,7 +51,7 @@ export class FilterInputComponent {
 
   public onFocus(): void {
     this.active = true;
-    this._cd.detectChanges()
+    this._cd.detectChanges();
   }
 
   public clearInput(): void {

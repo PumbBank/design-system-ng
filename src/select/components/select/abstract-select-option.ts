@@ -6,11 +6,11 @@ import { RequiredComponent } from '../../abstract-requireble';
 
 
 export abstract class AbstractSelectOptions<K = any, P = any> extends RequiredComponent implements OnInit {
-  private _multiple = false;
+  private _multiple: boolean = false;
   private _selectedOption: MillSelectOption<K, P> | Array<MillSelectOption<K, P>>;
   private _selected: K | Array<K>;
 
-  searchInputValue = '';
+  searchInputValue: string = '';
 
   @Input() optionSource: MillOptionSource<K, P>;
 
@@ -45,7 +45,7 @@ export abstract class AbstractSelectOptions<K = any, P = any> extends RequiredCo
     return this._selected;
   }
 
-  @Output() selectedChange = new EventEmitter<K | Array<K>>();
+  @Output() selectedChange: EventEmitter<K | Array<K>> = new EventEmitter<K | Array<K>>();
 
   /**
    * @description Selected option
@@ -54,7 +54,7 @@ export abstract class AbstractSelectOptions<K = any, P = any> extends RequiredCo
     return this._selectedOption;
   }
 
-  options$ = new BehaviorSubject<Array<MillSelectOption<K, P>>>([]);
+  options$: BehaviorSubject<Array<MillSelectOption<K, P>>> = new BehaviorSubject<Array<MillSelectOption<K, P>>>([]);
 
   ngOnInit(): void {
     this.waitForSettingOptionSource().then(() => {
@@ -97,7 +97,7 @@ export abstract class AbstractSelectOptions<K = any, P = any> extends RequiredCo
     return Promise.resolve();
   }
 
-  protected unselectOption(option: MillSelectOption<K, P>) {
+  protected unselectOption(option: MillSelectOption<K, P>): void {
 
     if (!Array.isArray(this._selectedOption) || !Array.isArray(this._selected)) {
       throw new Error(`[AbstractSelectOptions] _selectedOption && _selected must be Array ;(`);
@@ -129,7 +129,7 @@ export abstract class AbstractSelectOptions<K = any, P = any> extends RequiredCo
   }
 
 
-  private setOptionForMultiple(option: MillSelectOption<K, P>) {
+  private setOptionForMultiple(option: MillSelectOption<K, P>): void {
 
     if (Array.isArray(this.selected) && Array.isArray(this.selectedOption)) {
       if (this.selected.includes(option.key)) {
@@ -144,7 +144,7 @@ export abstract class AbstractSelectOptions<K = any, P = any> extends RequiredCo
     }
   }
 
-  private clearSelectedForSingle() {
+  private clearSelectedForSingle(): void {
 
     if (!Array.isArray(this.selected) && !Array.isArray(this.selectedOption)) {
       this._selected = null;

@@ -1,6 +1,6 @@
 import { withKnobs } from '@storybook/addon-knobs';
 import { SliderModule } from './slider.module';
-import { SliderOverview } from './examples/slider-overview/slider-overview.component';
+import { SliderOverviewComponent } from './examples/slider-overview/slider-overview.component';
 import { IconsModule } from '../2-icons/icons.module';
 
 export default {
@@ -13,7 +13,7 @@ export default {
 
 export const component = () => ({
   moduleMetadata: {
-    declarations: [SliderOverview],
+    declarations: [SliderOverviewComponent],
     imports: [SliderModule, IconsModule]
   },
   template: `

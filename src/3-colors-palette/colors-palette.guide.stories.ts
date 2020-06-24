@@ -1,6 +1,6 @@
 import { withKnobs } from '@storybook/addon-knobs';
-import { IconsModule } from '../2-icons/icons.module';
-import { ColorsPaletteGuideline } from './examples/colors-palette-page.component';
+import { IconsModule } from '../2-icons';
+import { ColorsPaletteGuidelineComponent } from './examples/colors-palette-page.component';
 
 export default {
   title: 'Гайдлайни|Кольори',
@@ -13,7 +13,7 @@ export default {
 export const component = () => ({
   moduleMetadata: {
     declarations: [
-      ColorsPaletteGuideline,
+      ColorsPaletteGuidelineComponent,
     ],
     imports: [IconsModule]
   },

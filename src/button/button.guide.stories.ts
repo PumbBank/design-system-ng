@@ -1,6 +1,6 @@
 import { text, withKnobs } from '@storybook/addon-knobs';
 import { ButtonComponent } from './components/button/button.component';
-import { ButtonGuideline } from './examples/button-page/button-page.component';
+import { ButtonGuidelineComponent } from './examples/button-page/button-page.component';
 
 export default {
   title: 'Гайдлайни|Кнопки',
@@ -11,7 +11,7 @@ export const component = () => ({
   moduleMetadata: {
     declarations: [
       ButtonComponent,
-      ButtonGuideline
+      ButtonGuidelineComponent
     ]
   },
   props: {

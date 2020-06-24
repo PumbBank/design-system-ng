@@ -3,9 +3,9 @@ import { Injectable, OnDestroy, Renderer2, RendererFactory2 } from '@angular/cor
 @Injectable()
 export class BadgeIconService implements OnDestroy {
 
-  private _appended = false;
+  private _appended: boolean;
 
-  private _svgPath = [
+  private _svgPath: any[] = [
     {
       id: 'clip0',
       path: 'M16.9996 0C16.3719 0.835661 16 1.87439 16 3C16 5.76142 18.2386 8 21 8C22.1256 8 23.1643 7.62806 24 7.00037V24H0V0H16.9996Z'
@@ -30,7 +30,7 @@ export class BadgeIconService implements OnDestroy {
     this._r = _rFactory.createRenderer(null, null);
   }
 
-  ngOnDestroy() {
+  ngOnDestroy(): void {
     this._r.removeChild(document.body, document.getElementById('icon-svg'));
   }
 

@@ -1,13 +1,29 @@
 {
-  "extends": "tslint:recommended",
+  "extends": [
+    "tslint-eslint-rules",
+    "tslint:recommended",
+    "eslint-plugin-sonarjs"
+  ],
   "rules": {
     "array-type": false,
     "arrow-parens": false,
+    "class-name": true,
+    "comment-format": [
+      true,
+      "check-space"
+    ],
+    "component-class-suffix": true,
+    "component-selector": [
+      true,
+      "element",
+      "lib",
+      "mill",
+      "kebab-case"
+    ],
+    "contextual-lifecycle": true,
     "deprecation": {
       "severity": "warning"
     },
-    "component-class-suffix": true,
-    "contextual-lifecycle": true,
     "directive-class-suffix": true,
     "directive-selector": [
       true,
@@ -16,22 +32,20 @@
       "camelCase",
       "kebab-case"
     ],
-    "component-selector": [
-      true,
-      "element",
-      "lib",
-      "mill",
-      "kebab-case"
-    ],
+    "eofline": true,
     "import-blacklist": [
       true,
       "rxjs/Rx"
+    ],
+    "indent": [
+      true,
+      "spaces"
     ],
     "interface-name": false,
     "max-classes-per-file": false,
     "max-line-length": [
       true,
-      140
+      120
     ],
     "member-access": false,
     "member-ordering": [
@@ -45,52 +59,105 @@
         ]
       }
     ],
+    "no-arg": true,
+    "no-bitwise": true,
+    "no-conflicting-lifecycle": true,
     "no-consecutive-blank-lines": false,
     "no-console": [
       true,
-      "debug",
-      "info",
-      "time",
-      "timeEnd",
-      "trace"
+      "log"
     ],
+    "no-constant-condition": true,
+    "no-duplicate-imports": true,
+    "no-duplicate-string": false,
+    "no-duplicate-variable": true,
     "no-empty": false,
-    "no-inferrable-types": [
+    "no-eval": true,
+    "no-hardcoded-credentials": false,
+    "no-host-metadata-property": true,
+    "no-inferrable-types": [true, "ignore-properties", "ignore-params"],
+    "no-inner-declarations": [
       true,
-      "ignore-params"
+      "function"
     ],
+    "no-input-rename": true,
+    "no-inputs-metadata-property": true,
+    "no-internal-module": true,
     "no-non-null-assertion": true,
+    "no-output-native": true,
+    "no-output-on-prefix": true,
+    "no-output-rename": true,
+    "no-outputs-metadata-property": true,
     "no-redundant-jsdoc": true,
     "no-switch-case-fall-through": true,
+    "no-trailing-whitespace": true,
+    "no-unused-expression": true,
     "no-use-before-declare": true,
+    "no-useless-cast": false,
+    "no-var-keyword": true,
     "no-var-requires": false,
     "object-literal-key-quotes": [
       true,
       "as-needed"
     ],
     "object-literal-sort-keys": false,
+    "one-line": [
+      true,
+      "check-catch",
+      "check-open-brace",
+      "check-whitespace"
+    ],
     "ordered-imports": false,
+    "parameters-max-number": false,
+    "prefer-readonly": false,
     "quotemark": [
       true,
-      "single"
+      "single",
+      "avoid-escape"
     ],
-    "trailing-comma": false,
-    "no-conflicting-lifecycle": true,
-    "no-host-metadata-property": true,
-    "no-input-rename": true,
-    "no-inputs-metadata-property": true,
-    "no-output-native": true,
-    "no-output-on-prefix": true,
-    "no-output-rename": true,
-    "no-outputs-metadata-property": true,
+    "semicolon": [
+      true,
+      "always"
+    ],
     "template-banana-in-box": true,
     "template-no-negated-async": true,
-    "variable-name": [
+    "trailing-comma": false,
+    "typedef": [
       true,
-      "allow-leading-underscore"
+      "call-signature",
+      "parameter",
+      "member-variable-declaration",
+      "property-declaration",
+      "object-destructuring",
+      "array-destructuring"
+    ],
+    "typedef-whitespace": [
+      true,
+      {
+        "call-signature": "nospace",
+        "index-signature": "nospace",
+        "parameter": "nospace",
+        "property-declaration": "nospace",
+        "variable-declaration": "nospace"
+      }
     ],
     "use-lifecycle-interface": true,
-    "use-pipe-transform-interface": true
+    "use-pipe-transform-interface": true,
+    "variable-name": [
+      true,
+      "ban-keywords",
+      "check-format",
+      "allow-leading-underscore"
+    ],
+    "whitespace": [
+      true,
+      "check-branch",
+      "check-decl",
+      "check-operator",
+      "check-separator",
+      "check-type"
+    ],
+    "interface-over-type-literal": false
   },
   "rulesDirectory": [
     "codelyzer"

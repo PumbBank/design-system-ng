@@ -27,11 +27,11 @@ export class InputTextDirective extends MillInput implements ControlValueAccesso
     super(inputElementRef.nativeElement, renderer);
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.initTextMask();
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     super.ngOnChanges(changes);
     if (changes.mask) {
       if (this.textMaskInput) {
@@ -41,23 +41,23 @@ export class InputTextDirective extends MillInput implements ControlValueAccesso
     }
   }
 
-  registerOnChange(fn: Function) {
+  registerOnChange(fn: (v: string | number) => void): void {
     super.registerOnChange((value: string) => fn(value));
   }
 
-  writeValue(value: string) {
+  writeValue(value: string): void {
     super.writeValue(value);
   }
 
-  protected cleanFunction: CleanFunction = function(inputValue: string) {
+  protected cleanFunction: CleanFunction = (inputValue: string): any => {
     this.input.value = inputValue;
     if (this.textMaskInput) {
       this.textMaskInput.update();
     }
     return this.cleanFn ? this.cleanFn(this.input.value) : this.input.value;
-  };
+  }
 
-  private initTextMask() {
+  private initTextMask(): void {
     if (this.mask) {
       this.textMaskInput = createTextMaskInputElement({
         inputElement: this.inputElementRef.nativeElement,

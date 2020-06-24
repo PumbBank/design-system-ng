@@ -53,7 +53,7 @@ export class ButtonComponent implements OnChanges {
     return this.getSizeClass(this.size);
   }
 
-  ngOnChanges(changes: SimpleChanges) {
+  ngOnChanges(changes: SimpleChanges): void {
     if (changes.variety) {
       this.onVarietyChange();
     }

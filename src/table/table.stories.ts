@@ -1,7 +1,7 @@
-import { withKnobs, radios, boolean } from "@storybook/addon-knobs";
+import { withKnobs, radios, boolean } from '@storybook/addon-knobs';
 import { TableModule } from './table.module';
-import { TableOverview } from './examples/table-overview/table-overview.component';
-import { IconsModule } from '../2-icons/icons.module';
+import { TableOverviewComponent } from './examples/table-overview/table-overview.component';
+import { IconsModule } from '../2-icons';
 
 export default {
   title: 'Компоненти|Table',
@@ -9,11 +9,11 @@ export default {
     options: { showPanel: true },
   },
   decorators: [withKnobs]
-}
+};
 
 export const component = () => ({
   moduleMetadata: {
-    declarations: [TableOverview],
+    declarations: [TableOverviewComponent],
     imports: [TableModule, IconsModule],
   },
   props: {

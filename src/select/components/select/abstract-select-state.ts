@@ -7,7 +7,7 @@ export enum InactiveBodyMode {
 }
 
 export abstract class AbstractSelectState<K = any, P = any> extends AbstractSelectOptions<K, P> {
-  active$ = new BehaviorSubject<boolean>(false);
+  active$: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
 
   inactiveBodyMode: InactiveBodyMode = InactiveBodyMode.NOT_RENDER;
 
@@ -31,7 +31,7 @@ export abstract class AbstractSelectState<K = any, P = any> extends AbstractSele
   //   return this.active$.value;
   // }
 
-  open(updateOptionList = false): void {
+  open(updateOptionList: boolean = false): void {
 
     if (updateOptionList) {
       this.loadOptionsFromSource('');

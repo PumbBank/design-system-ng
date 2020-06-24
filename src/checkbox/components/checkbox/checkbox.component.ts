@@ -43,20 +43,20 @@ export class CheckboxComponent implements AfterViewInit {
   /**
    * Variable used for creating unique ids for checkbox components.
    */
-  static checkboxCount = 0;
+  static checkboxCount: number = 0;
 
   /**
    * Set to `true` for a disabled checkbox.
    */
-  @Input() disabled = false;
+  @Input() disabled: boolean = false;
   /**
    * Set to `true` to hide the checkbox labels.
    */
-  @Input() hideLabel = false;
+  @Input() hideLabel: boolean = false;
   /**
    * The unique id for the checkbox component.
    */
-  @Input() id = `mill-checkbox-${CheckboxComponent.checkboxCount}`;
+  @Input() id: string = `mill-checkbox-${CheckboxComponent.checkboxCount}`;
   /**
    * Reflects the required attribute of the `input` element.
    */
@@ -66,12 +66,12 @@ export class CheckboxComponent implements AfterViewInit {
    * '0' value means that the element should be focusable in sequential keyboard navigation,
    * but its order is defined by the document's source order.
    */
-  @Input() tabindex = 0;
+  @Input() tabindex: number = 0;
 
   /**
    * Reflects whether the checkbox state is indeterminate.
    */
-  get indeterminate() {
+  get indeterminate(): boolean  {
     return this._INDETERMINATE;
   }
 
@@ -94,7 +94,7 @@ export class CheckboxComponent implements AfterViewInit {
   /**
    * Returns value `true` if state is selected for the checkbox.
    */
-  get checked() {
+  get checked(): boolean {
     return this._CHECKED;
   }
 
@@ -117,27 +117,27 @@ export class CheckboxComponent implements AfterViewInit {
   /**
    * Emits event notifying other classes when a change in state occurs on a checkbox after a click.
    */
-  @Output() changeEventEmitter = new EventEmitter<CheckboxChange>();
+  @Output() changeEventEmitter: EventEmitter<CheckboxChange> = new EventEmitter<CheckboxChange>();
   /**
    * Emits event notifying other classes when a change in state occurs specifically on an indeterminate checkbox.
    */
-  @Output() indeterminateChange = new EventEmitter<boolean>();
+  @Output() indeterminateChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
   /**
    * Set to `true` if the input checkbox is selected (or checked).
    */
-  _CHECKED = false;
+  public _CHECKED: boolean = false;
   /**
    * Set to `true` if the input checkbox is in state indeterminate.
    */
-  _INDETERMINATE = false;
+  public _INDETERMINATE: boolean = false;
 
-  currentCheckboxState: CheckboxState = CheckboxState.Init;
+  public currentCheckboxState: CheckboxState = CheckboxState.Init;
 
   /**
    * Maintains a reference to the view DOM element of the `Checkbox`.
    */
-  @ViewChild('inputCheckbox', { static: true }) inputCheckbox: ElementRef;
+  @ViewChild('inputCheckbox', { static: true }) public inputCheckbox: ElementRef;
 
   /**
    * Creates an instance of `Checkbox`.
@@ -149,21 +149,21 @@ export class CheckboxComponent implements AfterViewInit {
   /**
    * Toggle the selected state of the checkbox.
    */
-  public toggle() {
+  public toggle(): void {
     this.checked = !this.checked;
   }
 
   /**
    * Executes on the event of a change within `Checkbox` to block propagation.
    */
-  onChange(event) {
+  public onChange(event: Event): void {
     event.stopPropagation();
   }
 
   /**
    * Handles click events on the `Checkbox` and emits changes to other classes.
    */
-  onClick(event) {
+  public onClick(event: Event): void {
     if (event && !this.disabled) {
       this.checkboxStateToggle();
     }
@@ -172,8 +172,8 @@ export class CheckboxComponent implements AfterViewInit {
   /**
    * Handles keyup events on the `Checkbox` with space bar and emits changes to other classes.
    */
-  onKeyup(event) {
-    if (event && event.keyCode === 32) {
+  public onKeyup(event: KeyboardEvent): void {
+    if (event && event.code === 'Space') {
       this.checkboxStateToggle();
     }
   }
@@ -181,7 +181,7 @@ export class CheckboxComponent implements AfterViewInit {
   /**
    * Toggle state of checkbox
    */
-  checkboxStateToggle() {
+  public checkboxStateToggle(): void {
     this.toggle();
     this.transitionCheckboxState(this._CHECKED ? CheckboxState.Checked : CheckboxState.Unchecked);
     this.emitChangeEvent();
@@ -190,7 +190,7 @@ export class CheckboxComponent implements AfterViewInit {
   /**
    * Handles changes between checkbox states.
    */
-  transitionCheckboxState(newState: CheckboxState) {
+  public transitionCheckboxState(newState: CheckboxState): void {
     const oldState = this.currentCheckboxState;
 
     // Indeterminate has to be set always if it's transitioned to
@@ -211,7 +211,7 @@ export class CheckboxComponent implements AfterViewInit {
   /**
    * Creates instance of `CheckboxChange` used to propagate the change event.
    */
-  emitChangeEvent() {
+  public emitChangeEvent(): void {
     const event = new CheckboxChange();
     event.source = this;
     event.checked = this.checked;
@@ -222,7 +222,7 @@ export class CheckboxComponent implements AfterViewInit {
   /**
    * Updates the checkbox if it is in the indeterminate state.
    */
-  ngAfterViewInit() {
+  ngAfterViewInit(): void {
     if (this.indeterminate) {
       this.inputCheckbox.nativeElement.indeterminate = true;
       this.checked = false;

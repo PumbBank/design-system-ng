@@ -18,46 +18,46 @@ export class RadioComponent {
   /**
    * Used to dynamically create unique ids for the `Radio`.
    */
-  static radioCount = 0;
+  static radioCount: number = 0;
 
-  @Input() checked = false;
+  @Input() checked: boolean = false;
 
-  @Input() name = '';
+  @Input() name: string = '';
 
-  @Input() disabled = false;
+  @Input() disabled: boolean = false;
   /**
    * Sets the HTML required attribute
    */
-  @Input() required = false;
+  @Input() required: boolean = false;
   /**
    * The value of the `Radio`.
    */
-  @Input() value = '';
+  @Input() value: string = '';
   /**
    * Set to `true` to hide the checkbox labels.
    */
-  @Input() hideLabel = false;
+  @Input() hideLabel: boolean = false;
   /**
    * The id for the `Radio`.
    */
-  @Input() id = `radio-${RadioComponent.radioCount++}`;
+  @Input() id: string = `radio-${RadioComponent.radioCount++}`;
   /**
    * Attribute indicates how radio button can be sequential navigated with keyboard (usually Tab button).
    * '0' value means that the element should be focusable in sequential keyboard navigation,
    * but its order is defined by the document's source order.
    */
-  @Input() tabindex = 0;
+  @Input() tabindex: number = 0;
 
   /**
    * Synchronizes with the `RadioGroup` in the event of a changed `Radio`.
    * Emits the changes of both the `RadioGroup` and `Radio`.
    */
-  onChange(event: Event) {
+  onChange(event: Event): void {
     event.stopPropagation();
     this.checked = (event.target as HTMLInputElement).checked;
   }
 
-  onClick(event) {
+  onClick(event: Event): void {
     if (event && !this.disabled) {
       this.checkboxStateToggle();
     }
@@ -66,8 +66,8 @@ export class RadioComponent {
   /**
    * Handles keyup events on the `Radio` with space bar and emits changes to other classes.
    */
-  onKeyup(event) {
-    if (event && event.keyCode === 32) {
+  onKeyup(event: KeyboardEvent): void {
+    if (event && event.code === 'Space') {
       this.checkboxStateToggle();
     }
   }
@@ -75,7 +75,7 @@ export class RadioComponent {
   /**
    * Toggle state of radio button
    */
-  checkboxStateToggle() {
+  checkboxStateToggle(): void {
     this.checked = true;
   }
 }

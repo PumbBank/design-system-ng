@@ -3,7 +3,9 @@ import {
   AbstractControl,
   ControlValueAccessor,
   NG_VALIDATORS,
-  NG_VALUE_ACCESSOR, ValidationErrors, Validator,
+  NG_VALUE_ACCESSOR,
+  ValidationErrors,
+  Validator,
 } from '@angular/forms';
 import { Directive, ElementRef, forwardRef, OnInit, Renderer2 } from '@angular/core';
 import { createTextMaskInputElement } from 'text-mask-core/dist/textMaskCore';
@@ -31,23 +33,6 @@ enum PaymentSystem {
   ]
 })
 export class InputCardDirective extends MillInput implements ControlValueAccessor, OnInit, Validator {
-  private static getCardType(value: string): PaymentSystem {
-    const cardBin = value.substr(0, 6);
-
-    if (cardBin[0] === '4') {
-      return PaymentSystem.Visa;
-    }
-
-    const firstFour = parseInt(cardBin.substr(0, 4), 10);
-    const firstTwo = parseInt(cardBin.substr(0, 2), 10);
-    if ((firstFour >= 2221 && firstFour <= 2720) || (firstTwo >= 51 && firstTwo <=55)) {
-      return PaymentSystem.Master;
-    }
-    if (firstTwo === 50 || firstTwo.toString()[0] === '6' || (firstTwo >= 56 && firstTwo <=58)) {
-      return PaymentSystem.Maestro;
-    }
-  }
-
   private _textMaskInput: any;
   private _mask: Array<string | RegExp> = [/\d/, /\d/, /\d/, /\d/, ' ',
     /\d/, /\d/, /\d/, /\d/, ' ',
@@ -62,7 +47,24 @@ export class InputCardDirective extends MillInput implements ControlValueAccesso
     super(inputElementRef.nativeElement, renderer);
   }
 
-  ngOnInit() {
+  private static getCardType(value: string): PaymentSystem {
+    const cardBin = value.substr(0, 6);
+
+    if (cardBin[0] === '4') {
+      return PaymentSystem.Visa;
+    }
+
+    const firstFour = parseInt(cardBin.substr(0, 4), 10);
+    const firstTwo = parseInt(cardBin.substr(0, 2), 10);
+    if ((firstFour >= 2221 && firstFour <= 2720) || (firstTwo >= 51 && firstTwo <= 55)) {
+      return PaymentSystem.Master;
+    }
+    if (firstTwo === 50 || firstTwo.toString()[0] === '6' || (firstTwo >= 56 && firstTwo <= 58)) {
+      return PaymentSystem.Maestro;
+    }
+  }
+
+  ngOnInit(): void {
     this._textMaskInput = createTextMaskInputElement({
       inputElement: this.inputElementRef.nativeElement,
       mask: this._mask,
@@ -70,11 +72,11 @@ export class InputCardDirective extends MillInput implements ControlValueAccesso
     });
   }
 
-  registerOnChange(fn: Function) {
+  registerOnChange(fn: any): void {
     super.registerOnChange((value: string) => fn(this.onChange(value)));
   }
 
-  writeValue(value: string) {
+  writeValue(value: string): void {
     super.writeValue(value);
   }
 
@@ -88,17 +90,17 @@ export class InputCardDirective extends MillInput implements ControlValueAccesso
     if (/^\d{16}$/.test(control.value)) {
       return null;
     } else {
-      return { errorMessage: message };
+      return {errorMessage: message};
     }
   }
 
-  protected cleanFunction: CleanFunction = function (inputValue: string) {
+  protected cleanFunction: CleanFunction = function(inputValue: string): string {
     this.input.value = inputValue;
     this._textMaskInput.update();
     return this.input.value;
   };
 
-  private onChange(value: string) {
+  private onChange(value: string): string {
     if (!value) {
       super.replaceIconToImage('');
     }

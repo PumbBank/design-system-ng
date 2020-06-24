@@ -22,9 +22,9 @@ enum BadgeTypeEnum {
 })
 
 export class BadgeComponent {
-  @Input() public type = BadgeTypeEnum.basic;
-  @Input() public color = BadgeColorEnum.green;
-  @Input() public icon = 'valid';
-  public badgeTypeEnum = BadgeTypeEnum;
-  public badgeColorEnum = BadgeColorEnum;
+  @Input() public type: BadgeTypeEnum = BadgeTypeEnum.basic;
+  @Input() public color: BadgeColorEnum = BadgeColorEnum.green;
+  @Input() public icon: string = 'valid';
+  public badgeTypeEnum: any = BadgeTypeEnum;
+  public badgeColorEnum: any = BadgeColorEnum;
 }

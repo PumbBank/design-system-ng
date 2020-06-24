@@ -1,5 +1,5 @@
 import { withKnobs } from '@storybook/addon-knobs';
-import { IntroGuideline } from './examples/intro-page.component';
+import { IntroGuidelineComponent } from './examples/intro-page.component';
 
 export default {
   title: 'Гайдлайни|Intro',
@@ -12,7 +12,7 @@ export default {
 export const component = () => ({
   moduleMetadata: {
     declarations: [
-      IntroGuideline,
+      IntroGuidelineComponent,
     ]
   },
   template: `

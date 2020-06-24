@@ -2,7 +2,7 @@ import { Directive, forwardRef, Renderer2, ElementRef, OnInit } from '@angular/c
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, Validator, AbstractControl, ValidationErrors } from '@angular/forms';
 import { createTextMaskInputElement } from 'text-mask-core';
 
-import { MillInput, CleanFunction } from '../component/input';
+import { MillInput, CleanFunction } from '..';
 
 type ISOString = string;
 
@@ -32,10 +32,9 @@ export class InputDateDirective extends MillInput implements ControlValueAccesso
   ) {
     super(inputElementRef.nativeElement, renderer);
     renderer.setStyle(this.wrapperElement, 'minWidth', '124px');
-    
   }
 
-  ngOnInit() {
+  ngOnInit(): void {
     this.textMaskInput = createTextMaskInputElement({
       inputElement: this.inputElementRef.nativeElement,
       mask: this.mask,
@@ -77,15 +76,15 @@ export class InputDateDirective extends MillInput implements ControlValueAccesso
     return day > 0 && day <= monthLength[month - 1] ? null : { errorMessage: message };
   }
 
-  registerOnChange(fn: Function) {
+  registerOnChange(fn: (s: string) => void): void {
     super.registerOnChange((value: string) => fn(this.ddmmyyyToISO(value)));
   }
 
-  writeValue(value: ISOString) {
+  writeValue(value: ISOString): void {
     super.writeValue(this.iSOToDdmmyy(value));
   }
 
-  protected cleanFunction: CleanFunction = function(inputValue: ISOString) {
+  protected cleanFunction: CleanFunction = function(inputValue: ISOString): string {
     this.input.value = inputValue;
     this.textMaskInput.update();
     return this.input.value;
@@ -95,7 +94,7 @@ export class InputDateDirective extends MillInput implements ControlValueAccesso
   private ddmmyyyToISO(ddmmyyyy: string): string {
     if (!ddmmyyyy) { return ''; }
 
-    const [day, month, year] = ddmmyyyy.split('.');
+    const [day, month, year]: string[] = ddmmyyyy.split('.');
     if (/\d{2}/.test(day) && /\d{2}/.test(month) && /\d{4}/.test(year)) {
       return `${year}-${month}-${day}T00:00:00.000Z`;
     } else {
@@ -105,7 +104,7 @@ export class InputDateDirective extends MillInput implements ControlValueAccesso
 
   private iSOToDdmmyy(iso: string): string {
     if (iso) {
-      const [year, month, day] = iso.split('T')[0].split('-');
+      const [year, month, day]: string[] = iso.split('T')[0].split('-');
       return `${day}.${month}.${year}`;
     } else {
       return '';

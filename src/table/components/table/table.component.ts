@@ -19,21 +19,63 @@ import {
   styleUrls: ['./table.component.scss']
 })
 export class TableComponent implements OnInit {
+  private _tableActions$: Subject<EmitInterface> = new Subject();
+  private _rowCount: number;
+  private _paginatorShowCount: number[];
+  private _badge: BadgeInterface[];
+  private _dataLength: number;
+
+  // enums for html
+  // tslint:disable-next-line:typedef
+  public checkboxStates = CheckboxEnum;
+  // tslint:disable-next-line:typedef
+  public tableStyleEnum = TableStyleEnum;
+  // tslint:disable-next-line:typedef
+  public tableTypeEnum = TableTypeEnum;
+
+  public groupCheckbox: CheckboxEnum;
+  public selected: any[] = [];
+  public paginatorSettings: PaginatorInterface = {
+    currentPage: 0,
+    offset: 0,
+    limit: 0,
+    pages: 0
+  };
+  public menuState: boolean = false;
+  public fixedHeaderShadow: boolean = false;
+  public counterLabel: string;
+  public filterSettings: FilterInterface[] = [];
+  public sortSettings: SortInterface = {
+    sortColumn: null,
+    sortDirection: 'asc'
+  };
+  public viewData$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(null);
+
   protected _tableData$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
-  @Input() set data(value: any[]) {
+
+  @Input() dataModel: DataModelInterface[] = [];
+  @Input() selectInput: 'checkbox' | 'radio';
+  @Input() counterSeparator: string = 'из';
+  @Input() width: string | number = 100;
+  @Input() loading: boolean = true;
+  @Input() async: boolean = false;
+  @Input() padding: boolean = true;
+  @Input() fixedHeader: boolean = false;
+  @Input() darkStyleHeader: boolean = false;
+  @Input() tableStyle: TableStyleEnum = TableStyleEnum.normal;
+  @Input() tableType: TableTypeEnum = TableTypeEnum.normal;
+
+  @Input() paginator: boolean;
+
+  @Input()
+  set data(value: any[]) {
     if (value) {
       this._tableData$.next(value);
     }
   }
 
-  @Input() dataModel: DataModelInterface[] = [];
-  public selected: any[] = [];
-
-  @Input() selectInput: 'checkbox' | 'radio';
-  public groupCheckbox: CheckboxEnum;
-  public checkboxStates = CheckboxEnum;
-
-  @Input() public set rowCount(value) {
+  @Input()
+  public set rowCount(value: number) {
     if (value) {
       this._rowCount = Number.isInteger(value) ? value : +value;
       this._dataLength = this._rowCount;
@@ -46,9 +88,6 @@ export class TableComponent implements OnInit {
     return this._rowCount;
   }
 
-  private _rowCount: number;
-
-  @Input() paginator: boolean;
   @Input()
   set paginatorShowCount(value: number[]) {
     if (value) {
@@ -56,73 +95,31 @@ export class TableComponent implements OnInit {
       this._paginatorShowCount = value;
     }
   }
+
   get paginatorShowCount(): number[] {
     return this._paginatorShowCount;
   }
-
-  private _paginatorShowCount: number[];
-
-  public paginatorSettings: PaginatorInterface = {
-    currentPage: 0,
-    offset: 0,
-    limit: 0,
-    pages: 0
-  };
-
-  @Input() counterSeparator = 'из';
-  public counterLabel: string;
-
-  public filterSettings: FilterInterface[] = [];
-  public sortSettings: SortInterface = {
-    sortColumn: null,
-    sortDirection: 'asc'
-  };
-
-  @Input() width: string | number = 100;
-  @Input() loading = true;
-  public menuState = false;
-
-  public viewData$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(null);
-  private _dataLength: number;
-
-  @Input() async = false;
-  @Input() padding = true;
-
-  @Input() fixedHeader = false;
-  public fixedHeaderShadow = false;
-
-  @Input() darkStyleHeader = false;
-
-  @Input() tableStyle: TableStyleEnum = TableStyleEnum.normal;
-  public tableStyleEnum = TableStyleEnum;
-
-  @Input() tableType: TableTypeEnum = TableTypeEnum.normal;
-  public tableTypeEnum = TableTypeEnum;
 
   @Input()
   set badge(value: BadgeInterface[]) {
     this._badge = value;
   }
+
   get badge(): BadgeInterface[] {
     return this._badge;
   }
 
-  private _badge: BadgeInterface[];
-
   @Output() tableOutput: EventEmitter<EmitInterface> = new EventEmitter<EmitInterface>();
+
   @Output() selectedRows: EventEmitter<any[]> = new EventEmitter<any[]>();
 
-  private _tableActions$: Subject<EmitInterface> = new Subject();
-
-  @ViewChild('table', { static: true })
+  @ViewChild('table', {static: true})
   public table: ElementRef;
 
-  @ViewChild('header', { static: true })
+  @ViewChild('header', {static: true})
   public header: ElementRef;
 
-
-
-  ngOnInit() {
+  ngOnInit(): void {
     if (this.paginatorSettings.limit === 0) {
       this.paginatorSettings.limit = 5;
       this._paginatorShowCount = [5, 10, 20];
@@ -164,19 +161,6 @@ export class TableComponent implements OnInit {
     }
   }
 
-  private _tableDataUpdate(): void {
-    if (this.async) {
-      const obj: EmitInterface = {
-        filter: this.filterSettings,
-        sort: this.sortSettings,
-        paginator: this.paginatorSettings
-      };
-      this._tableActions$.next(obj);
-    } else {
-      this.updateViewData();
-    }
-  }
-
   public updateViewData(): void {
     let data = this._tableData$.getValue().concat();
 
@@ -188,21 +172,7 @@ export class TableComponent implements OnInit {
     this._updatePaginatorLabel();
   }
 
-  private _onAsyncOutput(): void {
-    this._tableActions$
-      .pipe(
-        debounceTime(500),
-        distinctUntilChanged()
-      )
-      .subscribe(obj => {
-        if (obj) {
-          this.tableOutput.emit(obj);
-          this.loading = true;
-        }
-      });
-  }
-
-  public onRowClick(event, row): void {
+  public onRowClick(event: MouseEvent, row: any): void {
     // event.stopPropagation();
     if (this.selectInput) {
       this._updateSelected(row);
@@ -224,7 +194,7 @@ export class TableComponent implements OnInit {
     this.selectedRows.emit(this.selected);
   }
 
-  public onSortClick(column): void {
+  public onSortClick(column: any): void {
     if (column.sortable) {
       if (this.sortSettings.sortColumn === column) {
         if (this.sortSettings.sortDirection === 'desc') {
@@ -279,37 +249,7 @@ export class TableComponent implements OnInit {
     this._tableDataUpdate();
   }
 
-  private _updatePaginator(count?: number, length?: number): void {
-    if (count) {
-      this.paginatorSettings.currentPage = Math.round(this.paginatorSettings.offset / count);
-      this.paginatorSettings.limit = count;
-    }
-
-    this.paginatorSettings.pages = this._calcPaginatorPages(length);
-
-    if (this.paginatorSettings.currentPage > this.paginatorSettings.pages) {
-      this.paginatorSettings.currentPage = Math.min(this.paginatorSettings.currentPage, this.paginatorSettings.pages);
-    }
-
-    this.paginatorSettings.offset = this.paginatorSettings.currentPage * this.paginatorSettings.limit;
-  }
-
-  private _calcPaginatorPages(dataLength?: number): number {
-    return Math.max(Math.ceil((dataLength ? dataLength : this._dataLength) / this.paginatorSettings.limit) - 1, 0);
-  }
-
-  private _updatePaginatorLabel(): void {
-    if (this.async) {
-      console.log('View data length', this.viewData$.getValue().length);
-    }
-    this.counterLabel = `
-            ${this.paginatorSettings.offset + 1}—${this.paginatorSettings.offset + this.viewData$.getValue().length} 
-            ${this.counterSeparator} 
-            ${this._dataLength}
-        `;
-  }
-
-  public onFilterKeyUp(event, field): void {
+  public onFilterKeyUp(event: any, field: DataModelInterface): void {
     const index = this.dataModel.indexOf(field);
 
     if (index > -1) {
@@ -330,7 +270,89 @@ export class TableComponent implements OnInit {
     this._tableDataUpdate();
   }
 
-  private _updateSelected(row): void {
+  public isFilterable(): boolean {
+    let show = false;
+
+    for (const item of this.dataModel) {
+      if (item.filterable) {
+        show = true;
+        break;
+      }
+    }
+
+    return show;
+  }
+
+  public isValidBadge(fieldName: string, value: string | number): boolean {
+    return this._checkBadge(fieldName, value, 'valid');
+  }
+
+  public isInvalidBadge(fieldName: string, value: string | number): boolean {
+    return this._checkBadge(fieldName, value, 'invalid');
+  }
+
+  public isWarningBadge(fieldName: string, value: string | number): boolean {
+    return this._checkBadge(fieldName, value, 'warning');
+  }
+
+  private _updatePaginator(count?: number, length?: number): void {
+    if (count) {
+      this.paginatorSettings.currentPage = Math.round(this.paginatorSettings.offset / count);
+      this.paginatorSettings.limit = count;
+    }
+
+    this.paginatorSettings.pages = this._calcPaginatorPages(length);
+
+    if (this.paginatorSettings.currentPage > this.paginatorSettings.pages) {
+      this.paginatorSettings.currentPage = Math.min(this.paginatorSettings.currentPage, this.paginatorSettings.pages);
+    }
+
+    this.paginatorSettings.offset = this.paginatorSettings.currentPage * this.paginatorSettings.limit;
+  }
+
+  private _tableDataUpdate(): void {
+    if (this.async) {
+      const obj: EmitInterface = {
+        filter: this.filterSettings,
+        sort: this.sortSettings,
+        paginator: this.paginatorSettings
+      };
+      this._tableActions$.next(obj);
+    } else {
+      this.updateViewData();
+    }
+  }
+
+  private _onAsyncOutput(): void {
+    this._tableActions$
+      .pipe(
+        debounceTime(500),
+        distinctUntilChanged()
+      )
+      .subscribe(obj => {
+        if (obj) {
+          this.tableOutput.emit(obj);
+          this.loading = true;
+        }
+      });
+  }
+
+  private _calcPaginatorPages(dataLength?: number): number {
+    return Math.max(Math.ceil((dataLength ? dataLength : this._dataLength) / this.paginatorSettings.limit) - 1, 0);
+  }
+
+  private _updatePaginatorLabel(): void {
+    if (this.async) {
+      console.debug('View data length', this.viewData$.getValue().length);
+    }
+    this.counterLabel = `
+            ${this.paginatorSettings.offset + 1}—${this.paginatorSettings.offset + this.viewData$.getValue().length}
+            ${this.counterSeparator}
+            ${this._dataLength}
+        `;
+  }
+
+  private _updateSelected(row: any): void {
     const selectedRowIndex = this.selected.indexOf(row);
 
     if (selectedRowIndex > -1) {
@@ -419,19 +441,6 @@ export class TableComponent implements OnInit {
     return data.slice(this.paginatorSettings.offset, this.paginatorSettings.offset + this.paginatorSettings.limit);
   }
 
-  public isFilterable(): boolean {
-    let show = false;
-
-    for (const item of this.dataModel) {
-      if (item.filterable) {
-        show = true;
-        break;
-      }
-    }
-
-    return show;
-  }
-
   private _onTableScroll(): void {
     fromEvent(this.table.nativeElement, 'scroll')
       .pipe(
@@ -439,18 +448,6 @@ export class TableComponent implements OnInit {
         distinctUntilChanged()
       )
       .subscribe(v => (this.fixedHeaderShadow = v));
-  }
-
-  public isValidBadge(fieldName: string, value: string | number): boolean {
-    return this._checkBadge(fieldName, value, 'valid');
-  }
-
-  public isInvalidBadge(fieldName: string, value: string | number): boolean {
-    return this._checkBadge(fieldName, value, 'invalid');
-  }
-
-  public isWarningBadge(fieldName: string, value: string | number): boolean {
-    return this._checkBadge(fieldName, value, 'warning');
   }
 
   private _checkBadge(fieldName: string, value: string | number, type: string): boolean {

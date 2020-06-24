@@ -2,8 +2,8 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
 import { withKnobs } from '@storybook/addon-knobs';
 import { InputModule } from '../input.module';
+import { InputOverviewComponent } from '../examples/input-overview/input-overview.component';
 import { IconsModule } from '../../2-icons';
-import { InputOverview } from '../examples/input-overview/input-overview.component';
 
 export default {
   title: 'Компоненти|Inputs',
@@ -22,7 +22,7 @@ export const component = () => ({
       IconsModule
     ],
     declarations: [
-      InputOverview
+      InputOverviewComponent
     ]
   },
   template: `

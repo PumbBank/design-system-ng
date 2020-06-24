@@ -8,5 +8,5 @@ import { Component, Input } from '@angular/core';
 
 export class PinInputOverviewComponent {
   @Input() label: string;
-  @Input() fn: (event) => {};
+  @Input() fn: (event: Event) => {};
 }

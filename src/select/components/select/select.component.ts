@@ -45,6 +45,6 @@ export class SelectComponent<K = any, P = any> extends AbstractSelectUserCommuni
     super();
   }
 
-  options = { autoHide: false, scrollbarMinSize: 5 };
+  options: {autoHide: boolean, scrollbarMinSize: number} = { autoHide: false, scrollbarMinSize: 5 };
 }
 

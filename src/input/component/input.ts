@@ -10,7 +10,7 @@ const DEFAULT_CLEAN_FUNCTION = (inputValue: any): string => inputValue;
 export class MillInput extends RequirebleComponent implements OnChanges, OnDestroy {
 
   constructor(
-    private input: HTMLInputElement,
+    public input: HTMLInputElement,
     public renderer: Renderer2,
   ) {
     super();
@@ -28,9 +28,9 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
 
   @Input() errors: ValidationErrors | null = null;
   @Input() valid: string | boolean = null;
-  @Input() caption = '';
+  @Input() caption: string = '';
   @Input() icon: string;
-  @Input() cleanup = false;
+  @Input() cleanup: boolean = false;
 
   wrapperElement: HTMLElement;
   captionElement: HTMLElement;
@@ -67,16 +67,16 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     this.messagePresentationObserver.disconnect();
   }
 
-  registerOnChange(fn: (value: string) => void) {
+  registerOnChange(fn: (value: string | number) => void): void {
     this.onChangeCallback = fn;
     setTimeout(() => fn(this.input.value));
   }
 
-  registerOnTouched(fn: () => void) {
+  registerOnTouched(fn: () => void): void {
     this.onTouchedCallback = fn;
   }
 
-  writeValue(value: any) {
+  writeValue(value: any): void {
     const cleanValue = this.cleanFunction(value);
 
     if (cleanValue !== value) {
@@ -93,7 +93,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       : this.renderer.removeClass(this.wrapperElement, 'input_disabled');
   }
 
-  protected replaceIconToImage(src: string, width?: string, height?: string):void {
+  protected replaceIconToImage(src: string, width?: string, height?: string): void {
     if (!src) {
       this.renderer.removeClass(this.iconElement, 'icon__image');
       this.renderer.removeStyle(this.iconElement, 'width');
@@ -151,7 +151,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     });
   }
 
-  private checkVisibilityCleanupIcon() {
+  private checkVisibilityCleanupIcon(): void {
     if (this.cleanup && this.input.value.length > 0) {
       if (!this.wrapperElement.classList.contains('input__btnCleanup') && !this.input.classList.contains('input__input-cleanup')) {
         this.renderer.addClass(this.wrapperElement, 'input__btnCleanup');
@@ -192,7 +192,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     );
   }
 
-  private updateMsgTextStyles() {
+  private updateMsgTextStyles(): void {
     if (this.touched && this.invalid) {
       this.renderer.removeClass(this.wrapperElement, 'input_valid');
       this.renderer.addClass(this.wrapperElement, 'input_error');
@@ -304,13 +304,13 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     this.setCleanupIcon();
   }
 
-  private setCleanupIcon() {
+  private setCleanupIcon(): void {
     this.iconCleanupElement = this.renderer.createElement('div');
     this.renderer.appendChild(this.entranceElement, this.iconCleanupElement);
     this.watchClickCleanupInput();
   }
 
-  private errorsUpdateText() {
+  private errorsUpdateText(): void {
     if (this.errors && this.touched) {
       this.msgTextElement.innerText = this.errors && this.touched ? ErrorMessageHelper.getMessage(this.errors) : '';
     } else if (!!this.valid && this.valid !== 'true' && this.valid !== true) {
@@ -322,7 +322,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     this.updateMsgTextStyles();
   }
 
-  private captionUpdateText() {
+  private captionUpdateText(): void {
     this.captionElement.innerText = `${this.caption}${this.required ? '' : ''}`;
     if (this.required) {
       this.renderer.addClass(this.wrapperElement, 'input_required');

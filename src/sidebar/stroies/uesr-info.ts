@@ -16,7 +16,7 @@ export const userInformationStorie = () => ({
       <user-info
        [username]="username"
        [avatar]="avatar"
-       [additional]="additional"> 
+       [additional]="additional">
         <mill-user-info-action icon="settings"></mill-user-info-action>
         <mill-user-info-action icon="mail" [disabled]="true"></mill-user-info-action>
         <mill-user-info-action icon="exit"></mill-user-info-action>

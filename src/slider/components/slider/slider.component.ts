@@ -45,7 +45,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
   @Input() public type?: SliderTypeEnum = SliderTypeEnum.basic;
 
   /** Disable state for slider */
-  @Input() public disabled = false;
+  @Input() public disabled: boolean = false;
 
   /** Minimum slider value */
   @Input()
@@ -161,16 +161,16 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
 
   /** Output result */
   // tslint:disable-next-line:no-output-native
-  @Output('result') public valueChanged: EventEmitter<ResultInterface> = new EventEmitter<ResultInterface>();
+  @Output() public valueChanged: EventEmitter<ResultInterface> = new EventEmitter<ResultInterface>();
 
   /** Slider form group for values */
   public form: FormGroup;
 
   /** Enum for slider type */
-  public sliderType = SliderTypeEnum;
+  public sliderType: any = SliderTypeEnum;
 
   /** Enum for thumb names */
-  public thumbName = ThumbNameEnum;
+  public thumbName: any = ThumbNameEnum;
 
   /** Init slider config */
   public sliderConfig: SliderConfigInterface = {
@@ -195,11 +195,11 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
   private _sliderWidth: number;
 
   /** The result of moving thumb */
-  private _moveCounter = 0;
+  private _moveCounter: number = 0;
 
   /** Arrays of steps */
-  private _rangeFirstArray = [];
-  private _rangeSecondArray = [];
+  private _rangeFirstArray: any[] = [];
+  private _rangeSecondArray: any[] = [];
 
   constructor(
     private _fb: FormBuilder,
@@ -222,7 +222,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
   }
 
   /** Control value accessor methods */
-  writeValue(value: ResultInterface) {
+  writeValue(value: ResultInterface): void {
 
     if (value && Object.keys(value).length > 0) {
 
@@ -292,11 +292,11 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
   private _onTouched: any = () => {
   }
 
-  public registerOnChange(fn): void {
+  public registerOnChange(fn: () => void): void {
     this.form.valueChanges.pipe(debounceTime(100)).subscribe(fn);
   }
 
-  public registerOnTouched(fn): void {
+  public registerOnTouched(fn: () => void): void {
     this._onTouched = fn;
   }
 
@@ -324,16 +324,16 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
           this._addEvent(moveEventName);
           this._addEvent(endEventMove);
 
+          // Set basic options for the selected thumb
           if (isTouch) {
             this._addEvent('touchcancel');
+            this._setSelectedThumb(eventOutput.target, eventOutput.event as TouchEvent);
+          } else {
+            this._setSelectedThumb(eventOutput.target, eventOutput.event as MouseEvent);
           }
-
-          // Set basic options for the selected thumb
-          this._setSelectedThumb(eventOutput.target, eventOutput.event);
-
           break;
         case 'keydown':
-          this.onKeyDown(eventOutput.event);
+          this.onKeyDown(eventOutput.event as KeyboardEvent);
           break;
         case 'blur':
           this.sliderConfig.selectedThumb.name = null;
@@ -348,7 +348,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
   }
 
   /** Push event from slider thumb */
-  private _addEvent(eventName): void {
+  private _addEvent(eventName: string): void {
 
     const event$: Subscription = fromEvent(window, eventName, {passive: eventName !== 'mousemove'}).subscribe(
       event => {
@@ -357,11 +357,12 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
           if (eventName === 'mousemove') {
             // Prevent from selecting anything else.
             event.preventDefault();
+            this.onMove(event as MouseEvent);
           }
 
-          if (eventName === 'mousemove' || eventName === 'touchmove') {
+          if (eventName === 'touchmove') {
             // Move event
-            this.onMove(event);
+            this.onMove(event as TouchEvent);
           }
 
           const endEvents = ['mouseup', 'touchend', 'touchcancel'];
@@ -372,7 +373,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
         }
 
       },
-      error => console.log(error),
+      error => console.error(error),
     );
 
     this._eventSubscriptions$.push(event$);
@@ -384,7 +385,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
   }
 
   /** Setting basic options for the selected thumb */
-  private _setSelectedThumb(thumbName: ThumbNameEnum, event?): void {
+  private _setSelectedThumb(thumbName: ThumbNameEnum, event?: TouchEvent | MouseEvent): void {
 
     if (this.disabled) {
       return;
@@ -395,9 +396,15 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
     this.sliderConfig.lastSelected = thumbName;
 
     if (event) {
-      this.sliderConfig.selectedThumb.position = this._isTouch(event)
-      && event.touches
-      && event.touches.length > 0 ? (event.touches[0].pageX || event.changedTouches[0].pageX) : event.pageX;
+      if (this._isTouch(event)) {
+        const ev = event as TouchEvent;
+        if (ev.touches && ev.touches.length > 0) {
+          this.sliderConfig.selectedThumb.position = ev.touches[0].pageX || ev.changedTouches[0].pageX;
+        }
+      } else {
+        const ev = event as MouseEvent;
+        this.sliderConfig.selectedThumb.position = ev.pageX;
+      }
     }
 
     // Check if we need to hide one of the tooltips (just for UI)
@@ -408,26 +415,39 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
   }
 
   /** Mouse/touch move event */
-  public onMove(event): void {
+  public onMove(event: MouseEvent | TouchEvent): void {
 
     if (!this._sliderWidth) {
       this._getSliderContentWidth();
     }
 
     // Get X position for our touch or cursor
-    const eventX = this._isTouch(event) && event.touches && event.touches.length > 0 ? (event.touches[0].pageX || event.changedTouches[0].pageX) : event.pageX;
+
+    let eventX;
+
+    if (this._isTouch(event)) {
+      const ev = event as TouchEvent;
+      if (ev.touches && ev.touches.length > 0) {
+        eventX = ev.touches[0].pageX || ev.changedTouches[0].pageX;
+      }
+    } else {
+      const ev = event as MouseEvent;
+      eventX = ev.pageX;
+    }
 
     // Position difference calculation
     this._moveCounter = eventX - this.sliderConfig.selectedThumb.position;
 
     // Calculation of position as a percentage
-    const result = this.sliderConfig.selectedThumb.value + Math.round(this._moveCounter / Math.round(this._sliderWidth / 100));
+    const result =
+      this.sliderConfig.selectedThumb.value +
+      Math.round(this._moveCounter / Math.round(this._sliderWidth / 100));
 
     this._updateValue(result);
   }
 
   /** Key down event */
-  public onKeyDown(event): void {
+  public onKeyDown(event: KeyboardEvent): void {
     if (event.key === KeyCodeEnum.keyLeft || event.key === KeyCodeEnum.keyRight) {
       const value = this.sliderConfig[this.sliderConfig.selectedThumb.name];
       this._updateValue(value, event.key);
@@ -435,7 +455,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
   }
 
   /** One method for calculating values from movements or keys  */
-  private _updateValue(value, eventKey?: string): void {
+  private _updateValue(value: number, eventKey?: string): void {
 
     // Check if event is keydown
     if (eventKey) {
@@ -470,7 +490,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
   }
 
   /** Calculate UI thumb position */
-  private _calcViewValue(value): void {
+  private _calcViewValue(value: number): void {
     if (value || value === 0) {
       if (this.sliderConfig.selectedThumb.name === ThumbNameEnum.minValue) {
         if (value < 1) {
@@ -494,7 +514,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
   }
 
   /** Set array of numbers for slider with step type */
-  private _setRangeArray() {
+  private _setRangeArray(): Promise<any> {
     this._rangeFirstArray = [];
     this._rangeSecondArray = [];
 
@@ -512,11 +532,12 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
   }
 
   /** Calculation value for the slider with step type */
-  private _calcStepValue(value): number {
+  private _calcStepValue(value: number): number {
     for (let i = 0; i < this.step; i++) {
       // If value is between min and max values in step arrays
       if (value >= this._rangeFirstArray[i] && value <= this._rangeSecondArray[i]) {
-        return Math.round(value > ((this._rangeFirstArray[i] + this._rangeSecondArray[i]) / 2) ? this._rangeSecondArray[i] : this._rangeFirstArray[i]);
+        return Math.round(value > ((this._rangeFirstArray[i] + this._rangeSecondArray[i]) / 2)
+          ? this._rangeSecondArray[i] : this._rangeFirstArray[i]);
       }
     }
   }
@@ -533,7 +554,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
   }
 
   /** Calculate UI percent value */
-  private _calcNumber(thumb): number {
+  private _calcNumber(thumb: ThumbNameEnum): number {
     const calcValue = this.maxValue - this.minValue;
     return Math.round(this.minValue + calcValue / 100 * this.sliderConfig[thumb]);
   }
@@ -551,7 +572,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
     }
   }
 
-  /** Get slider content width*/
+  /** Get slider content width */
   private _getSliderContentWidth(): void {
     this._sliderWidth = this._sliderContent.nativeElement.getBoundingClientRect().width;
   }
@@ -607,7 +628,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
   }
 
   /** Check if event is touch event */
-  private _isTouch = (event): boolean => {
+  private _isTouch = (event: Event | TouchEvent | MouseEvent): boolean => {
     return event.type[0] === 't';
   }
 

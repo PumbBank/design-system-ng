@@ -1,13 +1,13 @@
 import { select, text, withKnobs } from '@storybook/addon-knobs';
-import { FileAttachModule } from "./file-attach.module";
-import { FileAttachOverviewComponent } from "./examples/file-attach-overview/file-attach-overview.component";
-import { IconsModule } from "../2-icons";
-import { BrowserAnimationsModule } from "@angular/platform-browser/animations";
+import { FileAttachModule } from './file-attach.module';
+import { FileAttachOverviewComponent } from './examples/file-attach-overview/file-attach-overview.component';
+import { IconsModule } from '../2-icons';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Компоненти|File attach',
   parameters: {
-    options: { showPanel: true },
+    options: {showPanel: true},
   },
   decorators: [withKnobs]
 };
@@ -35,6 +35,6 @@ export const component = () => ({
     accepted: text('Accepted file types', '')
   },
   template: `
-      <file-attach-overview [view]="view" [accepted]="accepted"></file-attach-overview>
+      <file-attach-overview [view]='view' [accepted]='accepted'></file-attach-overview>
   `
 });
