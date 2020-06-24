@@ -6,7 +6,7 @@ import { EventOutputInterface, SliderConfigInterface, ThumbNameEnum } from '../.
   templateUrl: './slider-thumb.component.html',
 })
 export class SliderThumbComponent {
-  @HostBinding('tabIndex') private _tabIndex: number = 0;
+  @HostBinding('tabIndex') tabIndex: number = 0;
 
   /** Thumb name (min or max value) */
   @Input() thumbName: ThumbNameEnum;
