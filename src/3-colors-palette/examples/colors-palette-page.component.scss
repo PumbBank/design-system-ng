@@ -3,13 +3,15 @@
 :host {
   box-sizing: border-box;
   display: block;
+  margin-top: 0;
 }
 
 .mill-color-palette {
   &__container {
     width: 100%;
-    max-width: 712px;
     justify-self: center;
+    max-width: 712px;
+    margin-top: 0;
   }
 
   &__item {
@@ -19,17 +21,6 @@
 
     &:last-child {
       border-bottom-color: transparent;
-    }
-  }
-
-  &__color-item {
-    margin-top: 35px;
-
-    &:hover {
-      .mill-color-palette__color-view {
-        border-radius: 0 50% 50% 50%;
-        transform: rotate(45deg);
-      }
     }
   }
 
@@ -54,6 +45,17 @@
     }
   }
 
+  &__color-item {
+    margin-top: 35px;
+
+    &:hover {
+      .mill-color-palette__color-view {
+        border-radius: 0 50% 50% 50%;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
   &__color-name {
     margin-top: 10px;
   }
@@ -63,6 +65,7 @@
   }
 
   &__color-code {
+    position: relative;
     display: flex;
     color: $main-primary-medium;
   }
@@ -72,12 +75,38 @@
   }
 
   &__color-value {
+    cursor: pointer;
     margin-left: 10px;
     transition: color 0.3s ease-in-out;
 
     &:hover {
       color: $main-primary-dark;
-      cursor: default;
+
+      .mill-color-palette__preview {
+        opacity: 1;
+        visibility: visible;
+        transform: translateY(0);
+        transition: 0.2s ease;
+      }
     }
+  }
+
+  &__preview {
+    position: absolute;
+    top: calc(100% + 8px);
+    white-space: nowrap;
+    height: 32px;
+    padding: 0 12px;
+    background: $grey-60;
+    color: $other-white;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.1s ease;
+    transform: translateY(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    z-index: 1;
   }
 }

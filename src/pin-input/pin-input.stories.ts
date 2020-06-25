@@ -1,8 +1,9 @@
 import { boolean, number, text, withKnobs } from '@storybook/addon-knobs';
 import { PinInputComponent } from './components/pin-input/pin-input.component';
 import { PinInputOverviewComponent } from './examples/pin-input-page.component';
-import { IconsModule } from '../2-icons/icons.module';
+import { IconsModule } from '../2-icons';
 
+/*
 export default {
   title: 'Компоненти|Pin',
   parameters: {
@@ -10,6 +11,7 @@ export default {
   },
   decorators: [withKnobs]
 };
+*/
 
 export const component = () => ({
   moduleMetadata: {

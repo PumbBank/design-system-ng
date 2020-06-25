@@ -52,7 +52,10 @@
     }
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
+    outline: none;
+
     .mill-radio__checkmark {
       border-color: $red-40;
     }

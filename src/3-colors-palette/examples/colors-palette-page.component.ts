@@ -1,9 +1,10 @@
 import { Component } from '@angular/core';
+import { ClipboardService } from 'ngx-clipboard';
 
 @Component({
   selector: 'mill-colors-palette-overview',
   templateUrl: './colors-palette-page.component.html',
-  styleUrls: ['./colors-palette-page.component.scss', '../../assets/styles/overview.scss']
+  styleUrls: ['../../assets/styles/overview.scss', './colors-palette-page.component.scss']
 })
 
 export class ColorsPaletteGuidelineComponent {
@@ -96,4 +97,21 @@ export class ColorsPaletteGuidelineComponent {
       ]
     }
   ];
+
+  constructor(private _clipboardService: ClipboardService) {
+  }
+
+  copyColor(text: string): void {
+    const confirmMessage = document.createElement('div');
+
+    this._clipboardService.copyFromContent(text);
+
+    confirmMessage.innerText = 'Color copied to clipboard!';
+    confirmMessage.classList.add('copy-color-popup');
+    document.body.appendChild(confirmMessage);
+
+    setTimeout(() => {
+      document.body.removeChild(confirmMessage);
+    }, 2000);
+  }
 }

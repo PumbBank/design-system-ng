@@ -15,6 +15,7 @@ import { PinInputOverviewComponent } from './examples/pin-input-page.component';
     CommonModule
   ]
 })
+
 export class PinInputModule {
 
 }
