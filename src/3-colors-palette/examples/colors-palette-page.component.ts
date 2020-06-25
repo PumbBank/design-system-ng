@@ -98,7 +98,7 @@ export class ColorsPaletteGuidelineComponent {
     }
   ];
 
-  constructor(private _clipboardService: ClipboardService){
+  constructor(private _clipboardService: ClipboardService) {
   }
 
   copyColor(text: string): void {
