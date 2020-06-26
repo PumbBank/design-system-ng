@@ -52,7 +52,8 @@ export class InputPhoneDirective extends MillInput implements ControlValueAccess
   }
 
   private static cleanMask(maskedValue: string): string {
-    return maskedValue.replace(/[-+()\s]/g, '');
+    const value = maskedValue.replace(/[-+()\s]/g, '');
+    return value;
   }
 
   @HostListener('focus') setUkrainianCode(): void {
