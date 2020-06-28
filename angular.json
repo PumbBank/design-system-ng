@@ -55,6 +55,46 @@
           }
         }
       }
+    },
+    "mill-lib": {
+      "projectType": "library",
+      "root": "mill-lib",
+      "sourceRoot": "mill-lib/src",
+      "prefix": "mill",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-ng-packagr:build",
+          "options": {
+            "tsConfig": "mill-lib/tsconfig.lib.json",
+            "project": "mill-lib/ng-package.json"
+          },
+          "configurations": {
+            "production": {
+              "tsConfig": "mill-lib/tsconfig.lib.prod.json"
+            }
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "mill-lib/src/test.ts",
+            "tsConfig": "mill-lib/tsconfig.spec.json",
+            "karmaConfig": "mill-lib/karma.conf.js"
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "mill-lib/tsconfig.lib.json",
+              "mill-lib/tsconfig.spec.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        }
+      }
     }
   },
   "defaultProject": "storybook-stub"

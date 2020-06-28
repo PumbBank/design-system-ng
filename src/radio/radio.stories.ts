@@ -3,6 +3,7 @@ import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { RadioComponent } from './components/radio.component';
 import { RadioOverviewComponent } from './examples/radio-page.component';
 import { IconsModule } from '../2-icons/icons.module';
+import { RadioModule } from './radio.module';
 
 export default {
   title: 'Компоненти|Radio',
@@ -15,11 +16,11 @@ export default {
 export const component = () => ({
   moduleMetadata: {
     declarations: [
-      RadioComponent,
       RadioOverviewComponent
     ],
     imports: [
-      IconsModule
+      IconsModule,
+      RadioModule
     ]
   },
   props: {

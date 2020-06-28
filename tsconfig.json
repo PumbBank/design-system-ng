@@ -7,8 +7,8 @@
     "declaration": false,
     "downlevelIteration": true,
     "experimentalDecorators": true,
-    "emitDecoratorMetadata": true,
-    "module": "ES2015",
+    "emitDecoratorMetadata": false,
+    "module": "es6",
     "moduleResolution": "node",
     "importHelpers": true,
     "target": "es2015",
@@ -20,16 +20,21 @@
       "dom"
     ],
     "paths": {
-      "mill-ng": [
+      "@angular/*": [
+        "./node_modules/@angular/*"
+      ],
+      "@mill-ng": [
         "dist/mill-ng"
       ],
-      "mill-ng/*": [
+      "@mill-ng/*": [
         "dist/mill-ng/*"
       ]
     }
   },
   "angularCompilerOptions": {
-    "fullTemplateTypeCheck": true,
-    "strictInjectionParameters": true
+    "skipTemplateCodegen": true,
+    "strictMetadataEmit": true,
+    "enableResourceInlining": true,
+    "enableIvy": false
   }
 }

@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostBinding, Input, OnChanges, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, HostBinding, Input, OnChanges, OnInit, Optional, Renderer2 } from '@angular/core';
 import { BadgeIconService } from '..';
 import { IconComponent } from '../../2-icons';
 
@@ -35,7 +35,7 @@ export class BadgeIconDirective implements OnInit, OnChanges {
   constructor(
     private _iconElementRef: ElementRef,
     private _renderer: Renderer2,
-    private _badgeService: BadgeIconService,
+    @Optional() private _badgeService: BadgeIconService,
     private _host: IconComponent
   ) { }
 
