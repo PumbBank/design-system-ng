@@ -68,7 +68,8 @@ export class InputCardDirective extends MillInput implements ControlValueAccesso
     this._textMaskInput = createTextMaskInputElement({
       inputElement: this.inputElementRef.nativeElement,
       mask: this._mask,
-      keepCharPositions: true
+      keepCharPositions: true,
+      guide: false
     });
   }
 

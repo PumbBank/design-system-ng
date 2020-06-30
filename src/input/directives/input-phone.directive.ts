@@ -72,7 +72,8 @@ export class InputPhoneDirective extends MillInput implements ControlValueAccess
     this._textMaskInput = createTextMaskInputElement({
       inputElement: this.inputElementRef.nativeElement,
       mask: COMBO_PHONE_MASK,
-      keepCharPositions: false
+      keepCharPositions: false,
+      guide: false
     });
   }
 
