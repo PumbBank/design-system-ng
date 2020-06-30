@@ -67,6 +67,7 @@ export class InputCardDirective extends MillInput implements ControlValueAccesso
     public inputElementRef: ElementRef
   ) {
     super(inputElementRef.nativeElement, renderer);
+    super.setBodyMinWidth('256px');
   }
 
   private static getCardType(value: string): PaymentSystem {
@@ -108,14 +109,9 @@ export class InputCardDirective extends MillInput implements ControlValueAccesso
       return null;
     }
 
-    const message = 'Невірний формат';
-    let result;
-
-    if (/^\d{16}$/.test(control.value)) {
-      result = true;
-    }
-    result = InputCardDirective.moonValidator(control.value);
-    return result ? null : {errorMessage: message};
+    const errorMessage = 'Невірний формат';
+    const result = /^\d{16}$/.test(control.value) && InputCardDirective.moonValidator(control.value);
+    return result ? null : {errorMessage};
   }
 
   protected cleanFunction: CleanFunction = function(inputValue: string): string {
