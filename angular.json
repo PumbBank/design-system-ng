@@ -97,5 +97,8 @@
       }
     }
   },
-  "defaultProject": "storybook-stub"
+  "defaultProject": "storybook-stub",
+  "cli": {
+    "analytics": false
+  }
 }
