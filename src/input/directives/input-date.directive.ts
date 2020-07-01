@@ -38,7 +38,8 @@ export class InputDateDirective extends MillInput implements ControlValueAccesso
     this.textMaskInput = createTextMaskInputElement({
       inputElement: this.inputElementRef.nativeElement,
       mask: this.mask,
-      keepCharPositions: true
+      keepCharPositions: true,
+      guide: false
     });
   }
 

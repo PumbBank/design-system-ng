@@ -4,12 +4,15 @@
                  [ngTemplateOutlet]="fileLabelWrap"
                  [ngTemplateOutletContext]="{name: file?.name, isError: file?.isError, index: index}"></ng-template>
   </div>
-  <mill-button view="ghost" icon="attach" (click)="chooseFileClick()">Обрати</mill-button>
-  <input #fileInput name="img" type="file" [accept]="fileAcceptedTypes" hidden (change)="onFileLoaded($event)"/>
+  <mill-button view="ghost" icon="attach" (click)="chooseFileClick()">{{ actionCaption }}</mill-button>
+  <input #fileInput name="img" type="file" hidden
+         [accept]="fileAcceptedTypes"
+         [multiple]="multiple"
+         (change)="onFileLoaded($event)"/>
 </div>
 
 <ng-template #fileLabelWithDelete let-name="name" let-index="index">
-  <span class="file-attach__fonts__p2">{{ name }}</span>
+  <span class="file-attach__fonts__p2">{{ textEllipsisCenter(name) }}</span>
   <mill-button view="hidden" icon="trash" class="file-attach__utils__ml-16" (click)="removeFileClick(index)"></mill-button>
 </ng-template>
 
