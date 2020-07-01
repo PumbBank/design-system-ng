@@ -4,7 +4,7 @@
                  [ngTemplateOutlet]="fileLabelWrap"
                  [ngTemplateOutletContext]="{name: file?.name, isError: file?.isError, index: index}"></ng-template>
   </div>
-  <mill-button view="ghost" icon="attach" (click)="chooseFileClick()">Обрати</mill-button>
+  <mill-button view="ghost" icon="attach" (click)="chooseFileClick()">{{ actionCaption }}</mill-button>
   <input #fileInput name="img" type="file" [accept]="fileAcceptedTypes" hidden (change)="onFileLoaded($event)"/>
 </div>
 
