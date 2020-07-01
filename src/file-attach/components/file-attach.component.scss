@@ -49,14 +49,14 @@
   background: #FFFFFF;
   border-radius: 8px;
   padding: 0 4px 0 16px;
-  max-width: 264px;
+  width: 264px;
 
   &.ghost-view {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 2px 7px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.2);
   }
 
   &.error-state {
-    padding: 11px 16px 9px;
+    padding: 11px 4px 9px 16px;
   }
 
   &:hover {
@@ -72,6 +72,6 @@
   }
 
   &.bottom {
-    margin: 8px 0;
+    margin: 8px 0 0 0;
   }
 }

@@ -51,6 +51,7 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
   @Input() view: FileAttachView = FileAttachView.Ghost;
   @Input() addedFiles: FileAttach[];
   @Input() fileAcceptedTypes: string;
+  @Input() multiple: boolean;
   @Input() actionCaption: string = 'Обрати';
   @Input() listSide: ListSide = ListSide.Left;
   @Output() filesChanged: EventEmitter<FileAttach[]> = new EventEmitter<FileAttach[]>();
