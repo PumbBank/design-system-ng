@@ -5,7 +5,10 @@
                  [ngTemplateOutletContext]="{name: file?.name, isError: file?.isError, index: index}"></ng-template>
   </div>
   <mill-button view="ghost" icon="attach" (click)="chooseFileClick()">{{ actionCaption }}</mill-button>
-  <input #fileInput name="img" type="file" [accept]="fileAcceptedTypes" hidden (change)="onFileLoaded($event)"/>
+  <input #fileInput name="img" type="file" hidden
+         [accept]="fileAcceptedTypes"
+         [multiple]="multiple"
+         (change)="onFileLoaded($event)"/>
 </div>
 
 <ng-template #fileLabelWithDelete let-name="name" let-index="index">

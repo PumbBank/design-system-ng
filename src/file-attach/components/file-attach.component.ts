@@ -82,8 +82,17 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
   onFileLoaded(event: any): void {
     if (event && event.currentTarget) {
       const files = event.currentTarget.files as FileList;
-      const singleFile = files.item(0);
-      this.files.push({file: singleFile, name: singleFile.name});
+      let singleFile;
+      if (this.multiple && files.length > 1) {
+        for (let i = 0; i < files.length; i++) {
+          singleFile = files.item(i);
+          this.files.push({file: singleFile, name: singleFile.name});
+        }
+      } else {
+        singleFile = files.item(0);
+        this.files.push({file: singleFile, name: singleFile.name});
+      }
+      singleFile = null;
       this.filesChanged.emit(this.files);
     }
   }

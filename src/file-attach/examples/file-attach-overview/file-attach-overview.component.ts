@@ -11,6 +11,7 @@ export class FileAttachOverviewComponent {
 
   @Input() view: FileAttachView;
   @Input() accepted: string;
+  @Input() multiple: boolean;
 
   constructor() {
     this.generateStabs();
