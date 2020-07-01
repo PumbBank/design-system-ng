@@ -101,6 +101,15 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
     this.files.splice(index, 1);
   }
 
+  textEllipsisCenter(text: string): string {
+    if (text.length > 25) {
+      const parts = text.split('');
+      return `${parts.slice(0, 10).join('')}...${parts.slice(-10).join('')}`;
+    }
+
+    return text;
+  }
+
   private setListSide(side: ListSide): void {
     switch (side) {
       case ListSide.Left:

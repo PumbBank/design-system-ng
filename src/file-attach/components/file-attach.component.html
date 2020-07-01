@@ -12,7 +12,7 @@
 </div>
 
 <ng-template #fileLabelWithDelete let-name="name" let-index="index">
-  <span class="file-attach__fonts__p2">{{ name }}</span>
+  <span class="file-attach__fonts__p2">{{ textEllipsisCenter(name) }}</span>
   <mill-button view="hidden" icon="trash" class="file-attach__utils__ml-16" (click)="removeFileClick(index)"></mill-button>
 </ng-template>
 
