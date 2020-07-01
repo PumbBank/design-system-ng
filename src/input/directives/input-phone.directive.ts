@@ -33,12 +33,12 @@ export class InputPhoneDirective extends MillInput implements ControlValueAccess
 
   @HostListener('focus') setUkrainianCode(): void {
     if (typeof this._host.value === 'undefined' || this._host.value === '') {
-      this._host.value = UA_PHONE_CODE+ ' (';
+      this._host.value = UA_PHONE_CODE + ' (';
     }
   }
 
   @HostListener('window:keydown', ['$event'])
-  keyEvent(event: KeyboardEvent) {
+  keyEvent(event: KeyboardEvent): void {
     if (this._host.value === UA_PHONE_CODE && event.code === 'Backspace') {
       event.preventDefault();
     }
