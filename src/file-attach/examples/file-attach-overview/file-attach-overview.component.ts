@@ -25,6 +25,9 @@ export class FileAttachOverviewComponent {
       });
       if (i === 2) {
         files.push({name: file.name, isError: true, file});
+      }
+      if (i === 3) {
+        files.push({name: file.name, isLoading: true, file});
       } else {
         files.push({name: file.name, file});
       }

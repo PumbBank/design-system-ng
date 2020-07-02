@@ -18,6 +18,7 @@ export type FileAttach = {
   name: string;
   file?: any;
   isError?: boolean;
+  isLoading?: boolean;
 };
 
 export enum ListSide {
