@@ -37,7 +37,6 @@
       color: $green-50 !important;
     }
   }
-  
 }
 
 .input-select__enterence {
@@ -50,7 +49,7 @@
   @extend %p2;
 
   color: $grey-70;
-  margin-bottom: 3px;
+  margin-bottom: 4px;
   height: 19px;
   white-space: nowrap;
   overflow: hidden;
@@ -138,11 +137,11 @@
 
 .chevron-down {
   height: 44px;
-  color: $grey-50;
+  color: $grey-40;
   cursor: pointer;
   display: flex;
   align-items: center;
-  margin-right: 14px;
+  margin-right: 10px;
   transform: rotate(0);
   transition: transform 299ms ease;
 

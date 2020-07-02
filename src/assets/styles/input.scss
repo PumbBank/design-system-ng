@@ -25,6 +25,22 @@
       padding: 0;
       border: 2px solid $grey-60;
     }
+
+    .input__placeholder {
+      color: $grey-50;
+    }
+
+    input::placeholder {
+      color: $grey-50;
+    }
+
+    .input__icon {
+      background: $grey-50 !important;
+    }
+
+    .chevron__icon {
+      color: $grey-50 !important;
+    }
   }
 }
 
