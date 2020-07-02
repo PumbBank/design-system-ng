@@ -1,12 +1,16 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
-  ElementRef, EventEmitter,
+  ElementRef,
+  EventEmitter,
   Input,
-  OnChanges, Output,
+  OnChanges,
+  Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 
@@ -31,6 +35,7 @@ export enum FileAttachView {
   selector: 'mill-file-attach',
   templateUrl: './file-attach.component.html',
   styleUrls: ['./file-attach.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('flyInOut', [
