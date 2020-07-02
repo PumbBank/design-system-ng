@@ -24,6 +24,7 @@ export class InputPhoneDirective extends MillInput implements ControlValueAccess
     public inputElementRef: ElementRef
   ) {
     super(inputElementRef.nativeElement, renderer);
+    super.setBodyMinWidth('240px');
     this._host = inputElementRef.nativeElement;
   }
 
