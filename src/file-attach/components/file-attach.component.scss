@@ -19,6 +19,7 @@
 
 .file-attach__fonts__p2 {
   @extend %p2;
+  color: $grey-70;
 }
 
 .file-attach__content {
@@ -74,4 +75,8 @@
   &.bottom {
     margin: 8px 0 0 0;
   }
+}
+
+.button_hidden:hover:not(:disabled) {
+  background: $red-10 !important;
 }
