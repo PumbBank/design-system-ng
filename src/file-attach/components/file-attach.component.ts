@@ -1,12 +1,16 @@
 import {
   AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef,
+  ChangeDetectionStrategy,
+  ChangeDetectorRef,
   Component,
-  ElementRef, EventEmitter,
+  ElementRef,
+  EventEmitter,
   Input,
-  OnChanges, Output,
+  OnChanges,
+  Output,
   SimpleChanges,
-  ViewChild
+  ViewChild,
+  ViewEncapsulation
 } from '@angular/core';
 import { animate, style, transition, trigger } from '@angular/animations';
 
@@ -14,6 +18,7 @@ export type FileAttach = {
   name: string;
   file?: any;
   isError?: boolean;
+  isLoading?: boolean;
 };
 
 export enum ListSide {
@@ -31,6 +36,7 @@ export enum FileAttachView {
   selector: 'mill-file-attach',
   templateUrl: './file-attach.component.html',
   styleUrls: ['./file-attach.component.scss'],
+  encapsulation: ViewEncapsulation.None,
   changeDetection: ChangeDetectionStrategy.OnPush,
   animations: [
     trigger('flyInOut', [
@@ -51,6 +57,8 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
   @Input() view: FileAttachView = FileAttachView.Ghost;
   @Input() addedFiles: FileAttach[];
   @Input() fileAcceptedTypes: string;
+  @Input() multiple: boolean;
+  @Input() actionCaption: string = 'Обрати';
   @Input() listSide: ListSide = ListSide.Left;
   @Output() filesChanged: EventEmitter<FileAttach[]> = new EventEmitter<FileAttach[]>();
   @ViewChild('fileInput', {static: true}) fileInput: ElementRef;
@@ -80,14 +88,32 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
   onFileLoaded(event: any): void {
     if (event && event.currentTarget) {
       const files = event.currentTarget.files as FileList;
-      const singleFile = files.item(0);
-      this.files.push({file: singleFile, name: singleFile.name});
+      let singleFile;
+      if (this.multiple && files.length > 1) {
+        for (let i = 0; i < files.length; i++) {
+          singleFile = files.item(i);
+          this.files.push({file: singleFile, name: singleFile.name});
+        }
+      } else {
+        singleFile = files.item(0);
+        this.files.push({file: singleFile, name: singleFile.name});
+      }
+      singleFile = null;
       this.filesChanged.emit(this.files);
     }
   }
 
   removeFileClick(index: number): void {
     this.files.splice(index, 1);
+  }
+
+  textEllipsisCenter(text: string): string {
+    if (text.length > 25) {
+      const parts = text.split('');
+      return `${parts.slice(0, 10).join('')}...${parts.slice(-10).join('')}`;
+    }
+
+    return text;
   }
 
   private setListSide(side: ListSide): void {

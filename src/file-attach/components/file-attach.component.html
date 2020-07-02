@@ -2,14 +2,19 @@
   <div class="file-attach__content_files">
     <ng-template *ngFor="let file of files; index as index"
                  [ngTemplateOutlet]="fileLabelWrap"
-                 [ngTemplateOutletContext]="{name: file?.name, isError: file?.isError, index: index}"></ng-template>
+                 [ngTemplateOutletContext]="{name: file?.name,
+                                             state: file?.isError ? 'error' : file?.isLoading ? 'loading' : '',
+                                             index: index}"></ng-template>
   </div>
-  <mill-button view="ghost" icon="attach" (click)="chooseFileClick()">Обрати</mill-button>
-  <input #fileInput name="img" type="file" [accept]="fileAcceptedTypes" hidden (change)="onFileLoaded($event)"/>
+  <mill-button view="ghost" icon="attach" (click)="chooseFileClick()">{{ actionCaption }}</mill-button>
+  <input #fileInput name="img" type="file" hidden
+         [accept]="fileAcceptedTypes"
+         [multiple]="multiple"
+         (change)="onFileLoaded($event)"/>
 </div>
 
 <ng-template #fileLabelWithDelete let-name="name" let-index="index">
-  <span class="file-attach__fonts__p2">{{ name }}</span>
+  <span class="file-attach__fonts__p2">{{ textEllipsisCenter(name) }}</span>
   <mill-button view="hidden" icon="trash" class="file-attach__utils__ml-16" (click)="removeFileClick(index)"></mill-button>
 </ng-template>
 
@@ -18,15 +23,27 @@
   <span class="file-attach__fonts__p2 file-attach__colors__orange file-attach__utils__ml-8">Файл пошкоджений</span>
 </ng-template>
 
-<ng-template #fileLabelWrap let-isError="isError" let-name="name" let-index="index">
+<ng-template #fileLabelWithLoader let-name="name">
+  <span class="file-attach__fonts__p2">{{ textEllipsisCenter(name) }}</span>
+  <div class="file-attach__content__loader_wrap">
+    <div class="file-attach__content__loader"></div>
+  </div>
+</ng-template>
+
+
+<ng-template #fileLabelWrap let-state="state" let-name="name" let-index="index">
   <div class="file-attach__content_label"
        @flyInOut
-       [class.error-state]="isError"
-       [class.file-attach__utils__flex-start]="isError"
+       [class.error-state]="state === 'error'"
+       [class.loading-state]="state === 'loading'"
+       [class.file-attach__utils__flex-start]="state === 'error'"
        [ngClass]="[side, view + '-view']">
-    <ng-container [ngSwitch]="isError">
-      <ng-template *ngSwitchCase="true"
+    <ng-container [ngSwitch]="state">
+      <ng-template *ngSwitchCase="'error'"
                    [ngTemplateOutlet]="fileLabelWithError"></ng-template>
+      <ng-template *ngSwitchCase="'loading'"
+                   [ngTemplateOutlet]="fileLabelWithLoader"
+                   [ngTemplateOutletContext]="{name: name}"></ng-template>
       <ng-template *ngSwitchDefault
                    [ngTemplateOutlet]="fileLabelWithDelete"
                    [ngTemplateOutletContext]="{name: name, index: index}"></ng-template>

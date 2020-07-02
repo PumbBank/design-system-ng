@@ -19,6 +19,7 @@
 
 .file-attach__fonts__p2 {
   @extend %p2;
+  color: $grey-70;
 }
 
 .file-attach__content {
@@ -48,14 +49,19 @@
   justify-content: space-between;
   background: #FFFFFF;
   border-radius: 8px;
-  padding: 0 6px 0 16px;
+  padding: 0 4px 0 16px;
+  width: 264px;
 
   &.ghost-view {
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 2px 7px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.2);
   }
 
   &.error-state {
-    padding: 11px 16px 9px;
+    padding: 11px 4px 9px 16px;
+  }
+
+  &.loading-state {
+    padding: 11px 4px 9px 16px;
   }
 
   &:hover {
@@ -71,6 +77,54 @@
   }
 
   &.bottom {
-    margin: 8px 0;
+    margin: 8px 0 0 0;
   }
+}
+
+.file-attach__content__loader_wrap {
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
+  position: relative;
+  margin: 0 8px 0 0;
+}
+
+.file-attach__content__loader:before, .file-attach__content__loader:after {
+  content: "";
+  position: absolute;
+  width: 20px;
+  height: 20px;
+  border-radius: 100%;
+  border: 2px solid transparent;
+  border-top-color: $red-50;
+}
+
+.file-attach__content__loader:before {
+  z-index: 100;
+  animation: spin 1s infinite;
+}
+
+.file-attach__content__loader:after {
+  border: 2px solid #D0D0D9;
+}
+
+@keyframes spin {
+  0%{
+    -webkit-transform: rotate(0deg);
+    -ms-transform: rotate(0deg);
+    -o-transform: rotate(0deg);
+    transform: rotate(0deg);
+  }
+
+  100%{
+    -webkit-transform: rotate(360deg);
+    -ms-transform: rotate(360deg);
+    -o-transform: rotate(360deg);
+    transform: rotate(360deg);
+  }
+}
+
+// overrides
+.button_hidden:hover:not(:disabled) {
+  background: $red-10 !important;
 }
