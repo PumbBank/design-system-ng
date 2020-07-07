@@ -126,5 +126,7 @@
 
 // overrides
 .button_hidden:hover:not(:disabled) {
-  background: $red-10 !important;
+  & > .button__icon {
+    background: $red-40 !important;
+  }
 }
