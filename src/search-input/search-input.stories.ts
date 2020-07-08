@@ -1,7 +1,7 @@
 import { boolean, number, object, text, withKnobs } from '@storybook/addon-knobs';
 import { SearchInputModule } from './search-input.module';
 import { SearchInputOverviewComponent } from './examples/seacrh-input-overview/search-input-overview.component';
-import { IconsModule } from '../2-icons/icons.module';
+import { IconsModule } from '../icons/icons.module';
 
 const data = [
   {name: 'Евгений', surname: 'Александрович'},

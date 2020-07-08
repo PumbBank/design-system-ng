@@ -1,5 +1,5 @@
 import { withKnobs } from '@storybook/addon-knobs';
-import { IconsModule } from '../2-icons';
+import { IconsModule } from '../icons';
 import { TypographyPageComponent } from './examples/typography-page.component';
 
 export default {

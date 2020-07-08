@@ -1,7 +1,7 @@
 import { boolean, select, text, withKnobs } from '@storybook/addon-knobs';
 import { FileAttachModule } from './file-attach.module';
 import { FileAttachOverviewComponent } from './examples/file-attach-overview/file-attach-overview.component';
-import { IconsModule } from '../2-icons';
+import { IconsModule } from '../icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {

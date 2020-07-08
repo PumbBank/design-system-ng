@@ -1,7 +1,7 @@
 import { boolean, withKnobs } from '@storybook/addon-knobs';
 import { TabsModule } from './tabs.module';
 import { TabPageComponent } from './examples/tabs-page/tabs-page.component';
-import { IconsModule } from '../2-icons';
+import { IconsModule } from '../icons';
 
 export default {
   title: 'Компоненти|Tabs',
