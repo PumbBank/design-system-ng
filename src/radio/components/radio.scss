@@ -70,7 +70,8 @@
   }
 
   &_disabled,
-  &_disabled:hover {
+  &_disabled:hover,
+  &_disabled:focus {
     cursor: not-allowed;
 
     .mill-radio__label {
