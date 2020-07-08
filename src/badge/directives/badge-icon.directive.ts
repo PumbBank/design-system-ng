@@ -1,6 +1,6 @@
 import { Directive, ElementRef, HostBinding, Input, OnChanges, OnInit, Optional, Renderer2 } from '@angular/core';
 import { BadgeIconService } from '..';
-import { IconComponent } from '../../2-icons';
+import { IconComponent } from '../../icons';
 
 const EMPTY_BADGE_WIDTH = '4px';
 const ONE_SYMBOL_BADGE_WIDTH = '16px';

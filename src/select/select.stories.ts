@@ -3,7 +3,7 @@ import { SelectModule } from './select.module';
 import { SelectOverviewComponent } from './examples/select-page.component';
 import { MillHintModule } from '../hint/hint.module';
 import { ReactiveFormsModule } from '@angular/forms';
-import { IconsModule } from '../2-icons/icons.module';
+import { IconsModule } from '../icons/icons.module';
 
 export default {
   title: 'Компоненти|Select',

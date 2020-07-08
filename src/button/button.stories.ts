@@ -1,6 +1,6 @@
 import { text, withKnobs } from '@storybook/addon-knobs';
 import { ButtonComponent } from './components/button/button.component';
-import { IconsModule } from '../2-icons/icons.module';
+import { IconsModule } from '../icons/icons.module';
 import { ButtonOverviewComponent } from './examples/button-overview/button-overview.component';
 
 export default {

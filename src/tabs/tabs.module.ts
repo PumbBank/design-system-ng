@@ -4,7 +4,7 @@ import { TabsComponent } from './components/tabs/tabs.component';
 import { TabItemComponent } from './components/tabs/tab-item/tab-item.component';
 import { TabLabelComponent } from './components/tabs/tab-label/tab-label.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { IconsModule } from '../2-icons';
+import { IconsModule } from '../icons';
 
 @NgModule({
   declarations: [
