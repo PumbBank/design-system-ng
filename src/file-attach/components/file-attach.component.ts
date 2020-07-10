@@ -21,7 +21,7 @@ export type FileAttach = {
   isLoading?: boolean;
 };
 
-export enum ListSide {
+export enum FileAttachListSide {
   Left = 'left',
   Right = 'right',
   Bottom = 'bottom'
@@ -59,7 +59,7 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
   @Input() fileAcceptedTypes: string;
   @Input() multiple: boolean;
   @Input() actionCaption: string = 'Обрати';
-  @Input() listSide: ListSide = ListSide.Left;
+  @Input() listSide: FileAttachListSide = FileAttachListSide.Left;
   @Output() filesChanged: EventEmitter<FileAttach[]> = new EventEmitter<FileAttach[]>();
   @ViewChild('fileInput', {static: true}) fileInput: ElementRef;
 
@@ -107,6 +107,17 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
     this.files.splice(index, 1);
   }
 
+  reAttachFileClick(index: number): void {
+    this.chooseFileClick();
+    const subs = this.filesChanged.subscribe((files: FileAttach[]) => {
+      if (!files) {
+        return;
+      }
+      this.files.splice(index, 1);
+      subs.unsubscribe();
+    });
+  }
+
   textEllipsisCenter(text: string): string {
     if (text.length > 25) {
       const parts = text.split('');
@@ -116,15 +127,15 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
     return text;
   }
 
-  private setListSide(side: ListSide): void {
+  private setListSide(side: FileAttachListSide): void {
     switch (side) {
-      case ListSide.Left:
+      case FileAttachListSide.Left:
         this.side = 'ltr';
         break;
-      case ListSide.Right:
+      case FileAttachListSide.Right:
         this.side = 'rtl';
         break;
-      case ListSide.Bottom:
+      case FileAttachListSide.Bottom:
         this.side = 'bottom';
         break;
       default:

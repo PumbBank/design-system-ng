@@ -2,34 +2,15 @@
   <div class="overview__header">
     <div class="h4">File attach</div>
     <div class="overview__links">
-<!--      <a href="" class="overview__link s1"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>-->
+      <!--      <a href="" class="overview__link s1"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>-->
       <a href="" class="overview__link s1"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>
     </div>
   </div>
   <div class="overview__content grid">
-    <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Left side</div>
+    <div class="overview__column overview__column_offset">
+      <div class="overview__label s1">{{ getCaption(listSide) }}</div>
       <div class="overview__container">
-        <mill-file-attach listSide="left" [view]="view"
-                          [multiple]="multiple"
-                          [fileAcceptedTypes]="accepted"
-                          [addedFiles]="files"></mill-file-attach>
-      </div>
-    </div>
-    <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Right side</div>
-      <div class="overview__container">
-        <mill-file-attach listSide="right" [view]="view"
-                          [multiple]="multiple"
-                          [fileAcceptedTypes]="accepted"
-                          [addedFiles]="files"></mill-file-attach>
-      </div>
-    </div>
-    <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Under the button</div>
-      <div class="overview__container">
-        <mill-file-attach listSide="bottom"
-                          actionCaption="Обрати файл"
+        <mill-file-attach [listSide]="listSide"
                           [view]="view"
                           [multiple]="multiple"
                           [fileAcceptedTypes]="accepted"
