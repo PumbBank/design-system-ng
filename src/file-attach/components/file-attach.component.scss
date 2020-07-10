@@ -44,9 +44,14 @@
   }
 }
 
-.file-attach__content_files {
+.file-attach__content_files__flex {
   display: flex;
   flex-direction: column;
+}
+
+.file-attach__content_files__grid {
+  display: grid;
+  grid-template-columns: 33% 33% 33%;
 }
 
 .file-attach__content_label {
