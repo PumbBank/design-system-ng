@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FileAttachView } from '../..';
+import { FileAttachView, FileAttachListSide } from '../..';
 
 @Component({
   selector: 'file-attach-overview',
@@ -10,11 +10,24 @@ export class FileAttachOverviewComponent {
   public files: any[] = [];
 
   @Input() view: FileAttachView;
+  @Input() listSide: FileAttachListSide;
   @Input() accepted: string;
   @Input() multiple: boolean;
 
   constructor() {
     this.generateStabs();
+  }
+
+  getCaption(listSide: FileAttachListSide) {
+    switch (listSide) {
+      case FileAttachListSide.Left:
+        return 'Left side';
+      case FileAttachListSide.Right:
+        return 'Right side';
+      case FileAttachListSide.Bottom:
+        return 'Under the button'
+
+    }
   }
 
   private generateStabs(): void {

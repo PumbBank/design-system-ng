@@ -18,9 +18,12 @@
   <mill-button view="hidden" icon="trash" class="file-attach__utils__ml-16" (click)="removeFileClick(index)"></mill-button>
 </ng-template>
 
-<ng-template #fileLabelWithError>
-  <mill-icon name="warning" class="file-attach__colors__orange" size="12"></mill-icon>
-  <span class="file-attach__fonts__p2 file-attach__colors__orange file-attach__utils__ml-8">Файл пошкоджений</span>
+<ng-template #fileLabelWithError let-index="index">
+  <div class="file-attach__utils__flex_row_space file-attach__utils__flex-start">
+    <mill-icon name="warning" class="file-attach__colors__orange" size="12"></mill-icon>
+    <span class="file-attach__fonts__p2 file-attach__colors__orange file-attach__utils__ml-8">Файл пошкоджений</span>
+  </div>
+  <mill-button view="hidden" icon="refresh" class="file-attach__utils__ml-16" (click)="reAttachFileClick(index)"></mill-button>
 </ng-template>
 
 <ng-template #fileLabelWithLoader let-name="name">
@@ -36,11 +39,11 @@
        @flyInOut
        [class.error-state]="state === 'error'"
        [class.loading-state]="state === 'loading'"
-       [class.file-attach__utils__flex-start]="state === 'error'"
        [ngClass]="[side, view + '-view']">
     <ng-container [ngSwitch]="state">
       <ng-template *ngSwitchCase="'error'"
-                   [ngTemplateOutlet]="fileLabelWithError"></ng-template>
+                   [ngTemplateOutlet]="fileLabelWithError"
+                   [ngTemplateOutletContext]="{index: index}"></ng-template>
       <ng-template *ngSwitchCase="'loading'"
                    [ngTemplateOutlet]="fileLabelWithLoader"
                    [ngTemplateOutletContext]="{name: name}"></ng-template>
