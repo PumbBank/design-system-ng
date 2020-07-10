@@ -1,6 +1,5 @@
 <div class="file-attach__content" [ngClass]="[side]">
-  <div class="file-attach__content_files"
-       [class.file-attach__content_files__flex]="listSide === 'bottom'"
+  <div [class.file-attach__content_files__flex]="listSide === 'bottom'"
        [class.file-attach__content_files__grid]="listSide !== 'bottom'">
     <ng-template *ngFor="let file of files; index as index"
                  [ngTemplateOutlet]="fileLabelWrap"

@@ -51,7 +51,7 @@
 
 .file-attach__content_files__grid {
   display: grid;
-  grid-template-columns: 33% 33% 33%;
+  grid-template-columns: repeat(3, minmax(0, max-content));
 }
 
 .file-attach__content_label {

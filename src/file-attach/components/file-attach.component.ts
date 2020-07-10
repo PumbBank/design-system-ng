@@ -6,7 +6,7 @@ import {
   ElementRef,
   EventEmitter,
   Input,
-  OnChanges, OnDestroy,
+  OnChanges,
   Output,
   SimpleChanges,
   ViewChild,
@@ -50,9 +50,7 @@ export enum FileAttachView {
     ])
   ]
 })
-export class FileAttachComponent implements OnChanges, AfterViewInit, OnDestroy {
-  private _fileChangeSubscription: any;
-
+export class FileAttachComponent implements OnChanges, AfterViewInit {
   files: FileAttach[] = [];
   side: string;
 
@@ -79,10 +77,6 @@ export class FileAttachComponent implements OnChanges, AfterViewInit, OnDestroy 
 
   ngAfterViewInit(): void {
     this._cdr.markForCheck();
-  }
-
-  ngOnDestroy(): void {
-    this._fileChangeSubscription?.unsubscribe();
   }
 
   chooseFileClick(): void {
@@ -115,11 +109,12 @@ export class FileAttachComponent implements OnChanges, AfterViewInit, OnDestroy 
 
   reAttachFileClick(index: number): void {
     this.chooseFileClick();
-    this._fileChangeSubscription = this.filesChanged.subscribe((files: FileAttach[]) => {
+    const subs = this.filesChanged.subscribe((files: FileAttach[]) => {
       if (!files) {
         return;
       }
       this.files.splice(index, 1);
+      subs.unsubscribe();
     });
   }
 
