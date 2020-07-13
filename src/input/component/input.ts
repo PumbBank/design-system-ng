@@ -29,6 +29,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   @Input() errors: ValidationErrors | null = null;
   @Input() valid: string | boolean = null;
   @Input() caption: string = '';
+  @Input() prefix: string;
   @Input() icon: string;
   @Input() cleanup: boolean = false;
 
@@ -37,6 +38,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   bodyElement: HTMLElement;
   entranceElement: HTMLElement;
   footerElement: HTMLElement;
+  prefixElement: HTMLElement;
   msgWrapperElement: HTMLElement;
   msgIconElement: HTMLElement;
   msgTextElement: HTMLElement;
@@ -59,6 +61,9 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     }
     if (changes.icon) {
       this.updateIcon();
+    }
+    if (changes.prefix) {
+      this.setPrefix();
     }
   }
 
@@ -283,7 +288,6 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     this.renderer.appendChild(this.wrapperElement, this.captionElement);
     this.renderer.appendChild(this.wrapperElement, this.bodyElement);
     this.renderer.appendChild(this.wrapperElement, this.footerElement);
-
     this.renderer.appendChild(this.bodyElement, this.entranceElement);
     this.renderer.appendChild(this.entranceElement, this.input);
 
@@ -333,6 +337,17 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     } else {
       this.renderer.removeClass(this.wrapperElement, 'input_required');
     }
+  }
+
+  private setPrefix(): void {
+    this.prefixElement = this.renderer.createElement('div');
+    const prefixTextContainer = this.renderer.createElement('span');
+    const prefixTextContent = this.renderer.createText(this.prefix);
+    this.renderer.insertBefore(this.entranceElement, this.prefixElement, this.input);
+    this.renderer.appendChild(prefixTextContainer, prefixTextContent);
+    this.renderer.appendChild(this.prefixElement, prefixTextContainer);
+    this.renderer.addClass(this.prefixElement, 'input__prefix');
+    this.renderer.addClass(this.input, 'input__input_prefixed');
   }
 }
 

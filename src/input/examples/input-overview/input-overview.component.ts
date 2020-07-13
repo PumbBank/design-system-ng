@@ -21,6 +21,7 @@ export class InputOverviewComponent implements OnInit {
     !v.value ? { errorMessage: 'Текст повідомлення' } : null);
   infoControl: FormControl = new FormControl('');
   phoneControl: FormControl = new FormControl('');
+  disabledPhoneControl: FormControl = new FormControl({value: '', disabled: true});
   disabledControl: FormControl = new FormControl('');
 
   validControlErrors: ValidationErrors | null;

@@ -136,6 +136,10 @@
   box-sizing: border-box;
   width: 100%;
   color: $grey-70;
+
+  &.input__input_prefixed {
+    padding: 0 16px 0 4px;
+  }
 }
 
 input::placeholder {
@@ -194,6 +198,10 @@ input::placeholder {
     @extend .control-message_disabled;
   }
 
+  .input__prefix > span {
+    color: $grey-40
+  }
+
   input::placeholder {
     color: $grey-40;
   }
@@ -226,5 +234,13 @@ input::placeholder {
 
   .input__control-message {
     @extend .control-message_valid;
+  }
+}
+
+.input__prefix {
+  padding: 0 0 0 16px;
+  & > span {
+    @extend %p1;
+    color: $grey-70;
   }
 }
