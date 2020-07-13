@@ -81,7 +81,15 @@
       <div class="overview__label s1">Phone</div>
       <div class="overview__container overview__container_row">
         <input  millInput="phone" type="tel" icon="phone" inputmode="tel" [formControl]="phoneControl"
-                caption="Phone number" placeholder="+380 (00) 000-00-00">
+                prefix="+380" caption="Phone number" placeholder="(00) 000-00-00">
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Phone (Disabled)</div>
+      <div class="overview__container overview__container_row">
+        <input  millInput="phone" type="tel" icon="phone" inputmode="tel" [formControl]="disabledControl"
+                prefix="+380"
+                caption="Phone number" placeholder="(00) 000-00-00">
       </div>
     </div>
   </div>

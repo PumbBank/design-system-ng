@@ -21,14 +21,13 @@ export class InputOverviewComponent implements OnInit {
     !v.value ? { errorMessage: 'Текст повідомлення' } : null);
   infoControl: FormControl = new FormControl('');
   phoneControl: FormControl = new FormControl('');
-  disabledControl: FormControl = new FormControl('');
+  disabledControl: FormControl = new FormControl({value: '', disabled: true});
 
   validControlErrors: ValidationErrors | null;
 
   ngOnInit(): void {
     this.errorControl.markAsTouched();
     this.errorControl.updateValueAndValidity();
-    this.disabledControl.disable();
 
     this.validControlErrors = this.validateTaxId();
     this.infoControl.markAsTouched();

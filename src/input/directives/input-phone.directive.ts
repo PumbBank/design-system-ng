@@ -3,8 +3,6 @@ import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { Directive, ElementRef, forwardRef, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { createTextMaskInputElement } from 'text-mask-core/dist/textMaskCore';
 
-const UA_PHONE_CODE = '+380';
-
 @Directive({
   selector: '[millInput="phone"][type="tel"], [millInput="phone"]:not([type])',
   providers: [
@@ -30,26 +28,19 @@ export class InputPhoneDirective extends MillInput implements ControlValueAccess
 
   private static cleanMask(maskedValue: string): string {
     const value = maskedValue.replace(/[-+()\s]/g, '');
-    return value;
+    return value ? `380${value}` : '';
   }
 
   @HostListener('focus') setUkrainianCode(): void {
     if (typeof this._host.value === 'undefined' || this._host.value === '') {
-      this._host.value = UA_PHONE_CODE + ' (';
-    }
-  }
-
-  @HostListener('window:keydown', ['$event'])
-  keyEvent(event: KeyboardEvent): void {
-    if (this._host.value === UA_PHONE_CODE && event.code === 'Backspace') {
-      event.preventDefault();
+      this._host.value = '(';
     }
   }
 
   ngOnInit(): void {
     this._textMaskInput = createTextMaskInputElement({
       inputElement: this.inputElementRef.nativeElement,
-      mask: ['+', /\d/, /\d/, /\d/, ' ', '(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
+      mask: ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
       keepCharPositions: true,
       guide: false
     });
