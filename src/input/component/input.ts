@@ -98,7 +98,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       : this.renderer.removeClass(this.wrapperElement, 'input_disabled');
   }
 
-  protected setBodyMinWidth(value: string) {
+  protected setBodyMinWidth(value: string): void {
     this.bodyElement?.style?.setProperty('min-width', value);
   }
 
