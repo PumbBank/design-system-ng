@@ -61,11 +61,13 @@
     border: none;
     background: transparent;
     outline: none;
-    margin: 0 12px;
+    margin: 1px 12px 0;
 
     padding: 0;
 
     @extend %p1;
+
+    color: $grey-70;
 
     line-height: 1;
 
