@@ -35,7 +35,7 @@ export class FileAttachOverviewComponent {
       const file = new File(['foo'], `foo_${i + 1}.txt`, {
         type: 'text/plain',
       });
-      if (i=== 1) {
+      if (i === 1) {
         files.push({name: `foo-bar_foo-bar_foo-bar_foo-bar_${i + 1}`, file});
       } else if (i === 2) {
         files.push({name: file.name, isError: true, file});
