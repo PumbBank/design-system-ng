@@ -33,6 +33,13 @@ enum PaymentSystem {
   ]
 })
 export class InputCardDirective extends MillInput implements ControlValueAccessor, OnInit, Validator {
+  private _textMaskInput: any;
+  private _mask: Array<string | RegExp> = [/\d/, /\d/, /\d/, /\d/, ' ',
+    /\d/, /\d/, /\d/, /\d/, ' ',
+    /\d/, /\d/, /\d/, /\d/, ' ',
+    /\d/, /\d/, /\d/, /\d/
+  ];
+
   private static moonValidator(input: string | number): boolean {
     const arr = [];
     const cardNumber = input.toString();
@@ -54,13 +61,6 @@ export class InputCardDirective extends MillInput implements ControlValueAccesso
     });
     return Boolean(!(summ % 10));
   }
-
-  private _textMaskInput: any;
-  private _mask: Array<string | RegExp> = [/\d/, /\d/, /\d/, /\d/, ' ',
-    /\d/, /\d/, /\d/, /\d/, ' ',
-    /\d/, /\d/, /\d/, /\d/, ' ',
-    /\d/, /\d/, /\d/, /\d/
-  ];
 
   constructor(
     renderer: Renderer2,
