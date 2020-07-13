@@ -28,8 +28,6 @@
     z-index: -1;
 
     box-sizing: border-box;
-
-    transition: 0.2s ease;
   }
 
   &_active:not(&_disabled), &:hover:not(&_disabled) {
