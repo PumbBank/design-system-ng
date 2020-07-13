@@ -1,5 +1,5 @@
 import { Component, Input } from '@angular/core';
-import { FileAttachView, FileAttachListSide } from '../..';
+import { FileAttachListSide } from '../..';
 
 @Component({
   selector: 'file-attach-overview',
@@ -9,7 +9,6 @@ import { FileAttachView, FileAttachListSide } from '../..';
 export class FileAttachOverviewComponent {
   public files: any[] = [];
 
-  @Input() view: FileAttachView;
   @Input() listSide: FileAttachListSide;
   @Input() accepted: string;
   @Input() multiple: boolean;

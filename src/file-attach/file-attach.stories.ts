@@ -12,18 +12,12 @@ export default {
   decorators: [withKnobs]
 };
 
-const viewOptions = {
-  Ghost: 'ghost',
-  Hidden: 'hidden'
-};
-
 const listSideOptions = {
   Left: 'left',
   Right: 'right',
   Bottom: 'bottom'
 };
 
-const viewDefaultOption = viewOptions.Ghost;
 const listSideOptionsDefaultOption = listSideOptions.Left;
 
 export const component = () => ({
@@ -39,13 +33,11 @@ export const component = () => ({
   },
   props: {
     listSide: select('Side', listSideOptions, listSideOptionsDefaultOption),
-    view: select('View', viewOptions, viewDefaultOption),
     accepted: text('Accepted file types', ''),
     multiple: boolean('Multiple files', false)
   },
   template: `
       <file-attach-overview [listSide]="listSide"
-                            [view]='view'
                             [accepted]='accepted'
                             [multiple]='multiple'></file-attach-overview>
   `
