@@ -17,14 +17,14 @@ export class FileAttachOverviewComponent {
     this.generateStabs();
   }
 
-  getCaption(listSide: FileAttachListSide) {
+  getCaption(listSide: FileAttachListSide): string {
     switch (listSide) {
       case FileAttachListSide.Left:
         return 'Left side';
       case FileAttachListSide.Right:
         return 'Right side';
       case FileAttachListSide.Bottom:
-        return 'Under the button'
+        return 'Under the button';
 
     }
   }
