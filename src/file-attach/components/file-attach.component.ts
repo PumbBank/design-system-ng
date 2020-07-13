@@ -27,11 +27,6 @@ export enum FileAttachListSide {
   Bottom = 'bottom'
 }
 
-export enum FileAttachView {
-  Ghost = 'ghost',
-  Hidden = 'hidden'
-}
-
 @Component({
   selector: 'mill-file-attach',
   templateUrl: './file-attach.component.html',
@@ -54,7 +49,6 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
   files: FileAttach[] = [];
   side: string;
 
-  @Input() view: FileAttachView = FileAttachView.Ghost;
   @Input() addedFiles: FileAttach[];
   @Input() fileAcceptedTypes: string;
   @Input() multiple: boolean;
@@ -118,10 +112,10 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
     });
   }
 
-  textEllipsisCenter(text: string): string {
+  textEllipsisCenter(text: string, shrink: number = 10): string {
     if (text.length > 25) {
       const parts = text.split('');
-      return `${parts.slice(0, 10).join('')}...${parts.slice(-10).join('')}`;
+      return `${parts.slice(0, shrink).join('')}...${parts.slice(-shrink).join('')}`;
     }
 
     return text;
