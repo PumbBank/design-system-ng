@@ -140,6 +140,14 @@
   }
 }
 
+.button_hidden.button_only-icon {
+  &:hover:not(:disabled) {
+    .button__icon {
+      background: $red-40;
+    }
+  }
+}
+
 .button_with-icon {
   justify-content: space-between;
 }
@@ -155,6 +163,7 @@
   &.button_medium {
     width: 40px;
   }
+
 }
 
 .button__text {
