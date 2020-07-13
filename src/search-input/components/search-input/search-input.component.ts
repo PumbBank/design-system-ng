@@ -2,7 +2,7 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  forwardRef,
+  forwardRef, Host, HostBinding,
   HostListener,
   Input,
   OnInit,
@@ -44,6 +44,9 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 
   /** State for the whole input */
   public active: boolean = false;
+
+  /** State when el focused */
+  public focused: boolean = false;
 
   /** Selected item index */
   public activeItemIndex: number = -1;
@@ -106,7 +109,18 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
   public clickOutside(target: HTMLElement): void {
     if (!this._elementRef.nativeElement.contains(target)) {
       this.active = false;
+      this.focused = false;
     }
+  }
+
+  @HostListener('mouseover')
+  public onMouseOver() {
+    this.active = true;
+  }
+
+  @HostListener('mouseleave')
+  public onMouseLeave() {
+    !this.focused ? this.active = false : null;
   }
 
   constructor(private _elementRef: ElementRef) {
@@ -196,6 +210,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
     }
 
     this.active = true;
+    this.focused = true;
 
     if (!this.inputValue.value) {
       this._filterSearch(null);
@@ -317,7 +332,12 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
       this.inputValue.setValue(value);
       if (!this.active) {
         this.active = true;
+        this.focused = true;
       }
     }
+  }
+
+  public showClearButton(): boolean {
+    return this.inputValue.value && this.inputValue.value.length > 0 && this.active
   }
 }

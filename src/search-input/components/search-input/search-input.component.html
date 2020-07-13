@@ -10,7 +10,7 @@
            [attr.aria-expanded]="active"
            (focus)="onFocus()"
     >
-    <mill-icon name="circle-close" *ngIf="inputValue.value && inputValue.value.length > 0 && active" class="search-input__close-icon" (click)="clearInput()"></mill-icon>
+    <mill-icon name="circle-close" *ngIf="showClearButton()" class="search-input__close-icon" (click)="clearInput()"></mill-icon>
   </label>
 	<div *ngIf="active" [class.option-list_active]="active" class="option-list">
 		<div *ngFor="let item of showList; let i = index" class="option" id="mill-option-{{ i }}" tabindex="0"
