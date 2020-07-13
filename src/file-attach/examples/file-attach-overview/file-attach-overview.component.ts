@@ -31,15 +31,18 @@ export class FileAttachOverviewComponent {
 
   private generateStabs(): void {
     const files = [];
-    for (let i = 0; i < 10; i++) {
+    for (let i = 0; i < 14; i++) {
       const file = new File(['foo'], `foo_${i + 1}.txt`, {
         type: 'text/plain',
       });
-      if (i === 2) {
+      if (i=== 1) {
+        files.push({name: `foo-bar_foo-bar_foo-bar_foo-bar_${i + 1}`, file});
+      } else if (i === 2) {
         files.push({name: file.name, isError: true, file});
-      }
-      if (i === 3) {
+      } else if (i === 3) {
         files.push({name: file.name, isLoading: true, file});
+      } else if (i === 4) {
+        files.push({name: `foo-bar_foo-bar_foo-bar_foo-bar_${i + 1}`, isError: true, file});
       } else {
         files.push({name: file.name, file});
       }
