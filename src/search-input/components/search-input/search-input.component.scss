@@ -63,10 +63,16 @@
     outline: none;
     margin: 0 12px;
 
+    padding: 0;
+
     @extend %p1;
+
+    line-height: 1;
 
     &::placeholder {
       color: $grey-40;
+
+      line-height: 1;
     }
   }
 
