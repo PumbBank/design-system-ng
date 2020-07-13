@@ -288,6 +288,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     this.renderer.appendChild(this.wrapperElement, this.captionElement);
     this.renderer.appendChild(this.wrapperElement, this.bodyElement);
     this.renderer.appendChild(this.wrapperElement, this.footerElement);
+
     this.renderer.appendChild(this.bodyElement, this.entranceElement);
     this.renderer.appendChild(this.entranceElement, this.input);
 
