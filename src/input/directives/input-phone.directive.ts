@@ -31,9 +31,15 @@ export class InputPhoneDirective extends MillInput implements ControlValueAccess
     return value ? `380${value}` : '';
   }
 
-  @HostListener('focus') setUkrainianCode(): void {
+  @HostListener('focus') setMask(): void {
     if (typeof this._host.value === 'undefined' || this._host.value === '') {
       this._host.value = '(';
+    }
+  }
+
+  @HostListener('blur') removeMask(): void {
+    if (this._host.value === '(') {
+      this._host.value = '';
     }
   }
 
