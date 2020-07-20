@@ -164,6 +164,7 @@ export class CheckboxComponent implements AfterViewInit {
    * Handles click events on the `Checkbox` and emits changes to other classes.
    */
   public onClick(event: Event): void {
+    event.preventDefault();
     if (event && !this.disabled) {
       this.checkboxStateToggle();
     }
@@ -172,8 +173,9 @@ export class CheckboxComponent implements AfterViewInit {
   /**
    * Handles keyup events on the `Checkbox` with space bar and emits changes to other classes.
    */
-  public onKeyup(event: KeyboardEvent): void {
-    if (event && event.code === 'Space') {
+  public onKeydown(event: KeyboardEvent): void {
+    if (event && event.target !== document.body && event.code === 'Space' && !this.disabled) {
+      event.preventDefault();
       this.checkboxStateToggle();
     }
   }

@@ -6,7 +6,7 @@
   [class.mill-checkbox_indeterminate]="indeterminate"
   [tabIndex]="tabindex"
   (change)="onChange($event)"
-  (keyup)="onKeyup($event)"
+  (keydown)="onKeydown($event)"
   (click)="onClick($event)"
 >
   <div class="mill-checkbox__item">
