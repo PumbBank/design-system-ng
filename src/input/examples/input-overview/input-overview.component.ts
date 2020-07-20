@@ -21,9 +21,11 @@ export class InputOverviewComponent implements OnInit {
     !v.value ? { errorMessage: 'Текст повідомлення' } : null);
   infoControl: FormControl = new FormControl('');
   phoneControl: FormControl = new FormControl('');
-  disabledControl: FormControl = new FormControl({value: '', disabled: true});
+  disabledControl: FormControl = new FormControl({ value: '', disabled: true });
 
   validControlErrors: ValidationErrors | null;
+
+  arrCoordinates = [];
 
   ngOnInit(): void {
     this.errorControl.markAsTouched();
@@ -31,7 +33,11 @@ export class InputOverviewComponent implements OnInit {
 
     this.validControlErrors = this.validateTaxId();
     this.infoControl.markAsTouched();
+
   }
+
+
+
 
   validateTaxId(): ValidationErrors | null {
     return { errorMessage: 'Info alert' };

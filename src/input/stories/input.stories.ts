@@ -4,6 +4,8 @@ import { withKnobs } from '@storybook/addon-knobs';
 import { InputModule } from '../input.module';
 import { InputOverviewComponent } from '../examples/input-overview/input-overview.component';
 import { IconsModule } from '../../icons';
+import { BrowserModule } from '@angular/platform-browser';
+import { InputNoticeComponent } from '../examples/input-notice/input-notice.component';
 
 export default {
   title: 'Компоненти|Inputs',
@@ -22,7 +24,8 @@ export const component = () => ({
       IconsModule
     ],
     declarations: [
-      InputOverviewComponent
+      InputOverviewComponent,
+      InputNoticeComponent
     ]
   },
   template: `

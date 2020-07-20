@@ -1,3 +1,4 @@
+@import "~@mill/figma/colors";
 .overview {
   &__column {
     @media screen and (max-width: 1340px) {
@@ -11,5 +12,14 @@
         grid-column-start: 1;grid-column-end: 7;
       }
     }
+  }
+
+  &__separator {
+    max-width: 712px;
+    height: 1px;
+    border: none;
+    background: $grey-20;
+
+    margin: 40px auto;
   }
 }
