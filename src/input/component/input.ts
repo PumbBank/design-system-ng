@@ -84,11 +84,11 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   writeValue(value: any): void {
     const cleanValue = this.cleanFunction(value);
 
-    if (cleanValue !== value) {
+    if (cleanValue !== value && this.onChangeCallback) {
       this.onChangeCallback(cleanValue);
     }
 
-    this.input.value = cleanValue;
+    this.input.value = value;
   }
 
   setDisabledState?(isDisabled: boolean): void {

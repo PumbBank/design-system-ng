@@ -1,0 +1,99 @@
+<div class="overview">
+  <div class="overview__header">
+    <div class="h4">Form</div>
+    <div class="overview__links">
+      <!--      <a href="" class="overview__link s1"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>-->
+      <a href="" class="overview__link s1">
+        <mill-icon name="figma"></mill-icon>Компонент в Figma
+      </a>
+    </div>
+  </div>
+  <div class="overview__content">
+    <form class="form" [formGroup]="formGr" (submit)="onFormSubmit()">
+      <div class="form__content">
+        <div class="form__head">
+          <div class="h6">Приклад форми з валідацією полів</div>
+        </div>
+        <div class="form__body">
+          <div class="form__info-message">
+            <div class="icon-wrapper">
+              <mill-icon name="lightbulb"></mill-icon>
+            </div>
+            <div class="p2 text-wrapper">Дана форма демонструє логіку валідації обов'язкових полів введення в формі
+            </div>
+          </div>
+
+          <div class="overview__content grid" style="padding: 0;">
+            <div class="overview__column grid-item-4">
+              <input #firstInput millInput="text" caption="Ім'я" [cleanup]="true" formControlName="name"
+                [errors]="formGr.controls.name.errors">
+            </div>
+
+            <div class="overview__column grid-item-4">
+              <input millInput="number" formControlName="walletNumber" [errors]="formGr.controls.walletNumber.errors"
+                caption="Номер гаманця" placeholder="000000000">
+            </div>
+            <div class="overview__column grid-item-4">
+              <input millInput="phone" type="tel" icon="phone" inputmode="tel" formControlName="phoneNumber"
+                [errors]="formGr.controls.phoneNumber.errors" prefix="+380" placeholder="(00) 000-00-00"
+                caption="Номер телефону">
+            </div>
+            <div class="overview__column grid-item-4">
+              <input millInput="digit" formControlName="downPayment" [errors]="formGr.controls.downPayment.errors"
+                caption="Перший внесок" icon="wallet">
+            </div>
+            <div class="overview__column grid-item-4">
+              <input icon="card" millInput="card" formControlName="cardNumber"
+                [errors]="formGr.controls.cardNumber.errors" required caption="Card number"
+                placeholder="0000 0000 0000 0000" caption="Номер банківської карти">
+            </div>
+            <div class="overview__column grid-item-4">
+              <input millInput="text" formControlName="password" [errors]="formGr.controls.password.errors"
+                caption="Кодове слово" icon="lock-pass">
+            </div>
+          </div>
+          <div class="form__additional-data">
+            <div class="s1">
+              Додаткові дані користувача
+            </div>
+            <div class="additional-data__inputs grid">
+              <div class="grid-item">
+                <mill-select caption="Марка принтера" placeholder="Виберіть марку" formControlName="printerBrand">
+                  <span millSelectOption key="1" value="Option 1"></span>
+                  <span millSelectOption key="2" value="Option 2"></span>
+                  <span millSelectOption key="3" value="Option 3"></span>
+                  <span millSelectOption key="4" value="Option 4"></span>
+                  <span millSelectOption key="5" value="Option 5"></span>
+                  <span millSelectOption key="6" value="Option 6"></span>
+                  <span millSelectOption key="7" value="Option 7"></span>
+                  <span millSelectOption key="8" value="Option 8"></span>
+                  <mill-hint hintControl></mill-hint>
+                </mill-select>
+              </div>
+              <div class="grid-item">
+                <input millInput="number" formControlName="homeNumber" [errors]="validControlErrors"
+                  caption="Номер будинку">
+              </div>
+              <div class="grid-item">
+                <input millInput="text" formControlName="alias" [errors]="validControlErrors"
+                  caption="Прізвисько">
+              </div>
+              <div class="grid-item">
+                <input millInput="text" formControlName="scientificDegree"
+                  [errors]="validControlErrors" caption="Наукова ступінь">
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="form__footer">
+          <mill-button [view]="'ghost'" size="large" (click)="test()">Скасувати</mill-button>
+          <mill-button type="submit" size="large" icon="chevron-right">Продовжити</mill-button>
+        </div>
+      </div>
+    </form>
+  </div>
+
+  <hr class="overview__separator">
+
+  <input-notice></input-notice>
+</div>

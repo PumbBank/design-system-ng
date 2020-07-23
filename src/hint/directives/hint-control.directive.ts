@@ -1,6 +1,6 @@
 import { Subject } from 'rxjs';
 import { Directive, OnInit, Optional } from '@angular/core';
-import { AbstractControl, NgModel, FormControlDirective } from '@angular/forms';
+import { AbstractControl, NgModel, FormControlDirective, FormControlName } from '@angular/forms';
 import { HintComponent } from '..';
 import { propertyChangeInterceptor, ErrorMessageHelper } from '../../utils';
 
@@ -15,7 +15,8 @@ export class HintControlDirective implements OnInit {
   constructor(
     private hint: HintComponent,
     @Optional() private ngModel: NgModel,
-    @Optional() private formControlDirective: FormControlDirective
+    @Optional() private formControlDirective: FormControlDirective,
+    @Optional() private formControlNameDirective: FormControlName
   ) {
     hint.show = false;
   }
@@ -25,6 +26,8 @@ export class HintControlDirective implements OnInit {
       this.control = this.ngModel.control;
     } else if (this.formControlDirective) {
       this.control = this.formControlDirective.control;
+    } else if (this.formControlNameDirective) {
+      this.control = this.formControlNameDirective.control;
     } else {
       throw new Error(`[HintControlDirective] Can't find any abstractControl source (ngModel, formConrtol, formControlName)`);
     }
