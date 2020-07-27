@@ -6,7 +6,7 @@ import { InputOverviewComponent } from '../examples/input-overview/input-overvie
 import { IconsModule } from '../../icons';
 
 export default {
-  title: 'Компоненти|Inputs',
+  title: 'Компоненти|Text inputs',
   parameters: {
     options: { showPanel: false },
   },

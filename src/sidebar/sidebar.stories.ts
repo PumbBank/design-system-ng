@@ -10,7 +10,7 @@ export default {
   decorators: [withKnobs]
 };
 
-export const story = () => ({
+export const component = () => ({
   moduleMetadata: {
     imports: [
       BrowserAnimationsModule,
