@@ -16,18 +16,11 @@
 
 .overview {
   &__column {
-    @media screen and (max-width: 1340px) {
-      grid-column: span 6;
-    }
+    grid-column: span 6;
 
     &:nth-of-type(2n) {
-      grid-column-start: 3;
+      grid-column-start: 1;
       grid-column-end: 7;
-
-      @media screen and (max-width: 1340px) {
-        grid-column-start: 1;
-        grid-column-end: 7;
-      }
     }
   }
 
