@@ -4,7 +4,7 @@ import { SliderOverviewComponent } from './examples/slider-overview/slider-overv
 import { IconsModule } from '../icons/icons.module';
 
 export default {
-  title: 'Компоненти|Slider',
+  title: 'Компоненти|Sliders',
   parameters: {
     options: { showPanel: false },
   },

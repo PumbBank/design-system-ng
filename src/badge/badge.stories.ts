@@ -1,10 +1,10 @@
-import { withKnobs, text } from '@storybook/addon-knobs';
+import { withKnobs } from '@storybook/addon-knobs';
 import { BadgeModule } from './badge.module';
 import { BadgeOverviewComponent } from './examples/badge-overview/badge-overview.component';
 import { IconsModule } from '../icons/icons.module';
 
 export default {
-  title: 'Компоненти|Badge',
+  title: 'Компоненти|Badges',
   parameters: {
     options: { showPanel: false },
   },

@@ -1,6 +1,6 @@
 import { boolean, number, object, text, withKnobs } from '@storybook/addon-knobs';
 import { SearchInputModule } from './search-input.module';
-import { SearchInputOverviewComponent } from './examples/seacrh-input-overview/search-input-overview.component';
+import { SearchInputOverviewComponent } from './examples/search-input-overview/search-input-overview.component';
 import { IconsModule } from '../icons/icons.module';
 
 const data = [
@@ -13,7 +13,7 @@ const data = [
 ];
 
 export default {
-  title: 'Компоненти|Search Input',
+  title: 'Компоненти|Search',
   parameters: {
     options: { showPanel: false },
   },

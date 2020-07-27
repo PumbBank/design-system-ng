@@ -4,7 +4,7 @@ import { TableOverviewComponent } from './examples/table-overview/table-overview
 import { IconsModule } from '../icons';
 
 export default {
-  title: 'Компоненти|Table',
+  title: 'Компоненти|Tables',
   parameters: {
     options: { showPanel: true },
   },
