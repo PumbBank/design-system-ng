@@ -164,6 +164,14 @@
     width: 40px;
   }
 
+  &.button_small {
+    width: 32px;
+  }
+
+  .button__icon {
+    margin: 0;
+  }
+
 }
 
 .button__text {
