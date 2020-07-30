@@ -4,7 +4,8 @@
       grid-column: span 12;
     }
 
-    grid-column-start: 3; grid-column-end: 10;
+    grid-column-start: 3;
+    grid-column-end: 10;
 
     &:last-of-type {
       mill-tabs {

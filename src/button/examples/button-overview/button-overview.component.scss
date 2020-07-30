@@ -25,17 +25,8 @@
   }
 
   &__content {
-    max-width: 738px;
     margin-left: auto;
     margin-right: auto;
-
-    @media screen and (min-width: 1366px) {
-      max-width: 712px;
-    }
-
-    @media screen and (min-width: 1366px) {
-      max-width: 1082px;
-    }
   }
 }
 
