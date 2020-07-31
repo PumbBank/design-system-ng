@@ -114,13 +114,15 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
   }
 
   @HostListener('mouseover')
-  public onMouseOver() {
+  public onMouseOver(): void {
     this.focused = true;
   }
 
   @HostListener('mouseleave')
-  public onMouseLeave() {
-    !this.active ? this.focused = false : null;
+  public onMouseLeave(): void {
+    if (!this.active) {
+      this.focused = false;
+    }
   }
 
   constructor(private _elementRef: ElementRef) {
@@ -338,6 +340,6 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
   }
 
   public showClearButton(): boolean {
-    return this.inputValue.value && this.inputValue.value.length > 0 && this.focused
+    return this.inputValue.value && this.inputValue.value.length > 0 && this.focused;
   }
 }

@@ -8,6 +8,7 @@ mill-badge {
 
 mill-icon {
   color: $grey-50;
+
   &:not(:first-of-type) {
     margin-top: 32px;
   }
@@ -25,21 +26,16 @@ mill-icon {
 }
 
 .dark-bg {
-  background: linear-gradient(112.39deg, #3C3C4E 0%, #00000D 100%);
+  background: linear-gradient(112.39deg, #3c3c4e 0%, #00000d 100%);
 }
 
 .overview {
   &__column {
-    @media screen and (max-width: 1340px) {
-      grid-column: span 6;
-    }
+    grid-column: span 6;
 
     &:nth-of-type(2n - 1) {
-      grid-column-start: 3; grid-column-end: 7;
-
-      @media screen and (max-width: 1340px) {
-        grid-column-start: 1; grid-column-end: 7;
-      }
+      grid-column-start: 1;
+      grid-column-end: 7;
     }
   }
 }

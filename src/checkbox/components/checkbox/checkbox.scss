@@ -5,6 +5,7 @@
 %icon_white {
   background: #ffffff;
 }
+
 /* stylelint-disable no-descending-specificity */
 .mill-checkbox {
   cursor: pointer;
@@ -38,6 +39,7 @@
   }
 
   &__item {
+    min-width: 20px;
     width: 20px;
     height: 20px;
     box-sizing: border-box;
@@ -67,7 +69,8 @@
       visibility: visible;
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
       .mill-checkbox__item {
         background-color: $red-40;
         border-color: $red-40;
@@ -76,10 +79,14 @@
   }
 
   &_disabled {
-    cursor: default;
+    cursor: not-allowed;
 
     .mill-checkbox__item {
       border-color: $grey-30;
+
+      &:hover {
+        cursor: not-allowed;
+      }
     }
 
     .mill-checkbox__label {
@@ -122,7 +129,8 @@
       }
     }
 
-    &:hover {
+    &:hover,
+    &:focus {
       .mill-checkbox__item {
         background-color: $red-40;
       }

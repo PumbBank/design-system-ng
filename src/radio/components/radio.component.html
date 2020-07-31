@@ -2,7 +2,7 @@
   class="mill-radio"
   [class.mill-radio_disabled]="disabled"
   (click)="onClick($event)"
-  (keyup)="onKeyup($event)"
+  (keydown)="onKeydown($event)"
   [tabIndex]="tabindex">
   <input
     class="mill-radio__input"

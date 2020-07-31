@@ -2,8 +2,8 @@
   <div class="overview__header">
     <div class="h4">Buttons</div>
     <div class="overview__links">
-      <a href="https://mill.dev-fuib.com/?path=/story/%D0%B3%D0%B0%D0%B9%D0%B4%D0%BB%D0%B0%D0%B9%D0%BD%D0%B8-%D0%BA%D0%BD%D0%BE%D0%BF%D0%BA%D0%B8--component" class="overview__link s1"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>
-      <a href="" class="overview__link s1"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>
+      <a href="https://mill.dev-fuib.com/?path=/story/%D0%B3%D0%B0%D0%B9%D0%B4%D0%BB%D0%B0%D0%B9%D0%BD%D0%B8-%D0%BA%D0%BD%D0%BE%D0%BF%D0%BA%D0%B8--component" class="overview__link s2"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>
+      <a href="" class="overview__link s2"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>
     </div>
   </div>
   <div class="overview__content grid">
@@ -44,15 +44,125 @@
       <div class="overview__label s1">Only icon</div>
       <div class="overview__container">
         <mill-button [view]="'filled'" size="large" icon="add"></mill-button>
+        <mill-button [view]="'filled'" size="middle" icon="add"></mill-button>
+        <mill-button [view]="'filled'" size="small" icon="add"></mill-button>
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Disabled</div>
       <div class="overview__container">
         <mill-button [view]="'filled'" size="large" icon="add" [disabled]="true"></mill-button>
+        <mill-button [view]="'filled'" size="middle" icon="add" [disabled]="true"></mill-button>
+        <mill-button [view]="'filled'" size="small" icon="add" [disabled]="true"></mill-button>
       </div>
     </div>
 
     <div class="button-separator"></div>
+  </div>
+
+  <div class="overview__content grid">
+    <div class="button-header h5">Ghost</div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Basic</div>
+      <div class="overview__container">
+        <mill-button [view]="'ghost'" size="large">{{ label }}</mill-button>
+        <mill-button [view]="'ghost'" size="middle">{{ label }}</mill-button>
+        <mill-button [view]="'ghost'" size="small">{{ label }}</mill-button>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled</div>
+      <div class="overview__container">
+        <mill-button [view]="'ghost'" size="large" [disabled]="true">{{ label }}</mill-button>
+        <mill-button [view]="'ghost'" size="middle" [disabled]="true">{{ label }}</mill-button>
+        <mill-button [view]="'ghost'" size="small" [disabled]="true">{{ label }}</mill-button>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">With icon</div>
+      <div class="overview__container">
+        <mill-button [view]="'ghost'" size="large" icon="add">{{ label }}</mill-button>
+        <mill-button [view]="'ghost'" size="middle" icon="add">{{ label }}</mill-button>
+        <mill-button [view]="'ghost'" size="small" icon="add">{{ label }}</mill-button>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled</div>
+      <div class="overview__container">
+        <mill-button [view]="'ghost'" size="large" icon="add" [disabled]="true">{{ label }}</mill-button>
+        <mill-button [view]="'ghost'" size="middle" icon="add" [disabled]="true">{{ label }}</mill-button>
+        <mill-button [view]="'ghost'" size="small" icon="add" [disabled]="true">{{ label }}</mill-button>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Only icon</div>
+      <div class="overview__container">
+        <mill-button [view]="'ghost'" size="large" icon="add"></mill-button>
+        <mill-button [view]="'ghost'" size="middle" icon="add"></mill-button>
+        <mill-button [view]="'ghost'" size="small" icon="add"></mill-button>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled</div>
+      <div class="overview__container">
+        <mill-button [view]="'ghost'" size="large" icon="add" [disabled]="true"></mill-button>
+        <mill-button [view]="'ghost'" size="middle" icon="add" [disabled]="true"></mill-button>
+        <mill-button [view]="'ghost'" size="small" icon="add" [disabled]="true"></mill-button>
+      </div>
+    </div>
+
+    <div class="button-separator"></div>
+  </div>
+
+  <div class="overview__content grid">
+    <div class="button-header h5">Hidden</div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Basic</div>
+      <div class="overview__container">
+        <mill-button [view]="'hidden'" size="large">{{ label }}</mill-button>
+        <mill-button [view]="'hidden'" size="middle">{{ label }}</mill-button>
+        <mill-button [view]="'hidden'" size="small">{{ label }}</mill-button>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled</div>
+      <div class="overview__container">
+        <mill-button [view]="'hidden'" size="large" [disabled]="true">{{ label }}</mill-button>
+        <mill-button [view]="'hidden'" size="middle" [disabled]="true">{{ label }}</mill-button>
+        <mill-button [view]="'hidden'" size="small" [disabled]="true">{{ label }}</mill-button>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">With icon</div>
+      <div class="overview__container">
+        <mill-button [view]="'hidden'" size="large" icon="add">{{ label }}</mill-button>
+        <mill-button [view]="'hidden'" size="middle" icon="add">{{ label }}</mill-button>
+        <mill-button [view]="'hidden'" size="small" icon="add">{{ label }}</mill-button>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled</div>
+      <div class="overview__container">
+        <mill-button [view]="'hidden'" size="large" icon="add" [disabled]="true">{{ label }}</mill-button>
+        <mill-button [view]="'hidden'" size="middle" icon="add" [disabled]="true">{{ label }}</mill-button>
+        <mill-button [view]="'hidden'" size="small" icon="add" [disabled]="true">{{ label }}</mill-button>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Only icon</div>
+      <div class="overview__container">
+        <mill-button [view]="'hidden'" size="large" icon="add"></mill-button>
+        <mill-button [view]="'hidden'" size="middle" icon="add"></mill-button>
+        <mill-button [view]="'hidden'" size="small" icon="add"></mill-button>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled</div>
+      <div class="overview__container">
+        <mill-button [view]="'hidden'" size="large" icon="add" [disabled]="true"></mill-button>
+        <mill-button [view]="'hidden'" size="middle" icon="add" [disabled]="true"></mill-button>
+        <mill-button [view]="'hidden'" size="small" icon="add" [disabled]="true"></mill-button>
+      </div>
+    </div>
   </div>
 </div>

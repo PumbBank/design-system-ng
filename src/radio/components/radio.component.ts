@@ -66,8 +66,9 @@ export class RadioComponent {
   /**
    * Handles keyup events on the `Radio` with space bar and emits changes to other classes.
    */
-  onKeyup(event: KeyboardEvent): void {
-    if (event && event.code === 'Space') {
+  onKeydown(event: KeyboardEvent): void {
+    if (event && event.target !== document.body && event.code === 'Space' && !this.disabled) {
+      event.preventDefault();
       this.checkboxStateToggle();
     }
   }
