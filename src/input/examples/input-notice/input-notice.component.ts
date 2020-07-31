@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 
 @Component({
   selector: 'input-notice',
@@ -13,4 +13,6 @@ export class InputNoticeComponent {
     'При помилках в полях введення (в т.ч. про обов\'язкове поле) – екран підскроліюється до самої верхньої помилки.',
     'При відкритті форми – найперше верхнє поле введення, за замовчуванням виявляється у фокусі.'
   ];
+
+  @Input() link: string;
 }

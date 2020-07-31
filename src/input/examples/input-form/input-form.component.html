@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="overview__content">
-    <form class="form" [formGroup]="formGr" (submit)="onFormSubmit()">
+    <form class="form" [formGroup]="formGr" (submit)="onFormSubmit()" millDirtyValidator>
       <div class="form__content">
         <div class="form__head">
           <div class="h6">Приклад форми з валідацією полів</div>
@@ -53,7 +53,7 @@
             </div>
           </div>
           <div class="form__additional-data">
-            <div class="s1">
+            <div class="s1 additional-data__head">
               Додаткові дані користувача
             </div>
             <div class="additional-data__inputs grid">
@@ -86,7 +86,7 @@
           </div>
         </div>
         <div class="form__footer">
-          <mill-button [view]="'ghost'" size="large" (click)="test()">Скасувати</mill-button>
+          <mill-button [view]="'ghost'" size="large">Скасувати</mill-button>
           <mill-button type="submit" size="large" icon="chevron-right">Продовжити</mill-button>
         </div>
       </div>
@@ -95,5 +95,5 @@
 
   <hr class="overview__separator">
 
-  <input-notice></input-notice>
+  <input-notice ></input-notice>
 </div>

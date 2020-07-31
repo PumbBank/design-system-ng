@@ -1,17 +1,19 @@
 import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy } from '@angular/core';
-import { ValidationErrors } from '@angular/forms';
+import { ValidationErrors, NgForm, FormGroupDirective } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
+import { IDirtyValidator } from 'src/form-utils/interfaces/dirty-validator.interface';
 
 export type CleanFunction = (inputValue: any) => string;
 
 const DEFAULT_CLEAN_FUNCTION = (inputValue: any): string => inputValue;
 
-export class MillInput extends RequirebleComponent implements OnChanges, OnDestroy {
+export class MillInput extends RequirebleComponent implements OnChanges, OnDestroy, IDirtyValidator {
 
   constructor(
     public input: HTMLInputElement,
     public renderer: Renderer2,
+    public parentForm: FormGroupDirective
   ) {
     super();
     this.createDom();
@@ -20,9 +22,13 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     this.watchValidationChangesByClassName();
     this.errorsUpdateText();
     this.watchValidationMessageChanges();
+
+    this.watchFormSubmit();
   }
   private invalid: boolean;
-  private touched: boolean;
+  private methodValidation: boolean;
+
+  public isDirtyValid: boolean;
 
   protected cleanFunction: CleanFunction = DEFAULT_CLEAN_FUNCTION;
 
@@ -74,7 +80,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
 
   registerOnChange(fn: (value: string | number) => void): void {
     this.onChangeCallback = fn;
-    setTimeout(() => fn(this.input.value));
+    // setTimeout(() => fn(this.input.value));
   }
 
   registerOnTouched(fn: () => void): void {
@@ -138,10 +144,26 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
 
   private updateTouchedState(touched: boolean = false): void {
     if (touched) {
-      this.touched = true;
+      this.methodValidation = true;
       return;
     }
-    this.touched = false;
+    this.methodValidation = false;
+  }
+
+  private updateDirtyState(dirty: boolean = false): void {
+    if (dirty) {
+      this.methodValidation = true;
+      return;
+    }
+    this.methodValidation = false;
+  }
+
+  private watchFormSubmit(): void {
+    if (this.parentForm) {
+      this.parentForm?.ngSubmit.subscribe(() => {
+        this.errorsUpdateText();
+      });
+    }
   }
 
   private watchInputValueChanges(): void {
@@ -175,15 +197,24 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
 
   private watchClickCleanupInput(): void {
     this.iconCleanupElement.addEventListener('click', () => {
+
       this.input.value = '';
+      if (this.onChangeCallback) {
+        this.onChangeCallback('');
+      }
       this.checkVisibilityCleanupIcon();
     });
   }
 
   private watchValidationChangesByClassName(): void {
     this.validationStateObserver = new MutationObserver(() => {
+
       this.updateValidationState(this.input.classList.contains('ng-invalid'));
-      this.updateTouchedState(this.input.classList.contains('ng-touched'));
+      if (!this.isDirtyValid) {
+        this.updateTouchedState(this.input.classList.contains('ng-touched'));
+      } else {
+        this.updateDirtyState(this.input.classList.contains('ng-dirty'));
+      }
       this.errorsUpdateText();
     });
 
@@ -202,7 +233,8 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   }
 
   private updateMsgTextStyles(): void {
-    if (this.touched && this.invalid) {
+
+    if ((this.methodValidation && this.invalid) || (this.invalid && this.parentForm?.submitted)) {
       this.renderer.removeClass(this.wrapperElement, 'input_valid');
       this.renderer.addClass(this.wrapperElement, 'input_error');
 
@@ -231,7 +263,9 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   }
 
   private updateMessagePresentation(): void {
-    if (this.errors && this.touched) {
+    if ((this.errors && this.methodValidation) || (this.errors && this.parentForm?.submitted)) {
+      this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
+    } else if ((this.errors && !this.invalid)) {
       this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
     } else if (this.valid && this.valid !== 'true' && this.valid !== true) {
       this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
@@ -320,8 +354,10 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   }
 
   private errorsUpdateText(): void {
-    if (this.errors && this.touched) {
-      this.msgTextElement.innerText = this.errors && this.touched ? ErrorMessageHelper.getMessage(this.errors) : '';
+    if ((this.errors && this.methodValidation) || (this.errors && this.parentForm?.submitted)) {
+      this.msgTextElement.innerText = (this.errors && this.methodValidation) || (this.errors && this.parentForm?.submitted) ? ErrorMessageHelper.getMessage(this.errors) : '';
+    } else if ((this.errors && !this.invalid)) {
+      this.msgTextElement.innerText = (this.errors && !this.invalid) ? ErrorMessageHelper.getMessage(this.errors) : '';
     } else if (!!this.valid && this.valid !== 'true' && this.valid !== true) {
       this.msgTextElement.innerText = this.valid as string;
     } else {

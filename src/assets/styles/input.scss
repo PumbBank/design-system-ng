@@ -3,11 +3,11 @@
 @import "~@mill/figma/colors";
 
 %icon_grey-40 {
-  background: $grey-40 !important;
+  background: $grey-40;
 }
 
 %icon_orange-50 {
-  background: $orange-50;
+  background: $orange-50 !important;
 }
 
 %icon_green-50 {
@@ -35,7 +35,7 @@
     }
 
     .input__icon {
-      background: $grey-50 !important;
+      background: $grey-50 ;
     }
 
     .chevron__icon {
@@ -72,18 +72,18 @@
   @extend %p2;
 
   color: $grey-70;
-  margin-bottom: 2px;
+  margin-bottom: 3px;
   height: 20px;
   overflow: hidden;
   white-space: nowrap;
   text-overflow: ellipsis;
 }
 
-.input__icon {
+.icon.input__icon {
   @extend .icon_24;
   @extend %icon_grey-40;
 
-  margin: 0 10px 0 -4px;
+  margin: 0 11px 0 -4px;
   min-width: 24px;
 }
 
@@ -132,7 +132,7 @@
   outline: none;
   background: transparent;
   height: 44px;
-  padding: 0 16px;
+  padding: 0 14px;
   box-sizing: border-box;
   width: 100%;
   color: $grey-70;
@@ -214,7 +214,7 @@ input::placeholder {
   }
 
   .input__icon {
-    @extend %icon_orange-50;
+    @extend %icon_orange-50; 
   }
 
   .input__control-message {
@@ -228,7 +228,7 @@ input::placeholder {
     border: 2px solid $green-50 !important;
   }
 
-  .input__icon {
+  .icon.input__icon {
     @extend %icon_green-50;
   }
 

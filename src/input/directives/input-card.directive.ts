@@ -6,6 +6,7 @@ import {
   NG_VALUE_ACCESSOR,
   ValidationErrors,
   Validator,
+  FormGroupDirective,
 } from '@angular/forms';
 import { Directive, ElementRef, forwardRef, OnInit, Renderer2 } from '@angular/core';
 import { createTextMaskInputElement } from 'text-mask-core/dist/textMaskCore';
@@ -64,9 +65,10 @@ export class InputCardDirective extends MillInput implements ControlValueAccesso
 
   constructor(
     renderer: Renderer2,
-    public inputElementRef: ElementRef
+    public inputElementRef: ElementRef,
+    public parentForm: FormGroupDirective
   ) {
-    super(inputElementRef.nativeElement, renderer);
+    super(inputElementRef.nativeElement, renderer, parentForm);
     super.setBodyMinWidth('256px');
   }
 

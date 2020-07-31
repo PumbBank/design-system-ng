@@ -23,4 +23,5 @@ export class HintComponent  {
   @Input() caption: string;
   @Input() show: boolean = true;
   @Input() color: 'error' | 'disabled' | 'info' | 'valid' = 'info';
+
 }

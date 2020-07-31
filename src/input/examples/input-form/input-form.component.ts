@@ -11,7 +11,7 @@ export class InputFormComponent implements OnInit, AfterViewInit {
 
 
   formGr: FormGroup = new FormGroup({
-    name: new FormControl('', Validators.required),
+    name: new FormControl(''),
     walletNumber: new FormControl('', Validators.required),
     phoneNumber: new FormControl('', Validators.required),
     downPayment: new FormControl('', Validators.required),
@@ -28,13 +28,7 @@ export class InputFormComponent implements OnInit, AfterViewInit {
   @ViewChild('firstInput') firstInput: ElementRef;
 
   ngOnInit(): void {
-
     this.validControlErrors = this.optionalInputMes();
-    this.formGr.controls.homeNumber.markAsTouched();
-    this.formGr.controls.alias.markAsTouched();
-    this.formGr.controls.scientificDegree.markAsTouched();
-
-    console.log(this.formGr);
   }
 
   ngAfterViewInit(): void {
@@ -42,18 +36,12 @@ export class InputFormComponent implements OnInit, AfterViewInit {
   }
 
   onFormSubmit(): void {
-    this.formGr.markAllAsTouched();
     if (!this.formGr.valid) {
       this.scrollToError();
     }
 
-    console.log(this.formGr.valid, this.formGr.value, this.formGr.controls.name.dirty);
-  }
-
-  test() {
-
-    console.log(this.formGr.pristine, this.formGr.controls.name.dirty);
-
+    console.log(this.formGr.value);
+    
   }
 
   optionalInputMes(): ValidationErrors | null {

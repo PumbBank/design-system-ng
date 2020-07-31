@@ -7,13 +7,11 @@ import { FormControl, ValidationErrors, Validators } from '@angular/forms';
   styleUrls: ['./input-overview.component.scss', '../../../assets/styles/overview.scss']
 })
 export class InputOverviewComponent implements OnInit {
-  nameControl: FormControl = new FormControl('', (v) =>
-    v.value.length < 3 ? { errorMessage: 'Мінімум 3 символи' } : null);
-  nameControlWithIcon: FormControl = new FormControl('', (v) =>
-    v.value.length < 3 ? { errorMessage: 'Мінімум 3 символи' } : null);
+  nameControl: FormControl = new FormControl('');
+  nameControlWithIcon: FormControl = new FormControl('');
   dateControl: FormControl = new FormControl('', (v) =>
     new Date(v.value).getFullYear() < 2000 ? { errorMessage: 'Рік менше 2000' } : null);
-  cardControl: FormControl = new FormControl('', Validators.required);
+  cardControl: FormControl = new FormControl('');
   digitControl: FormControl = new FormControl('', (v) =>
     v.value < 1000 ? { errorMessage: 'Кількість більше 1000' } : null);
   validControl: FormControl = new FormControl('');

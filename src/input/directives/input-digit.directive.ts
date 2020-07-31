@@ -1,5 +1,5 @@
 import { Directive, Renderer2, ElementRef, forwardRef } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormGroupDirective } from '@angular/forms';
 
 import { MillInput, CleanFunction } from '../component/input';
 
@@ -17,9 +17,10 @@ export class InputDigitDirective extends MillInput implements ControlValueAccess
 
   constructor(
     renderer: Renderer2,
-    inputElementRef: ElementRef
+    inputElementRef: ElementRef,
+    public parentForm: FormGroupDirective
   ) {
-    super(inputElementRef.nativeElement, renderer);
+    super(inputElementRef.nativeElement, renderer, parentForm);
   }
 
   registerOnChange(fn: (v: string | number) => void): void {

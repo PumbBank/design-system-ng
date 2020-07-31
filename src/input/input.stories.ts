@@ -10,6 +10,7 @@ import { InputFormComponent } from './examples/input-form/input-form.component';
 import { ButtonModule } from 'src/button/button.module';
 import { SelectModule } from 'src/select/select.module';
 import { MillHintModule } from 'src/hint/hint.module';
+import { FormUtilsModule } from 'src/form-utils/form-utils.module';
 
 export default {
   title: 'Компоненти|Inputs',
@@ -48,7 +49,8 @@ export const componentForm = () => ({
       SelectModule,
       FormsModule,
       ReactiveFormsModule,
-      MillHintModule
+      MillHintModule,
+      FormUtilsModule
     ],
     declarations: [
       InputOverviewComponent,

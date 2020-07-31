@@ -20,20 +20,20 @@
       <div class="overview__label s1">With icon</div>
       <div class="overview__container">
         <input icon="user" millInput="text" [formControl]="nameControlWithIcon" [errors]="nameControlWithIcon.errors"
-          required caption="Enter Name" placeholder="Placeholder">
+         caption="Enter Name" placeholder="Placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Card number</div>
       <div class="overview__container">
-        <input icon="card" millInput="card" [formControl]="cardControl" [errors]="cardControl.errors" required
+        <input icon="card" millInput="card" [formControl]="cardControl" [errors]="cardControl.errors"
           caption="Card number" placeholder="0000 0000 0000 0000">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Date</div>
       <div class="overview__container">
-        <input millInput="date" [formControl]="dateControl" [errors]="dateControl.errors" required caption="Date"
+        <input millInput="date" [formControl]="dateControl" [errors]="dateControl.errors" caption="Date"
           placeholder="дд.мм.гггг">
       </div>
     </div>
@@ -41,14 +41,14 @@
       <div class="overview__label s1">Digits</div>
       <div class="overview__container">
         <input millInput="digit" [formControl]="digitControl" [valid]="digitControl.valid ? 'Valid' : null"
-          [errors]="digitControl.errors" required caption="Enter digit" placeholder="1234567890">
+          [errors]="digitControl.errors" caption="Enter digit" placeholder="1234567890">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Valid alert</div>
       <div class="overview__container">
         <input millInput="text" [formControl]="validControl" [valid]="'Message Text'" [errors]="validControl.errors"
-          required caption="Enter Name" placeholder="Placeholder">
+         caption="Enter Name" placeholder="Placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
@@ -68,7 +68,7 @@
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Disabled</div>
       <div class="overview__container overview__container_row">
-        <input millInput="text" [formControl]="disabledControl" [errors]="disabledControl.errors" required
+        <input millInput="text" [formControl]="disabledControl" [errors]="disabledControl.errors"
           caption="Enter Name" placeholder="Placeholder">
       </div>
     </div>
@@ -96,5 +96,5 @@
 
   <hr class="overview__separator">
 
-  <input-notice></input-notice>
+  <input-notice [link]="'http://localhost:6006/?path=/story/компоненти-inputs--component-form'"></input-notice>
 </div>

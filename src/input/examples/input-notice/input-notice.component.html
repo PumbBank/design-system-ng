@@ -8,8 +8,8 @@
       </div>
     </div>
     
-    <div class="s2 notice__links">
-      <a href="" class="notice__link"><mill-icon name="lightbulb"></mill-icon>Компонент в Figma</a>
+    <div class="s2 notice__links" *ngIf="!!link">
+      <a [href]="link" class="notice__link"><mill-icon name="lightbulb"></mill-icon>Приклад форми з валідацією</a>
     </div>
   </div>
 </div>
