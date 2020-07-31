@@ -50,8 +50,9 @@
 }
 
 .file-attach__content_files__grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, max-content));
+  display: flex;
+  flex-wrap: wrap;
+  justify-items: flex-start;
 }
 
 .file-attach__content_label {
