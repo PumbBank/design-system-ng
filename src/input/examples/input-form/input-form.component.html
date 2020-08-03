@@ -24,30 +24,30 @@
           </div>
 
           <div class="overview__content grid" style="padding: 0;">
-            <div class="overview__column grid-item-4">
+            <div class="overview__column ">
               <input #firstInput millInput="text" caption="Ім'я" [cleanup]="true" formControlName="name"
                 [errors]="formGr.controls.name.errors">
             </div>
 
-            <div class="overview__column grid-item-4">
+            <div class="overview__column ">
               <input millInput="number" formControlName="walletNumber" [errors]="formGr.controls.walletNumber.errors"
                 caption="Номер гаманця" placeholder="000000000">
             </div>
-            <div class="overview__column grid-item-4">
+            <div class="overview__column ">
               <input millInput="phone" type="tel" icon="phone" inputmode="tel" formControlName="phoneNumber"
                 [errors]="formGr.controls.phoneNumber.errors" prefix="+380" placeholder="(00) 000-00-00"
                 caption="Номер телефону">
             </div>
-            <div class="overview__column grid-item-4">
+            <div class="overview__column ">
               <input millInput="digit" formControlName="downPayment" [errors]="formGr.controls.downPayment.errors"
                 caption="Перший внесок" icon="wallet">
             </div>
-            <div class="overview__column grid-item-4">
+            <div class="overview__column ">
               <input icon="card" millInput="card" formControlName="cardNumber"
                 [errors]="formGr.controls.cardNumber.errors" required caption="Card number"
                 placeholder="0000 0000 0000 0000" caption="Номер банківської карти">
             </div>
-            <div class="overview__column grid-item-4">
+            <div class="overview__column ">
               <input millInput="text" formControlName="password" [errors]="formGr.controls.password.errors"
                 caption="Кодове слово" icon="lock-pass">
             </div>
