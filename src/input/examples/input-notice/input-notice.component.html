@@ -1,0 +1,15 @@
+<div class="notice">
+  <div class="notice__content">
+    <div class="h5">Господині на замітку</div>
+    <div class="s1 notice__subtitle">Важливо враховувати при розробці форм</div>
+    <div class="p2 notice__items">
+      <div class="items__item" *ngFor="let item of noticeItems">
+        {{ item }}
+      </div>
+    </div>
+    
+    <div class="s2 notice__links" *ngIf="!!link">
+      <a [href]="link" class="notice__link"><mill-icon name="lightbulb"></mill-icon>Приклад форми з валідацією</a>
+    </div>
+  </div>
+</div>

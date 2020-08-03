@@ -1,5 +1,5 @@
 import { CleanFunction, MillInput } from '../component/input';
-import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroupDirective } from '@angular/forms';
 import { Directive, ElementRef, forwardRef, HostListener, OnInit, Renderer2 } from '@angular/core';
 import { createTextMaskInputElement } from 'text-mask-core/dist/textMaskCore';
 
@@ -19,9 +19,10 @@ export class InputPhoneDirective extends MillInput implements ControlValueAccess
 
   constructor(
     renderer: Renderer2,
-    public inputElementRef: ElementRef
+    public inputElementRef: ElementRef,
+    public parentForm: FormGroupDirective
   ) {
-    super(inputElementRef.nativeElement, renderer);
+    super(inputElementRef.nativeElement, renderer, parentForm);
     super.setBodyMinWidth('240px');
     this._host = inputElementRef.nativeElement;
   }

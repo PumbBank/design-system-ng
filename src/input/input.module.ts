@@ -7,6 +7,7 @@ import { InputMoneyDirective } from './directives/input-money.directive';
 import { InputPhoneDirective } from './directives/input-phone.directive';
 import { InputCardDirective } from './directives/input-card.directive';
 import { IconsModule } from '../icons';
+import { FormGroupDirective } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import { IconsModule } from '../icons';
     InputMoneyDirective,
     InputPhoneDirective,
     InputCardDirective
-  ]
+  ],
+  providers: [FormGroupDirective]
 })
 export class InputModule {
 }

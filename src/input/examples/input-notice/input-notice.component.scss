@@ -1,0 +1,55 @@
+@import "~@mill/figma/icons";
+@import "~@mill/figma/typography";
+@import "~@mill/figma/colors";
+
+.notice {
+  padding: 0 24px;
+  display: flex;
+  justify-content: center;
+  &__content {
+    max-width: 712px;
+    padding: 57px 92px;
+    border: 1px solid $grey-20;
+    box-sizing: border-box;
+    border-radius: 8px;
+  }
+
+  &__subtitle {
+    margin-top: 31px;
+  }
+
+  &__items {
+    margin-top: 18px;
+    & .items__item {
+      border-left: 3px solid #f91f2b;
+      padding-left: 24px;
+
+      min-height: 40px;
+      display: flex;
+      align-items: center;
+
+      &:not(:last-child) {
+        margin-bottom: 20px;
+      }
+    }
+  }
+
+  &__links {
+    display: flex;
+    flex-direction: column;
+    margin-top: 44px;
+  }
+
+  &__link {
+    padding: 6px 0;
+    display: flex;
+    color: #4d4d5c;
+    text-decoration: none;
+    align-items: center;
+
+    & mill-icon {
+      margin-right: 6px;
+      color: #F91F2B;
+    }
+  }
+}

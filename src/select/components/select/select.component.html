@@ -14,7 +14,7 @@
   <div class="select__header input" [class.input_required]="this.required">
     <div class="input__label input-select__label">{{ caption }}</div>
     <div class="input__body input-select__body " 
-    [class.input-select__body_error]="touched && isInvalid"
+    [class.input-select__body_error]="(touched && isInvalid) || (submitted && isInvalid)"
     [class.input-select__body_valid]="touched && !isInvalid && hintComponent.valid"> 
       <div class="chips">
         <ng-container *ngIf="multiple">
