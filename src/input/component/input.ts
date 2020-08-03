@@ -143,19 +143,11 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   }
 
   private updateTouchedState(touched: boolean = false): void {
-    if (touched) {
-      this.methodValidation = true;
-      return;
-    }
-    this.methodValidation = false;
+      this.methodValidation = touched;
   }
 
   private updateDirtyState(dirty: boolean = false): void {
-    if (dirty) {
-      this.methodValidation = true;
-      return;
-    }
-    this.methodValidation = false;
+      this.methodValidation = dirty;
   }
 
   private watchFormSubmit(): void {
