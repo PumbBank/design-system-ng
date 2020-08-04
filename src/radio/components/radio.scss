@@ -58,6 +58,10 @@
 
     .mill-radio__checkmark {
       border-color: $red-40;
+
+      .mill-radio__icon {
+        background-color: $red-40;
+      }
     }
 
     .mill-radio__icon {
