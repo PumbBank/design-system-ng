@@ -1,19 +1,20 @@
 import { Subject } from 'rxjs';
-import { Directive, OnInit, Optional } from '@angular/core';
+import { Directive, OnDestroy, OnInit, Optional } from '@angular/core';
 import { AbstractControl, NgModel, FormControlDirective, FormControlName, FormGroupDirective } from '@angular/forms';
 import { HintComponent } from '..';
 import { propertyChangeInterceptor, ErrorMessageHelper } from '../../utils';
 import { SelectComponent } from 'src/select';
+import { takeUntil } from 'rxjs/operators';
 
 
 @Directive({
   selector: 'mill-hint[hintControl]'
 })
-export class HintControlDirective implements OnInit {
-  private unsubscribe: Subject<any> = new Subject();
+export class HintControlDirective implements OnInit, OnDestroy {
+  private _destroyed$: Subject<void> = new Subject<void>();
   control: AbstractControl;
 
-  get isDirtyValid() {
+  get isDirtyValid(): boolean {
     return this.select.isDirtyValid;
   }
 
@@ -30,12 +31,12 @@ export class HintControlDirective implements OnInit {
 
   ngOnInit(): void {
     if (this.parentForm) {
-      this.parentForm?.ngSubmit.subscribe(() => {
+      this.parentForm?.ngSubmit.pipe(takeUntil(this._destroyed$)).subscribe(() => {
         this.matchStatuses();
       });
     }
-    
-    
+
+
     if (this.ngModel) {
       this.control = this.ngModel.control;
     } else if (this.formControlDirective) {
@@ -47,11 +48,17 @@ export class HintControlDirective implements OnInit {
     }
     this.matchStatuses();
     this.control.statusChanges
+      .pipe(takeUntil(this._destroyed$))
       .subscribe(() => {
         this.matchStatuses();
       });
 
     propertyChangeInterceptor(this.control, 'touched', () => { this.matchStatuses(); });
+  }
+
+  public ngOnDestroy(): void {
+    this._destroyed$.next();
+    this._destroyed$.complete();
   }
 
   private matchStatuses(): void {

@@ -18,7 +18,9 @@ import { IDirtyValidator } from '../../../form-utils/interfaces/dirty-validator.
   ],
   styleUrls: ['select.component.scss']
 })
-export class SelectComponent<K = any, P = any> extends AbstractSelectUserCommunication<K, P> implements OnInit, IDirtyValidator {
+export class SelectComponent<K = any, P = any>
+  extends AbstractSelectUserCommunication<K, P>
+  implements OnInit, IDirtyValidator {
 
   // public subj = new Subject();
   /**
@@ -35,7 +37,9 @@ export class SelectComponent<K = any, P = any> extends AbstractSelectUserCommuni
   public isDirtyValid: boolean;
 
   get touched(): boolean {
-    return this.isDirtyValid ? this.element.nativeElement.classList.contains('ng-dirty') : this.element.nativeElement.classList.contains('ng-touched');
+    return this.isDirtyValid
+      ? this.element.nativeElement.classList.contains('ng-dirty')
+      : this.element.nativeElement.classList.contains('ng-touched');
   }
 
   get isInvalid(): boolean {
@@ -43,7 +47,7 @@ export class SelectComponent<K = any, P = any> extends AbstractSelectUserCommuni
   }
 
   get submitted(): boolean {
-    return this.parentForm?.submitted || false
+    return this.parentForm?.submitted || false;
   }
 
   get selectMinWidth(): string {

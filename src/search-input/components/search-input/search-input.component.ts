@@ -2,16 +2,16 @@ import {
   Component,
   ElementRef,
   EventEmitter,
-  forwardRef, Host, HostBinding,
+  forwardRef,
   HostListener,
-  Input,
+  Input, OnDestroy,
   OnInit,
   Output,
   ViewChild,
 } from '@angular/core';
 import { ControlValueAccessor, FormControl, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { BehaviorSubject, fromEvent } from 'rxjs';
-import { map, startWith } from 'rxjs/operators';
+import { BehaviorSubject, fromEvent, Subject } from 'rxjs';
+import { map, startWith, takeUntil } from 'rxjs/operators';
 
 interface ListInterface {
   value: any;
@@ -40,7 +40,8 @@ enum KeyEnum {
     }
   ],
 })
-export class SearchInputComponent implements OnInit, ControlValueAccessor {
+export class SearchInputComponent implements OnInit, ControlValueAccessor, OnDestroy {
+  private _destroyed$: Subject<void> = new Subject<void>();
 
   /** State for the whole input */
   public active: boolean = false;
@@ -134,6 +135,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
       .pipe(
         startWith(''),
         map(value => value && value.match(/^\s$/) ? this.inputValue.setValue('') : value),
+        takeUntil(this._destroyed$)
       )
       .subscribe(value => {
         // If key(up, down, enter) pressed do not start filter
@@ -146,6 +148,7 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
 
     // Subscribe to the keydown event
     fromEvent<KeyboardEvent>(this.inputEl.nativeElement, 'keydown')
+      .pipe(takeUntil(this._destroyed$))
       .subscribe(event => {
         // If event key is equal to (up, down, enter) call key method
         if (event.key === KeyEnum.keyDown || event.key === KeyEnum.keyUp || event.key === KeyEnum.enter) {
@@ -163,12 +166,13 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
     const history = localStorage.getItem('historyList');
 
     if (history) {
-      const parsedHistory = JSON.parse(history);
-      this._historyList = parsedHistory;
+      this._historyList = JSON.parse(history);
     }
 
     if (this.async) {
-      this._resultList.subscribe(result => {
+      this._resultList
+        .pipe(takeUntil(this._destroyed$))
+        .subscribe(result => {
         // If result list exist concat him with history, otherwise show last 4 elements from history list
         if (result && result.length > 0) {
           this.showList = this._filter(this._historyList, this.inputValue.value).concat(result);
@@ -177,6 +181,11 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
         }
       });
     }
+  }
+
+  ngOnDestroy(): void {
+    this._destroyed$.next();
+    this._destroyed$.complete();
   }
 
   /** Concat history and result list */
@@ -318,7 +327,9 @@ export class SearchInputComponent implements OnInit, ControlValueAccessor {
   private _onTouched: any = () => {};
 
   public registerOnChange(fn: any): void {
-    this.inputValue.valueChanges.subscribe(fn);
+    this.inputValue.valueChanges
+      .pipe(takeUntil(this._destroyed$))
+      .subscribe(fn);
   }
 
   public registerOnTouched(fn: any): void {

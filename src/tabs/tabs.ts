@@ -1,6 +1,6 @@
-import { BehaviorSubject, fromEvent } from 'rxjs';
-import { AfterViewInit, ElementRef, Input, OnInit, ViewChild } from '@angular/core';
-import { debounceTime } from 'rxjs/operators';
+import { BehaviorSubject, fromEvent, Subject } from 'rxjs';
+import { AfterViewInit, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 
 export abstract class TabItemBase {
   @Input() public id: string;
@@ -31,8 +31,9 @@ export abstract class TabsItems {
 
 const SCROLL_OVERFLOW = 48;
 
-export abstract class TabsPagination extends TabsItems implements AfterViewInit {
+export abstract class TabsPagination extends TabsItems implements AfterViewInit, OnDestroy {
   private _scrollOffset: number = 0;
+  private _destroyed$: Subject<void> = new Subject<void>();
 
   @Input() hideControls: boolean;
   @ViewChild('wrapper', {static: true}) public wrapper: ElementRef;
@@ -56,7 +57,7 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
 
   ngAfterViewInit(): void {
     fromEvent(window, 'resize')
-      .pipe(debounceTime(100))
+      .pipe(debounceTime(100), takeUntil(this._destroyed$))
       .subscribe(() => {
         this._checkOverflow();
         this.checkLabelInView();
@@ -69,6 +70,11 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
     this._checkOverflow();
     this.checkLabelInView();
     this._checkScrollControls();
+  }
+
+  public ngOnDestroy(): void {
+    this._destroyed$.next();
+    this._destroyed$.complete();
   }
 
   public scrollHeader(direction: 'left' | 'right'): void {
@@ -171,7 +177,8 @@ export abstract class TabsPagination extends TabsItems implements AfterViewInit 
 
 }
 
-export abstract class TabsBase extends TabsPagination implements OnInit {
+export abstract class TabsBase extends TabsPagination implements OnInit, OnDestroy {
+  private _unsubscribes$: Subject<void> = new Subject<void>();
   private _selectedTabId: string;
   private _selectedLabel: HTMLElement;
 
@@ -207,10 +214,17 @@ export abstract class TabsBase extends TabsPagination implements OnInit {
 
   ngOnInit(): void {
     this.tabItems.pipe(
-      debounceTime(100)
+      debounceTime(100),
+      takeUntil(this._unsubscribes$)
     ).subscribe(() => {
       this._setItemsPosition();
     });
+  }
+
+  ngOnDestroy(): void {
+    super.ngOnDestroy();
+    this._unsubscribes$.next();
+    this._unsubscribes$.complete();
   }
 
   private _setItemsPosition(id: string = this.selectedTabId): void {
