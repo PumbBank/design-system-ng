@@ -1,8 +1,8 @@
 import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy } from '@angular/core';
-import { ValidationErrors, NgForm, FormGroupDirective } from '@angular/forms';
+import { ValidationErrors, FormGroupDirective } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
-import { IDirtyValidator } from 'src/form-utils/interfaces/dirty-validator.interface';
+import { IDirtyValidator } from '../../form-utils/interfaces/dirty-validator.interface';
 
 export type CleanFunction = (inputValue: any) => string;
 
