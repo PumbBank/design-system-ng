@@ -55,7 +55,7 @@ export class TableComponent implements OnInit {
 
   @Input() dataModel: DataModelInterface[] = [];
   @Input() selectInput: 'checkbox' | 'radio';
-  @Input() counterSeparator: string = 'из';
+  @Input() counterSeparator: string = 'з';
   @Input() width: string | number = 100;
   @Input() loading: boolean = true;
   @Input() async: boolean = false;
