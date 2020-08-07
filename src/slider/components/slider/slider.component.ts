@@ -6,15 +6,15 @@ import {
   forwardRef,
   HostListener,
   Input,
-  OnChanges,
+  OnChanges, OnDestroy,
   OnInit,
   Output,
   ViewChild,
   ViewEncapsulation,
 } from '@angular/core';
 import { ControlValueAccessor, FormBuilder, FormGroup, NG_VALUE_ACCESSOR } from '@angular/forms';
-import { fromEvent, Subscription } from 'rxjs';
-import { debounceTime } from 'rxjs/operators';
+import { fromEvent, Subject, Subscription } from 'rxjs';
+import { debounceTime, takeUntil } from 'rxjs/operators';
 import {
   EventOutputInterface, KeyCodeEnum,
   ResultInterface,
@@ -39,7 +39,8 @@ const GRAY_20 = '#E1E1E8';
   ],
   encapsulation: ViewEncapsulation.None,
 })
-export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor {
+export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor, OnDestroy {
+  private _destroyed$: Subject<void> = new Subject<void>();
 
   /** Type of slider can be "basic", "double" or "step" */
   @Input() public type?: SliderTypeEnum = SliderTypeEnum.basic;
@@ -221,6 +222,11 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
     this._getSliderContentWidth();
   }
 
+  ngOnDestroy(): void {
+    this._destroyed$.next();
+    this._destroyed$.complete();
+  }
+
   /** Control value accessor methods */
   writeValue(value: ResultInterface): void {
 
@@ -293,7 +299,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor 
   }
 
   public registerOnChange(fn: () => void): void {
-    this.form.valueChanges.pipe(debounceTime(100)).subscribe(fn);
+    this.form.valueChanges.pipe(debounceTime(100), takeUntil(this._destroyed$)).subscribe(fn);
   }
 
   public registerOnTouched(fn: () => void): void {

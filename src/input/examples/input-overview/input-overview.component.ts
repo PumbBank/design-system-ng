@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, ValidationErrors, Validators } from '@angular/forms';
+import { FormControl, ValidationErrors } from '@angular/forms';
 
 @Component({
   selector: 'input-overview',
@@ -23,7 +23,7 @@ export class InputOverviewComponent implements OnInit {
 
   validControlErrors: ValidationErrors | null;
 
-  arrCoordinates = [];
+  arrCoordinates: any[] = [];
 
   ngOnInit(): void {
     this.errorControl.markAsTouched();

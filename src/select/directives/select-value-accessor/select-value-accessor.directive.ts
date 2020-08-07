@@ -17,9 +17,9 @@ import { Subject } from 'rxjs';
 export class SelectValueAccessorDirective implements ControlValueAccessor {
   private unsubscriber: Subject<void> = new Subject<void>();
 
-  set isDirtyValid(value) {    
+  set isDirtyValid(value: boolean) {
     this.select.isDirtyValid = value;
-  };
+  }
 
   constructor(
     private select: SelectComponent
