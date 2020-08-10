@@ -29,7 +29,7 @@
     border-radius: 8px;
     padding: 10px;
     display: flex;
-
+    margin-bottom: 14px;
     & .icon-wrapper {
       width: fit-content;
       border-right: 1px solid $grey-30;
@@ -45,24 +45,24 @@
   }
 
   &__additional-data {
-    background: #F5F5FA;
-    padding: 24px;
+    background: #f5f5fa;
+    padding: 24px 24px 43px 24px;
     border-radius: 8px;
-    margin-top: 24px;
-    
+    margin-top: 18px;
+
     & .additional-data__inputs {
       & .grid-item:nth-child(1) {
         grid-column: span 12;
       }
 
-      & .grid-item:nth-child(2), .grid-item:nth-child(3) {
+      & .grid-item:nth-child(2),
+      .grid-item:nth-child(3) {
         grid-column: span 3;
       }
 
       & .grid-item:nth-child(4) {
         grid-column: span 6;
       }
-
     }
 
     & .additional-data__head {
@@ -79,7 +79,7 @@
   }
 
   &__body {
-    padding: 24px;
+    padding: 16px 24px 32px 24px
   }
 
   &__footer {
@@ -92,4 +92,11 @@
       margin-left: 8px;
     }
   }
+}
+
+.form-overview__column {
+  display: flex;
+  flex-direction: column;
+  margin-top: 10px;
+  grid-column: span 6;
 }
