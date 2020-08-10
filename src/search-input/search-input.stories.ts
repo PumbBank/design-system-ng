@@ -13,7 +13,7 @@ const data = [
 ];
 
 export default {
-  title: 'Компоненти|Search',
+  title: 'Компоненти|Search input',
   parameters: {
     options: { showPanel: false },
   },

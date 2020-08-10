@@ -1,6 +1,6 @@
-import { Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild } from '@angular/core';
+import { Component, ElementRef, EventEmitter, Input, OnDestroy, OnInit, Output, ViewChild } from '@angular/core';
 import { BehaviorSubject, fromEvent, Subject } from 'rxjs';
-import { debounceTime, distinctUntilChanged, map } from 'rxjs/operators';
+import { debounceTime, distinctUntilChanged, map, takeUntil } from 'rxjs/operators';
 import {
   BadgeInterface,
   CheckboxEnum,
@@ -18,21 +18,19 @@ import {
   templateUrl: './table.component.html',
   styleUrls: ['./table.component.scss']
 })
-export class TableComponent implements OnInit {
+export class TableComponent implements OnInit, OnDestroy {
+  private _destroyed$: Subject<void> = new Subject<void>();
   private _tableActions$: Subject<EmitInterface> = new Subject();
-  private _rowCount: number;
-  private _paginatorShowCount: number[];
-  private _badge: BadgeInterface[];
   private _dataLength: number;
-
-  // enums for html
+  protected _tableData$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
   // tslint:disable-next-line:typedef
   public checkboxStates = CheckboxEnum;
   // tslint:disable-next-line:typedef
   public tableStyleEnum = TableStyleEnum;
+
+  // enums for html
   // tslint:disable-next-line:typedef
   public tableTypeEnum = TableTypeEnum;
-
   public groupCheckbox: CheckboxEnum;
   public selected: any[] = [];
   public paginatorSettings: PaginatorInterface = {
@@ -50,12 +48,9 @@ export class TableComponent implements OnInit {
     sortDirection: 'asc'
   };
   public viewData$: BehaviorSubject<any[]> = new BehaviorSubject<any[]>(null);
-
-  protected _tableData$: BehaviorSubject<any[] | null> = new BehaviorSubject<any[] | null>(null);
-
   @Input() dataModel: DataModelInterface[] = [];
   @Input() selectInput: 'checkbox' | 'radio';
-  @Input() counterSeparator: string = 'из';
+  @Input() counterSeparator: string = 'з';
   @Input() width: string | number = 100;
   @Input() loading: boolean = true;
   @Input() async: boolean = false;
@@ -64,14 +59,18 @@ export class TableComponent implements OnInit {
   @Input() darkStyleHeader: boolean = false;
   @Input() tableStyle: TableStyleEnum = TableStyleEnum.normal;
   @Input() tableType: TableTypeEnum = TableTypeEnum.normal;
-
   @Input() paginator: boolean;
+  @Output() tableOutput: EventEmitter<EmitInterface> = new EventEmitter<EmitInterface>();
+  @Output() selectedRows: EventEmitter<any[]> = new EventEmitter<any[]>();
+  @ViewChild('table', {static: true})
+  public table: ElementRef;
+  @ViewChild('header', {static: true})
+  public header: ElementRef;
 
-  @Input()
-  set data(value: any[]) {
-    if (value) {
-      this._tableData$.next(value);
-    }
+  private _rowCount: number;
+
+  public get rowCount(): number {
+    return this._rowCount;
   }
 
   @Input()
@@ -84,8 +83,10 @@ export class TableComponent implements OnInit {
     }
   }
 
-  public get rowCount(): number {
-    return this._rowCount;
+  private _paginatorShowCount: number[];
+
+  get paginatorShowCount(): number[] {
+    return this._paginatorShowCount;
   }
 
   @Input()
@@ -96,8 +97,10 @@ export class TableComponent implements OnInit {
     }
   }
 
-  get paginatorShowCount(): number[] {
-    return this._paginatorShowCount;
+  private _badge: BadgeInterface[];
+
+  get badge(): BadgeInterface[] {
+    return this._badge;
   }
 
   @Input()
@@ -105,19 +108,12 @@ export class TableComponent implements OnInit {
     this._badge = value;
   }
 
-  get badge(): BadgeInterface[] {
-    return this._badge;
+  @Input()
+  set data(value: any[]) {
+    if (value) {
+      this._tableData$.next(value);
+    }
   }
-
-  @Output() tableOutput: EventEmitter<EmitInterface> = new EventEmitter<EmitInterface>();
-
-  @Output() selectedRows: EventEmitter<any[]> = new EventEmitter<any[]>();
-
-  @ViewChild('table', {static: true})
-  public table: ElementRef;
-
-  @ViewChild('header', {static: true})
-  public header: ElementRef;
 
   ngOnInit(): void {
     if (this.paginatorSettings.limit === 0) {
@@ -125,28 +121,32 @@ export class TableComponent implements OnInit {
       this._paginatorShowCount = [5, 10, 20];
     }
 
-    this._tableData$.subscribe(data => {
-      if (data) {
-        this._dataLength = this.rowCount ? this.rowCount : data.length;
+    this._tableData$
+      .pipe(takeUntil(this._destroyed$))
+      .subscribe(data => {
+        if (data) {
+          this._dataLength = this.rowCount ? this.rowCount : data.length;
 
-        if (this.async) {
-          this.viewData$.next(data);
-        } else {
-          this.updateViewData();
+          if (this.async) {
+            this.viewData$.next(data);
+          } else {
+            this.updateViewData();
+          }
+
+          if (this.paginator) {
+            this._updatePaginator();
+            this._updatePaginatorLabel();
+          }
         }
+      });
 
-        if (this.paginator) {
-          this._updatePaginator();
-          this._updatePaginatorLabel();
+    this.viewData$
+      .pipe(takeUntil(this._destroyed$))
+      .subscribe(data => {
+        if (data) {
+          this.loading = false;
         }
-      }
-    });
-
-    this.viewData$.subscribe(data => {
-      if (data) {
-        this.loading = false;
-      }
-    });
+      });
 
     if (this.async) {
       this._onAsyncOutput();
@@ -159,6 +159,11 @@ export class TableComponent implements OnInit {
     if (this.fixedHeader) {
       this._onTableScroll();
     }
+  }
+
+  ngOnDestroy(): void {
+    this._destroyed$.next();
+    this._destroyed$.complete();
   }
 
   public updateViewData(): void {

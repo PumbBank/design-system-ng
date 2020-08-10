@@ -1,14 +1,19 @@
 import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy } from '@angular/core';
-import { ValidationErrors, NgForm, FormGroupDirective } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { ValidationErrors, FormGroupDirective } from '@angular/forms';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
-import { IDirtyValidator } from 'src/form-utils/interfaces/dirty-validator.interface';
+import { IDirtyValidator } from '../../form-utils/interfaces/dirty-validator.interface';
+import { takeUntil } from 'rxjs/operators';
 
 export type CleanFunction = (inputValue: any) => string;
 
 const DEFAULT_CLEAN_FUNCTION = (inputValue: any): string => inputValue;
 
 export class MillInput extends RequirebleComponent implements OnChanges, OnDestroy, IDirtyValidator {
+
+  private invalid: boolean;
+  private methodValidation: boolean;
+  private destroyed$: Subject<void> = new Subject<void>();
 
   constructor(
     public input: HTMLInputElement,
@@ -25,9 +30,6 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
 
     this.watchFormSubmit();
   }
-  private invalid: boolean;
-  private methodValidation: boolean;
-
   public isDirtyValid: boolean;
 
   protected cleanFunction: CleanFunction = DEFAULT_CLEAN_FUNCTION;
@@ -76,6 +78,8 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   ngOnDestroy(): void {
     this.validationStateObserver.disconnect();
     this.messagePresentationObserver.disconnect();
+    this.destroyed$.next();
+    this.destroyed$.complete();
   }
 
   registerOnChange(fn: (value: string | number) => void): void {
@@ -152,7 +156,9 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
 
   private watchFormSubmit(): void {
     if (this.parentForm) {
-      this.parentForm?.ngSubmit.subscribe(() => {
+      this.parentForm?.ngSubmit
+        .pipe(takeUntil(this.destroyed$))
+        .subscribe(() => {
         this.errorsUpdateText();
       });
     }
@@ -347,7 +353,11 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
 
   private errorsUpdateText(): void {
     if ((this.errors && this.methodValidation) || (this.errors && this.parentForm?.submitted)) {
-      this.msgTextElement.innerText = (this.errors && this.methodValidation) || (this.errors && this.parentForm?.submitted) ? ErrorMessageHelper.getMessage(this.errors) : '';
+      this.msgTextElement.innerText =
+        (this.errors && this.methodValidation) ||
+        (this.errors && this.parentForm?.submitted)
+          ? ErrorMessageHelper.getMessage(this.errors)
+          : '';
     } else if ((this.errors && !this.invalid)) {
       this.msgTextElement.innerText = (this.errors && !this.invalid) ? ErrorMessageHelper.getMessage(this.errors) : '';
     } else if (!!this.valid && this.valid !== 'true' && this.valid !== true) {

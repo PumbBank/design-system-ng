@@ -1,8 +1,7 @@
 import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { AbstractSelectUserCommunication } from './abstract-select-user-communication';
 import { FormGroupDirective } from '@angular/forms';
-import { Subject } from 'rxjs';
-import { IDirtyValidator } from 'src/form-utils/interfaces/dirty-validator.interface';
+import { IDirtyValidator } from '../../../form-utils/interfaces/dirty-validator.interface';
 
 @Component({
   selector: 'mill-select',
@@ -19,7 +18,9 @@ import { IDirtyValidator } from 'src/form-utils/interfaces/dirty-validator.inter
   ],
   styleUrls: ['select.component.scss']
 })
-export class SelectComponent<K = any, P = any> extends AbstractSelectUserCommunication<K, P> implements OnInit, IDirtyValidator {
+export class SelectComponent<K = any, P = any>
+  extends AbstractSelectUserCommunication<K, P>
+  implements OnInit, IDirtyValidator {
 
   // public subj = new Subject();
   /**
@@ -35,8 +36,10 @@ export class SelectComponent<K = any, P = any> extends AbstractSelectUserCommuni
 
   public isDirtyValid: boolean;
 
-  get touched(): boolean {    
-    return this.isDirtyValid ? this.element.nativeElement.classList.contains('ng-dirty') : this.element.nativeElement.classList.contains('ng-touched');
+  get touched(): boolean {
+    return this.isDirtyValid
+      ? this.element.nativeElement.classList.contains('ng-dirty')
+      : this.element.nativeElement.classList.contains('ng-touched');
   }
 
   get isInvalid(): boolean {
@@ -44,7 +47,7 @@ export class SelectComponent<K = any, P = any> extends AbstractSelectUserCommuni
   }
 
   get submitted(): boolean {
-    return this.parentForm?.submitted || false
+    return this.parentForm?.submitted || false;
   }
 
   get selectMinWidth(): string {

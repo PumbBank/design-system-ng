@@ -40,9 +40,6 @@ export class InputFormComponent implements OnInit, AfterViewInit {
     if (!this.formGr.valid) {
       this.scrollToError();
     }
-
-    console.log(this.formGr.value);
-    
   }
 
   optionalInputMes(): ValidationErrors | null {

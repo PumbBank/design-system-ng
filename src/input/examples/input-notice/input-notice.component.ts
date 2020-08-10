@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, Input } from '@angular/core';
 
 @Component({
   selector: 'input-notice',
@@ -6,7 +6,7 @@ import { Component, OnInit, Input } from '@angular/core';
   styleUrls: ['./input-notice.component.scss']
 })
 export class InputNoticeComponent {
-  noticeItems = [
+  noticeItems: string[] = [
     'Якщо обов\'язкове поле в фокусі, а потім фокус знімається без введення даних – повідомлення про обов\'язкове поле не виводиться.',
     'Якщо обов\'язкове поле в фокусі, потім було зроблено введення даних, потім ці дані були стерті і фокус знятий – виводиться повідомлення про обов\'язкове поле.',
     'Затвердження обов\'язкових полів відбувається при натисканні кнопки Submit.',

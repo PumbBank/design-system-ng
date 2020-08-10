@@ -1,5 +1,13 @@
 import { Directive, forwardRef, Renderer2, ElementRef, OnInit } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, NG_VALIDATORS, Validator, AbstractControl, ValidationErrors, FormGroupDirective } from '@angular/forms';
+import {
+  NG_VALUE_ACCESSOR,
+  ControlValueAccessor,
+  NG_VALIDATORS,
+  Validator,
+  AbstractControl,
+  ValidationErrors,
+  FormGroupDirective
+} from '@angular/forms';
 import { createTextMaskInputElement } from 'text-mask-core';
 
 import { MillInput, CleanFunction } from '..';

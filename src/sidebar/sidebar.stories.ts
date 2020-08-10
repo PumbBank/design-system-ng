@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarModule } from './sidebar.module';
 
 export default {
-  title: 'Компоненти|SideBar',
+  title: 'Компоненти|Sidebars',
   parameters: {
     options: { showPanel: false },
   },

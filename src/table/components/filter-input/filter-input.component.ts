@@ -3,11 +3,13 @@ import {
   Component,
   ElementRef,
   EventEmitter, HostBinding,
-  HostListener,
+  HostListener, OnDestroy,
   Output,
   ViewEncapsulation
 } from '@angular/core';
 import { FormControl } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 
 @Component({
   selector: 'filter-input',
@@ -15,7 +17,8 @@ import { FormControl } from '@angular/forms';
   styleUrls: ['./filter-input.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class FilterInputComponent {
+export class FilterInputComponent implements OnDestroy {
+  private _destroyed$: Subject<void> = new Subject<void>();
 
   public active: boolean;
   public filled: boolean;
@@ -25,11 +28,13 @@ export class FilterInputComponent {
 
   @HostBinding('class.table-filter') cssTableFilter: boolean = true;
 
-  @HostListener('document:click', ['$event.target'])
-  public clickOutside(target: any): void {
-    if (!this._elementRef.nativeElement.contains(target)) {
-      this.active = false;
-    }
+  constructor(private _elementRef: ElementRef, private _cd: ChangeDetectorRef) {
+    this.inputValue.valueChanges
+      .pipe(takeUntil(this._destroyed$))
+      .subscribe(value => {
+        this.value.emit(value);
+        this.filled = !!value;
+      });
   }
 
   @HostBinding('class.table-filter_active')
@@ -42,11 +47,16 @@ export class FilterInputComponent {
     return this.filled;
   }
 
-  constructor(private _elementRef: ElementRef, private _cd: ChangeDetectorRef) {
-    this.inputValue.valueChanges.subscribe(value => {
-      this.value.emit(value);
-      this.filled = !!value;
-    });
+  @HostListener('document:click', ['$event.target'])
+  public clickOutside(target: any): void {
+    if (!this._elementRef.nativeElement.contains(target)) {
+      this.active = false;
+    }
+  }
+
+  public ngOnDestroy(): void {
+    this._destroyed$.next();
+    this._destroyed$.complete();
   }
 
   public onFocus(): void {
