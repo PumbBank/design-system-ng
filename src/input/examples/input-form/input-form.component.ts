@@ -13,7 +13,8 @@ export class InputFormComponent implements OnInit, AfterViewInit {
   formGr: FormGroup = new FormGroup({
     name: new FormControl(''),
     walletNumber: new FormControl('', Validators.required),
-    phoneNumber: new FormControl('', Validators.required),
+    phoneNumber: new FormControl('', (v) => 
+    v.value.length !== 12 ? { errorMessage: 'Формат: 380XXXXXXXXX' } : null),
     downPayment: new FormControl('', Validators.required),
     cardNumber: new FormControl('', Validators.required),
     password: new FormControl('', Validators.required),

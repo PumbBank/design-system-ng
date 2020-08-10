@@ -9,11 +9,9 @@ import { FormControl, ValidationErrors } from '@angular/forms';
 export class InputOverviewComponent implements OnInit {
   nameControl: FormControl = new FormControl('');
   nameControlWithIcon: FormControl = new FormControl('');
-  dateControl: FormControl = new FormControl('', (v) =>
-    new Date(v.value).getFullYear() < 2000 ? { errorMessage: 'Рік менше 2000' } : null);
+  dateControl: FormControl = new FormControl('');
   cardControl: FormControl = new FormControl('');
-  digitControl: FormControl = new FormControl('', (v) =>
-    v.value < 1000 ? { errorMessage: 'Кількість більше 1000' } : null);
+  digitControl: FormControl = new FormControl('');
   validControl: FormControl = new FormControl('');
   errorControl: FormControl = new FormControl('', (v) =>
     !v.value ? { errorMessage: 'Текст повідомлення' } : null);

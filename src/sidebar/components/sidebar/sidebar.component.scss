@@ -2,10 +2,18 @@
 @import "~@mill/figma/typography";
 
 :host {
+  background: linear-gradient(106.15deg, #3c3c4e 0%, #00000d 100%);
+  display: flex;
+}
 
+.host {
   --sidebar_collapsed_width: 72px;
   width: 282px;
   transition: width 0.3s ease;
+  padding: 0;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
 
   &.sidebar_collapsed {
     width: var(--sidebar_collapsed_width);
@@ -27,7 +35,7 @@
     --sidebar_collapsed_width: 24px !important;
 
     .sidebar__scrollable {
-      &.sidebar__scrollable_collapsed{
+      &.sidebar__scrollable_collapsed {
         display: none;
       }
     }
@@ -117,9 +125,4 @@
 
 .sidebar__crafted_hidden {
   opacity: 0;
-}
-
-.sidebar_collapsed {
-  width: var(--sidebar_collapsed_width);
-  overflow: hidden;
 }

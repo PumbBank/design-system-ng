@@ -7,6 +7,8 @@ import { NavTitleComponent } from './components/nav-title/nav-title.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
 import { IconsModule } from '../icons/icons.module';
 import { BadgeModule } from '../badge/badge.module';
+import { NavContentHeadComponent } from './components/nav-content-head/nav-content-head.component';
+import { NavContentComponent } from './components/nav-content/nav-content.component';
 
 @NgModule({
   imports: [
@@ -19,14 +21,18 @@ import { BadgeModule } from '../badge/badge.module';
     UserInfoActionComponent,
     NavItemComponent,
     NavTitleComponent,
-    SidebarComponent
+    SidebarComponent,
+    NavContentComponent,
+    NavContentHeadComponent
   ],
   exports: [
     UserInfoComponent,
     UserInfoActionComponent,
     NavItemComponent,
     NavTitleComponent,
-    SidebarComponent
+    SidebarComponent,
+    NavContentComponent,
+    NavContentHeadComponent
   ]
 })
 export class SidebarModule {
