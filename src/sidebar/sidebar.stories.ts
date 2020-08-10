@@ -23,8 +23,7 @@ export const component = () => ({
     avatar: text('A vatar', 'https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg')
   },
   template: `
-    <div style="background: linear-gradient(106.15deg, #3C3C4E 0%, #00000D 100%); padding: 0; height: 100vh; width: 100%; display:flex">
-      <mill-sidebar logo="/assets/images/logoplace.png" style="height: 100%">
+      <mill-sidebar logo="/assets/images/logoplace.png" >
         <user-info
           [username]="username"
           [avatar]="avatar"
@@ -32,7 +31,7 @@ export const component = () => ({
           <mill-user-info-action icon="settings"></mill-user-info-action>
           <mill-user-info-action icon="mail" [disabled]="true"></mill-user-info-action>
           <mill-user-info-action icon="exit"></mill-user-info-action>
-          </user-info>
+        </user-info>
         <mill-nav-title>Nav title</mill-nav-title>
 
         <mill-nav-item icon="mail">
@@ -42,38 +41,29 @@ export const component = () => ({
           <mill-nav-item>iMessage</mill-nav-item>
         </mill-nav-item>
 
-        <!--<mill-nav-item icon="calendar">Menu item</mill-nav-item>
-        <mill-nav-item icon="folder" active="true">Menu item</mill-nav-item>
-
-        <mill-nav-title>Nav title</mill-nav-title>
-        <mill-nav-item icon="mail">Menu item</mill-nav-item>
-        <mill-nav-item icon="calendar">Menu item</mill-nav-item>
-
-        <mill-nav-title>Nav title</mill-nav-title>
-        <mill-nav-item icon="mail">Menu item</mill-nav-item>
-        <mill-nav-item icon="calendar">Menu item</mill-nav-item>
-
-        <mill-nav-title>Nav title</mill-nav-title>
-        <mill-nav-item icon="mail">Menu item</mill-nav-item>
-        <mill-nav-item icon="calendar">Menu item</mill-nav-item>
-        <mill-nav-item icon="mail">Menu item</mill-nav-item>
-        <mill-nav-item icon="calendar">Menu item</mill-nav-item>-->
         <mill-nav-item icon="mail">Menu item</mill-nav-item>
         <mill-nav-item icon="calendar" active="true">Menu item</mill-nav-item>
         <mill-nav-item icon="mail">Menu item</mill-nav-item>
         <mill-nav-item icon="calendar">Menu item</mill-nav-item>
-      </mill-sidebar>
 
-      <div class="content" style="width: 100%;">
-        <div class="content__head" style="
-          height: 104px;"></div>
-        <div class="content__place"
-        style="
-          height: calc(100% - 127px);
-          background: #F5F5FA;
-          border-radius: 16px;
-          margin: 0 24px 24px 0;">
-        </div>
-      </div>
-  </div>`,
+        <nav-content>
+          <nav-content-head>
+            <div class="s1" style="
+              height: 100%;
+              display: flex;
+              align-items: center;
+              padding-left: 40px;
+              color: whitesmoke;">
+              
+              One of the primary....
+
+            </div>
+          </nav-content-head>
+          
+          <div style="padding: 24px;" class="p2">
+            One of the primary quality-of-life features of Microsoft Windows 10 is the Action Center, which will, among other things, notify users when new email arrives, systems or drivers need updating, and malicious malware and other threats have been detected. Depending on how you set it up, the Action Center also provides easy access to several key and often accessed configuration settings. But not everyone is enamored with the "benefits" of the Windows 10 Action Center.
+          </div>
+          
+        </nav-content>
+      </mill-sidebar>`,
 });

@@ -1,7 +1,8 @@
-import { Component, Input, OnChanges, SimpleChanges, EventEmitter, OnInit, HostBinding, Host } from '@angular/core';
+import { Component, Input, OnChanges, SimpleChanges, EventEmitter, OnInit, HostBinding, Host, AfterContentInit, ContentChild } from '@angular/core';
 import { SidebarController } from '../../services/sidebar-cotroller.service';
 import { takeUntil } from 'rxjs/operators';
 import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubscriber';
+import { NavContentComponent } from '../nav-content/nav-content.component';
 
 @Component({
   selector: 'mill-sidebar',
@@ -11,11 +12,13 @@ import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubsc
     SidebarController
   ],
 })
-export class SidebarComponent extends ComponentWithUnsubscriber implements OnInit, OnChanges {
+export class SidebarComponent extends ComponentWithUnsubscriber implements OnInit, OnChanges, AfterContentInit {
   scrolled: boolean = false;
 
-  @HostBinding('class') readonly hostClass: string = 'sidebar';
-  @HostBinding('class.sidebar_collapsed') get collapsedClass(): boolean { return this.collapsed; }
+  // @HostBinding('class') readonly hostClass: string = 'sidebar';
+  // @HostBinding('class.sidebar_collapsed') get collapsedClass(): boolean { return this.collapsed; }
+  @HostBinding('style.width') width = 'fit-content';
+  @ContentChild(NavContentComponent) navContent: NavContentComponent;
 
   @Input() collapsed: boolean = false;
   @Input() collapsedChange: EventEmitter<boolean> = new EventEmitter<boolean>();
@@ -26,6 +29,12 @@ export class SidebarComponent extends ComponentWithUnsubscriber implements OnIni
   constructor(
     public sidebarController: SidebarController
   ) { super(); }
+
+  ngAfterContentInit(): void {
+    if (!!this.navContent) {
+      this.width = '100%';
+    }
+  }
 
   ngOnInit(): void {
     this.bindCollapsedWithController();
