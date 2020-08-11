@@ -7,10 +7,10 @@ import { IconsModule } from '../icons/icons.module';
 import { InputNoticeComponent } from './examples/input-notice/input-notice.component';
 import { InputModule } from './input.module';
 import { InputFormComponent } from './examples/input-form/input-form.component';
-import { ButtonModule } from 'src/button/button.module';
-import { SelectModule } from 'src/select/select.module';
-import { MillHintModule } from 'src/hint/hint.module';
-import { FormUtilsModule } from 'src/form-utils/form-utils.module';
+import { ButtonModule } from '../button/button.module';
+import { SelectModule } from '../select/select.module';
+import { MillHintModule } from '../hint/hint.module';
+import { FormUtilsModule } from '../form-utils/form-utils.module';
 
 export default {
   title: 'Компоненти|Inputs',
