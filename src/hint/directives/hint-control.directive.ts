@@ -3,7 +3,7 @@ import { Directive, OnDestroy, OnInit, Optional } from '@angular/core';
 import { AbstractControl, NgModel, FormControlDirective, FormControlName, FormGroupDirective } from '@angular/forms';
 import { HintComponent } from '..';
 import { propertyChangeInterceptor, ErrorMessageHelper } from '../../utils';
-import { SelectComponent } from 'src/select';
+import { SelectComponent } from '../../select/components/select/select.component';
 import { takeUntil } from 'rxjs/operators';
 
 
