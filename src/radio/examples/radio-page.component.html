@@ -10,7 +10,7 @@
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Unchecked</div>
       <div class="overview__container">
-        <mill-radio [hideLabel]="hideLabel">{{label}}</mill-radio>
+        <mill-radio [hideLabel]="hideLabel" [formControl]="radioControl" (changeEventEmitter)="test($event)">{{label}}</mill-radio>
       </div>
     </div>
     <div class="overview__column grid-item-4">

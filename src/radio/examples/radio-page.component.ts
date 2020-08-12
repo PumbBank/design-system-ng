@@ -1,4 +1,5 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { FormControl } from '@angular/forms';
 
 @Component({
   selector: 'mill-radio-overview',
@@ -6,9 +7,21 @@ import { Component, Input } from '@angular/core';
   styleUrls: ['./radio-page.component.scss', '../../assets/styles/overview.scss']
 })
 
-export class RadioOverviewComponent {
+export class RadioOverviewComponent implements OnInit{
+  
   @Input() label: string;
   @Input() hideLabel: boolean;
 
   oneGroup: string = 'oneGroup';
+
+  radioControl: FormControl = new FormControl('');
+  
+  ngOnInit(): void {
+    // this.radioControl.valueChanges.subscribe((val) => console.log(val));
+  }
+
+  test(event) {
+    console.log(event);
+    
+  }
 }

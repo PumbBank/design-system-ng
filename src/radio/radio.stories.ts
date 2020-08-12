@@ -3,6 +3,7 @@ import { withKnobs, boolean, text } from '@storybook/addon-knobs';
 import { RadioOverviewComponent } from './examples/radio-page.component';
 import { IconsModule } from '../icons/icons.module';
 import { RadioModule } from './radio.module';
+import { ReactiveFormsModule } from '@angular/forms';
 
 export default {
   title: 'Компоненти|Radio button',
@@ -19,7 +20,8 @@ export const component = () => ({
     ],
     imports: [
       IconsModule,
-      RadioModule
+      RadioModule,
+      ReactiveFormsModule
     ]
   },
   props: {
