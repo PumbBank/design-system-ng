@@ -71,7 +71,7 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
         this.searchInputValue = '';
       }
     }
-    this.selectedChange.emit(this.selected);
+    
     this.updateState();
   }
 

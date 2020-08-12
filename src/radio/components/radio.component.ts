@@ -1,17 +1,21 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { NG_VALUE_ACCESSOR } from '@angular/forms';
+
+export class RadioChange {
+  /**
+   * Contains the `Checkbox` that has been changed.
+   */
+  source: RadioComponent;
+  /**
+   * The state of the `Checkbox` encompassed in the `CheckboxChange` class.
+   */
+  checked: boolean;
+}
 
 @Component({
   selector: 'mill-radio',
   templateUrl: 'radio.component.html',
-  styleUrls: ['./radio.scss'],
-  providers: [
-    {
-      provide: NG_VALUE_ACCESSOR,
-      useExisting: RadioComponent,
-      multi: true
-    }
-  ]
+  styleUrls: ['./radio.scss']
 })
 
 export class RadioComponent {
@@ -48,6 +52,8 @@ export class RadioComponent {
    */
   @Input() tabindex: number = 0;
 
+  @Output() changeEventEmitter: EventEmitter<RadioChange> = new EventEmitter<RadioChange>();
+
   /**
    * Synchronizes with the `RadioGroup` in the event of a changed `Radio`.
    * Emits the changes of both the `RadioGroup` and `Radio`.
@@ -78,5 +84,14 @@ export class RadioComponent {
    */
   checkboxStateToggle(): void {
     this.checked = true;
+    this.emitChangeEvent();
+  }
+
+  emitChangeEvent(): void {
+    const event = new RadioChange();
+    event.source = this;
+    event.checked = this.checked;
+
+    this.changeEventEmitter.emit(event);
   }
 }
