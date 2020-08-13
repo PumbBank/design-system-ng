@@ -1,6 +1,16 @@
-import { Component, Input, OnChanges, SimpleChanges, EventEmitter, OnInit, HostBinding, Host, AfterContentInit, ContentChild } from '@angular/core';
-import { SidebarController } from '../../services/sidebar-cotroller.service';
+import {
+  Component,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  EventEmitter,
+  OnInit,
+  HostBinding,
+  AfterContentInit,
+  ContentChild
+} from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
+import { SidebarController } from '../../services/sidebar-cotroller.service';
 import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubscriber';
 import { NavContentComponent } from '../nav-content/nav-content.component';
 
@@ -12,12 +22,13 @@ import { NavContentComponent } from '../nav-content/nav-content.component';
     SidebarController
   ],
 })
+
 export class SidebarComponent extends ComponentWithUnsubscriber implements OnInit, OnChanges, AfterContentInit {
   scrolled: boolean = false;
 
   // @HostBinding('class') readonly hostClass: string = 'sidebar';
   // @HostBinding('class.sidebar_collapsed') get collapsedClass(): boolean { return this.collapsed; }
-  @HostBinding('style.width') width = 'fit-content';
+  @HostBinding('style.width') width: string = 'fit-content';
   @ContentChild(NavContentComponent) navContent: NavContentComponent;
 
   @Input() collapsed: boolean = false;
