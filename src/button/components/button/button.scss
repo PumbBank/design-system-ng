@@ -155,9 +155,8 @@
 .button_hidden.button_only-icon {
   &:hover:not(:disabled) {
     .button__icon {
-      &.primary-color {
-        background: $red-40;
-      }
+      background: $red-40;
+
       &.grey-color {
         background: $grey-60;
       }
