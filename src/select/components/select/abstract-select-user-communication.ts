@@ -1,4 +1,3 @@
-
 import { CODE_TAB, CODE_ARROW_UP, CODE_ARROW_DOWN, CODE_ENTER } from '../../key-code';
 import { MillSelectOption } from '../../select-option';
 import { AbstractSelectSearch } from './abstract-select-search';
@@ -13,12 +12,11 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
   parentOffsetWidth: number;
 
   @ViewChildren('optionElement') optionsRefs: QueryList<ElementRef>;
-  @ViewChild('selectBodyElement', { static: false }) bodyRef: ElementRef;
-  @ViewChild('searchInput', { static: false }) searchInputRef: ElementRef;
-  @ContentChild(HintComponent, { static: false }) hintComponent: HintComponent;
+  @ViewChild('selectBodyElement', {static: false}) bodyRef: ElementRef;
+  @ViewChild('searchInput', {static: false}) searchInputRef: ElementRef;
+  @ContentChild(HintComponent, {static: false}) hintComponent: HintComponent;
 
   optionClick(option: MillSelectOption<K, P>): void {
-
     if (this.multiple) {
       this.searchInputRef.nativeElement.focus();
     }
@@ -27,7 +25,6 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
   }
 
   ontionChipCloseClick(option: MillSelectOption<K, P>): void {
-
     this.unselectOption(option);
   }
 
@@ -47,9 +44,7 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
   }
 
   onSearchInputFocus(): void {
-
     super.onSearchInputFocus();
-
     this.searchInputFocused = true;
   }
 
@@ -59,9 +54,7 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
   }
 
   onSearchInputBlur(): void {
-
     super.onSearchInputBlur();
-
     this.searchInputFocused = false;
 
     if (this.single) {
@@ -71,7 +64,7 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
         this.searchInputValue = '';
       }
     }
-    
+
     this.updateState();
   }
 
@@ -127,19 +120,15 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
   }
 
   onBodyMouseOver(): void {
-
     this.bodyMouseOvered = true;
   }
 
   onBodyMouseOut(): void {
-
     this.bodyMouseOvered = false;
-
     this.updateState();
   }
 
   protected async selectOption(option: MillSelectOption<K, P>): Promise<void> {
-
     await super.selectOption(option);
 
     if (this.single) {
