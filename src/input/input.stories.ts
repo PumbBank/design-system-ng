@@ -64,5 +64,5 @@ export const componentForm = () => ({
 });
 
 componentForm.story = {
-  name: 'Form'
+  name: 'Form example'
 };

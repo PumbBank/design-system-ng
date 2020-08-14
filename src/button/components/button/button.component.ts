@@ -69,7 +69,7 @@ export class ButtonComponent implements OnChanges {
     switch (this.variety) {
       case ButtonVariety.CONTAINED:
         this.varietyClass = 'hn-button_contained';
-        break;
+        break; 
     }
   }
 
