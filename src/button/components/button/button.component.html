@@ -4,7 +4,7 @@
   [class.button_only-icon]="buttonOnlyIcon"
   [attr.form]="form"
   [attr.type]="type"
-  [attr.disabled]="disabled"
+  [attr.disabled]="!!disabled ? disabled : undefined"
   [attr.autofocus]="autofocus">
 
 
