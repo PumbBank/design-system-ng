@@ -49,6 +49,7 @@
     .input__body {
       & .icon_circle-close {
         display: block;
+        background: $grey-40 ;
       }
 
       & .input__icon:not(.icon_circle-close) {
@@ -61,6 +62,7 @@
 .input__input-cleanup {
   &:focus + .icon_circle-close {
     display: block;
+    background: $grey-40 ;
   }
 
   &:focus ~ .input__icon:not(.icon_circle-close) {
