@@ -1,6 +1,6 @@
 {
   "name": "@mill/ng",
-  "version": "0.9.3",
+  "version": "0.9.1",
   "scripts": {
     "start": "start-storybook -p 6006 -s ./.storybook/favicon && npm run lint",
     "build": "npm run build:clear && npm run build:package && npm run build:storybook",
@@ -45,7 +45,7 @@
     "@storybook/theming": "^5.3.19",
     "@types/node": "14.0.27",
     "babel-loader": "^8.1.0",
-    "codelyzer": "^5.2.2",
+    "codelyzer": "6.0.0",
     "eslint-plugin-sonarjs": "^0.5.0",
     "fs-extra": "^8.1.0",
     "ng-packagr": "^9.1.5",
