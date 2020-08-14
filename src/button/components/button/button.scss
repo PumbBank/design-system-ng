@@ -15,6 +15,10 @@
   background: $red-50;
 }
 
+%icon_grey-50 {
+  background: $grey-50;
+}
+
 .button {
   box-sizing: border-box;
   user-select: none;
@@ -123,12 +127,12 @@
 .button_hidden {
   color: $grey-70;
 
-  .button__icon { @extend %icon_red-50; }
-
   &:disabled {
     color: $grey-40;
 
-    .button__icon { @extend %icon_grey-40; }
+    .button__icon {
+      background: $grey-40;
+    }
   }
 
   &:hover:not(:disabled) {
@@ -138,12 +142,25 @@
   &:active:not(:disabled) {
     background: $grey-20;
   }
+
+  .button__icon {
+    @extend %icon_red-50;
+
+    &.grey-color {
+      @extend %icon_grey-50;
+    }
+  }
 }
 
 .button_hidden.button_only-icon {
   &:hover:not(:disabled) {
     .button__icon {
-      background: $red-40;
+      &.primary-color {
+        background: $red-40;
+      }
+      &.grey-color {
+        background: $grey-60;
+      }
     }
   }
 }
