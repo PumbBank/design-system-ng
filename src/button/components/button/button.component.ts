@@ -13,7 +13,7 @@ enum elementView {
   hidden = 'hidden'
 }
 
-enum elementColor {
+enum iconColor {
   primary = 'primary',
   grey = 'grey'
 }
@@ -32,7 +32,7 @@ export class ButtonComponent implements OnChanges {
   @Input() form: string;
   @Input() size: elementSize = elementSize.medium;
   @Input() view: elementView = elementView.filled;
-  @Input() iconColor: elementColor = elementColor.primary;
+  @Input() iconColor: iconColor = iconColor.primary;
   @Input() disabled: boolean;
   @Input() autofocus: boolean;
   /* END: HTML attributes: */
