@@ -111,12 +111,17 @@ body {
   top: 0;
   left: 50%;
   animation: copy-color-popup-appearance 1.9s linear forwards;
-  background-color: rgba($main-primary-dark, 90%);
-  border-radius: 5px;
+  background-color: $grey-80;
+  border-radius: 15px;
   box-shadow: 0 0 6px 3px rgba($main-primary-dark, 30%);
   color: $other-white;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
   font-family: "Gilroy", sans-serif;
-  padding: 5px 10px;
+  padding: 15px 18px 16px;
   transform: translate(-50%, 10vh);
 }
 
