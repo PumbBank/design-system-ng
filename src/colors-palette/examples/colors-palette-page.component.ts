@@ -106,12 +106,13 @@ export class ColorsPaletteGuidelineComponent {
 
     this._clipboardService.copyFromContent(text);
 
-    confirmMessage.innerText = 'Color copied to clipboard!';
+    confirmMessage.innerText = 'Колір скопійований';
     confirmMessage.classList.add('copy-color-popup');
+    confirmMessage.classList.add('p2');
     document.body.appendChild(confirmMessage);
 
     setTimeout(() => {
       document.body.removeChild(confirmMessage);
-    }, 2000);
+    }, 5000);
   }
 }
