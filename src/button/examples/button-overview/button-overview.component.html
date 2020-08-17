@@ -149,7 +149,7 @@
       </div>
     </div>
     <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Only icon</div>
+      <div class="overview__label s1">Only icon. Red icon</div>
       <div class="overview__container">
         <mill-button [view]="'hidden'" size="large" icon="add"></mill-button>
         <mill-button [view]="'hidden'" size="middle" icon="add"></mill-button>
@@ -162,6 +162,23 @@
         <mill-button [view]="'hidden'" size="large" icon="add" [disabled]="true"></mill-button>
         <mill-button [view]="'hidden'" size="middle" icon="add" [disabled]="true"></mill-button>
         <mill-button [view]="'hidden'" size="small" icon="add" [disabled]="true"></mill-button>
+      </div>
+    </div>
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Only icon. Grey icon</div>
+      <div class="overview__container">
+        <mill-button [view]="'hidden'" size="large" icon="add" iconColor="grey"></mill-button>
+        <mill-button [view]="'hidden'" size="middle" icon="add" iconColor="grey"></mill-button>
+        <mill-button [view]="'hidden'" size="small" icon="add" iconColor="grey"></mill-button>
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled</div>
+      <div class="overview__container">
+        <mill-button [view]="'hidden'" size="large" icon="add" iconColor="grey" [disabled]="true"></mill-button>
+        <mill-button [view]="'hidden'" size="middle" icon="add" iconColor="grey" [disabled]="true"></mill-button>
+        <mill-button [view]="'hidden'" size="small" icon="add" iconColor="grey" [disabled]="true"></mill-button>
       </div>
     </div>
   </div>

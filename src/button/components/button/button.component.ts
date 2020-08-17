@@ -13,6 +13,11 @@ enum elementView {
   hidden = 'hidden'
 }
 
+enum iconColor {
+  primary = 'primary',
+  grey = 'grey'
+}
+
 @Component({
   selector: 'mill-button',
   templateUrl: './button.component.html',
@@ -27,6 +32,7 @@ export class ButtonComponent implements OnChanges {
   @Input() form: string;
   @Input() size: elementSize = elementSize.medium;
   @Input() view: elementView = elementView.filled;
+  @Input() iconColor: iconColor = iconColor.primary;
   @Input() disabled: boolean;
   @Input() autofocus: boolean;
   /* END: HTML attributes: */
