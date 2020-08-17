@@ -29,7 +29,7 @@
     border-radius: 8px;
     padding: 10px;
     display: flex;
-    margin-bottom: 14px;
+    margin-bottom: 16px;
     & .icon-wrapper {
       width: fit-content;
       border-right: 1px solid $grey-30;
@@ -46,9 +46,9 @@
 
   &__additional-data {
     background: #f5f5fa;
-    padding: 24px 24px 43px 24px;
+    padding: 24px 24px 40px 24px;
     border-radius: 8px;
-    margin-top: 18px;
+    margin-top: 16px;
 
     & .additional-data__inputs {
       & .grid-item:nth-child(1) {
@@ -97,6 +97,6 @@
 .form-overview__column {
   display: flex;
   flex-direction: column;
-  margin-top: 10px;
+  margin-top: 7px;
   grid-column: span 6;
 }
