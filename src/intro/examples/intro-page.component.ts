@@ -9,13 +9,15 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class IntroGuidelineComponent {
+  public whatsNew: {title: string, content: string}[];
+
   private static parseGroups(lines: string[]): {title: string, content: string}[] {
-    const isTitle = (text) => {return text.indexOf('####') > -1};
-    let result = [];
+    const isTitle = (text: string) => text.indexOf('####') > -1;
+    const result = [];
     for (let i = 0; i < lines.length; i++) {
       if (isTitle(lines[i])) {
         const title = lines[i];
-        let lineContent = [];
+        const lineContent = [];
         for (let j = i; j < lines.length; j++) {
           const nextLine = lines[++j];
           if (isTitle(nextLine)) {
@@ -34,8 +36,6 @@ export class IntroGuidelineComponent {
       };
     });
   }
-
-  public whatsNew: {title: string, content: string}[];
 
   constructor(private _http: HttpClient) {
     this._http.get('/CHANGELOG.md', {responseType: 'text'}).toPromise().then((response: string) => {
