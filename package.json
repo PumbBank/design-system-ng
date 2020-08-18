@@ -1,6 +1,6 @@
 {
   "name": "@mill/ng",
-  "version": "0.9.2",
+  "version": "0.9.3",
   "scripts": {
     "start": "start-storybook -p 6006 -s ./.storybook/favicon && npm run lint",
     "build": "npm run build:clear && npm run build:package && npm run build:storybook",
