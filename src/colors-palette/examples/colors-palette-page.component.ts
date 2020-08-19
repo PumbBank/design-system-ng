@@ -115,6 +115,6 @@ export class ColorsPaletteGuidelineComponent {
 
     setTimeout(() => {
       document.body.removeChild(confirmMessage);
-    }, 500000);
+    }, 5000);
   }
 }
