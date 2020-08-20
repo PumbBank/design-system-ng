@@ -1,0 +1,78 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+@import "~@mill/figma/icons";
+
+:host.mill-chip {
+
+  white-space: nowrap;
+  font-family: Gilroy, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  ::ng-deep .mill-chip__item mill-icon {
+    margin-left: 10px;
+
+    span {
+      background: $grey-40 !important;
+
+      &:hover::after,
+      &:focus::after {
+        content: " ";
+        outline: none;
+        display: block;
+        height: 100%;
+        width: 100%;
+        background: $grey-50;
+      }
+
+      &:active::after {
+        content: " ";
+        outline: none;
+        display: block;
+        height: 100%;
+        width: 100%;
+        background: $grey-70;
+      }
+    }
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+  }
+
+  .enabled, .disabled {
+    display: flex;
+    align-items: center;
+    border-radius: 4px;
+    margin: 4px;
+    padding: 7px 10px;
+    user-select: none;
+    letter-spacing: 0.25px;
+  }
+
+  .enabled {
+    cursor: pointer;
+    border: 2px solid $grey-20;
+
+    &:hover,
+    &:focus {
+      background: $grey-10;
+      outline: none;
+    }
+
+    &:active {
+      background: $grey-20;
+      outline: none;
+    }
+  }
+
+  .disabled {
+    cursor: not-allowed;
+    background: $grey-10;
+    color: $grey-30;
+    border: 2px solid $grey-30;
+  }
+}

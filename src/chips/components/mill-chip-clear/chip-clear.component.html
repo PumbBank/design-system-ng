@@ -1,0 +1,13 @@
+<div class="mill-chip__clear">
+  <label class="mill-chip__item" [ngClass]="disabled ? 'disabled' : 'enabled'">
+
+    <span *ngIf="!ref.childNodes.length;">
+      {{defaultButtonText}}
+    </span>
+
+    <span #ref>
+      <ng-content></ng-content>
+    </span>
+
+  </label>
+</div>

@@ -108,40 +108,53 @@ body {
 
 .copy-color-popup {
   position: fixed;
-  top: 0;
+  bottom: 0;
   left: 50%;
-  animation: copy-color-popup-appearance 1.9s linear forwards;
-  background-color: rgba($main-primary-dark, 90%);
-  border-radius: 5px;
-  box-shadow: 0 0 6px 3px rgba($main-primary-dark, 30%);
-  color: $other-white;
+  width: 376px;
+  animation: copy-color-popup-appearance 4.9s linear forwards;
+  background-color: $grey-80;
+  border-radius: 12px;
+  box-shadow: 0 0 15px rgba(0, 0, 0, 0.12), 0 8px 30px rgba(0, 0, 0, 0.2);
+  color: $main-primary-light;
+  display: flex;
+  align-items: center;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
   font-family: "Gilroy", sans-serif;
-  padding: 5px 10px;
-  transform: translate(-50%, 10vh);
+  padding: 11px 16px 13px;
+  transform: translate(-50%, -8px);
+
+  &__icon {
+    background: $grey-30;
+    margin-right: 12px;
+  }
 }
 
 @keyframes copy-color-popup-appearance {
   0% {
     opacity: 0;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, 150%);
     visibility: hidden;
   }
 
   10% {
     opacity: 1;
-    transform: translate(-50%, 3vh);
+    transform: translate(-50%, -8px);
     visibility: visible;
   }
 
   90% {
     opacity: 1;
-    transform: translate(-50%, 3vh);
+    transform: translate(-50%, -8px);
     visibility: visible;
   }
 
   100% {
     opacity: 0;
-    transform: translate(-50%, 0);
+    transform: translate(-50%, 150%);
     visibility: hidden;
   }
 }

@@ -103,15 +103,18 @@ export class ColorsPaletteGuidelineComponent {
 
   copyColor(text: string): void {
     const confirmMessage = document.createElement('div');
+    const confirmMessageIcon = document.createElement('div');
 
     this._clipboardService.copyFromContent(text);
 
-    confirmMessage.innerText = 'Color copied to clipboard!';
-    confirmMessage.classList.add('copy-color-popup');
+    confirmMessageIcon.classList.add('copy-color-popup__icon', 'icon', 'icon_24', 'icon_check');
+    confirmMessage.innerText = 'Колір скопійований';
+    confirmMessage.classList.add('copy-color-popup', 'p2');
+    confirmMessage.insertBefore(confirmMessageIcon, confirmMessage.firstChild);
     document.body.appendChild(confirmMessage);
 
     setTimeout(() => {
       document.body.removeChild(confirmMessage);
-    }, 2000);
+    }, 5000);
   }
 }

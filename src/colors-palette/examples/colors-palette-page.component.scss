@@ -81,13 +81,6 @@
 
     &:hover {
       color: $main-primary-dark;
-
-      .mill-color-palette__preview {
-        opacity: 1;
-        visibility: visible;
-        transform: translateY(0);
-        transition: 0.2s ease;
-      }
     }
   }
 

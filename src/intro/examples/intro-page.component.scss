@@ -13,7 +13,7 @@ $card-border-width: 1px;
 .mill-intro {
   font-family: "Gilroy", sans-serif;
   color: $grey-70;
-  padding-top: 80px;
+  padding-top: 12px;
   padding-bottom: 56px;
 
   &__container {
@@ -21,6 +21,21 @@ $card-border-width: 1px;
     grid-column-start: 2;
     grid-column-end: 12;
     justify-self: center;
+  }
+
+  &__version-list {
+    display: flex;
+    flex-wrap: wrap;
+    margin-bottom: 36px;
+  }
+
+  &__version-item {
+    border-right: 1px solid $grey-30;
+    padding: 0 8px;
+
+    &:last-child {
+      border-right: none;
+    }
   }
 
   &__header {

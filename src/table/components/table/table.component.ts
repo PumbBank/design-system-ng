@@ -179,9 +179,7 @@ export class TableComponent implements OnInit, OnDestroy {
 
   public onRowClick(event: MouseEvent, row: any): void {
     // event.stopPropagation();
-    if (this.selectInput) {
-      this._updateSelected(row);
-    }
+    this._updateSelected(row);
   }
 
   public onMainCheckboxClick(): void {
