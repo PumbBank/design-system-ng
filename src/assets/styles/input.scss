@@ -85,7 +85,7 @@
   @extend .icon_24;
   @extend %icon_grey-40;
 
-  margin: 0 11px 0 -4px;
+  margin: 0 10px 0 -4px;
   min-width: 24px;
 }
 
@@ -169,7 +169,7 @@ input::placeholder {
   left: 0;
   top: 0;
   color: $grey-40;
-  padding: 10px 0 0 16px;
+  padding: 10px 0 0 14px;
   min-height: 46px;
   width: calc(100% - 14px);
   overflow: hidden;
