@@ -1,0 +1,136 @@
+<div class="overview">
+  <div class="overview__header">
+    <div class="h4">Chips</div>
+    <div class="overview__links">
+      <a href="" class="overview__link s2">
+        <mill-icon name="figma"></mill-icon>
+        Компонент в Figma
+      </a>
+    </div>
+  </div>
+
+
+  <div class="overview__content grid">
+
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Default active chip</div>
+      <div class="overview__container">
+        <mill-chip-list>
+          <mill-chip>{{label}} 1</mill-chip>
+          <mill-chip>{{label}} 2</mill-chip>
+          <mill-chip>{{label}} 3</mill-chip>
+          <mill-chip>{{label}} 4</mill-chip>
+        </mill-chip-list>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Default active chips with close button</div>
+      <div class="overview__container">
+        <mill-chip-list>
+          <mill-chip>
+            {{label}} 5
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+          <mill-chip>
+            {{label}} 6
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+        </mill-chip-list>
+      </div>
+    </div>
+
+
+
+
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Default active chips with default clear button and close button</div>
+      <div class="overview__container">
+        <mill-chip-list>
+          <mill-chip-clear>Очистити</mill-chip-clear>
+          <mill-chip>
+            {{label}} 7
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+          <mill-chip>
+            {{label}} 8
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+        </mill-chip-list>
+      </div>
+    </div>
+
+
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Default active chips with default clear button and close button in the end</div>
+      <div class="overview__container">
+        <mill-chip-list>
+          <mill-chip>
+            {{label}} 9
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+          <mill-chip>
+            {{label}} 10
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+          <mill-chip-clear>Очистити</mill-chip-clear>
+        </mill-chip-list>
+      </div>
+    </div>
+
+
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Default active chips with close icon and chip click action</div>
+      <div class="overview__container">
+
+        <mill-chip-list>
+          <mill-chip-clear>
+            Очистити
+          </mill-chip-clear>
+          <mill-chip (removed)="someMethod($event, 2)">
+            {{label}} 11
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+          <mill-chip (removed)="someMethod($event, 2)">
+            {{label}} 12
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+        </mill-chip-list>
+
+      </div>
+    </div>
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Disabled active chips with close icon</div>
+      <div class="overview__container">
+
+        <mill-chip-list>
+          <mill-chip-clear [disabled]="true">
+            Очистити
+          </mill-chip-clear>
+          <mill-chip (removed)="someMethod($event, 2)" [disabled]="true">
+            {{label}} 13
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+          <mill-chip (removed)="someMethod($event, 2)" [disabled]="true">
+            {{label}} 14
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+        </mill-chip-list>
+
+      </div>
+    </div>
+
+  </div>
+</div>
+
+
+
