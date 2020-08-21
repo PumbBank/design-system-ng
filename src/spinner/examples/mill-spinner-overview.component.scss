@@ -1,0 +1,17 @@
+@import "~@mill/figma/colors";
+
+.overview {
+  &__column {
+    grid-column: span 6;
+
+    &:nth-of-type(2n - 1) {
+      grid-column-start: 1;
+      grid-column-end: 7;
+    }
+  }
+
+  &__container {
+    min-height: 96px;
+    box-sizing: border-box;
+  }
+}

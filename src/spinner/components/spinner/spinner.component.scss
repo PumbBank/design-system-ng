@@ -1,0 +1,274 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+@import "~@mill/figma/icons";
+
+/**
+  Inner spinner
+*/
+@mixin inner-spinner {
+  width: 100px;
+  height: 100px;
+  position: relative;
+  animation: inner__sporadic-rotate 5.25s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+
+  .inner_gap {
+    position: absolute;
+    left: 49px;
+    right: 49px;
+    top: 0;
+    bottom: 0;
+    border-top: 5px solid;
+    box-sizing: border-box;
+  }
+
+  .inner_left,
+  .inner_right {
+    position: absolute;
+    top: 0;
+    height: 100px;
+    width: 50px;
+    overflow: hidden;
+
+    .inner_half-circle {
+      position: absolute;
+      top: 0;
+      width: 100px;
+      height: 100px;
+      box-sizing: border-box;
+      border: 5px solid $red-50;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+    }
+  }
+
+  .inner_left {
+    left: 0;
+
+    .inner_half-circle {
+      left: 0;
+      border-right-color: transparent;
+      animation: inner__left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+      -webkit-animation: inner__left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+    }
+  }
+
+  .inner_right {
+    right: 0;
+
+    .inner_half-circle {
+      right: 0;
+      border-left-color: transparent;
+      animation: inner__right-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+      -webkit-animation: inner__right-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+    }
+  }
+}
+
+/**
+  Outer spinner
+*/
+@mixin outer-spinner {
+  width: 150px;
+  height: 150px;
+  position: relative;
+  animation: outer__sporadic-rotate 5.25s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+
+  .outer_gap {
+    position: absolute;
+    left: 74px;
+    right: 74px;
+    top: 0;
+    bottom: 0;
+    border-top: 5px solid;
+    box-sizing: border-box;
+  }
+
+  .outer_left,
+  .outer_right {
+    position: absolute;
+    top: 0;
+    height: 150px;
+    width: 75px;
+    overflow: hidden;
+
+    .outer_half-circle {
+      position: absolute;
+      top: 0;
+      width: 150px;
+      height: 150px;
+      box-sizing: border-box;
+      border: 5px solid $red-50;
+      border-bottom-color: transparent;
+      border-radius: 50%;
+    }
+  }
+
+  .outer_left {
+    left: 0;
+
+    .outer_half-circle {
+      left: 0;
+      border-right-color: transparent;
+      animation: outer__left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+      -webkit-animation: outer__left-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+    }
+  }
+
+  .outer_right {
+    right: 0;
+
+    .outer_half-circle {
+      right: 0;
+      border-left-color: transparent;
+      animation: outer__right-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+      -webkit-animation: outer__right-wobble 1.3125s cubic-bezier(0.35, 0, 0.25, 1) infinite;
+    }
+  }
+}
+
+:host.mill-spinner {
+  position: relative;
+  text-align: center;
+  white-space: nowrap;
+  font-family: Gilroy, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  .spinner-wrapper {
+    position: relative;
+    width: 100%;
+    min-height: 100px;
+    height: 100px;
+  }
+
+  .spinner-wrapper .inner__spinner {
+    animation: inner-rotate 2s linear infinite;
+    .inner {
+      border: 2px solid $grey-40;
+      border-radius: 50%;
+      @include inner-spinner;
+    }
+  }
+
+  .spinner-wrapper .outer__spinner {
+    animation: outer-rotate 2s linear infinite;
+    position: absolute;
+    left: -25px;
+    top: -25px;
+    .outer {
+      border: 2px solid $grey-40;
+      border-radius: 50%;
+      @include outer-spinner;
+    }
+  }
+
+  @keyframes inner-rotate {
+    0% {
+      transform: rotate(0deg) scale(0.5);
+    }
+    100% {
+      transform: rotate(360deg) scale(0.5);
+    }
+  }
+
+  @keyframes inner__left-wobble {
+    0%, 100% {
+      transform: rotate(130deg);
+    }
+    50% {
+      transform: rotate(-5deg);
+    }
+  }
+
+  @keyframes inner__right-wobble {
+    0%, 100% {
+      transform: rotate(-130deg);
+    }
+    50% {
+      transform: rotate(5deg);
+    }
+  }
+
+  @keyframes inner__sporadic-rotate {
+    12.5% {
+      transform: rotate(135deg);
+    }
+    25% {
+      transform: rotate(270deg);
+    }
+    37.5% {
+      transform: rotate(405deg);
+    }
+    50% {
+      transform: rotate(540deg);
+    }
+    62.5% {
+      transform: rotate(675deg);
+    }
+    75% {
+      transform: rotate(810deg);
+    }
+    87.5% {
+      transform: rotate(945deg);
+    }
+    100% {
+      transform: rotate(1080deg);
+    }
+  }
+
+  @keyframes outer-rotate {
+    0% {
+      transform: rotate(0deg) scale(0.5);
+    }
+    100% {
+      transform: rotate(-360deg) scale(0.5);
+    }
+  }
+
+  @keyframes outer__left-wobble {
+    0%, 100% {
+      transform: rotate(130deg);
+    }
+    50% {
+      transform: rotate(-5deg);
+    }
+  }
+
+  @keyframes outer__right-wobble {
+    0%, 100% {
+      transform: rotate(-130deg);
+    }
+    50% {
+      transform: rotate(5deg);
+    }
+  }
+
+  @keyframes outer__sporadic-rotate {
+    12.5% {
+      transform: rotate(-135deg);
+    }
+    25% {
+      transform: rotate(-270deg);
+    }
+    37.5% {
+      transform: rotate(-405deg);
+    }
+    50% {
+      transform: rotate(-540deg);
+    }
+    62.5% {
+      transform: rotate(-675deg);
+    }
+    75% {
+      transform: rotate(-810deg);
+    }
+    87.5% {
+      transform: rotate(-945deg);
+    }
+    100% {
+      transform: rotate(-1080deg);
+    }
+  }
+}
