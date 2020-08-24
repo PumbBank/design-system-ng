@@ -1,4 +1,5 @@
 import { Component, Renderer2 } from '@angular/core';
+import { iconsData } from '@mill/figma/icons-data';
 
 @Component({
   selector: 'icons-overview',
@@ -6,18 +7,19 @@ import { Component, Renderer2 } from '@angular/core';
   styleUrls: ['./icons-overview.component.scss', '../../../assets/styles/overview.scss'],
 })
 export class IconsOverviewComponent {
-  public icons12: string[] = ['heart', 'circle-minus', 'circle-close', 'valid', 'close', 'chevron-right-double', 'chevron-right', 'minus', 'plus', 'exit', 'time', 'small-arrow-up', 'small-arrow-down',
-    'dot', 'warning-simple', 'info', 'ok', 'warning'
-  ];
-  public icons24: string[] = ['bell-off', 'bell', 'filter', 'clone', 'lightbulb', 'key-off', 'clock', 'camera', 'visibility-off', 'payment', 'cards-transfer', 'settings', 'refresh',
-    'attach', 'print', 'visibility', 'monitor', 'collapse', 'expand', 'cart', 'location', 'trash', 'edit', 'share', 'folder', 'wallet', 'key', 'home', 'label', 'card', 'search',
-    'entrance', 'exit', 'upload', 'download', 'calendar', 'mail', 'spinner', 'info', 'warning', 'circle-minus', 'circle-close', 'circle-plus', 'remove', 'add', 'close', 'check', 'burger', 'drag',
-    'more', 'apps', 'email', 'phone', 'chevron-up', 'chevron-down', 'chevron-right', 'chevron-left', 'arrow-up', 'arrow-down', 'arrow-left', 'arrow-right', 'unlock-pass', 'lock-pass', 'user'
-  ];
+  // return array of names:string for small size icons
+  public icons12: string[] = this.filterIcons(iconsData, 12);
+
+  // return array of names:string for middle size icons
+  public icons24: string[] = this.filterIcons(iconsData, 24);
 
   public iconName: string;
 
   constructor(private _r: Renderer2) {}
+
+  private filterIcons(iconsArray: {id: string, name: string, size: number}[], iconSize: number): string[] {
+    return iconsArray.filter(iconData => iconData.size === iconSize).map(item => item.name);
+  }
 
   public onHover(name: string): void {
     this.iconName = name;
@@ -28,6 +30,5 @@ export class IconsOverviewComponent {
     document.execCommand('copy');
     input.setSelectionRange(0, 0);
   }
-
 }
 
