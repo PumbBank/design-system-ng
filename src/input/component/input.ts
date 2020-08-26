@@ -1,4 +1,4 @@
-import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy } from '@angular/core';
+import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy, AfterContentInit } from '@angular/core';
 import { ValidationErrors, FormGroupDirective } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
@@ -9,7 +9,7 @@ export type CleanFunction = (inputValue: any) => string;
 
 const DEFAULT_CLEAN_FUNCTION = (inputValue: any): string => inputValue;
 
-export class MillInput extends RequirebleComponent implements OnChanges, OnDestroy, IDirtyValidator {
+export class MillInput extends RequirebleComponent implements AfterContentInit, OnChanges, OnDestroy, IDirtyValidator {
 
   private invalid: boolean;
   private methodValidation: boolean;
@@ -30,6 +30,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
 
     this.watchFormSubmit();
   }
+
   public isDirtyValid: boolean;
 
   protected cleanFunction: CleanFunction = DEFAULT_CLEAN_FUNCTION;
@@ -62,7 +63,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
 
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.errors || changes.valid) {
-      this.errorsUpdateText();
+      // this.errorsUpdateText();
     }
     if (changes.caption) {
       this.captionUpdateText();
@@ -73,6 +74,10 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     if (changes.prefix) {
       this.setPrefix();
     }
+  }
+
+  ngAfterContentInit(): void {
+    this.errorsUpdateText();
   }
 
   ngOnDestroy(): void {
@@ -147,11 +152,11 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   }
 
   private updateTouchedState(touched: boolean = false): void {
-      this.methodValidation = touched;
+    this.methodValidation = touched;
   }
 
   private updateDirtyState(dirty: boolean = false): void {
-      this.methodValidation = dirty;
+    this.methodValidation = dirty;
   }
 
   private watchFormSubmit(): void {
@@ -159,8 +164,8 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       this.parentForm?.ngSubmit
         .pipe(takeUntil(this.destroyed$))
         .subscribe(() => {
-        this.errorsUpdateText();
-      });
+          this.errorsUpdateText();
+        });
     }
   }
 
@@ -205,19 +210,30 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
   }
 
   private watchValidationChangesByClassName(): void {
+    const s = this.onceErrorsUpdateText();
     this.validationStateObserver = new MutationObserver(() => {
 
       this.updateValidationState(this.input.classList.contains('ng-invalid'));
       if (!this.isDirtyValid) {
         this.updateTouchedState(this.input.classList.contains('ng-touched'));
+        this.errorsUpdateText();
       } else {
         this.updateDirtyState(this.input.classList.contains('ng-dirty'));
+        s();
       }
-      this.errorsUpdateText();
     });
 
     this.validationStateObserver.observe(this.input, { attributeFilter: ['class'], attributes: true });
   }
+
+  private onceErrorsUpdateText() {
+    let flag: boolean = false;
+    return () => {
+      if (!flag) this.errorsUpdateText();
+      flag = true;
+    };
+  };
+
 
   private watchValidationMessageChanges(): void {
     this.messagePresentationObserver = new MutationObserver(() => {
@@ -302,6 +318,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
       if (this.onTouchedCallback) {
         this.onTouchedCallback();
       }
+      this.errorsUpdateText();
     });
   }
 
@@ -355,7 +372,7 @@ export class MillInput extends RequirebleComponent implements OnChanges, OnDestr
     if ((this.errors && this.methodValidation) || (this.errors && this.parentForm?.submitted)) {
       this.msgTextElement.innerText =
         (this.errors && this.methodValidation) ||
-        (this.errors && this.parentForm?.submitted)
+          (this.errors && this.parentForm?.submitted)
           ? ErrorMessageHelper.getMessage(this.errors)
           : '';
     } else if ((this.errors && !this.invalid)) {

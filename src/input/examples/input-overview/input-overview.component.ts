@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { FormControl, ValidationErrors } from '@angular/forms';
+import { FormControl, ValidationErrors, Validators } from '@angular/forms';
 
 @Component({
   selector: 'input-overview',
@@ -7,7 +7,7 @@ import { FormControl, ValidationErrors } from '@angular/forms';
   styleUrls: ['./input-overview.component.scss', '../../../assets/styles/overview.scss']
 })
 export class InputOverviewComponent implements OnInit {
-  nameControl: FormControl = new FormControl('');
+  nameControl: FormControl = new FormControl('', Validators.required);
   nameControlWithIcon: FormControl = new FormControl('');
   dateControl: FormControl = new FormControl('');
   cardControl: FormControl = new FormControl('');
@@ -25,7 +25,6 @@ export class InputOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.errorControl.markAsTouched();
-    this.errorControl.updateValueAndValidity();
 
     this.validControlErrors = this.validateTaxId();
     this.infoControl.markAsTouched();
