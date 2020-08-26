@@ -12,7 +12,7 @@ export class InputFormComponent implements OnInit, AfterViewInit {
     name: new FormControl('', Validators.required),
     walletNumber: new FormControl('', Validators.required),
     phoneNumber: new FormControl('', (v) => {
-      return v.value.length !== 12 ? { errorMessage: 'Формат: 380XXXXXXXXX' } : null;
+      return v.value.length !== 12 ? { errorMessage: '+380 (00) 000-00-00' } : null;
     }),
     downPayment: new FormControl('', Validators.required),
     cardNumber: new FormControl('', Validators.required),
