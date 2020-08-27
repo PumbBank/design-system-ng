@@ -16,7 +16,9 @@ export class InputOverviewComponent implements OnInit {
   errorControl: FormControl = new FormControl('', (v) =>
     !v.value ? { errorMessage: 'Текст повідомлення' } : null);
   infoControl: FormControl = new FormControl('');
-  phoneControl: FormControl = new FormControl('');
+  phoneControl: FormControl = new FormControl('',[Validators.required,(v) => {
+    return v.value.length !== 12 ? { errorMessage: '+380 (00) 000-00-00' } : null;
+  }]);
   disabledControl: FormControl = new FormControl({ value: '', disabled: true });
 
   validControlErrors: ValidationErrors | null;
@@ -31,7 +33,12 @@ export class InputOverviewComponent implements OnInit {
 
   }
 
+  twxt = '';
+test() {
+this.twxt = 'aaaaaaaaaaaa';
+console.log(this.twxt);
 
+}
 
 
   validateTaxId(): ValidationErrors | null {

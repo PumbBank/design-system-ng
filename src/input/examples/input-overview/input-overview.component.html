@@ -47,7 +47,7 @@
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Valid alert</div>
       <div class="overview__container">
-        <input millInput="text" [formControl]="validControl" [valid]="'Message Text'" [errors]="validControl.errors"
+        <input millInput="text" [formControl]="validControl" [valid]="twxt" [errors]="validControl.errors"
          caption="Enter Name" placeholder="Placeholder">
       </div>
     </div>
@@ -82,7 +82,7 @@
       <div class="overview__label s1">Phone</div>
       <div class="overview__container overview__container_row">
         <input millInput="phone" type="tel" icon="phone" inputmode="tel" [formControl]="phoneControl" prefix="+380"
-          caption="Phone number" placeholder="(00) 000-00-00">
+          caption="Phone number" placeholder="(00) 000-00-00" [errors]="phoneControl.errors">
       </div>
     </div>
     <div class="overview__column grid-item-4">

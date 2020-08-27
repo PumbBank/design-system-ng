@@ -62,8 +62,8 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   onTouchedCallback: () => void;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.errors || changes.valid) {
-      // this.errorsUpdateText();
+    if ( changes.valid) {
+      this.errorsUpdateText();
     }
     if (changes.caption) {
       this.captionUpdateText();
@@ -380,7 +380,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     } else if (!!this.valid && this.valid !== 'true' && this.valid !== true) {
       this.msgTextElement.innerText = this.valid as string;
     } else {
-      this.msgTextElement.innerText = '123';
+      // this.msgTextElement.innerText = '123';
     }
     this.updateMessagePresentation();
     this.updateMsgTextStyles();
