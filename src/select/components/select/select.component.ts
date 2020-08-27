@@ -1,7 +1,6 @@
 import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { AbstractSelectUserCommunication } from './abstract-select-user-communication';
 import { FormGroupDirective } from '@angular/forms';
-import { IDirtyValidator } from '../../../form-utils/interfaces/dirty-validator.interface';
 
 @Component({
   selector: 'mill-select',
@@ -20,7 +19,7 @@ import { IDirtyValidator } from '../../../form-utils/interfaces/dirty-validator.
 })
 export class SelectComponent<K = any, P = any>
   extends AbstractSelectUserCommunication<K, P>
-  implements OnInit, IDirtyValidator {
+  implements OnInit {
 
   // public subj = new Subject();
   /**
@@ -34,12 +33,8 @@ export class SelectComponent<K = any, P = any>
    */
   @Input() placeholder: string;
 
-  public isDirtyValid: boolean;
-
-  get touched(): boolean {
-    return this.isDirtyValid
-      ? this.element.nativeElement.classList.contains('ng-dirty')
-      : this.element.nativeElement.classList.contains('ng-touched');
+  get dirty(): boolean {
+    return this.element.nativeElement.classList.contains('ng-dirty');
   }
 
   get isInvalid(): boolean {
@@ -57,7 +52,6 @@ export class SelectComponent<K = any, P = any>
   constructor(private element: ElementRef,
     public parentForm: FormGroupDirective) {
     super();
-    // this.subj.subscribe((value: boolean) => this.isDirtyValid = value);
   }
 
   options: {autoHide: boolean, scrollbarMinSize: number} = { autoHide: false, scrollbarMinSize: 5 };

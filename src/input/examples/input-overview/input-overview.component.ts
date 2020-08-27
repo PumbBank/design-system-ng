@@ -26,20 +26,11 @@ export class InputOverviewComponent implements OnInit {
   arrCoordinates: any[] = [];
 
   ngOnInit(): void {
-    this.errorControl.markAsTouched();
+    this.errorControl.markAsDirty();
 
     this.validControlErrors = this.validateTaxId();
-    this.infoControl.markAsTouched();
 
   }
-
-  twxt = '';
-test() {
-this.twxt = 'aaaaaaaaaaaa';
-console.log(this.twxt);
-
-}
-
 
   validateTaxId(): ValidationErrors | null {
     return { errorMessage: 'Info alert' };

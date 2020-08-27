@@ -2,17 +2,16 @@ import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy, AfterContentInit
 import { ValidationErrors, FormGroupDirective } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
-import { IDirtyValidator } from '../../form-utils/interfaces/dirty-validator.interface';
 import { takeUntil } from 'rxjs/operators';
 
 export type CleanFunction = (inputValue: any) => string;
 
 const DEFAULT_CLEAN_FUNCTION = (inputValue: any): string => inputValue;
 
-export class MillInput extends RequirebleComponent implements AfterContentInit, OnChanges, OnDestroy, IDirtyValidator {
+export class MillInput extends RequirebleComponent implements AfterContentInit, OnChanges, OnDestroy {
 
   private invalid: boolean;
-  private methodValidation: boolean;
+  private dirty: boolean;
   private destroyed$: Subject<void> = new Subject<void>();
 
   constructor(
@@ -30,8 +29,6 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
     this.watchFormSubmit();
   }
-
-  public isDirtyValid: boolean;
 
   protected cleanFunction: CleanFunction = DEFAULT_CLEAN_FUNCTION;
 
@@ -62,7 +59,11 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   onTouchedCallback: () => void;
 
   ngOnChanges(changes: SimpleChanges): void {
-    if ( changes.valid) {
+    // if (changes.errors || changes.valid) {
+    //   this.errorsUpdateText();
+    // }
+
+    if (changes.valid) {
       this.errorsUpdateText();
     }
     if (changes.caption) {
@@ -151,12 +152,8 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     this.invalid = invalid;
   }
 
-  private updateTouchedState(touched: boolean = false): void {
-    this.methodValidation = touched;
-  }
-
   private updateDirtyState(dirty: boolean = false): void {
-    this.methodValidation = dirty;
+    this.dirty = dirty;
   }
 
   private watchFormSubmit(): void {
@@ -214,13 +211,8 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     this.validationStateObserver = new MutationObserver(() => {
 
       this.updateValidationState(this.input.classList.contains('ng-invalid'));
-      if (!this.isDirtyValid) {
-        this.updateTouchedState(this.input.classList.contains('ng-touched'));
-        this.errorsUpdateText();
-      } else {
-        this.updateDirtyState(this.input.classList.contains('ng-dirty'));
-        s();
-      }
+      this.updateDirtyState(this.input.classList.contains('ng-dirty'));
+      s();
     });
 
     this.validationStateObserver.observe(this.input, { attributeFilter: ['class'], attributes: true });
@@ -248,7 +240,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
   private updateMsgTextStyles(): void {
 
-    if ((this.methodValidation && this.invalid) || (this.invalid && this.parentForm?.submitted)) {
+    if ((this.dirty && this.invalid) || (this.invalid && this.parentForm?.submitted)) {
       this.renderer.removeClass(this.wrapperElement, 'input_valid');
       this.renderer.addClass(this.wrapperElement, 'input_error');
 
@@ -277,7 +269,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   }
 
   private updateMessagePresentation(): void {
-    if ((this.errors && this.methodValidation) || (this.errors && this.parentForm?.submitted)) {
+    if ((this.errors && this.dirty) || (this.errors && this.parentForm?.submitted)) {
       this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
     } else if ((this.errors && !this.invalid)) {
       this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
@@ -369,9 +361,9 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   }
 
   private errorsUpdateText(): void {
-    if ((this.errors && this.methodValidation) || (this.errors && this.parentForm?.submitted)) {
+    if ((this.errors && this.dirty) || (this.errors && this.parentForm?.submitted)) {
       this.msgTextElement.innerText =
-        (this.errors && this.methodValidation) ||
+        (this.errors && this.dirty) ||
           (this.errors && this.parentForm?.submitted)
           ? ErrorMessageHelper.getMessage(this.errors)
           : '';

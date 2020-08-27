@@ -8,7 +8,6 @@ import { InputPhoneDirective } from './directives/input-phone.directive';
 import { InputCardDirective } from './directives/input-card.directive';
 import { IconsModule } from '../icons';
 import { FormGroupDirective } from '@angular/forms';
-import { FormUtilsModule } from '../form-utils/form-utils.module';
 
 @NgModule({
   declarations: [
@@ -21,8 +20,7 @@ import { FormUtilsModule } from '../form-utils/form-utils.module';
     InputCardDirective
   ],
   imports: [
-    IconsModule,
-    FormUtilsModule
+    IconsModule
   ],
   exports: [
     InputTextDirective,

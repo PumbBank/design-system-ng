@@ -11,7 +11,6 @@ import { SimplebarAngularModule } from 'simplebar-angular';
 import { CheckboxModule } from '../checkbox/checkbox.module';
 import { ClickOutsideDirective } from './directives/click-outside/click-outside.directive';
 import { FormGroupDirective } from '@angular/forms';
-import { FormUtilsModule } from '../form-utils/form-utils.module';
 
 @NgModule({
   imports: [
@@ -19,7 +18,6 @@ import { FormUtilsModule } from '../form-utils/form-utils.module';
     IconsModule,
     BadgeModule,
     SimplebarAngularModule,
-    FormUtilsModule,
     CheckboxModule
   ],
   declarations: [

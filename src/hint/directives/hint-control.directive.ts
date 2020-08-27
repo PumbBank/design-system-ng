@@ -14,13 +14,8 @@ export class HintControlDirective implements OnInit, OnDestroy {
   private _destroyed$: Subject<void> = new Subject<void>();
   control: AbstractControl;
 
-  get isDirtyValid(): boolean {
-    return this.select.isDirtyValid;
-  }
-
   constructor(
     private hint: HintComponent,
-    private select: SelectComponent,
     public parentForm: FormGroupDirective,
     @Optional() private ngModel: NgModel,
     @Optional() private formControlDirective: FormControlDirective,
@@ -62,14 +57,13 @@ export class HintControlDirective implements OnInit, OnDestroy {
   }
 
   private matchStatuses(): void {
-    const methodValidation = !this.select.isDirtyValid ? this.control.touched : this.control.dirty;
 
-    if ((!this.control.valid && methodValidation) || (!this.control.valid && this.parentForm.submitted)) {
+    if ((!this.control.valid && this.control.dirty) || (!this.control.valid && this.parentForm.submitted)) {
       this.hint.icon = 'warning';
       this.hint.color = 'error';
       this.hint.show = true;
       this.hint.caption = ErrorMessageHelper.getMessage(this.control.errors);
-    } else if (methodValidation && this.hint.valid) {
+    } else if (this.control.dirty && this.hint.valid) {
       this.hint.icon = 'valid';
       this.hint.color = 'valid';
       this.hint.show = true;

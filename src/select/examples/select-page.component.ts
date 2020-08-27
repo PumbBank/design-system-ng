@@ -13,7 +13,7 @@ export class SelectOverviewComponent implements OnInit {
   valid: FormControl =  new FormControl('');
 
   ngOnInit(): void {
-    this.invalid.markAsTouched();
-    this.valid.markAsTouched();
+    this.invalid.markAsDirty();
+    this.valid.markAsDirty();
   }
 }
