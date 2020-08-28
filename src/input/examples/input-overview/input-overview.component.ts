@@ -7,7 +7,7 @@ import { FormControl, ValidationErrors, Validators } from '@angular/forms';
   styleUrls: ['./input-overview.component.scss', '../../../assets/styles/overview.scss']
 })
 export class InputOverviewComponent implements OnInit {
-  nameControl: FormControl = new FormControl('', Validators.required);
+  nameControl: FormControl = new FormControl('');
   nameControlWithIcon: FormControl = new FormControl('');
   dateControl: FormControl = new FormControl('');
   cardControl: FormControl = new FormControl('');
@@ -16,9 +16,7 @@ export class InputOverviewComponent implements OnInit {
   errorControl: FormControl = new FormControl('', (v) =>
     !v.value ? { errorMessage: 'Текст повідомлення' } : null);
   infoControl: FormControl = new FormControl('');
-  phoneControl: FormControl = new FormControl('',[Validators.required,(v) => {
-    return v.value.length !== 12 ? { errorMessage: '+380 (00) 000-00-00' } : null;
-  }]);
+  phoneControl: FormControl = new FormControl('');
   disabledControl: FormControl = new FormControl({ value: '', disabled: true });
   validControlErrors: ValidationErrors | null;
   noticeItems: string[] = [
