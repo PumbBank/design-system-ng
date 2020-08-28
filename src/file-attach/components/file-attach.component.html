@@ -1,11 +1,15 @@
-<div class="file-attach__content" [ngClass]="[side]">
-  <div [class.file-attach__content_files__flex]="listSide === 'bottom'"
-       [class.file-attach__content_files__grid]="listSide !== 'bottom'">
-    <ng-template *ngFor="let file of files; index as index"
-                 [ngTemplateOutlet]="fileLabelWrap"
-                 [ngTemplateOutletContext]="{name: file?.name,
-                                             state: file?.isError ? 'error' : file?.isLoading ? 'loading' : '',
-                                             index: index}"></ng-template>
+<div class="file-attach__container" [ngClass]="[containerSide]">
+  <div [class.file-attach__container_flex]="listSide === 'bottom'"
+       [class.file-attach__container_grid]="listSide !== 'bottom'">
+    <ng-template
+      *ngFor="let file of files; index as index"
+      [ngTemplateOutlet]="fileLabelWrap"
+      [ngTemplateOutletContext]="{
+        name: file?.name,
+        state: file?.isError ? 'error' : file?.isLoading ? 'loading' : '',
+        index: index
+      }"
+    ></ng-template>
   </div>
   <mill-button view="ghost" icon="attach" (click)="chooseFileClick()">{{ actionCaption }}</mill-button>
   <input #fileInput type="file" hidden
@@ -15,34 +19,33 @@
 </div>
 
 <ng-template #fileLabelWithDelete let-name="name" let-index="index">
-  <span class="file-attach__fonts__p2">{{ textEllipsisCenter(name) }}</span>
-  <mill-button view="hidden" icon="trash" class="file-attach__utils__ml-16" (click)="removeFileClick(index)"></mill-button>
+  <span class="file-attach__p2 p2">{{ textEllipsisCenter(name) }}</span>
+  <mill-button view="hidden" icon="trash" (click)="removeFileClick(index)"></mill-button>
 </ng-template>
 
 <ng-template #fileLabelWithError let-name="name" let-index="index">
-  <div class="file-attach__utils__flex_row_space file-attach__utils__flex-start">
-    <mill-icon name="warning" class="file-attach__colors__orange" size="12"></mill-icon>
-    <span class="file-attach__fonts__p2 file-attach__colors__orange file-attach__utils__ml-8">
+  <div class="file-attach__content file-attach__content_flex_row_space">
+    <mill-icon name="warning" class="file-attach__icon file-attach__icon_warning" size="12"></mill-icon>
+    <span class="file-attach__label file-attach__label_warning p2">
       Помилка в: {{ textEllipsisCenter(name, 5) }}
     </span>
   </div>
-  <mill-button view="hidden" icon="refresh" class="file-attach__utils__ml-16" (click)="reAttachFileClick(index)"></mill-button>
+  <mill-button view="hidden" icon="refresh" (click)="reAttachFileClick(index)"></mill-button>
 </ng-template>
 
 <ng-template #fileLabelWithLoader let-name="name">
-  <span class="file-attach__fonts__p2">{{ textEllipsisCenter(name) }}</span>
-  <div class="file-attach__content__loader_wrap">
-    <div class="file-attach__content__loader"></div>
+  <span class="file-attach__p2 p2">{{ textEllipsisCenter(name) }}</span>
+  <div class="file-attach__loader-wrap">
+    <div class="file-attach__loader"></div>
   </div>
 </ng-template>
 
-
 <ng-template #fileLabelWrap let-state="state" let-name="name" let-index="index">
-  <div class="file-attach__content_label"
+  <div class="file-attach__item"
        @flyInOut
-       [class.error-state]="state === 'error'"
-       [class.loading-state]="state === 'loading'"
-       [ngClass]="[side, 'ghost-view']">
+       [class.file-attach__item_error-state]="state === 'error'"
+       [class.file-attach__item_loading-state]="state === 'loading'"
+       [ngClass]="[itemSide, 'file-attach__item_ghost-view']">
     <ng-container [ngSwitch]="state">
       <ng-template *ngSwitchCase="'error'"
                    [ngTemplateOutlet]="fileLabelWithError"

@@ -47,7 +47,8 @@ export enum FileAttachListSide {
 })
 export class FileAttachComponent implements OnChanges, AfterViewInit {
   files: FileAttach[] = [];
-  side: string;
+  containerSide: string;
+  itemSide: string;
 
   @Input() addedFiles: FileAttach[];
   @Input() fileAcceptedTypes: string;
@@ -86,11 +87,11 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
       if (this.multiple && files.length > 1) {
         for (let i = 0; i < files.length; i++) {
           singleFile = files.item(i);
-          this.files.push({file: singleFile, name: singleFile.name});
+          this.files.unshift({file: singleFile, name: singleFile.name});
         }
       } else {
         singleFile = files.item(0);
-        this.files.push({file: singleFile, name: singleFile.name});
+        this.files.unshift({file: singleFile, name: singleFile.name});
       }
       singleFile = null;
       this.filesChanged.emit(this.files);
@@ -125,16 +126,20 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
   private setListSide(side: FileAttachListSide): void {
     switch (side) {
       case FileAttachListSide.Left:
-        this.side = 'ltr';
+        this.containerSide = 'file-attach__container_ltr';
+        this.itemSide = 'file-attach__item_ltr';
         break;
       case FileAttachListSide.Right:
-        this.side = 'rtl';
+        this.containerSide = 'file-attach__container_rtl';
+        this.itemSide = 'file-attach__item_rtl';
         break;
       case FileAttachListSide.Bottom:
-        this.side = 'bottom';
+        this.containerSide = 'file-attach__container_bottom';
+        this.itemSide = 'file-attach__item_bottom';
         break;
       default:
-        this.side = 'ltr';
+        this.containerSide = 'file-attach__container_ltr';
+        this.itemSide = 'file-attach__item_ltr';
         break;
     }
     this._cdr.markForCheck();
