@@ -1,7 +1,10 @@
 import { action } from '@storybook/addon-actions';
 import { withKnobs, boolean, text } from '@storybook/addon-knobs';
-import { RadioOverviewComponent } from './examples/radio-page.component';
+
+import { NoticeComponent } from '../common/notice/notice.component';
 import { IconsModule } from '../icons/icons.module';
+
+import { RadioOverviewComponent } from './examples/radio-page.component';
 import { RadioModule } from './radio.module';
 import { ReactiveFormsModule } from '@angular/forms';
 
@@ -16,7 +19,8 @@ export default {
 export const component = () => ({
   moduleMetadata: {
     declarations: [
-      RadioOverviewComponent
+      RadioOverviewComponent,
+      NoticeComponent
     ],
     imports: [
       IconsModule,

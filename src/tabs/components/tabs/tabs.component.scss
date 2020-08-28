@@ -116,14 +116,13 @@
 
   &__item {
     @extend %tabs-label;
+
     border-bottom: 1px solid $grey-20;
     position: relative;
+    font-size: 16px;
 
-    //Фикс прыгающего шрифта
-    font-size: 16.1px;
-
-    &:after {
-      content: '';
+    &::after {
+      content: "";
       position: absolute;
       left: 24px;
       bottom: -3px;
@@ -132,8 +131,7 @@
       background: $grey-30;
       opacity: 0;
       visibility: hidden;
-      transition: .2s ease;
-
+      transition: 0.2s ease;
       border-radius: 5px;
     }
 

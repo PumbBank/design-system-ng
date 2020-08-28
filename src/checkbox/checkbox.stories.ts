@@ -1,8 +1,11 @@
 import { action } from '@storybook/addon-actions';
-import { boolean, text, withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, boolean, text } from '@storybook/addon-knobs';
+
+import { NoticeComponent } from '../common/notice/notice.component';
+import { IconsModule } from '../icons/icons.module';
+
 import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { CheckboxOverviewComponent } from './examples/checkbox-overview/checkbox-page.component';
-import { IconsModule } from '../icons/icons.module';
 
 export default {
   title: 'Компоненти|Checkbox',
@@ -16,7 +19,8 @@ export const component = () => ({
   moduleMetadata: {
     declarations: [
       CheckboxComponent,
-      CheckboxOverviewComponent
+      CheckboxOverviewComponent,
+      NoticeComponent
     ],
     imports: [
       IconsModule

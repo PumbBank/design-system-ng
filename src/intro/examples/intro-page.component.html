@@ -1839,30 +1839,14 @@ s-16.4-49.9-31.4-66.8c3.8-1,16.1-4.2,16.1-4.2l13.5-41.8C123.9,171.2,119.4,169.6,
     <div class="mill-intro__history">
       <div class="mill-intro__history-title h4">Що нового?</div>
 
-      <div class="mill-intro__history-item">
-        <div class="mill-intro__history-date overline">12 вересня</div>
+      <ng-container *ngFor="let item of whatsNew">
+        <div class="mill-intro__history-item">
+          <div class="mill-intro__history-date overline">{{ item?.title }}</div>
 
-        <div class="mill-intro__history-text p1">Додан компонент Stepper, доступний в коді</div>
-      </div>
+          <div class="mill-intro__history-text p1">{{ item?.content }}</div>
+        </div>
+      </ng-container>
 
-      <div class="mill-intro__history-item">
-        <div class="mill-intro__history-date overline">1 травня</div>
-
-        <div class="mill-intro__history-text p1">Нова сторінка гайдлайнов - Кнопки</div>
-      </div>
-
-      <div class="mill-intro__history-item">
-        <div class="mill-intro__history-date overline">7 квітня</div>
-
-        <div class="mill-intro__history-text p1">Нові колірні градації червоного кольору Red30, Red20 і Red10.
-          <br/>Оновлені значення вже доступні в розділі Кольори</div>
-      </div>
-
-      <div class="mill-intro__history-item">
-        <div class="mill-intro__history-date overline">23 жовтня</div>
-
-        <div class="mill-intro__history-text p1">Оновлення Mill до v 1.0.1</div>
-      </div>
     </div>
 
     <div class="mill-intro__divider mill-intro__divider_middle"></div>
