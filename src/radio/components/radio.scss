@@ -6,8 +6,6 @@
 .mill-radio {
   position: relative;
   cursor: pointer;
-  display: flex;
-  align-items: center;
 
   &__checkmark {
     min-width: 20px;
@@ -17,6 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: center;
+    margin-right: 14px;
     border: 2px solid $grey-50;
     box-sizing: border-box;
     transition: border-color 0.2s ease-in-out;
@@ -31,8 +30,9 @@
   &__label {
     color: $grey-60;
     cursor: pointer;
-    margin-left: 14px;
     transition: color 0.2s ease-in-out;
+    display: flex;
+  align-items: center;
 
     @extend %p1;
   }
