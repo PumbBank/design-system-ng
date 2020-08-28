@@ -9,7 +9,7 @@
     </div>
   </div>
   <div class="overview__content">
-    <form class="form" [formGroup]="formGr" (submit)="onFormSubmit()">
+    <form class="form" [formGroup]="formGr" (submit)="onFormSubmit()" millDirtyValidator>
       <div class="form__content">
         <div class="form__head">
           <div class="h6">Приклад форми з валідацією полів</div>
@@ -31,7 +31,7 @@
 
             <div class="form-overview__column ">
               <input millInput="number" formControlName="walletNumber" [errors]="formGr.controls.walletNumber.errors"
-                caption="Номер гаманця" placeholder="000000000" icon="wallet">
+                caption="Номер гаманця" placeholder="000000000">
             </div>
             <div class="form-overview__column ">
               <input millInput="phone" type="tel" icon="phone" inputmode="tel" formControlName="phoneNumber"
@@ -40,7 +40,7 @@
             </div>
             <div class="form-overview__column ">
               <input millInput="digit" formControlName="downPayment" [errors]="formGr.controls.downPayment.errors"
-                caption="Перший внесок" icon="dollar">
+                caption="Перший внесок" icon="wallet">
             </div>
             <div class="form-overview__column ">
               <input icon="card" millInput="card" formControlName="cardNumber"
@@ -95,5 +95,8 @@
 
   <hr class="overview__separator">
 
-  <input-notice ></input-notice>
+  <input-notice
+    [noticeItems]="noticeItems"
+    [noticeSubTitle]="'Важливо враховувати при розробці форм'"
+  ></input-notice>
 </div>
