@@ -1,0 +1,28 @@
+<div class="stepper" #wrapper [class.stepper_simple]="simple">
+  <div class="stepper__wrapper" #stepsWrapper [ngStyle]="{'transform': transformStyle}">
+    <div class="stepper__list">
+      <div
+        *ngFor="let step of steps$ | async"
+        class="stepper-item"
+        [class.stepper-item_valid]="step.state === stepperState.valid"
+        [class.stepper-item_error]="step.state === stepperState.error"
+        [class.stepper-item_active]="step.active"
+        (click)="onStepClick(step)"
+        #stepElement
+      >
+        <div class="stepper-item__wrapper">
+          <div class="stepper-item__circle"></div>
+          <div *ngIf="step.value && !simple" class="stepper-item__value">{{step.value}}</div>
+        </div>
+      </div>
+    </div>
+  </div>
+  <ng-container *ngIf="!hideControls">
+    <button *ngIf="!scrollControls.disableLeft" class="stepper-nav stepper-nav_left" (click)="onScroll('left')">
+      <span class="icon icon_24 icon_chevron-left"></span>
+    </button>
+    <button *ngIf="!scrollControls.disableRight" class="stepper-nav stepper-nav_right" (click)="onScroll('right')">
+      <span class="icon icon_24 icon_chevron-right"></span>
+    </button>
+  </ng-container>
+</div>

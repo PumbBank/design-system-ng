@@ -1,6 +1,7 @@
-import { BehaviorSubject, fromEvent, Subject } from 'rxjs';
 import { AfterViewInit, ElementRef, Input, OnDestroy, OnInit, ViewChild } from '@angular/core';
+import { BehaviorSubject, fromEvent, Subject } from 'rxjs';
 import { debounceTime, takeUntil } from 'rxjs/operators';
+import {ScrollOverflow, ScrollControlsInterface} from '../utils';
 
 export abstract class TabItemBase {
   @Input() public id: string;
@@ -32,147 +33,77 @@ export abstract class TabsItems {
 const SCROLL_OVERFLOW = 48;
 
 export abstract class TabsPagination extends TabsItems implements AfterViewInit, OnDestroy {
-  private _scrollOffset: number = 0;
   private _destroyed$: Subject<void> = new Subject<void>();
 
   @Input() hideControls: boolean;
   @ViewChild('wrapper', {static: true}) public wrapper: ElementRef;
   @ViewChild('labelWrapper', {static: true}) public labelWrapper: ElementRef;
 
-  public overflow: boolean;
-  public disableAfter: boolean;
-  public disableBefore: boolean;
+  protected scrollOverflow: ScrollOverflow;
 
-  get scrollOffset(): number {
-    return this._scrollOffset;
-  }
+  public scrollControls: ScrollControlsInterface = {
+    disableLeft: true,
+    disableRight: true
+  };
 
-  set scrollOffset(value: number) {
-    this._scroll(value);
+
+  private _transformStyle: string;
+
+  get transformStyle(): string {
+    return this._transformStyle;
   }
 
   constructor() {
     super();
+
+    this.scrollOverflow = new ScrollOverflow();
   }
 
   ngAfterViewInit(): void {
-    fromEvent(window, 'resize')
-      .pipe(debounceTime(100), takeUntil(this._destroyed$))
-      .subscribe(() => {
-        this._checkOverflow();
-        this.checkLabelInView();
-
-        if (!this.overflow) {
-          this.scrollOffset = 0;
-        }
+    this.scrollOverflow.emitScrollControls
+      .subscribe(value => {
+        this.scrollControls = value;
       });
 
-    this._checkOverflow();
-    this.checkLabelInView();
-    this._checkScrollControls();
+    this.scrollOverflow.init({
+      wrapper: this.wrapper,
+      itemsWrapper: this.labelWrapper,
+      scrollOverflow: SCROLL_OVERFLOW
+    });
+
+    this.scrollOverflow.items = this.tabItems.getValue().map(item => {
+      return {
+        element: item.labelElement.nativeElement,
+        inView: false
+      };
+    });
+
+    this.scrollOverflow.emitScrollTranslate
+      .subscribe(value => this._transformStyle = value);
+
+
+    // fromEvent(window, 'resize')
+    //   .pipe(debounceTime(100), takeUntil(this._destroyed$))
+    //   .subscribe(() => {
+    //     this._checkOverflow();
+    //     this.checkLabelInView();
+    //
+    //     if (!this.overflow) {
+    //       this.scrollOffset = 0;
+    //     }
+    //   });
+
+    // this._checkOverflow();
+    // this.checkLabelInView();
+    // this._checkScrollControls();
+  }
+
+  public onScroll(direction: 'left' | 'right'): void {
+    this.scrollOverflow.onScroll(direction);
   }
 
   public ngOnDestroy(): void {
-    this._destroyed$.next();
-    this._destroyed$.complete();
-  }
-
-  public scrollHeader(direction: 'left' | 'right'): void {
-    const items = this.tabItems.getValue();
-
-    if (direction === 'right') {
-      for (let i = items.length - 1; i > 0; i--) {
-        if (items[i].inView === true) {
-          if (i !== items.length - 1) {
-            this.scrollTo(items[i + 1].labelElement.nativeElement);
-            break;
-          }
-        }
-      }
-    } else if (direction === 'left') {
-      for (let i = 0; i < items.length; i++) {
-        if (items[i].inView === true) {
-          if (i === 0) {
-            this.scrollOffset = 0;
-          } else {
-            this.scrollTo(items[i - 1].labelElement.nativeElement);
-          }
-          break;
-        }
-      }
-    }
-
-    this.checkLabelInView();
-  }
-
-  public scrollTo(label: HTMLElement): void {
-    const {offsetWidth, offsetLeft}: {offsetWidth: number, offsetLeft: number} = label;
-    const wrapperWidth = this.wrapper.nativeElement.offsetWidth;
-
-    const labelStartPosition = offsetLeft;
-    const labelEndPosition = labelStartPosition + offsetWidth;
-
-    const beforeLabelPosition = this.scrollOffset;
-    const afterLabelPosition = this.scrollOffset + wrapperWidth;
-
-    if (labelStartPosition < beforeLabelPosition) {
-      this.scrollOffset -= beforeLabelPosition - labelStartPosition + SCROLL_OVERFLOW;
-    } else if (labelEndPosition > afterLabelPosition) {
-      this.scrollOffset += labelEndPosition - afterLabelPosition + SCROLL_OVERFLOW;
-    }
-  }
-
-  public checkLabelInView(): void {
-    if (!this.overflow) {
-      return;
-    }
-
-    this.tabItems.getValue().forEach(i => {
-      const {offsetWidth, offsetLeft}: {offsetWidth: number, offsetLeft: number} = i.labelElement.nativeElement;
-      const offsetView = offsetLeft + offsetWidth;
-
-      i.inView = !(offsetLeft < this.scrollOffset ||
-        (offsetView > (this.wrapper.nativeElement.offsetWidth + this.scrollOffset)));
-    });
-  }
-
-  public getTransformStyle(): string {
-    return `translateX(-${this.scrollOffset}px)`;
-  }
-
-  private _scroll(value: number): void {
-    const maxScroll = this._maxScrollLength();
-    if (maxScroll - value <= 10) {
-      value = maxScroll;
-    }
-    this._scrollOffset = Math.max(0, Math.min(maxScroll, value));
-    this._checkScrollControls();
-  }
-
-  private _checkOverflow(): void {
-    const el = this.wrapper.nativeElement;
-    const elArr = this.tabItems.getValue();
-
-    let childrenWidth = 0;
-
-    for (const item of elArr) {
-      childrenWidth += item.labelElement.nativeElement.offsetWidth;
-    }
-
-    this.overflow = el.offsetWidth < childrenWidth;
-  }
-
-  private _checkScrollControls(): void {
-    if (!this.overflow) {
-      this.disableAfter = this.disableBefore = true;
-    } else {
-      this.disableBefore = this.scrollOffset === 0;
-      this.disableAfter = this.scrollOffset === this._maxScrollLength();
-    }
-  }
-
-  private _maxScrollLength(): number {
-    return this.labelWrapper.nativeElement.scrollWidth - this.wrapper.nativeElement.offsetWidth + SCROLL_OVERFLOW;
+    this.scrollOverflow.destroy();
   }
 
 }
@@ -201,9 +132,8 @@ export abstract class TabsBase extends TabsPagination implements OnInit, OnDestr
     if (label) {
       this._selectedLabel = label;
 
-      if (this.overflow) {
-        this.scrollTo(label);
-        this.checkLabelInView();
+      if (this.scrollOverflow.scrollable) {
+        this.scrollOverflow.scrollTo(label);
       }
     }
   }

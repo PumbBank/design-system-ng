@@ -3,7 +3,7 @@
   [ngClass]="[(disabled ? 'tabs-' + type + '_disabled' : ''), (fullWidth ? 'tabs-' + type + '_full-width': '')]"
 >
   <div class="tabs-{{type}}__header" style="flex-grow: 1; position: relative" #wrapper>
-    <div class="tabs-{{type}}__list" #labelWrapper [ngStyle]="{'transform': getTransformStyle()}">
+    <div class="tabs-{{type}}__list" #labelWrapper [ngStyle]="{'transform': transformStyle}">
       <div class="tabs-{{type}}__labels">
         <tab-label
           *ngFor="let item of tabItems | async"
@@ -27,10 +27,10 @@
     </div>
   </div>
   <ng-container *ngIf="!hideControls">
-    <button *ngIf="!disableBefore" class="tab-nav tab-nav_left" (click)="scrollHeader('left')">
+    <button *ngIf="!scrollControls.disableLeft" class="tab-nav tab-nav_left" (click)="onScroll('left')">
       <span class="icon icon_24 icon_chevron-left"></span>
     </button>
-    <button *ngIf="!disableAfter" class="tab-nav tab-nav_right" (click)="scrollHeader('right')">
+    <button *ngIf="!scrollControls.disableRight" class="tab-nav tab-nav_right" (click)="onScroll('right')">
       <span class="icon icon_24 icon_chevron-right"></span>
     </button>
   </ng-container>

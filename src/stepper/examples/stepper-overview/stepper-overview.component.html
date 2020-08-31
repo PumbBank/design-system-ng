@@ -1,0 +1,29 @@
+<div class="overview">
+  <div class="overview__header">
+    <div class="h4">Search</div>
+    <div class="overview__links">
+      <!--      <a href="" class="overview__link s2"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>-->
+      <a href="" class="overview__link s2"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>
+    </div>
+  </div>
+  <div class="overview__content grid">
+    <div class="overview__column overview__column_offset grid-item-12">
+      <div class="overview__label s1">Normal</div>
+      <div class="overview__container">
+        <mill-stepper #stepper1></mill-stepper>
+      </div>
+    </div>
+    <div class="overview__column overview__column_offset grid-item-12">
+      <div class="overview__label s1">Linear (validation requires)</div>
+      <div class="overview__container">
+        <mill-stepper #stepper2 [linear]="true"></mill-stepper>
+      </div>
+    </div>
+    <div class="overview__column overview__column_offset grid-item-12">
+      <div class="overview__label s1">Simple</div>
+      <div class="overview__container">
+        <mill-stepper #stepper3 [simple]="true"></mill-stepper>
+      </div>
+    </div>
+  </div>
+</div>

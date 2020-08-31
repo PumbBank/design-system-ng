@@ -43,7 +43,6 @@ export class TabsComponent extends TabsBase implements AfterViewInit {
 
     return {left: '0px', width: '0px'};
   }
-
 }
 
 
