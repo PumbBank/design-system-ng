@@ -107,9 +107,9 @@ export class ColorsPaletteGuidelineComponent {
 
     this._clipboardService.copyFromContent(text);
 
-    confirmMessageIcon.classList.add('copy-color-popup__icon', 'icon', 'icon_24', 'icon_check');
+    confirmMessageIcon.classList.add('copy-popup__icon', 'icon', 'icon_24', 'icon_check');
     confirmMessage.innerText = 'Колір скопійований';
-    confirmMessage.classList.add('copy-color-popup', 'p2');
+    confirmMessage.classList.add('copy-popup', 'p2');
     confirmMessage.insertBefore(confirmMessageIcon, confirmMessage.firstChild);
     document.body.appendChild(confirmMessage);
 

@@ -106,7 +106,7 @@ body {
   margin: 0;
 }
 
-.copy-color-popup {
+.copy-popup {
   position: fixed;
   bottom: 0;
   left: 50%;
@@ -123,13 +123,21 @@ body {
   font-size: 14px;
   line-height: 20px;
   letter-spacing: 0.25px;
-  font-family: "Gilroy", sans-serif;
+  font-family: $gilroy-500-medium;
   padding: 11px 16px 13px;
   transform: translate(-50%, -8px);
 
   &__icon {
     background: $grey-30;
     margin-right: 12px;
+  }
+
+  &__code {
+    background-color: $grey-30;
+    border-radius: 3px;
+    color: $grey-80;
+    margin-left: 10px;
+    padding: 2px 8px;
   }
 }
 
