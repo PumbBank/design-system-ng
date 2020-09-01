@@ -1,7 +1,7 @@
 import { CODE_TAB, CODE_ARROW_UP, CODE_ARROW_DOWN, CODE_ENTER } from '../../key-code';
 import { MillSelectOption } from '../../select-option';
 import { AbstractSelectSearch } from './abstract-select-search';
-import { ViewChild, ViewChildren, ElementRef, QueryList, ContentChild } from '@angular/core';
+import { ViewChild, ViewChildren, ElementRef, QueryList, ContentChild, Input } from '@angular/core';
 import { HintComponent } from '../../../hint/components/hint/hint.component';
 
 export abstract class AbstractSelectUserCommunication<K = any, P = any> extends AbstractSelectSearch<K, P> {
@@ -15,9 +15,11 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
   @ViewChild('selectBodyElement', {static: false}) bodyRef: ElementRef;
   @ViewChild('searchInput', {static: false}) searchInputRef: ElementRef;
   @ContentChild(HintComponent, {static: false}) hintComponent: HintComponent;
+  
+  @Input() disableSearch: boolean = false;
 
   optionClick(option: MillSelectOption<K, P>): void {
-    if (this.multiple) {
+    if (this.multiple && !this.disableSearch) {
       this.searchInputRef.nativeElement.focus();
     }
 
@@ -41,6 +43,10 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
     } else {
       super.close();
     }
+  }
+
+  onSelectSearchClick(): void {
+    if (this.disableSearch) this.onSearchInputFocus();
   }
 
   onSearchInputFocus(): void {
@@ -69,7 +75,6 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
   }
 
   onSearchInputKeydown(event: KeyboardEvent): void {
-    // console.log(this.searchInputRef.nativeElement.offsetParent.offsetParent.clientWidth);
 
     if (event.code === CODE_ARROW_UP && this.active$.value) {
       event.preventDefault();

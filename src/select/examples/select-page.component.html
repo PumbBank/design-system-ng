@@ -97,6 +97,23 @@
     </div>
 
     <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Basic without searching</div>
+      <div class="overview__container">
+        <mill-select caption="caption" placeholder="placeholder" [disableSearch]="true">
+          <span millSelectOption key="1" value="Option 1"></span>
+          <span millSelectOption key="2" value="Option 2"></span>
+          <span millSelectOption key="3" value="Option 3"></span>
+          <span millSelectOption key="4" value="Option 4"></span>
+          <span millSelectOption key="5" value="Option 5"></span>
+          <span millSelectOption key="6" value="Option 6"></span>
+          <span millSelectOption key="7" value="Option 7"></span>
+          <span millSelectOption key="8" value="Option 8"></span>
+        </mill-select>
+
+      </div>
+    </div>
+
+    <div class="overview__column grid-item-4">
       <div class="overview__label s1">Multi-select</div>
       <div class="overview__container">
         <mill-select caption="caption" placeholder="placeholder" [multiple]="true">
@@ -111,5 +128,23 @@
         </mill-select>
       </div>
     </div>
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Multi-select without searching</div>
+      <div class="overview__container">
+        <mill-select caption="caption" placeholder="placeholder" [multiple]="true" [disableSearch]="true">
+          <span millSelectOption key="1" value="Option 1"></span>
+          <span millSelectOption key="2" value="Option 2"></span>
+          <span millSelectOption key="3" value="Option 3"></span>
+          <span millSelectOption key="4" value="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt"></span>
+          <span millSelectOption key="5" value="Option 5"></span>
+          <span millSelectOption key="6" value="Option 6"></span>
+          <span millSelectOption key="7" value="Option 7"></span>
+          <span millSelectOption key="8" value="Option 8"></span>
+        </mill-select>
+      </div>
+    </div>
+
+    
   </div>
 </div>

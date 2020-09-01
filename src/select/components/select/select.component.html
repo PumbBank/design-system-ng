@@ -13,7 +13,7 @@
 <ng-template #defaultHeaderTemplate>
   <div class="select__header input" [class.input_required]="this.required">
     <div class="input__label input-select__label">{{ caption }}</div>
-    <div class="input__body input-select__body " 
+    <div class="input__body input-select__body " (click)="onSelectSearchClick()"
     [class.input-select__body_error]="(dirty && isInvalid) || (submitted && isInvalid)"
     [class.input-select__body_valid]="dirty && !isInvalid && hintComponent.valid"> 
       <div class="chips">
@@ -24,11 +24,16 @@
               (click)="ontionChipCloseClick(option); $event.preventDefault();"></mill-icon>
           </div>
         </ng-container>
-        <div class="input__enterence input-select__enterence">
+
+        <div class="input__enterence input-select__enterence" *ngIf="(multiple && disableSearch && selectedOption.length === 0)">
+          <div class="input__placeholder"> {{ placeholder }} </div>
+        </div>
+
+        <div class="input__enterence input-select__enterence" *ngIf="!multiple || (multiple && !disableSearch)">
             <div class="input__placeholder" *ngIf="!searchInputValue"> {{ placeholder }} </div>
-            <input class="input__input input-select__input" (focus)="onSearchInputFocus()"
+            <input class="input__input input-select__input" (focus)="onSearchInputFocus()" 
               [value]="searchInputValue" (input)="onSearchInput(searchInput.value)" (keydown)="onSearchInputKeydown($event)"
-               #searchInput >
+               #searchInput [attr.disabled]="!!disableSearch ? disableSearch : undefined">
               
           </div>
         </div>
