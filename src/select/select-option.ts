@@ -1,11 +1,11 @@
 /**
  *
- * @description Class/Type of option parametr for mill-select
+ * @description Class/Type of option parameter for mill-select
  *
  * @param key This param will be in select.selected and control.value
  * @param K type of key
  *
- * @param value This param will be dispalyed in default header
+ * @param value This param will be displayed in default header
  *
  * @param payload Additional data for option if you need
  * @param P Type of payload

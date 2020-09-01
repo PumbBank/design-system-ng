@@ -4,7 +4,7 @@ import { TableOverviewComponent } from './examples/table-overview/table-overview
 import { IconsModule } from '../icons';
 
 export default {
-  title: 'Компоненти|Data tables',
+  title: 'Компоненти/Data tables',
   parameters: {
     options: { showPanel: true },
   },
