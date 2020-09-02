@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, ValidationErrors, Validators } from '@angular/forms';
 
 @Component({
@@ -26,6 +26,11 @@ export class InputOverviewComponent implements OnInit {
     'При помилках в полях введення (в т.ч. про обов\'язкове поле) – екран проскролюється до самої верхньої помилки.',
     'При відкритті форми – найперше верхнє поле введення, за замовчуванням виявляється у фокусі.'
   ];
+
+  @Input() label: string;
+  @Input() placeholder: string;
+  @Input() hideLabel: boolean;
+  @Input() hidePlaceholder: boolean;
 
   ngOnInit(): void {
     this.errorControl.markAsDirty();

@@ -1,6 +1,6 @@
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { withKnobs } from '@storybook/addon-knobs';
+import { withKnobs, text, boolean } from '@storybook/addon-knobs';
 
 import { NoticeComponent } from '../common/notice/notice.component';
 
@@ -15,7 +15,7 @@ import { MillHintModule } from '../hint/hint.module';
 export default {
   title: 'Компоненти|Inputs',
   parameters: {
-    options: { showPanel: false },
+    options: { showPanel: true },
   },
   decorators: [withKnobs]
 };
@@ -33,8 +33,14 @@ export const component = () => ({
       NoticeComponent
     ]
   },
+  props: {
+    label: text('Label', 'Input label'),
+    placeholder: text('Placeholder', 'Input placeholder'),
+    hideLabel: boolean('Hide labels', false),
+    hidePlaceholder: boolean('Hide placeholders', false)
+  },
   template: `
-    <input-overview></input-overview>
+    <input-overview [label]="label" [placeholder]="placeholder" [hideLabel]="hideLabel" [hidePlaceholder]="hidePlaceholder"></input-overview>
 	`
 });
 

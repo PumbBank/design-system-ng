@@ -12,93 +12,95 @@
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Basic</div>
       <div class="overview__container">
-        <input millInput="text" [formControl]="nameControl" [errors]="nameControl.errors" caption="Enter Name"
-          placeholder="Placeholder">
+        <input millInput="text" [formControl]="nameControl" [errors]="nameControl.errors" [caption]=" hideLabel ? '' : label"
+          [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">With icon</div>
       <div class="overview__container">
         <input icon="user" millInput="text" [formControl]="nameControlWithIcon" [errors]="nameControlWithIcon.errors"
-         caption="Enter Name" placeholder="Placeholder">
+        [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Card number</div>
       <div class="overview__container">
-        <input icon="card" millInput="card" [formControl]="cardControl" [errors]="cardControl.errors"
-          caption="Card number" placeholder="0000 0000 0000 0000">
+        <input icon="card" millInput="card" [formControl]="cardControl" [errors]="cardControl.errors" [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Date</div>
       <div class="overview__container">
-        <input millInput="date" [formControl]="dateControl" [errors]="dateControl.errors" caption="Date"
-          placeholder="дд.мм.рррр">
+        <input millInput="date" [formControl]="dateControl" [errors]="dateControl.errors" [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Digits</div>
       <div class="overview__container">
-        <input millInput="digit" [formControl]="digitControl"
-          [errors]="digitControl.errors" caption="Enter digit" placeholder="1234567890">
+        <input millInput="digit" [formControl]="digitControl" [errors]="digitControl.errors" [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Valid alert</div>
       <div class="overview__container">
         <input millInput="text" [formControl]="validControl" [valid]="'Valid alert'" [errors]="validControl.errors"
-         caption="Enter Name" placeholder="Placeholder">
+        [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Error alert</div>
       <div class="overview__container overview__container_row">
-        <input millInput="text" [formControl]="errorControl" [errors]="errorControl.errors" caption="Enter Name"
-          placeholder="Placeholder">
+        <input millInput="text" [formControl]="errorControl" [errors]="errorControl.errors" [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Info alert</div>
       <div class="overview__container">
-        <input millInput="text" [formControl]="infoControl" [errors]="validControlErrors" caption="Enter Name"
-          placeholder="Placeholder">
+        <input millInput="text" [formControl]="infoControl" [errors]="validControlErrors" [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Disabled</div>
       <div class="overview__container overview__container_row">
-        <input millInput="text" [formControl]="disabledControl" [errors]="disabledControl.errors"
-          caption="Enter Name" placeholder="Placeholder">
+        <input millInput="text" [formControl]="disabledControl" [errors]="disabledControl.errors" [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">With the cleanup button</div>
       <div class="overview__container overview__container_row">
-        <input millInput="text" [cleanup]="true" caption="Enter Name" placeholder="Placeholder">
+        <input millInput="text" [cleanup]="true" [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Phone</div>
       <div class="overview__container overview__container_row">
-        <input millInput="phone" type="tel" icon="phone" inputmode="tel" [formControl]="phoneControl" prefix="+380"
-          caption="Phone number" placeholder="(00) 000-00-00" [errors]="phoneControl.errors">
+        <input millInput="phone" type="tel" icon="phone" inputmode="tel" [formControl]="phoneControl"
+          caption="Phone number" [caption]=" hideLabel ? '' : label"
+          [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Phone (Disabled)</div>
       <div class="overview__container overview__container_row">
-        <input millInput="phone" type="tel" icon="phone" inputmode="tel" [formControl]="disabledControl" prefix="+380"
-          caption="Phone number" placeholder="(00) 000-00-00">
+        <input millInput="phone" type="tel" icon="phone" inputmode="tel" [formControl]="disabledControl"
+        [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
   </div>
 
   <hr class="overview__separator">
 
-  <input-notice
-    [noticeItems]="noticeItems"
-    [noticeSubTitle]="'Важливо враховувати при розробці форм'"
-    [link]="'https://mill.dev-fuib.com/?path=/story/компоненти-inputs--component-form'"
-  ></input-notice>
+  <input-notice [noticeItems]="noticeItems" [noticeSubTitle]="'Важливо враховувати при розробці форм'"
+    [link]="'https://mill.dev-fuib.com/?path=/story/компоненти-inputs--component-form'"></input-notice>
 </div>

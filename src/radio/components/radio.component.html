@@ -1,12 +1,12 @@
 <div class="mill-radio" [class.mill-radio_disabled]="disabled" (click)="onClick($event)" (keydown)="onKeydown($event)"
   [tabIndex]="tabindex">
-  <label class="mill-radio__label" [for]="id" *ngIf="!hideLabel">
+  <label class="mill-radio__label" [for]="id" >
     <input class="mill-radio__input" type="radio"
       [checked]="checked" [disabled]="disabled" [name]="name" [id]="id" [required]="required" [value]="value"
       (change)="onChange($event)">
     <span class="mill-radio__checkmark">
       <span class="icon mill-radio__icon"></span>
     </span>
-    <ng-content></ng-content>
+    <ng-content *ngIf="!hideLabel"></ng-content>
   </label>
 </div>
