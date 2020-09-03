@@ -1,6 +1,6 @@
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { withKnobs, text, boolean } from '@storybook/addon-knobs';
+import { withKnobs, text, boolean, radios } from '@storybook/addon-knobs';
 
 import { NoticeComponent } from '../common/notice/notice.component';
 
@@ -34,13 +34,17 @@ export const component = () => ({
     ]
   },
   props: {
-    label: text('Label', 'Input label'),
-    placeholder: text('Placeholder', 'Input placeholder'),
-    hideLabel: boolean('Hide labels', false),
-    hidePlaceholder: boolean('Hide placeholders', false)
+    label: text('Label text', 'Label'),
+    placeholder: text('Placeholder text', 'Placeholder'),
+    views: radios('Views', {
+      basic: 'basic',
+      placeholder : 'placeholder',
+      label  : 'label ',
+      simple  : 'simple ',  
+    }, 'basic'),
   },
   template: `
-    <input-overview [label]="label" [placeholder]="placeholder" [hideLabel]="hideLabel" [hidePlaceholder]="hidePlaceholder"></input-overview>
+    <input-overview [label]="label" [placeholder]="placeholder" [views]="views"></input-overview>
 	`
 });
 

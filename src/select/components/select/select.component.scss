@@ -37,6 +37,11 @@
       color: $green-50 !important;
     }
   }
+
+  &_active {
+    padding: 0;
+    border: 2px solid #6d6d7a;
+  }
 }
 
 .input-select__enterence {
