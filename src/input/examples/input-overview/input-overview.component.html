@@ -28,7 +28,15 @@
       <div class="overview__label s1">Card number</div>
       <div class="overview__container">
         <input icon="card" millInput="card" [formControl]="cardControl" [errors]="cardControl.errors" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder">
+        [placeholder]="hidePlaceholder ? '' : '0000 0000 0000 0000'">
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Phone number</div>
+      <div class="overview__container overview__container_row">
+        <input millInput="phone" type="tel" icon="phone" inputmode="tel" [formControl]="phoneControl"
+          caption="Phone number" [caption]=" hideLabel ? '' : label"
+          [placeholder]="hidePlaceholder ? '' : '(00) 000-00-00'">
       </div>
     </div>
     <div class="overview__column grid-item-4">
@@ -46,13 +54,15 @@
       </div>
     </div>
     <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Valid alert</div>
-      <div class="overview__container">
-        <input millInput="text" [formControl]="validControl" [valid]="'Valid alert'" [errors]="validControl.errors"
-        [caption]=" hideLabel ? '' : label"
+      <div class="overview__label s1">With cleanup button</div>
+      <div class="overview__container overview__container_row">
+        <input millInput="text" [cleanup]="true" [caption]=" hideLabel ? '' : label"
         [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
+
+    <div></div>
+    
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Error alert</div>
       <div class="overview__container overview__container_row">
@@ -60,6 +70,16 @@
         [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Valid alert</div>
+      <div class="overview__container">
+        <input millInput="text" [formControl]="validControl" [valid]="'Valid alert'" [errors]="validControl.errors"
+        [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder">
+      </div>
+    </div>
+    
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Info alert</div>
       <div class="overview__container">
@@ -71,29 +91,6 @@
       <div class="overview__label s1">Disabled</div>
       <div class="overview__container overview__container_row">
         <input millInput="text" [formControl]="disabledControl" [errors]="disabledControl.errors" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder">
-      </div>
-    </div>
-    <div class="overview__column grid-item-4">
-      <div class="overview__label s1">With the cleanup button</div>
-      <div class="overview__container overview__container_row">
-        <input millInput="text" [cleanup]="true" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder">
-      </div>
-    </div>
-    <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Phone</div>
-      <div class="overview__container overview__container_row">
-        <input millInput="phone" type="tel" icon="phone" inputmode="tel" [formControl]="phoneControl"
-          caption="Phone number" [caption]=" hideLabel ? '' : label"
-          [placeholder]="hidePlaceholder ? '' : placeholder">
-      </div>
-    </div>
-    <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Phone (Disabled)</div>
-      <div class="overview__container overview__container_row">
-        <input millInput="phone" type="tel" icon="phone" inputmode="tel" [formControl]="disabledControl"
-        [caption]=" hideLabel ? '' : label"
         [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>

@@ -1,6 +1,13 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, ValidationErrors, Validators } from '@angular/forms';
 
+export enum InputViews {
+  labelPlaceholder = 'basic',
+  placeholder = 'placeholder',
+  label = 'label ',
+  simple = 'simple ',
+}
+
 @Component({
   selector: 'input-overview',
   templateUrl: './input-overview.component.html',
@@ -27,10 +34,39 @@ export class InputOverviewComponent implements OnInit {
     'При відкритті форми – найперше верхнє поле введення, за замовчуванням виявляється у фокусі.'
   ];
 
+  hideLabel: boolean;
+  hidePlaceholder: boolean;
+
   @Input() label: string;
   @Input() placeholder: string;
-  @Input() hideLabel: boolean;
-  @Input() hidePlaceholder: boolean;
+  @Input() set views(val: InputViews) {
+
+    switch (val) {
+      case InputViews.label:
+        this.hideLabel = false;
+        this.hidePlaceholder = true;
+        break;
+      case InputViews.labelPlaceholder:
+        this.hideLabel = false;
+        this.hidePlaceholder = false;
+        break;
+      case InputViews.placeholder:
+        this.hideLabel = true;
+        this.hidePlaceholder = false;
+        break;
+      case InputViews.simple:
+        this.hideLabel = true;
+        this.hidePlaceholder = true;
+        break;
+      default:
+        this.hideLabel = false;
+        this.hidePlaceholder = false;
+        break;
+    }
+
+  };
+
+
 
   ngOnInit(): void {
     this.errorControl.markAsDirty();
