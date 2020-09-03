@@ -2,12 +2,20 @@
 @import "~@mill/figma/typography";
 @import "~@mill/figma/icons";
 
+$outer_width: 92px;
+$outer_height: 92px;
+
+$inner_width: 42px;
+$inner_height: 42px;
+
+$border_bold: 4px;
+
 /**
   Inner spinner
 */
 @mixin inner-spinner {
-  width: 100px;
-  height: 100px;
+  width: $inner_width;
+  height: $inner_height;
   position: relative;
   animation: inner__sporadic-rotate 5.25s cubic-bezier(0.35, 0, 0.25, 1) infinite;
 
@@ -15,8 +23,6 @@
     position: absolute;
     left: 49px;
     right: 49px;
-    top: 0;
-    bottom: 0;
     border-top: 5px solid;
     box-sizing: border-box;
   }
@@ -25,17 +31,17 @@
   .inner_right {
     position: absolute;
     top: 0;
-    height: 100px;
-    width: 50px;
+    height: $inner_height;
+    width: $inner_width / 2;
     overflow: hidden;
 
     .inner_half-circle {
       position: absolute;
       top: 0;
-      width: 100px;
-      height: 100px;
+      width: $inner_width;
+      height: $inner_height;
       box-sizing: border-box;
-      border: 5px solid $red-50;
+      border: $border_bold solid $red-50;
       border-bottom-color: transparent;
       border-radius: 50%;
     }
@@ -68,18 +74,16 @@
   Outer spinner
 */
 @mixin outer-spinner {
-  width: 150px;
-  height: 150px;
+  width: $outer_width;
+  height: $outer_height;
   position: relative;
   animation: outer__sporadic-rotate 5.25s cubic-bezier(0.35, 0, 0.25, 1) infinite;
 
   .outer_gap {
     position: absolute;
-    left: 74px;
-    right: 74px;
     top: 0;
     bottom: 0;
-    border-top: 5px solid;
+    border-top: 2px solid;
     box-sizing: border-box;
   }
 
@@ -87,17 +91,17 @@
   .outer_right {
     position: absolute;
     top: 0;
-    height: 150px;
-    width: 75px;
+    height: $outer_height;
+    width: $outer_width / 2;
     overflow: hidden;
 
     .outer_half-circle {
       position: absolute;
       top: 0;
-      width: 150px;
-      height: 150px;
+      width: $outer_width;
+      height: $outer_height;
       box-sizing: border-box;
-      border: 5px solid $red-50;
+      border: $border_bold solid $red-50;
       border-bottom-color: transparent;
       border-radius: 50%;
     }
@@ -127,6 +131,12 @@
 }
 
 :host.mill-spinner {
+  .spinner_label {
+    color: $grey-70;
+    top: 100px;
+    position: relative;
+  }
+
   position: relative;
   text-align: center;
   white-space: nowrap;
@@ -135,41 +145,59 @@
   font-weight: 500;
   font-size: 14px;
   line-height: 20px;
+  width: $outer_width;
 
   .spinner-wrapper {
     position: relative;
     width: 100%;
-    min-height: 100px;
-    height: 100px;
+    min-height: $outer_height;
+    height: $outer_height;
   }
 
   .spinner-wrapper .inner__spinner {
     animation: inner-rotate 2s linear infinite;
-    .inner {
-      border: 2px solid $grey-40;
+
+    .inner__spinner__outline {
+      position: absolute;
+      border: 2px solid #b6b6bf;
       border-radius: 50%;
+      height: $inner_height - $border_bold;
+      width: $inner_width - $border_bold;
+    }
+
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    margin-left: -($inner_width / 2);
+    margin-top: -($inner_height / 2);
+
+    .inner {
       @include inner-spinner;
     }
   }
 
   .spinner-wrapper .outer__spinner {
     animation: outer-rotate 2s linear infinite;
-    position: absolute;
-    left: -25px;
-    top: -25px;
-    .outer {
-      border: 2px solid $grey-40;
+
+    .outer__spinner__outline {
+      position: absolute;
+      border: 2px solid #b6b6bf;
       border-radius: 50%;
+      height: $outer_height - $border_bold;
+      width: $outer_width - $border_bold;
+    }
+
+    .outer {
       @include outer-spinner;
     }
   }
 
   @keyframes inner-rotate {
     0% {
-      transform: rotate(0deg) scale(0.5);
+      transform: rotate(0deg);
     }
     100% {
-      transform: rotate(360deg) scale(0.5);
+      transform: rotate(360deg);
     }
   }
 
@@ -220,10 +248,10 @@
 
   @keyframes outer-rotate {
     0% {
-      transform: rotate(0deg) scale(0.5);
+      transform: rotate(0deg);
     }
     100% {
-      transform: rotate(-360deg) scale(0.5);
+      transform: rotate(-360deg);
     }
   }
 
