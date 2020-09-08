@@ -17,6 +17,8 @@ export class TableOverviewComponent {
     this.dataModel.forEach(m => m.filterable = value);
   }
 
+  public columns = ['name', 'age', 'job'];
+
   public data: any[] = [{
     name: 'Jon',
     age: 28,
@@ -114,4 +116,11 @@ export class TableOverviewComponent {
     filterable: true,
     sortable: true,
   }];
+
+  ngOnInit() {
+  }
+
+  onRowSelect(row) {
+    console.log(row);
+  }
 }

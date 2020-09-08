@@ -1,0 +1,35 @@
+<div class="overview">
+  <div class="overview__header">
+    <div class="h4">Data table</div>
+    <div class="overview__links">
+<!--      <a href="" class="overview__link s2"><mill-icon name="lightbulb"></mill-icon>Огляд компонента</a>-->
+      <a href="" class="overview__link s2"><mill-icon name="figma"></mill-icon>Компонент в Figma</a>
+    </div>
+  </div>
+  <div class="overview__content grid">
+    <div class="overview__column grid-item-12">
+      <data-table [dataSource]="dataSource" mill-sort>
+        <ng-container column="name">
+          <mill-header-cell *headerCellDef mill-sort-header>Name</mill-header-cell>
+          <mill-cell *cellDef="let element">{{element.name}}</mill-cell>
+        </ng-container>
+        <ng-container column="age">
+          <mill-header-cell *headerCellDef mill-sort-header>Age</mill-header-cell>
+          <mill-cell *cellDef="let element">{{element.age}}</mill-cell>
+        </ng-container>
+        <ng-container column="job">
+          <mill-header-cell *headerCellDef>Job</mill-header-cell>
+          <mill-cell *cellDef="let element">
+            <mill-badge [color]="element.job === 'Lawyer' ? 'red' : 'green'">{{element.job}}</mill-badge>
+          </mill-cell>
+        </ng-container>
+
+        <mill-header-row *headerRow="columns"></mill-header-row>
+        <mill-row *row="let row; columns: columns"></mill-row>
+      </data-table>
+
+      <mill-paginator [pageSize]="5" [pageSizeOptions]="[5, 10, 20, 50]"></mill-paginator>
+    </div>
+  </div>
+</div>
+
