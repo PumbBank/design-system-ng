@@ -94,6 +94,7 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
       }
       singleFile = null;
       this.filesChanged.emit(this.files);
+      event.currentTarget.value = '';
     }
   }
 

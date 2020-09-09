@@ -8,7 +8,7 @@
                                              index: index}"></ng-template>
   </div>
   <mill-button view="ghost" icon="attach" (click)="chooseFileClick()">{{ actionCaption }}</mill-button>
-  <input #fileInput name="img" type="file" hidden
+  <input #fileInput type="file" hidden
          [accept]="fileAcceptedTypes"
          [multiple]="multiple"
          (change)="onFileLoaded($event)"/>

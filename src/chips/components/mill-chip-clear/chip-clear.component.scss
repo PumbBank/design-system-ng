@@ -11,6 +11,7 @@
   line-height: 20px;
 
   .enabled, .disabled {
+    color: $grey-70;
     display: flex;
     align-items: center;
     left: 283px;
@@ -19,18 +20,18 @@
     bottom: 114px;
     border-radius: 4px;
     margin: 4px;
-    padding: 7px 10px;
+    padding: 4px 10px;
     user-select: none;
     letter-spacing: 0.25px;
   }
 
   .enabled {
     cursor: pointer;
-    border: 2px solid $grey-20;
+    border: 1px solid $grey-30;
 
     &:hover,
     &:focus {
-      background: $grey-10;
+      background: $main-primary-light;
       outline: none;
     }
     &:active {
@@ -41,8 +42,8 @@
 
   .disabled {
     cursor: not-allowed;
-    background: $grey-10;
-    color: $grey-30;
-    border: 2px solid $grey-30;
+    background: #FFFFFF;
+    color: $grey-40;
+    border: 1px solid $grey-40;
   }
 }

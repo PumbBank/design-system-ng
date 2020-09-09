@@ -216,7 +216,7 @@ input::placeholder {
   }
 
   .input__icon {
-    @extend %icon_orange-50; 
+    @extend %icon_orange-50;
   }
 
   .input__control-message {
@@ -243,6 +243,7 @@ input::placeholder {
   padding: 0 0 0 16px;
   & > span {
     @extend %p1;
+    line-height: 23px !important;
     color: $grey-70;
   }
 }
