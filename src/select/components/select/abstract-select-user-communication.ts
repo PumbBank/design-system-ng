@@ -37,7 +37,8 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
     }
   }
 
-  onChevronClick(): void {
+  onChevronClick(e: Event): void {
+    e.stopPropagation();
     if (!this.active$.value) {
       this.onSearchInputFocus();
     } else {
