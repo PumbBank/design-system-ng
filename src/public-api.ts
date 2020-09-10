@@ -17,3 +17,5 @@ export * from './table/index';
 export * from './tabs/index';
 export * from './utils/index';
 export * from './hint/index';
+export * from './chips/index';
+export * from './spinner/index';
