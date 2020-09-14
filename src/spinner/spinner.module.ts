@@ -9,8 +9,7 @@ import { SpinnerOverviewComponent } from './examples/mill-spinner-overview.compo
     SpinnerOverviewComponent,
   ],
   exports: [
-    SpinnerComponent,
-    SpinnerOverviewComponent
+    SpinnerComponent
   ],
   imports: [
     CommonModule,

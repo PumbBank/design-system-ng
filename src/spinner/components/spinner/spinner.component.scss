@@ -148,7 +148,7 @@ $border_bold: 4px;
 
   .spinner-wrapper {
     position: relative;
-    width: 100%;
+    width: $outer_width;
     min-height: $outer_height;
     height: $outer_height;
   }
