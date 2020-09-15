@@ -8,7 +8,7 @@ import {
   EmitInterface,
   FilterInterface,
   PaginatorInterface,
-  SortInterface,
+  SortingInterface,
   TableStyleEnum,
   TableTypeEnum
 } from '../../table';
@@ -43,7 +43,7 @@ export class TableComponent implements OnInit, OnDestroy {
   public fixedHeaderShadow: boolean = false;
   public counterLabel: string;
   public filterSettings: FilterInterface[] = [];
-  public sortSettings: SortInterface = {
+  public sortSettings: SortingInterface = {
     sortColumn: null,
     sortDirection: 'asc'
   };

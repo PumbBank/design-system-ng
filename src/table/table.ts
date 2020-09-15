@@ -26,14 +26,14 @@ export interface PaginatorInterface {
   pages: number;
 }
 
-export interface SortInterface {
+export interface SortingInterface {
   sortDirection: string;
   sortColumn: any;
 }
 
 export interface EmitInterface {
   filter: FilterInterface[];
-  sort: SortInterface;
+  sort: SortingInterface;
   paginator: PaginatorInterface;
 }
 
