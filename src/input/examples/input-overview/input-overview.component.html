@@ -92,6 +92,42 @@
         [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
+
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Textarea</div>
+      <div class="overview__container overview__container_row">
+        <mill-text-area [formControl]="textAreaBasicControl">
+        </mill-text-area>
+      </div>
+    </div>
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Textarea valid alert</div>
+      <div class="overview__container overview__container_row">
+        <mill-text-area [formControl]="textAreaValidControl">
+          <mill-hint hintControl [valid]="true" caption="Valid true"></mill-hint>
+        </mill-text-area>
+      </div>
+    </div>
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Textarea error alert</div>
+      <div class="overview__container overview__container_row">
+        <mill-text-area [formControl]="textAreaErrorControl">
+          <mill-hint hintControl></mill-hint>
+        </mill-text-area>
+      </div>
+    </div>
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Textarea info alert</div>
+      <div class="overview__container overview__container_row">
+        <mill-text-area [formControl]="textAreaInfoControl">
+          <mill-hint caption="Info alert"></mill-hint>
+        </mill-text-area>
+      </div>
+    </div>
   </div>
 
   <hr class="overview__separator">

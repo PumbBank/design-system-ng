@@ -25,6 +25,13 @@ export class InputOverviewComponent implements OnInit {
   infoControl: FormControl = new FormControl('');
   phoneControl: FormControl = new FormControl('');
   disabledControl: FormControl = new FormControl({ value: '', disabled: true });
+
+  textAreaBasicControl: FormControl = new FormControl('');
+  textAreaValidControl: FormControl = new FormControl('');
+  textAreaErrorControl: FormControl = new FormControl('', Validators.required);
+  textAreaInfoControl: FormControl = new FormControl('');
+
+
   validControlErrors: ValidationErrors | null;
   noticeItems: string[] = [
     'Якщо обов\'язкове поле в фокусі, а потім фокус знімається без введення даних – повідомлення про обов\'язкове поле не виводиться.',
@@ -40,7 +47,6 @@ export class InputOverviewComponent implements OnInit {
   @Input() label: string;
   @Input() placeholder: string;
   @Input() set views(val: InputViews) {
-
     switch (val) {
       case InputViews.label:
         this.hideLabel = false;
@@ -70,6 +76,9 @@ export class InputOverviewComponent implements OnInit {
 
   ngOnInit(): void {
     this.errorControl.markAsDirty();
+
+    this.textAreaValidControl.markAsDirty();
+    this.textAreaErrorControl.markAsDirty();
 
     this.validControlErrors = this.validateTaxId();
   }

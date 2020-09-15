@@ -1,0 +1,10 @@
+@import "~@mill/figma/typography";
+@import "~@mill/figma/colors";
+
+.textarea__input {
+  &::placeholder {
+    color: $grey-40;
+  }
+}
+
+

@@ -1,0 +1,15 @@
+<div class="input" [class.input_required]="this.required"
+  [class.input_error]="(dirty && isInvalid) || (submitted && isInvalid)"
+  [class.input_valid]="dirty && !isInvalid && hintComponent.valid">
+  <div class="input__label"> caption </div>
+  <div class="input__body ">
+
+    <div class="input__entrance">
+      <textarea class="input__textarea" placeholder="Placeholder" (input)="onInput($event)">{{ value }}</textarea>
+    </div>
+  </div>
+
+  <div class="input__footer">
+    <ng-content select="mill-hint"></ng-content>
+  </div>
+</div>

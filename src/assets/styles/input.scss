@@ -159,6 +159,9 @@ input::placeholder {
   padding: 10px 16px;
   min-height: 44px;
   color: $grey-70;
+  &::placeholder {
+    color: $grey-40;
+  }
 }
 
 .input__placeholder {

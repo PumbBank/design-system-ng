@@ -1,5 +1,5 @@
 import { Component, Input, OnInit } from '@angular/core';
-import { FormGroup, Validators, FormControl } from '@angular/forms';
+import { Validators, FormControl } from '@angular/forms';
 
 @Component({
   selector: 'app-select-overview',

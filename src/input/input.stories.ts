@@ -11,6 +11,7 @@ import { IconsModule } from '../icons/icons.module';
 import { ButtonModule } from '../button/button.module';
 import { SelectModule } from '../select/select.module';
 import { MillHintModule } from '../hint/hint.module';
+import { TextAreaModule } from '../text-area/text-area.module';
 
 export default {
   title: 'Компоненти|Inputs',
@@ -26,7 +27,9 @@ export const component = () => ({
       ReactiveFormsModule,
       CommonModule,
       InputModule,
-      IconsModule
+      IconsModule,
+      TextAreaModule,
+      MillHintModule
     ],
     declarations: [
       InputOverviewComponent,
