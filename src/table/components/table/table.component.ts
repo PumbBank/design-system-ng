@@ -7,7 +7,7 @@ import {
   DataModelInterface,
   EmitInterface,
   FilterInterface,
-  PaginatorInterface,
+  TablePaginatorInterface,
   SortingInterface,
   TableStyleEnum,
   TableTypeEnum
@@ -33,7 +33,7 @@ export class TableComponent implements OnInit, OnDestroy {
   public tableTypeEnum = TableTypeEnum;
   public groupCheckbox: CheckboxEnum;
   public selected: any[] = [];
-  public paginatorSettings: PaginatorInterface = {
+  public paginatorSettings: TablePaginatorInterface = {
     currentPage: 0,
     offset: 0,
     limit: 0,

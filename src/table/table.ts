@@ -19,7 +19,7 @@ export interface FilterInterface {
   fieldName: string;
 }
 
-export interface PaginatorInterface {
+export interface TablePaginatorInterface {
   currentPage: number;
   offset: number;
   limit: number;
@@ -34,7 +34,7 @@ export interface SortingInterface {
 export interface EmitInterface {
   filter: FilterInterface[];
   sort: SortingInterface;
-  paginator: PaginatorInterface;
+  paginator: TablePaginatorInterface;
 }
 
 export enum RadioEnum {
