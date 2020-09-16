@@ -1,136 +1,147 @@
 @import "~@mill/figma/colors";
 @import "~@mill/figma/typography";
 
-.file-attach__utils__ml-16 {
-  margin-left: 16px !important;
-}
+.file-attach {
+  &__container {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-start;
 
-.file-attach__utils__ml-8 {
-  margin-left: 8px !important;
-}
+    &_flex {
+      display: flex;
+      flex-direction: column;
+    }
 
-.file-attach__utils__flex_row_space {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: space-between;
-}
+    &_grid {
+      display: flex;
+      flex-wrap: wrap;
+    }
 
-.file-attach__utils__flex-start {
-  justify-content: flex-start !important;
-}
+    &_rtl {
+      flex-direction: row-reverse;
+    }
 
-.file-attach__colors__orange {
-  color: $orange-50 !important;
-}
+    &_bottom {
+      flex-direction: column-reverse;
+    }
 
-.file-attach__fonts__p2 {
-  @extend %p2;
-  color: $grey-70;
-}
-
-.file-attach__content {
-  display: flex;
-  flex-direction: row;
-  align-items: baseline;
-  justify-content: flex-start;
-
-  &.rtl {
-    flex-direction: row-reverse;
+    &_ltr & {
+      &_grid {
+        justify-content: flex-end;
+      }
+    }
   }
 
-  &.bottom {
-    flex-direction: column-reverse;
-  }
-}
-
-.file-attach__content_files__flex {
-  display: flex;
-  flex-direction: column;
-}
-
-.file-attach__content_files__grid {
-  display: flex;
-  flex-wrap: wrap;
-  justify-items: flex-start;
-}
-
-.file-attach__content_label {
-  @extend .file-attach__utils__flex_row_space;
-  background: #FFFFFF;
-  border-radius: 8px;
-  padding: 0 4px 0 16px;
-  width: 264px;
-
-  &.ghost-view {
-    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 2px 7px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.2);
-  }
-
-  &.error-state {
+  &__item {
+    width: 264px;
+    background: #ffffff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     padding: 0 4px 0 16px;
-    background: $orange-10;
+
+    &:hover {
+      background: #f5f5fa;
+    }
+
+    &_ghost-view {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 2px 7px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.2);
+    }
+
+    &_error-state {
+      padding: 0 4px 0 16px;
+      background: $orange-10;
+    }
+
+    &_loading-state {
+      padding: 11px 4px 9px 16px;
+    }
+
+    &_ltr {
+      margin: 0 8px 8px 0;
+    }
+
+    &_rtl {
+      margin: 0 0 8px 8px;
+    }
+
+    &_bottom {
+      margin: 8px 0 0 0;
+    }
   }
 
-  &.loading-state {
-    padding: 11px 4px 9px 16px;
+  &__content {
+    display: flex;
+    align-items: center;
+
+    &_flex_row_space {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    &_ml-8 {
+      margin-left: 8px;
+    }
+
+    &_ml-16 {
+      margin-left: 16px;
+    }
   }
 
-  &:hover {
-    background: #F5F5FA;
+  &__icon {
+    &_warning {
+      color: $orange-50;
+    }
   }
 
-  &.ltr {
-    margin: 0 8px 8px 0;
+  &__label {
+    margin-left: 8px;
+
+    &_warning {
+      color: $orange-50;
+    }
   }
 
-  &.rtl {
-    margin: 0 0 8px 8px;
+  &__loader-wrap {
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    position: relative;
+    margin: 0 8px 0 0;
   }
 
-  &.bottom {
-    margin: 8px 0 0 0;
+  &__loader {
+    &::before,
+    &::after {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      border: 2px solid transparent;
+      border-top-color: $red-50;
+      content: "";
+    }
+
+    &::before {
+      z-index: 100;
+      animation: spin 1s infinite;
+    }
+
+    &::after {
+      border: 2px solid #d0d0d9;
+    }
   }
-}
-
-.file-attach__content__loader_wrap {
-  width: 24px;
-  height: 24px;
-  border-radius: 100%;
-  position: relative;
-  margin: 0 8px 0 0;
-}
-
-.file-attach__content__loader:before, .file-attach__content__loader:after {
-  content: "";
-  position: absolute;
-  width: 20px;
-  height: 20px;
-  border-radius: 100%;
-  border: 2px solid transparent;
-  border-top-color: $red-50;
-}
-
-.file-attach__content__loader:before {
-  z-index: 100;
-  animation: spin 1s infinite;
-}
-
-.file-attach__content__loader:after {
-  border: 2px solid #D0D0D9;
 }
 
 @keyframes spin {
-  0%{
-    -webkit-transform: rotate(0deg);
-    -ms-transform: rotate(0deg);
-    -o-transform: rotate(0deg);
+  0% {
     transform: rotate(0deg);
   }
 
-  100%{
-    -webkit-transform: rotate(360deg);
-    -ms-transform: rotate(360deg);
-    -o-transform: rotate(360deg);
+  100% {
     transform: rotate(360deg);
   }
 }

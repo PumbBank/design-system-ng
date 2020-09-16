@@ -13,8 +13,8 @@ export class IntroGuidelineComponent {
   public whatsNew: {title: string, content: string}[];
   buildVersion7: string = '0.7.1';
   buildVersion8: string = '0.8.1';
-  buildVersion9: string = '0.9.6';
-  buildVersion10: string = '0.10.8';
+  buildVersion9: string = '0.9.10';
+  buildVersion10: string = '0.10.13';
 
   private static parseGroups(lines: string[]): {title: string, content: string}[] {
     const isTitle = (text: string) => text.indexOf('####') > -1;
@@ -49,7 +49,7 @@ export class IntroGuidelineComponent {
     }).catch(console.error);
   }
 
-  copyColor(text: string): void {
+  copyVersion(text: string): void {
     const confirmMessage = document.createElement('div');
     const confirmMessageIcon = document.createElement('div');
     const copiedText = `npm i @mill/ng@${text}`;
