@@ -159,6 +159,8 @@ input::placeholder {
   padding: 10px 16px;
   min-height: 44px;
   color: $grey-70;
+  width: 100%;
+  min-width: -webkit-fill-available;
   &::placeholder {
     color: $grey-40;
   }
