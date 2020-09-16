@@ -12,23 +12,22 @@
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Basic</div>
       <div class="overview__container">
-        <input millInput="text" [formControl]="nameControl" [errors]="nameControl.errors" [caption]=" hideLabel ? '' : label"
-          [placeholder]="hidePlaceholder ? '' : placeholder">
+        <input millInput="text" [formControl]="nameControl" [errors]="nameControl.errors"
+          [caption]=" hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">With icon</div>
       <div class="overview__container">
         <input icon="user" millInput="text" [formControl]="nameControlWithIcon" [errors]="nameControlWithIcon.errors"
-        [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder">
+          [caption]=" hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Card number</div>
       <div class="overview__container">
-        <input icon="card" millInput="card" [formControl]="cardControl" [errors]="cardControl.errors" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : '0000 0000 0000 0000'">
+        <input icon="card" millInput="card" [formControl]="cardControl" [errors]="cardControl.errors"
+          [caption]=" hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : '0000 0000 0000 0000'">
       </div>
     </div>
     <div class="overview__column grid-item-4">
@@ -42,22 +41,22 @@
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Date</div>
       <div class="overview__container">
-        <input millInput="date" [formControl]="dateControl" [errors]="dateControl.errors" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder">
+        <input millInput="date" [formControl]="dateControl" [errors]="dateControl.errors"
+          [caption]=" hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Digits</div>
       <div class="overview__container">
-        <input millInput="digit" [formControl]="digitControl" [errors]="digitControl.errors" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder">
+        <input millInput="digit" [formControl]="digitControl" [errors]="digitControl.errors"
+          [caption]=" hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">With cleanup button</div>
       <div class="overview__container overview__container_row">
         <input millInput="text" [cleanup]="true" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder">
+          [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
 
@@ -65,8 +64,8 @@
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Error alert</div>
       <div class="overview__container overview__container_row">
-        <input millInput="text" [formControl]="errorControl" [errors]="errorControl.errors" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder">
+        <input millInput="text" [formControl]="errorControl" [errors]="errorControl.errors"
+          [caption]=" hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
 
@@ -74,22 +73,21 @@
       <div class="overview__label s1">Valid alert</div>
       <div class="overview__container">
         <input millInput="text" [formControl]="validControl" [valid]="'Valid alert'" [errors]="validControl.errors"
-        [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder">
+          [caption]=" hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Info alert</div>
       <div class="overview__container">
-        <input millInput="text" [formControl]="infoControl" [errors]="validControlErrors" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder">
+        <input millInput="text" [formControl]="infoControl" [errors]="validControlErrors"
+          [caption]=" hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Disabled</div>
       <div class="overview__container overview__container_row">
-        <input millInput="text" [formControl]="disabledControl" [errors]="disabledControl.errors" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder">
+        <input millInput="text" [formControl]="disabledControl" [errors]="disabledControl.errors"
+          [caption]=" hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
 
@@ -98,7 +96,7 @@
       <div class="overview__label s1">Textarea</div>
       <div class="overview__container overview__container_row">
         <mill-text-area [formControl]="textAreaBasicControl" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
+          [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
         </mill-text-area>
       </div>
     </div>
@@ -107,7 +105,7 @@
       <div class="overview__label s1">Textarea valid alert</div>
       <div class="overview__container overview__container_row">
         <mill-text-area [formControl]="textAreaValidControl" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
+          [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
           <mill-hint hintControl [valid]="true" caption="Valid true"></mill-hint>
         </mill-text-area>
       </div>
@@ -117,7 +115,7 @@
       <div class="overview__label s1">Textarea error alert</div>
       <div class="overview__container overview__container_row">
         <mill-text-area [formControl]="textAreaErrorControl" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
+          [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
           <mill-hint hintControl></mill-hint>
         </mill-text-area>
       </div>
@@ -127,7 +125,7 @@
       <div class="overview__label s1">Textarea info alert</div>
       <div class="overview__container overview__container_row">
         <mill-text-area [formControl]="textAreaInfoControl" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
+          [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
           <mill-hint caption="Info alert"></mill-hint>
         </mill-text-area>
       </div>
@@ -137,19 +135,11 @@
       <div class="overview__label s1">Textarea disabled</div>
       <div class="overview__container overview__container_row">
         <mill-text-area [formControl]="textAreaInfoControl" [disabled]="true" [caption]=" hideLabel ? '' : label"
-        [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
+          [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
         </mill-text-area>
       </div>
     </div>
 
-    <!-- <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Textarea with resize</div>
-      <div class="overview__container overview__container_row">
-        <mill-text-area [formControl]="textAreaInfoControl" [resize]="resizeTextarea">
-        </mill-text-area>
-      </div>
-    </div> -->
-    
   </div>
 
   <hr class="overview__separator">

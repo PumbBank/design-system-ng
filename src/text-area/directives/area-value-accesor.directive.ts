@@ -17,6 +17,7 @@ export class AreaValueAccesorDirective implements ControlValueAccessor{
   constructor(private textAreaComponent: TextAreaComponent) { 
     textAreaComponent.textAreaValue$.subscribe((value: string) => {
       this.onChangeFn(value); 
+      this.onTouchedFn();
     });
   }
 

@@ -51,7 +51,7 @@ export const component = () => ({
       horizontal: 'horizontal ',
       vertical: 'vertical ',
       inherit: 'inherit'
-    }, 'basic')
+    }, 'none')
   },
 
   template: `
