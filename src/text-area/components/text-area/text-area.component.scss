@@ -1,8 +1,16 @@
 @import "~@mill/figma/typography";
 @import "~@mill/figma/colors";
 
+:host {
+  max-width: 100%;
+}
+
 .input_disabled {
   & textarea {
-    resize: none;
+    resize: none !important;
   }
+}
+
+.input__entrance-maxwidth {
+  max-width: -webkit-fill-available;
 }

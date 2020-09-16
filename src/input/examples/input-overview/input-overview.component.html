@@ -97,7 +97,8 @@
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Textarea</div>
       <div class="overview__container overview__container_row">
-        <mill-text-area [formControl]="textAreaBasicControl">
+        <mill-text-area [formControl]="textAreaBasicControl" [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
         </mill-text-area>
       </div>
     </div>
@@ -105,7 +106,8 @@
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Textarea valid alert</div>
       <div class="overview__container overview__container_row">
-        <mill-text-area [formControl]="textAreaValidControl">
+        <mill-text-area [formControl]="textAreaValidControl" [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
           <mill-hint hintControl [valid]="true" caption="Valid true"></mill-hint>
         </mill-text-area>
       </div>
@@ -114,7 +116,8 @@
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Textarea error alert</div>
       <div class="overview__container overview__container_row">
-        <mill-text-area [formControl]="textAreaErrorControl">
+        <mill-text-area [formControl]="textAreaErrorControl" [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
           <mill-hint hintControl></mill-hint>
         </mill-text-area>
       </div>
@@ -123,7 +126,8 @@
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Textarea info alert</div>
       <div class="overview__container overview__container_row">
-        <mill-text-area [formControl]="textAreaInfoControl">
+        <mill-text-area [formControl]="textAreaInfoControl" [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
           <mill-hint caption="Info alert"></mill-hint>
         </mill-text-area>
       </div>
@@ -132,10 +136,20 @@
     <div class="overview__column grid-item-4">
       <div class="overview__label s1">Textarea disabled</div>
       <div class="overview__container overview__container_row">
-        <mill-text-area [formControl]="textAreaInfoControl" [disabled]="true">
+        <mill-text-area [formControl]="textAreaInfoControl" [disabled]="true" [caption]=" hideLabel ? '' : label"
+        [placeholder]="hidePlaceholder ? '' : placeholder" [resize]="resizeTextarea">
         </mill-text-area>
       </div>
     </div>
+
+    <!-- <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Textarea with resize</div>
+      <div class="overview__container overview__container_row">
+        <mill-text-area [formControl]="textAreaInfoControl" [resize]="resizeTextarea">
+        </mill-text-area>
+      </div>
+    </div> -->
+    
   </div>
 
   <hr class="overview__separator">

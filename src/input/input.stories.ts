@@ -41,13 +41,21 @@ export const component = () => ({
     placeholder: text('Placeholder text', 'Placeholder'),
     views: radios('Views', {
       basic: 'basic',
-      placeholder : 'placeholder',
-      label  : 'label ',
-      simple  : 'simple ',  
+      placeholder: 'placeholder',
+      label: 'label ',
+      simple: 'simple ',
     }, 'basic'),
+    resizeTextarea: radios('Resize textarea', {
+      none: 'none',
+      both: 'both',
+      horizontal: 'horizontal ',
+      vertical: 'vertical ',
+      inherit: 'inherit'
+    }, 'basic')
   },
+
   template: `
-    <input-overview [label]="label" [placeholder]="placeholder" [views]="views"></input-overview>
+    <input-overview [label]="label" [placeholder]="placeholder" [views]="views" [resizeTextarea]="resizeTextarea"></input-overview>
 	`
 });
 

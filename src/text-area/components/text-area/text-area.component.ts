@@ -11,12 +11,11 @@ import { HintComponent } from '../../../hint/components/hint/hint.component';
 export class TextAreaComponent {
   public textAreaValue$ = new BehaviorSubject('');
 
-  @Input() caption: string;
+  @Input() caption: string = '';
   @Input() disabled: boolean;
-  @Input() placeholder: string;
+  @Input() placeholder: string = '';
   @Input() value: string;
-  @Input() errors: ValidationErrors | null = null;
-  @Input() valid: string | boolean = null;
+  @Input() resize: 'none' | 'both' | 'horizontal' | 'vertical' | 'inherit' = 'none';
 
   @ContentChild(HintComponent, {static: false}) hintComponent: HintComponent;
 

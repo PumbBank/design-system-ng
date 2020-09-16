@@ -71,7 +71,7 @@ export class InputOverviewComponent implements OnInit {
     }
 
   };
-
+  @Input() resizeTextarea: 'none' | 'both' | 'horizontal' | 'vertical' | 'inherit';
 
 
   ngOnInit(): void {
