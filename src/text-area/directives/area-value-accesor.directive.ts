@@ -1,4 +1,4 @@
-import { Directive, ElementRef, HostListener, forwardRef, AfterContentInit, AfterViewInit } from '@angular/core';
+import { Directive, forwardRef } from '@angular/core';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 import { TextAreaComponent } from '../components/text-area/text-area.component';
 

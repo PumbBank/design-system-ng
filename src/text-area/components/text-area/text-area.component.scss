@@ -14,3 +14,9 @@
 .input__entrance-maxwidth {
   max-width: -webkit-fill-available;
 }
+
+::-webkit-resizer {
+  background-image: url("../../../assets/images/corner.svg");
+  background-repeat: no-repeat;
+  background-position: bottom 2px right 2px;
+}
