@@ -69,11 +69,9 @@ export const componentForm = () => ({
       ButtonModule,
       SelectModule,
       FormsModule,
-      ReactiveFormsModule,
       MillHintModule
     ],
     declarations: [
-      InputOverviewComponent,
       NoticeComponent,
       InputFormComponent
     ]
