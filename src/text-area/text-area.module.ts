@@ -1,14 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { TextAreaComponent } from './components/text-area/text-area.component';
-import { AreaValueAccesorDirective } from './directives/area-value-accesor.directive';
-
-
+import { AreaValueAccessorDirective } from './directives/area-value-accessor.directive';
 
 @NgModule({
-  declarations: [TextAreaComponent, AreaValueAccesorDirective],
+  declarations: [
+    TextAreaComponent,
+    AreaValueAccessorDirective
+  ],
   imports: [
     CommonModule
-  ], exports: [TextAreaComponent, AreaValueAccesorDirective]
+  ], exports: [
+    TextAreaComponent,
+    AreaValueAccessorDirective
+  ]
 })
+
 export class TextAreaModule { }

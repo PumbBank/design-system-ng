@@ -1,6 +1,6 @@
 import { ReactiveFormsModule, FormsModule } from '@angular/forms';
 import { CommonModule } from '@angular/common';
-import { withKnobs, text, boolean, radios } from '@storybook/addon-knobs';
+import { withKnobs, text, radios } from '@storybook/addon-knobs';
 
 import { NoticeComponent } from '../common/notice/notice.component';
 
@@ -55,7 +55,12 @@ export const component = () => ({
   },
 
   template: `
-    <input-overview [label]="label" [placeholder]="placeholder" [views]="views" [resizeTextarea]="resizeTextarea"></input-overview>
+    <input-overview
+      [label]="label"
+      [placeholder]="placeholder"
+      [views]="views"
+      [resizeTextarea]="resizeTextarea">
+    </input-overview>
 	`
 });
 

@@ -1,4 +1,5 @@
 import { NgModule } from '@angular/core';
+import { FormGroupDirective } from '@angular/forms';
 import { InputDigitDirective } from './directives/input-digit.directive';
 import { InputTextDirective } from './directives/input-text.directive';
 import { InputNumberDirective } from './directives/input-number.derective';
@@ -7,7 +8,6 @@ import { InputMoneyDirective } from './directives/input-money.directive';
 import { InputPhoneDirective } from './directives/input-phone.directive';
 import { InputCardDirective } from './directives/input-card.directive';
 import { IconsModule } from '../icons';
-import { FormGroupDirective } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -17,7 +17,7 @@ import { FormGroupDirective } from '@angular/forms';
     InputDateDirective,
     InputMoneyDirective,
     InputPhoneDirective,
-    InputCardDirective
+    InputCardDirective,
   ],
   imports: [
     IconsModule
@@ -29,7 +29,7 @@ import { FormGroupDirective } from '@angular/forms';
     InputDateDirective,
     InputMoneyDirective,
     InputPhoneDirective,
-    InputCardDirective
+    InputCardDirective,
   ],
   providers: [FormGroupDirective]
 })
