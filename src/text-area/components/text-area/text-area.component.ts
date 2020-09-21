@@ -1,6 +1,6 @@
 import { Component, Input, ElementRef, ContentChild } from '@angular/core';
-import { FormGroupDirective, ValidationErrors } from '@angular/forms';
-import { BehaviorSubject } from 'rxjs';
+import { FormGroupDirective } from '@angular/forms';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { HintComponent } from '../../../hint/components/hint/hint.component';
 
 @Component({
@@ -9,7 +9,7 @@ import { HintComponent } from '../../../hint/components/hint/hint.component';
   styleUrls: ['./text-area.component.scss']
 })
 export class TextAreaComponent {
-  public textAreaValue$ = new BehaviorSubject('');
+  public textAreaValue$: Subject<string> = new BehaviorSubject('');
 
   @Input() caption: string = '';
   @Input() disabled: boolean;
@@ -32,10 +32,10 @@ export class TextAreaComponent {
   }
 
   constructor(private element: ElementRef,
-    public parentForm: FormGroupDirective) {
+              public parentForm: FormGroupDirective) {
   }
 
-  onInput(event: InputEvent): void {    
+  onInput(event: Event): void {
     this.textAreaValue$.next((event.target as HTMLInputElement).value);
   }
 }
