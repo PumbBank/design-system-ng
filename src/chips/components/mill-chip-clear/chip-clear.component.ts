@@ -1,4 +1,4 @@
-import { Component, HostListener, Input } from '@angular/core';
+import { Component, EventEmitter, HostListener, Input, Output } from '@angular/core';
 
 @Component({
   selector: 'mill-chip-clear',
@@ -9,10 +9,10 @@ export class ChipClearComponent {
   public defaultButtonText: string = 'Очистити фільтри';
 
   @Input() disabled: boolean = false;
-  @Input() clear(): void { }
-
+  @Output() clear: EventEmitter<any> = new EventEmitter<any>();
   @HostListener('click', ['$event']) _click(event: MouseEvent): void {
     event.stopPropagation();
+    event.preventDefault();
     this.click();
   }
 
@@ -21,7 +21,7 @@ export class ChipClearComponent {
 
   click(): void {
     if (!this.disabled) {
-      this.clear();
+      this.clear.emit();
     }
   }
 }

@@ -20,10 +20,11 @@ export class ChipComponent {
   @Output() removed: EventEmitter<any> = new EventEmitter<any>();
   @Input() disabled: boolean = false;
 
-  @Input() action(): void {}
+  @Output() action: EventEmitter<any> = new EventEmitter<any>();
 
   @HostListener('click', ['$event']) _click(event: MouseEvent): void {
     event.stopPropagation();
+    event.preventDefault();
     this.click();
   }
 
@@ -32,7 +33,7 @@ export class ChipComponent {
 
   click(): void {
     if (!this.disabled) {
-      this.action();
+      this.action.emit({chip: this});
     }
   }
 
