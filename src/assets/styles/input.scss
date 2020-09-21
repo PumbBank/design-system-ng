@@ -34,8 +34,12 @@
       color: $grey-50;
     }
 
+    textarea::placeholder {
+      color: $grey-50;
+    }
+
     .input__icon {
-      background: $grey-50 ;
+      background: $grey-50;
     }
 
     .chevron__icon {
@@ -49,7 +53,7 @@
     .input__body {
       & .icon_circle-close {
         display: block;
-        background: $grey-40 ;
+        background: $grey-40;
       }
 
       & .input__icon:not(.icon_circle-close) {
@@ -62,7 +66,7 @@
 .input__input-cleanup {
   &:focus + .icon_circle-close {
     display: block;
-    background: $grey-40 ;
+    background: $grey-40;
   }
 
   &:focus ~ .input__icon:not(.icon_circle-close) {
@@ -164,6 +168,10 @@ input::placeholder {
   &::placeholder {
     color: $grey-40;
   }
+
+  // .input:not(.input_disabled):hover input::placeholder {
+  //   color: #93939e;
+  // }
 }
 
 .input__placeholder {
@@ -206,7 +214,7 @@ input::placeholder {
   }
 
   .input__prefix > span {
-    color: $grey-40
+    color: $grey-40;
   }
 
   input::placeholder {
