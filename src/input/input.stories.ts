@@ -17,6 +17,7 @@ export default {
   title: 'Компоненти/Inputs',
   parameters: {
     options: { showPanel: true },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };
@@ -86,6 +87,4 @@ export const componentForm = () => ({
 	`
 });
 
-componentForm.story = {
-  name: 'Form example'
-};
+componentForm.storyName = 'Form example';

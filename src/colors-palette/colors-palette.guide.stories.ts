@@ -6,6 +6,7 @@ export default {
   title: 'Гайдлайни/Кольори',
   parameters: {
     options: { showPanel: false },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };
@@ -22,6 +23,4 @@ export const component = () => ({
   `
 });
 
-component.story = {
-  name: 'Огляд'
-};
+component.storyName = 'Огляд';

@@ -7,6 +7,7 @@ export default {
   title: 'Компоненти/Switchers',
   parameters: {
     options: { showPanel: false },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

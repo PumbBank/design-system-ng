@@ -12,9 +12,9 @@ $card-border-width: 1px;
 }
 
 .mill-intro {
-  font-family: "Gilroy", sans-serif;
+  font-family: $gilroy-500-medium;
   color: $grey-70;
-  padding-top: 12px;
+  padding-top: 10px;
   padding-bottom: 56px;
 
   &__container {
@@ -24,40 +24,63 @@ $card-border-width: 1px;
     justify-self: center;
   }
 
-  &__version-list {
+  &__top-bar {
     width: 100%;
+    border-bottom: 1px solid $grey-20;
+    margin-bottom: 56px;
+    padding-top: 10px;
+    padding-bottom: 20px;
+  }
+
+  &__top-bar-container {
+    max-width: 712px;
+    display: flex;
+    grid-column-start: 2;
+    grid-column-end: 12;
+  }
+
+  &__version-list {
+    max-width: 390px;
     display: flex;
     flex-wrap: wrap;
-    margin-bottom: 36px;
+  }
+
+  &__all-versions-button {
+    display: flex;
+    align-items: center;
+    margin-left: auto;
+  }
+
+  &__all-versions-label {
+    margin-left: 10px;
   }
 
   &__date {
     color: $grey-50;
-    margin-left: 5px;
     transition: color 0.2s linear;
   }
 
-  &__angular-version {
-    white-space: nowrap;
-  }
-
   &__version-item {
-    width: 25%;
-    min-width: 175px;
+    min-width: 180px;
     border-right: 1px solid $grey-30;
     box-sizing: border-box;
     cursor: pointer;
-    padding: 0 8px;
+    margin-bottom: 5px;
+    padding: 0 15px;
     transition:
       transform 0.3s linear,
       text-shadow 0.3s linear;
-    text-align: center;
 
-    &:last-child {
+    &:nth-child(even) {
       border-right: none;
     }
 
     &:hover {
+      .mill-intro__date,
+      .mill-intro__version {
+        text-decoration: underline;
+      }
+
       .mill-intro__date {
         color: $grey-70;
       }
@@ -276,6 +299,7 @@ $card-border-width: 1px;
   }
 
   &__team-logo {
+    min-width: 80px;
     width: 80px;
     height: 80px;
     padding-right: 100px;

@@ -7,6 +7,7 @@ export default {
   title: 'Компоненти/Sliders',
   parameters: {
     options: { showPanel: false },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

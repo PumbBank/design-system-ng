@@ -16,6 +16,7 @@ export default {
   title: 'Компоненти/Search input',
   parameters: {
     options: { showPanel: false },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };
