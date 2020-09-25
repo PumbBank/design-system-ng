@@ -14,7 +14,7 @@ import { MillHintModule } from '../hint/hint.module';
 import { TextAreaModule } from '../text-area/text-area.module';
 
 export default {
-  title: 'Компоненти/Inputs',
+  title: 'Компоненти|Inputs',
   parameters: {
     options: { showPanel: true },
   },

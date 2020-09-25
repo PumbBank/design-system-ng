@@ -3,7 +3,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarModule } from './sidebar.module';
 
 export default {
-  title: 'Компоненти/Sidebars',
+  title: 'Компоненти|Sidebars',
   parameters: {
     options: { showPanel: false },
   },
@@ -54,16 +54,16 @@ export const component = () => ({
               align-items: center;
               padding-left: 40px;
               color: whitesmoke;">
-
+              
               One of the primary....
 
             </div>
           </nav-content-head>
-
+          
           <div style="padding: 24px;" class="p2">
             One of the primary quality-of-life features of Microsoft Windows 10 is the Action Center, which will, among other things, notify users when new email arrives, systems or drivers need updating, and malicious malware and other threats have been detected. Depending on how you set it up, the Action Center also provides easy access to several key and often accessed configuration settings. But not everyone is enamored with the "benefits" of the Windows 10 Action Center.
           </div>
-
+          
         </nav-content>
       </mill-sidebar>`,
 });

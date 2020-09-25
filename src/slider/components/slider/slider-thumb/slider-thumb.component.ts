@@ -1,8 +1,6 @@
 import { Component, EventEmitter, HostBinding, HostListener, Input, Output } from '@angular/core';
 import { EventOutputInterface, SliderConfigInterface, ThumbNameEnum } from '../../../slider';
 
-type SliderConfigInterfaceType = SliderConfigInterface;
-
 @Component({
   selector: 'slider-thumb',
   templateUrl: './slider-thumb.component.html',
@@ -14,7 +12,7 @@ export class SliderThumbComponent {
   @Input() thumbName: ThumbNameEnum;
 
   /** Slider config */
-  @Input() config: SliderConfigInterfaceType;
+  @Input() config: SliderConfigInterface;
 
   /** Real value for view */
   @Input()

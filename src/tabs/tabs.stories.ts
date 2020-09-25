@@ -4,7 +4,7 @@ import { TabPageComponent } from './examples/tabs-page/tabs-page.component';
 import { IconsModule } from '../icons';
 
 export default {
-  title: 'Компоненти/Tabs',
+  title: 'Компоненти|Tabs',
   parameters: {
     options: { showPanel: false },
   },

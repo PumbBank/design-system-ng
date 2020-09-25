@@ -4,8 +4,6 @@ import { BehaviorSubject, Subject } from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
 import { takeUntil } from 'rxjs/operators';
 
-type ValidationErrorsType = ValidationErrors;
-
 export type CleanFunction = (inputValue: any) => string;
 
 const DEFAULT_CLEAN_FUNCTION = (inputValue: any): string => inputValue;
@@ -34,7 +32,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
   protected cleanFunction: CleanFunction = DEFAULT_CLEAN_FUNCTION;
 
-  @Input() errors: ValidationErrorsType | null = null;
+  @Input() errors: ValidationErrors | null = null;
   @Input() valid: string | boolean = null;
   @Input() caption: string = '';
   @Input() prefix: string;
@@ -221,14 +219,12 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   }
 
   private onceErrorsUpdateText() {
-    let flag = false;
-
+    let flag: boolean = false;
     return () => {
-      if (!flag) { this.errorsUpdateText(); }
-
+      if (!flag) this.errorsUpdateText();
       flag = true;
     };
-  }
+  };
 
 
   private watchValidationMessageChanges(): void {

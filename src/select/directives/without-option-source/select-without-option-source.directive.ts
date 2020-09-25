@@ -1,21 +1,19 @@
-import { BehaviorSubject } from 'rxjs';
+import { BehaviorSubject, Subject } from 'rxjs';
 import { Directive, AfterContentInit, forwardRef } from '@angular/core';
-import { OPTION_REGISTRAR_KEY, MillOptionRegistrar } from './option-registrator';
+import { MillOptionRegistrator, OPTION_REGISTRATOR_KEY } from './option-registrator';
 import { filter, map } from 'rxjs/operators';
 import { SelectComponent } from '../../components/select/select.component';
 import { MillSelectOption } from '../../select-option';
 import { InactiveBodyMode } from '../../components/select/abstract-select-state';
 
-type MillOptionRegistrarType = MillOptionRegistrar;
-
 @Directive({
   selector: 'mill-select:not([optionSource])',
   providers: [{
-    provide: OPTION_REGISTRAR_KEY,
+    provide: OPTION_REGISTRATOR_KEY,
     useExisting: forwardRef(() => SelectWithoutOptionSourceDirective)
   }]
 })
-export class SelectWithoutOptionSourceDirective<K = any, P = any> implements MillOptionRegistrarType, AfterContentInit {
+export class SelectWithoutOptionSourceDirective<K = any, P = any> implements MillOptionRegistrator, AfterContentInit {
   private initSubject: BehaviorSubject<boolean> = new BehaviorSubject<boolean>(false);
   private options: Map<K, MillSelectOption<K, P>> = new Map<K, MillSelectOption<K, P>>();
 
@@ -30,7 +28,7 @@ export class SelectWithoutOptionSourceDirective<K = any, P = any> implements Mil
     this.initSubject.next(true);
   }
 
-  registeredOption(option: MillSelectOption<K, P>): void {
+  registrateOption(option: MillSelectOption<K, P>): void {
     if (this.options.has(option.key)) {
       throw new Error(`[MillSelectWithoutOptionSourceDirective] Duplicate registration option: ${JSON.stringify(option)}`);
     }
@@ -38,7 +36,7 @@ export class SelectWithoutOptionSourceDirective<K = any, P = any> implements Mil
     this.onchangesCallback();
   }
 
-  unregisteredOption(option: MillSelectOption<K, P>): void {
+  unregistrateOption(option: MillSelectOption<K, P>): void {
     if (!this.options.has(option.key)) {
       throw new Error(`[MillSelectWithoutOptionSourceDirective] Try unregistrate unregistrated option: ${JSON.stringify(option)}`);
     }
