@@ -9,7 +9,6 @@ export default {
   title: 'Компоненти/Dropdowns',
   parameters: {
     options: { showPanel: false },
-    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

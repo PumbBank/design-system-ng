@@ -7,7 +7,6 @@ export default {
   title: 'Компоненти/Spinner',
   parameters: {
     options: {showPanel: true},
-    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

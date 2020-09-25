@@ -6,7 +6,6 @@ export default {
   title: 'Гайдлайни/Типографiка',
   parameters: {
     options: { showPanel: false },
-    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };
@@ -23,4 +22,6 @@ export const component = () => ({
   `
 });
 
-component.storyName = 'Огляд';
+component.story = {
+  name: 'Огляд'
+};

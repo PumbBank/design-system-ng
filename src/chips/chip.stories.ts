@@ -11,7 +11,6 @@ export default {
   title: 'Компоненти/Chips',
   parameters: {
     options: {showPanel: true},
-    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

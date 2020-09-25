@@ -12,7 +12,6 @@ export default {
   title: 'Компоненти/Radio button',
   parameters: {
     options: { showPanel: true },
-    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

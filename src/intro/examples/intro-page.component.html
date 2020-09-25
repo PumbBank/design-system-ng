@@ -1,31 +1,20 @@
 <div class="grid overview__block mill-intro">
-  <div class="grid grid-item-12 mill-intro__top-bar">
-    <div class="grid-item-12 mill-intro__top-bar-container p3">
-      <div class="mill-intro__version-list">
-        <div class="mill-intro__version-item" (click)="copyVersion(buildVersion7)">
-          <span class="mill-intro__version">v {{buildVersion7}}&nbsp;&nbsp;</span>
-          <span class="mill-intro__date">13.08.20 Angular 7</span>
-        </div>
-        <div class="mill-intro__version-item" (click)="copyVersion(buildVersion8)">
-          <span class="mill-intro__version">v {{buildVersion8}}&nbsp;&nbsp;</span>
-          <span class="mill-intro__date">13.08.20 Angular 8</span>
-        </div>
-        <div class="mill-intro__version-item" (click)="copyVersion(buildVersion9)">
-          <span class="mill-intro__version">v {{buildVersion9}}&nbsp;&nbsp;</span>
-          <span class="mill-intro__date">23.09.20 Angular 9</span>
-        </div>
-        <div class="mill-intro__version-item" (click)="copyVersion(buildVersion10)">
-          <span class="mill-intro__version">v {{buildVersion10}}&nbsp;&nbsp;</span>
-          <span class="mill-intro__date">23.09.20 Angular 10</span>
-        </div>
-      </div>
-
-      <div class="mill-intro__all-versions-button">
-        <svg class="mill-intro__all-versions-icon" width="20" height="20" viewBox="0 0 20 20" xmlns="http://www.w3.org/2000/svg">
-          <path fill-rule="evenodd" clip-rule="evenodd" d="M20 10C20 15.5228 15.5228 20 10 20C4.47715 20 0 15.5228 0 10C0 4.47715 4.47715 0 10 0C15.5228 0 20 4.47715 20 10ZM18 10C18 14.4183 14.4183 18 10 18C5.58172 18 2 14.4183 2 10C2 5.58172 5.58172 2 10 2C14.4183 2 18 5.58172 18 10ZM9 10C9 10.39 9.22327 10.7279 9.54897 10.8928L12.9697 12.8677C13.448 13.1439 14.0596 12.98 14.3358 12.5017C14.6119 12.0234 14.448 11.4118 13.9697 11.1357L11 9.4211V5C11 4.44772 10.5523 4 10 4C9.44771 4 9 4.44772 9 5V10Z" fill="#F91F2B"/>
-        </svg>
-        <div class="mill-intro__all-versions-label s2">Історія версій</div>
-      </div>
+  <div class="grid-item-12 mill-intro__container mill-intro__version-list p3">
+    <div class="mill-intro__version-item" (click)="copyVersion(buildVersion7)">
+      <span class="mill-intro__version">v {{buildVersion7}}</span>
+      <span class="mill-intro__date">13.08.20 <span class="mill-intro__angular-version">Angular 7</span></span>
+    </div>
+    <div class="mill-intro__version-item" (click)="copyVersion(buildVersion8)">
+      <span class="mill-intro__version">v {{buildVersion8}}</span>
+      <span class="mill-intro__date">13.08.20 <span class="mill-intro__angular-version">Angular 8</span></span>
+    </div>
+    <div class="mill-intro__version-item" (click)="copyVersion(buildVersion9)">
+      <span class="mill-intro__version">v {{buildVersion9}}</span>
+      <span class="mill-intro__date">15.09.20 <span class="mill-intro__angular-version">Angular 9</span></span>
+    </div>
+    <div class="mill-intro__version-item" (click)="copyVersion(buildVersion10)">
+      <span class="mill-intro__version">v {{buildVersion10}}</span>
+      <span class="mill-intro__date">15.09.20 <span class="mill-intro__angular-version">Angular 10</span></span>
     </div>
   </div>
 
@@ -1155,8 +1144,8 @@ s-16.4-49.9-31.4-66.8c3.8-1,16.1-4.2,16.1-4.2l13.5-41.8C123.9,171.2,119.4,169.6,
     <div class="mill-intro__divider mill-intro__divider_top"></div>
 
     <div class="mill-intro__description p1">
-      Дизайн-система - це інструмент розробки, цілісна візуальна мова і її технічне відображення у вигляді бібліотеки
-      компонентів в коді Angular. Mill мінімізує рутину і дозволяє зосередитися на дійсно важливих речах.
+      Дизайн-система - це інструмент розробки, цілісний візуальний мову і його технічне відображення у вигляді
+      бібліотеки компонентів в коді Angular. Mill мінімізує рутину і дозволяє зосередитися на дійсно важливих речах.
       Це не UI-Kit, Брендбук або CSS-фреймворк окремо, це комплексне рішення по роботі з інтерфейсами цифрових
       продуктів, де архітектура, інструменти та технології підбираються відповідно до завдань, які повинна вирішувати
       система.
@@ -1847,6 +1836,21 @@ s-16.4-49.9-31.4-66.8c3.8-1,16.1-4.2,16.1-4.2l13.5-41.8C123.9,171.2,119.4,169.6,
   </div>
 
   <div class="grid-item-12 mill-intro__container">
+    <div class="mill-intro__history">
+      <div class="mill-intro__history-title h4">Що нового?</div>
+
+      <ng-container *ngFor="let item of whatsNew">
+        <div class="mill-intro__history-item">
+          <div class="mill-intro__history-date overline">{{ item?.title }}</div>
+
+          <div class="mill-intro__history-text p1">{{ item?.content }}</div>
+        </div>
+      </ng-container>
+
+    </div>
+
+    <div class="mill-intro__divider mill-intro__divider_middle"></div>
+
     <div class="mill-intro__team">
       <div class="mill-intro__team-title h4">Команда розробки</div>
 
@@ -1870,7 +1874,7 @@ s-16.4-49.9-31.4-66.8c3.8-1,16.1-4.2,16.1-4.2l13.5-41.8C123.9,171.2,119.4,169.6,
           <div class="mill-intro__team-item">
             <div class="mill-intro__team-name s1">Вальдемар Костенко</div>
 
-            <div class="mill-intro__team-position p2">Frontend Engineer</div>
+            <div class="mill-intro__team-position p2">Frontend engineer</div>
 
             <a class="mill-intro__team-email p2" href="mailto:volodymyr.kostenko@fuib.com" title="volodymyr.kostenko@fuib.com">volodymyr.kostenko@fuib.com</a>
           </div>
@@ -1878,7 +1882,7 @@ s-16.4-49.9-31.4-66.8c3.8-1,16.1-4.2,16.1-4.2l13.5-41.8C123.9,171.2,119.4,169.6,
           <div class="mill-intro__team-item">
             <div class="mill-intro__team-name s1">Денис Забавський</div>
 
-            <div class="mill-intro__team-position p2">Frontend Engineer</div>
+            <div class="mill-intro__team-position p2">Frontend Developer</div>
 
             <a class="mill-intro__team-email p2" href="mailto:denis.zabavskyy@fuib.com" title="denis.zabavskyy@fuib.com">denis.zabavskyy@fuib.com</a>
           </div>
@@ -1889,22 +1893,6 @@ s-16.4-49.9-31.4-66.8c3.8-1,16.1-4.2,16.1-4.2l13.5-41.8C123.9,171.2,119.4,169.6,
             <div class="mill-intro__team-position p2">Angular Developer</div>
 
             <a class="mill-intro__team-email p2" href="mailto:dmytro.avdeenko@fuib.com" title="dmytro.avdeenko@fuib.com">dmytro.avdeenko@fuib.com</a>
-          </div>
-
-          <div class="mill-intro__team-item">
-            <div class="mill-intro__team-name s1">Ігор Блажеєвський</div>
-
-            <div class="mill-intro__team-position p2">Frontend Developer</div>
-
-            <a class="mill-intro__team-email p2" href="mailto:igor.blazgeevskyy@fuib.com" title="igor.blazgeevskyy@fuib.com">igor.blazgeevskyy@fuib.com</a>
-          </div>
-
-          <div class="mill-intro__team-item">
-            <div class="mill-intro__team-name s1">Слава Попенко</div>
-
-            <div class="mill-intro__team-position p2">Angular Developer</div>
-
-            <a class="mill-intro__team-email p2" href="mailto:vyacheslav.popenko@fuib.com" title="vyacheslav.popenko@fuib.com">vyacheslav.popenko@fuib.com</a>
           </div>
         </div>
       </div>

@@ -6,8 +6,8 @@ export default {
   title: 'Гайдлайни/Intro',
   parameters: {
     options: { showPanel: false },
-    layout: 'fullscreen'
-  }
+  },
+  decorators: [withKnobs]
 };
 
 export const component = () => ({
@@ -24,4 +24,8 @@ export const component = () => ({
   `
 });
 
-component.storyName = 'Дизайн Система';
+// component.story = {
+//   name: 'Огляд'
+// };
+
+component.storyName = 'Огляд';

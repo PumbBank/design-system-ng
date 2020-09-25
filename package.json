@@ -1,6 +1,6 @@
 {
   "name": "@mill/ng",
-  "version": "0.9.13",
+  "version": "0.9.10",
   "scripts": {
     "start": "start-storybook -p 6006 -s ./.storybook/favicon && npm run lint",
     "build": "npm run build:clear && npm run build:package && npm run build:storybook",
@@ -38,6 +38,7 @@
     "@storybook/addon-knobs": "6.0.21",
     "@storybook/addon-links": "6.0.21",
     "@storybook/addon-notes": "5.3.21",
+    "@storybook/addon-options": "5.3.21",
     "@storybook/addon-storysource": "6.0.21",
     "@storybook/addons": "6.0.21",
     "@storybook/angular": "6.0.21",

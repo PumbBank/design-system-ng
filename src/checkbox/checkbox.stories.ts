@@ -11,7 +11,6 @@ export default {
   title: 'Компоненти/Checkbox',
   parameters: {
     options: { showPanel: true },
-    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

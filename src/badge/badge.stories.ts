@@ -7,7 +7,6 @@ export default {
   title: 'Компоненти/Badges',
   parameters: {
     options: { showPanel: false },
-    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

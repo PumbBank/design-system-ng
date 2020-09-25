@@ -8,7 +8,6 @@ export default {
   title: 'Компоненти/File attach',
   parameters: {
     options: {showPanel: true},
-    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };
