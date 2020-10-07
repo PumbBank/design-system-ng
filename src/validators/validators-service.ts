@@ -12,7 +12,11 @@ const CODE_LENGTHS = {
   TL: 23, UA: 29, VA: 22, VG: 24, XK: 20
 };
 
-export function validIBAN(control: AbstractControl): ValidationErrors | null {
+export class ValidatorService {
+  static validIBAN = validIBANfn;
+}
+
+function validIBANfn(control: AbstractControl): ValidationErrors | null {
   if (!control) {
     return;
   }

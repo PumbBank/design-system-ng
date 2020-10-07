@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, ValidationErrors, Validators } from '@angular/forms';
-import { validIBAN } from 'src/validators/validators';
+import { ValidatorService } from '../../../validators/validators-service';
 
 export enum InputViews {
   labelPlaceholder = 'basic',
@@ -20,7 +20,7 @@ export class InputOverviewComponent implements OnInit {
   nameControlWithIcon: FormControl = new FormControl('');
   dateControl: FormControl = new FormControl('');
   cardControl: FormControl = new FormControl('');
-  ibanControl: FormControl = new FormControl('', validIBAN);
+  ibanControl: FormControl = new FormControl('', ValidatorService.validIBAN);
   digitControl: FormControl = new FormControl('');
   validControl: FormControl = new FormControl('');
   errorControl: FormControl = new FormControl('', (v) =>
