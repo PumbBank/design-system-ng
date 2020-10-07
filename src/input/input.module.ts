@@ -8,6 +8,7 @@ import { InputMoneyDirective } from './directives/input-money.directive';
 import { InputPhoneDirective } from './directives/input-phone.directive';
 import { InputCardDirective } from './directives/input-card.directive';
 import { IconsModule } from '../icons';
+import { InputIbanDirective } from './directives/input-iban.directive';
 
 @NgModule({
   declarations: [
@@ -18,6 +19,7 @@ import { IconsModule } from '../icons';
     InputMoneyDirective,
     InputPhoneDirective,
     InputCardDirective,
+    InputIbanDirective,
   ],
   imports: [
     IconsModule
@@ -30,6 +32,7 @@ import { IconsModule } from '../icons';
     InputMoneyDirective,
     InputPhoneDirective,
     InputCardDirective,
+    InputIbanDirective,
   ],
   providers: [FormGroupDirective]
 })

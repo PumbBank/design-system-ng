@@ -31,6 +31,13 @@
       </div>
     </div>
     <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Iban</div>
+      <div class="overview__container">
+        <input millInput="iban" [formControl]="ibanControl" [errors]="ibanControl.errors"
+          [caption]="hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : 'UA NN XXXXXX XXXXXXXXXXXXXXXXXXX'">
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
       <div class="overview__label s1">Phone number</div>
       <div class="overview__container overview__container_row">
         <input millInput="phone" type="tel" icon="phone" inputmode="tel" prefix="+380" [formControl]="phoneControl"
