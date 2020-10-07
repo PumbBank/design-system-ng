@@ -14,6 +14,7 @@ const CODE_LENGTHS = {
 
 export class ValidatorService {
   static validIBAN = validIBANfn;
+  static cardValidator = cardValidatorfn;
 }
 
 function validIBANfn(control: AbstractControl): ValidationErrors | null {
@@ -66,3 +67,33 @@ function mod97(string) {
 
 //   return result;
 // }
+
+function cardValidatorfn(control: AbstractControl): ValidationErrors | null {
+  if (!control) {
+    return;
+  }
+
+  return checkCard(control.value) ? null : { errorMessage: 'Невірний формат' };
+}
+
+function checkCard(input: string | number): boolean {
+  const arr = [];
+  const cardNumber = input.toString();
+  for (let i = 0; i < cardNumber.length; i++) {
+    if (i % 2 === 0) {
+      const m = parseInt(cardNumber[i], 10) * 2;
+      if (m > 9) {
+        arr.push(m - 9);
+      } else {
+        arr.push(m);
+      }
+    } else {
+      const n = parseInt(cardNumber[i], 10);
+      arr.push(n);
+    }
+  }
+  const summ = arr.reduce((a: number, b: number) => {
+    return a + b;
+  });
+  return Boolean(!(summ % 10));
+}
