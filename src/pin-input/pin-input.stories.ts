@@ -8,6 +8,7 @@ export default {
   title: 'Компоненти/Pin',
   parameters: {
     options: { showPanel: false },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

@@ -6,6 +6,7 @@ export default {
   title: 'Компоненти/Sidebars',
   parameters: {
     options: { showPanel: false },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

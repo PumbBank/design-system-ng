@@ -7,6 +7,7 @@ export default {
   title: 'Компоненти/Data tables',
   parameters: {
     options: { showPanel: true },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };
