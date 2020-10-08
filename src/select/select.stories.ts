@@ -6,7 +6,7 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { IconsModule } from '../icons/icons.module';
 
 export default {
-  title: 'Компоненти|Dropdowns',
+  title: 'Компоненти/Dropdowns',
   parameters: {
     options: { showPanel: false },
   },

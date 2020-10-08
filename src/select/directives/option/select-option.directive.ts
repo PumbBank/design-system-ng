@@ -1,27 +1,38 @@
 import { Inject, Input, OnInit, OnDestroy, Directive } from '@angular/core';
 import { MillSelectOption } from '../../select-option';
-import { OPTION_REGISTRATOR_KEY, MillOptionRegistrator } from '../without-option-source/option-registrator';
+import { OPTION_REGISTRAR_KEY, MillOptionRegistrar } from '../..';
+
+// Issue with using exported interface without module
+// https://github.com/angular/angular-cli/issues/2034#issuecomment-317270354
+type MillOptionRegistrarType = MillOptionRegistrar;
 
 @Directive({
   // tslint:disable-next-line:component-selector
   selector: '[millSelectOption]',
 })
-export class SelectOptionDirective<K = any> implements OnDestroy, OnInit {
-  option: MillSelectOption<K>;
+
+// @dynamic
+export class SelectOptionDirective<K = any, P = any> implements MillOptionRegistrarType, OnDestroy, OnInit {
+  option: MillSelectOption<K, P>;
 
   @Input() key: K;
   @Input() value: string;
+  @Inject(OPTION_REGISTRAR_KEY) private optionRegistrar: MillOptionRegistrarType;
 
-  constructor(
-    @Inject(OPTION_REGISTRATOR_KEY) private optionRegistrator: MillOptionRegistrator
-  ) { }
+  constructor() {}
 
   ngOnInit(): void {
     this.option = new MillSelectOption(this.key, this.value);
-    this.optionRegistrator.registrateOption(this.option);
+    this.optionRegistrar.registeredOption(this.option);
   }
 
   ngOnDestroy(): void {
-    this.optionRegistrator.unregistrateOption(this.option);
+    this.optionRegistrar.unregisteredOption(this.option);
+  }
+
+  registeredOption(): void {
+  }
+
+  unregisteredOption(): void {
   }
 }

@@ -1,5 +1,4 @@
 import { configure, addParameters } from '@storybook/angular';
-import fuibTheme from './fuib.theme';
 
 // storySort method was updated with help of this React Storybook PR
 // https://github.com/storybookjs/storybook/pull/9188
@@ -30,8 +29,8 @@ const storySort = (options) => (a, b) => {
   let order = options.order || [];
 
   // Examine each part of the story kind in turn.
-  const storyKindA = a[1].kind.split('|');
-  const storyKindB = b[1].kind.split('|');
+  const storyKindA = a[1].kind.split('/');
+  const storyKindB = b[1].kind.split('/');
   let depth = 0;
   while (storyKindA[depth] || storyKindB[depth]) {
     // Stories with a shorter depth should go first.
@@ -91,10 +90,9 @@ const storySort = (options) => (a, b) => {
 
 addParameters({
   options: {
-    theme: fuibTheme,
     storySort: storySort(headers)
   }
 });
 
 // automatically import all files ending in *.stories.ts
-configure(require.context('../src/', true, /\.stories\.ts$/), module);
+// configure(require.context('../src/', true, /\.stories\.ts$/), module);

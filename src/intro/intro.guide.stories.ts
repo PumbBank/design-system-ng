@@ -3,7 +3,7 @@ import { IntroGuidelineComponent } from './examples/intro-page.component';
 import { HttpClientModule } from '@angular/common/http';
 
 export default {
-  title: 'Гайдлайни|Intro',
+  title: 'Гайдлайни/Intro',
   parameters: {
     options: { showPanel: false },
   },
@@ -24,6 +24,8 @@ export const component = () => ({
   `
 });
 
-component.story = {
-  name: 'Огляд'
-};
+// component.story = {
+//   name: 'Огляд'
+// };
+
+component.storyName = 'Огляд';

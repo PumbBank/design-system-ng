@@ -3,7 +3,7 @@ import { ButtonComponent } from './components/button/button.component';
 import { ButtonGuidelineComponent } from './examples/button-page/button-page.component';
 
 export default {
-  title: 'Гайдлайни|Кнопки',
+  title: 'Гайдлайни/Кнопки',
   decorators: [withKnobs]
 };
 

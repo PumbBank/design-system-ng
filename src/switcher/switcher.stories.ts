@@ -4,7 +4,7 @@ import { SwitcherOverviewComponent } from './examples/switcher-overview/switcher
 import { IconsModule } from '../icons/icons.module';
 
 export default {
-  title: 'Компоненти|Switchers',
+  title: 'Компоненти/Switchers',
   parameters: {
     options: { showPanel: false },
   },

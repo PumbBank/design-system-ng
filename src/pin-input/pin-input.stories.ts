@@ -5,7 +5,7 @@ import { IconsModule } from '../icons';
 
 /*
 export default {
-  title: 'Компоненти|Pin',
+  title: 'Компоненти/Pin',
   parameters: {
     options: { showPanel: false },
   },

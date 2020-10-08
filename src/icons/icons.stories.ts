@@ -4,7 +4,7 @@ import { IconsOverviewComponent } from './examples/icons-overview/icons-overview
 import { IconsModule } from './icons.module';
 
 export default {
-  title: 'Гайдлайни|Іконки',
+  title: 'Гайдлайни/Іконки',
   parameters: {
     options: { showPanel: false },
   },
