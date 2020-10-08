@@ -49,8 +49,7 @@ export const component = () => ({
       none: 'none',
       both: 'both',
       horizontal: 'horizontal ',
-      vertical: 'vertical ',
-      inherit: 'inherit'
+      vertical: 'vertical '
     }, 'none')
   },
 

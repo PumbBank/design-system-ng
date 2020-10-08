@@ -1,6 +1,6 @@
 import { CleanFunction, MillInput } from '../component/input';
 import { ControlValueAccessor, NG_VALUE_ACCESSOR, FormGroupDirective } from '@angular/forms';
-import { Directive, ElementRef, forwardRef, HostListener, OnInit, Renderer2 } from '@angular/core';
+import { Directive, ElementRef, forwardRef, HostListener, Input, OnInit, Renderer2 } from '@angular/core';
 import { createTextMaskInputElement } from 'text-mask-core/dist/textMaskCore';
 
 @Directive({
@@ -27,13 +27,16 @@ export class InputPhoneDirective extends MillInput implements ControlValueAccess
     this._host = inputElementRef.nativeElement;
   }
 
-  private static cleanMask(maskedValue: string): string {
+  private static cleanMask(maskedValue: string, international: boolean = false): string {
     const value = maskedValue.replace(/[-+()\s]/g, '');
-    return value ? `380${value}` : '';
+    const normalizePhone = international ? maskedValue : value ? `380${value}` : '';
+    console.log(normalizePhone);
+    
+    return normalizePhone;
   }
 
   @HostListener('focus') setMask(): void {
-    if (typeof this._host.value === 'undefined' || this._host.value === '') {
+    if ((typeof this._host.value === 'undefined' || this._host.value === '') && !this.international) {
       this._host.value = '(';
     }
   }
@@ -44,24 +47,30 @@ export class InputPhoneDirective extends MillInput implements ControlValueAccess
     }
   }
 
+  @Input() international: boolean = false;
+
   ngOnInit(): void {
+
+    const mask = this.international ? [/\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/,] :
+      ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/];
+
     this._textMaskInput = createTextMaskInputElement({
       inputElement: this.inputElementRef.nativeElement,
-      mask: ['(', /\d/, /\d/, ')', ' ', /\d/, /\d/, /\d/, '-', /\d/, /\d/, '-', /\d/, /\d/],
+      mask: mask,
       keepCharPositions: true,
       guide: false
     });
   }
 
   registerOnChange(fn: any): void {
-    super.registerOnChange((value: string) => fn(InputPhoneDirective.cleanMask(value)));
+    super.registerOnChange((value: string) => fn(InputPhoneDirective.cleanMask(value, this.international)));
   }
 
   writeValue(value: string): void {
     super.writeValue(value);
   }
 
-  protected cleanFunction: CleanFunction = function(inputValue: string): string {
+  protected cleanFunction: CleanFunction = function (inputValue: string): string {
     this.input.value = inputValue;
     this._textMaskInput.update();
     return this.input.value;
