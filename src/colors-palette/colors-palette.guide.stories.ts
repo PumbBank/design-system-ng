@@ -3,9 +3,10 @@ import { IconsModule } from '../icons';
 import { ColorsPaletteGuidelineComponent } from './examples/colors-palette-page.component';
 
 export default {
-  title: 'Гайдлайни|Кольори',
+  title: 'Гайдлайни/Кольори',
   parameters: {
     options: { showPanel: false },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };
@@ -22,6 +23,4 @@ export const component = () => ({
   `
 });
 
-component.story = {
-  name: 'Огляд'
-};
+component.storyName = 'Огляд';

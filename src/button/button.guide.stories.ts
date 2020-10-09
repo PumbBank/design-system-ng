@@ -3,7 +3,10 @@ import { ButtonComponent } from './components/button/button.component';
 import { ButtonGuidelineComponent } from './examples/button-page/button-page.component';
 
 export default {
-  title: 'Гайдлайни|Кнопки',
+  title: 'Гайдлайни/Кнопки',
+  parameters: {
+    layout: 'fullscreen',
+  },
   decorators: [withKnobs]
 };
 
@@ -22,6 +25,4 @@ export const component = () => ({
   `
 });
 
-component.story = {
-  name: 'Огляд'
-};
+component.storyName = 'Огляд';

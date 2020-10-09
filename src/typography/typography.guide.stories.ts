@@ -3,9 +3,10 @@ import { IconsModule } from '../icons';
 import { TypographyPageComponent } from './examples/typography-page.component';
 
 export default {
-  title: 'Гайдлайни|Типографiка',
+  title: 'Гайдлайни/Типографiка',
   parameters: {
     options: { showPanel: false },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };
@@ -22,6 +23,4 @@ export const component = () => ({
   `
 });
 
-component.story = {
-  name: 'Огляд'
-};
+component.storyName = 'Огляд';

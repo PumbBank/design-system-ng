@@ -4,9 +4,10 @@ import { IconsModule } from '../icons/icons.module';
 import { ButtonOverviewComponent } from './examples/button-overview/button-overview.component';
 
 export default {
-  title: 'Компоненти|Buttons',
+  title: 'Компоненти/Buttons',
   parameters: {
     options: { showPanel: false },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

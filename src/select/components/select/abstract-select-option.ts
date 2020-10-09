@@ -4,6 +4,7 @@ import { MillOptionSource } from '../../option-source';
 import { BehaviorSubject } from 'rxjs';
 import { RequiredComponent } from '../../abstract-requireble';
 
+type MillOptionSourceType = MillOptionSource;
 
 export abstract class AbstractSelectOptions<K = any, P = any> extends RequiredComponent implements OnInit {
   private _multiple: boolean = false;
@@ -12,7 +13,7 @@ export abstract class AbstractSelectOptions<K = any, P = any> extends RequiredCo
 
   searchInputValue: string = '';
 
-  @Input() optionSource: MillOptionSource<K, P>;
+  @Input() optionSource: MillOptionSourceType;
 
   /**
    * @description Enable selecting more then one option
@@ -38,7 +39,7 @@ export abstract class AbstractSelectOptions<K = any, P = any> extends RequiredCo
    */
   @Input()
   public set selected(value: K | Array<K>) {
-    this.setSelected(value);
+    this.setSelected(value).then(r => console.warn('value doesn\'t fond, current value is: ', r));
   }
 
   public get selected(): K | Array<K> {
@@ -60,7 +61,7 @@ export abstract class AbstractSelectOptions<K = any, P = any> extends RequiredCo
     this.waitForSettingOptionSource().then(() => {
       if (this.optionSource.registerOnChanges) {
         this.optionSource.registerOnChanges(() => {
-          this.loadOptionsFromSource();
+          this.loadOptionsFromSource().then(r => console.warn('value doesn\'t fond, current value is: ', r));
         });
       }
     });
@@ -207,7 +208,7 @@ export abstract class AbstractSelectOptions<K = any, P = any> extends RequiredCo
     }
   }
 
-  private async waitForSettingOptionSource(checkInterval: number = 100): Promise<void> {
+  private async waitForSettingOptionSource(): Promise<void> {
     return new Promise((resolve: any) => {
       const tryToSet = () => {
         if (!this.optionSource) {

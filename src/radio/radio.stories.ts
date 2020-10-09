@@ -9,9 +9,10 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { NoticeComponent } from '../common/notice/notice.component';
 
 export default {
-  title: 'Компоненти|Radio button',
+  title: 'Компоненти/Radio button',
   parameters: {
     options: { showPanel: true },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

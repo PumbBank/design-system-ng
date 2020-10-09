@@ -8,9 +8,10 @@ import { CheckboxComponent } from './components/checkbox/checkbox.component';
 import { CheckboxOverviewComponent } from './examples/checkbox-overview/checkbox-page.component';
 
 export default {
-  title: 'Компоненти|Checkbox',
+  title: 'Компоненти/Checkbox',
   parameters: {
     options: { showPanel: true },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

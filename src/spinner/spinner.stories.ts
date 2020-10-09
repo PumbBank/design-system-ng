@@ -2,10 +2,12 @@ import { action } from '@storybook/addon-actions';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import { SpinnerComponent } from './components/spinner/spinner.component';
 import { SpinnerOverviewComponent } from './examples/mill-spinner-overview.component';
+
 export default {
-  title: 'Компоненти|Spinner',
+  title: 'Компоненти/Spinner',
   parameters: {
     options: {showPanel: true},
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

@@ -4,9 +4,10 @@ import { SliderOverviewComponent } from './examples/slider-overview/slider-overv
 import { IconsModule } from '../icons/icons.module';
 
 export default {
-  title: 'Компоненти|Sliders',
+  title: 'Компоненти/Sliders',
   parameters: {
     options: { showPanel: false },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

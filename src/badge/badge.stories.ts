@@ -4,9 +4,10 @@ import { BadgeOverviewComponent } from './examples/badge-overview/badge-overview
 import { IconsModule } from '../icons/icons.module';
 
 export default {
-  title: 'Компоненти|Badges',
+  title: 'Компоненти/Badges',
   parameters: {
     options: { showPanel: false },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

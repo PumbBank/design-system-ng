@@ -8,9 +8,10 @@ import { ChipComponent } from './components/chip/chip.component';
 import { ChipOverviewComponent } from './examples/chip-page.component';
 
 export default {
-  title: 'Компоненти|Chips',
+  title: 'Компоненти/Chips',
   parameters: {
     options: {showPanel: true},
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };

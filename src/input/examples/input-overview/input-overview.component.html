@@ -13,7 +13,7 @@
       <div class="overview__label s1">Basic</div>
       <div class="overview__container">
         <input millInput="text" [formControl]="nameControl" [errors]="nameControl.errors"
-          [caption]="hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
+          [caption]="hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder" [cleanup]="true">
       </div>
     </div>
     <div class="overview__column grid-item-4">

@@ -5,9 +5,10 @@ import { IconsModule } from '../icons';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
-  title: 'Компоненти|File attach',
+  title: 'Компоненти/File attach',
   parameters: {
     options: {showPanel: true},
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };
