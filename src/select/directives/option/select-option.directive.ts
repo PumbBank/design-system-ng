@@ -12,14 +12,13 @@ type MillOptionRegistrarType = MillOptionRegistrar;
 })
 
 // @dynamic
-export class SelectOptionDirective<K = any, P = any> implements MillOptionRegistrarType, OnDestroy, OnInit {
+export class SelectOptionDirective<K = any, P = any> implements OnDestroy, OnInit {
   option: MillSelectOption<K, P>;
 
   @Input() key: K;
   @Input() value: string;
-  @Inject(OPTION_REGISTRAR_KEY) private optionRegistrar: MillOptionRegistrarType;
-
-  constructor() {}
+  constructor(@Inject(OPTION_REGISTRAR_KEY) private optionRegistrar: MillOptionRegistrarType
+  ) { }
 
   ngOnInit(): void {
     this.option = new MillSelectOption(this.key, this.value);
@@ -28,11 +27,5 @@ export class SelectOptionDirective<K = any, P = any> implements MillOptionRegist
 
   ngOnDestroy(): void {
     this.optionRegistrar.unregisteredOption(this.option);
-  }
-
-  registeredOption(): void {
-  }
-
-  unregisteredOption(): void {
   }
 }
