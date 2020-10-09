@@ -32,7 +32,6 @@ export class InputIbanDirective extends MillInput implements ControlValueAccesso
     return value;
   }
 
-// UA21 3223 1300 0002 6007 2335 6600 1
   ngOnInit(): void {
     this._textMaskInput = createTextMaskInputElement({
       inputElement: this.inputElementRef.nativeElement,
