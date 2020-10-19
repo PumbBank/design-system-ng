@@ -27,6 +27,11 @@ export enum FileAttachListSide {
   Bottom = 'bottom'
 }
 
+export enum FileAttachInputView {
+  Button = 'button',
+  DropZone = 'drop-zone'
+}
+
 @Component({
   selector: 'mill-file-attach',
   templateUrl: './file-attach.component.html',
@@ -53,8 +58,10 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
   @Input() addedFiles: FileAttach[];
   @Input() fileAcceptedTypes: string;
   @Input() multiple: boolean;
+  @Input() disabled: boolean;
   @Input() actionCaption: string = 'Обрати';
   @Input() listSide: FileAttachListSide = FileAttachListSide.Left;
+  @Input() inputView: FileAttachInputView = FileAttachInputView.Button;
   @Output() filesChanged: EventEmitter<FileAttach[]> = new EventEmitter<FileAttach[]>();
   @ViewChild('fileInput', {static: true}) fileInput: ElementRef;
 
@@ -68,6 +75,10 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
       this.files = changes.addedFiles.currentValue;
       this._cdr.markForCheck();
     }
+    if (changes.inputView && changes.inputView.currentValue === FileAttachInputView.DropZone) {
+      this.listSide = FileAttachListSide.Bottom;
+      this.setListSide(FileAttachListSide.Bottom);
+    }
   }
 
   ngAfterViewInit(): void {
@@ -75,6 +86,9 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
   }
 
   chooseFileClick(): void {
+    if (this.disabled) {
+      return;
+    }
     if (this.fileInput && this.fileInput.nativeElement) {
       this.fileInput.nativeElement.click();
     }
@@ -97,6 +111,10 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
       this.filesChanged.emit(this.files);
       event.currentTarget.value = '';
     }
+  }
+
+  onDroppedFileUploaded(file: File): void {
+    this.files.unshift({file, name: file.name});
   }
 
   removeFileClick(index: number): void {

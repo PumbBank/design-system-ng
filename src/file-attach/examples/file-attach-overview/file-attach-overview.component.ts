@@ -12,6 +12,7 @@ export class FileAttachOverviewComponent {
   @Input() listSide: FileAttachListSide;
   @Input() accepted: string;
   @Input() multiple: boolean;
+  @Input() disabled: boolean;
 
   constructor() {
     this.generateStabs();

@@ -35,11 +35,13 @@ export const component = () => ({
   props: {
     listSide: select('Side', listSideOptions, listSideOptionsDefaultOption),
     accepted: text('Accepted file types', ''),
-    multiple: boolean('Multiple files', false)
+    multiple: boolean('Multiple files', false),
+    disabled: boolean('Disabled', false)
   },
   template: `
-      <file-attach-overview [listSide]="listSide"
+      <file-attach-overview [listSide]='listSide'
                             [accepted]='accepted'
-                            [multiple]='multiple'></file-attach-overview>
+                            [multiple]='multiple'
+                            [disabled]='disabled'></file-attach-overview>
   `
 });
