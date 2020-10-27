@@ -14,7 +14,7 @@ export class IntroGuidelineComponent {
   buildVersion7: string = '0.7.1';
   buildVersion8: string = '0.8.1';
   buildVersion9: string = '0.9.13';
-  buildVersion10: string = '0.10.17';
+  buildVersion10: string = '0.10.18';
 
   private static parseGroups(lines: string[]): {title: string, content: string}[] {
     const isTitle = (text: string) => text.indexOf('####') > -1;
