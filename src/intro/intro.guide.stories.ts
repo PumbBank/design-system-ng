@@ -1,6 +1,8 @@
-import { withKnobs } from '@storybook/addon-knobs';
 import { IntroGuidelineComponent } from './examples/intro-page.component';
 import { HttpClientModule } from '@angular/common/http';
+import { IconsModule } from '../icons';
+import { ChangelogComponent } from '../changelog/changelog.component';
+import { ChipModule } from '../chips';
 
 export default {
   title: 'Гайдлайни/Intro',
@@ -16,7 +18,8 @@ export const component = () => ({
       IntroGuidelineComponent,
     ],
     imports: [
-      HttpClientModule
+      HttpClientModule,
+      IconsModule
     ]
   },
   template: `
@@ -25,3 +28,23 @@ export const component = () => ({
 });
 
 component.storyName = 'Дизайн Система';
+
+export const changeLogComponent = () => ({
+  moduleMetadata: {
+    declarations: [
+      ChangelogComponent,
+    ],
+    imports: [
+      HttpClientModule,
+      IconsModule,
+      ChipModule
+    ]
+  },
+  template: `
+    <mill-changelog></mill-changelog>
+  `
+});
+
+changeLogComponent.story = {
+  name: 'Історія версій'
+};

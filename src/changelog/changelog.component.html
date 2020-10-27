@@ -1,0 +1,65 @@
+<div class="overview">
+  <div class="overview__header">
+    <div class="h4">Історія версій</div>
+    <div class="overview__links">
+      <a href="/?path=/story/%D0%B3%D0%B0%D0%B9%D0%B4%D0%BB%D0%B0%D0%B9%D0%BD%D0%B8-intro--component"
+         class="overview__link s2"><mill-icon name="home"></mill-icon>Інтро-сторінка</a>
+    </div>
+  </div>
+  <div class="overview__content grid">
+    <div class="overview__column overview__column_offset">
+      <div class="overview__column overview__column_offset">
+        <mill-chip-list>
+          <mill-chip #chipAll (action)="showVersion('All')">Всі версії</mill-chip>
+          <mill-chip #chipV7 (action)="showVersion('V7')">Angular 7</mill-chip>
+          <mill-chip #chipV8 (action)="showVersion('V8')">Angular 8</mill-chip>
+          <mill-chip #chipV9 (action)="showVersion('V9')">Angular 9</mill-chip>
+          <mill-chip #chipV10 (action)="showVersion('V10')">Angular 10</mill-chip>
+        </mill-chip-list>
+      </div>
+    </div>
+    <div class="overview__column overview__column_offset">
+      <ng-container [ngSwitch]="activeVersion">
+        <ng-container *ngSwitchCase="'All'">
+          <div class="changelog__content" *ngFor="let changed of getChanges(); last as last">
+            <ng-container [ngTemplateOutlet]="changesByVersion"
+                          [ngTemplateOutletContext]="{
+                        version: changed?.version,
+                        description: changed?.description,
+                        groups: changed?.content
+                      }">
+            </ng-container>
+            <div *ngIf="!last" class="changelog__content__delimiter"></div>
+          </div>
+        </ng-container>
+        <ng-container *ngSwitchDefault>
+          <div class="changelog__content">
+            <ng-container [ngTemplateOutlet]="changesByVersion"
+                          [ngTemplateOutletContext]="{
+                        version: getChangesForVersion(activeVersion)?.version,
+                        description: getChangesForVersion(activeVersion)?.description,
+                        groups: getChangesForVersion(activeVersion)?.content
+                      }">
+            </ng-container>
+          </div>
+        </ng-container>
+      </ng-container>
+    </div>
+  </div>
+</div>
+
+<ng-template #changesByVersion
+             let-version="version"
+             let-description="description"
+             let-groups="groups">
+  <div class="changelog__version">
+    <span class="changelog__version_title">{{ version }}</span>
+    <span class="changelog__version_description">{{ description }}</span>
+  </div>
+  <div class="changelog__group" *ngFor="let group of groups">
+    <span class="changelog__group_title">{{ group?.title }}</span>
+    <div class="changelog__group_content" *ngFor="let item of group?.content">
+      <span class="changelog__group_content__text">{{ item }}</span>
+    </div>
+  </div>
+</ng-template>

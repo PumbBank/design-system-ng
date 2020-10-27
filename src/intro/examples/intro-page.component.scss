@@ -33,9 +33,9 @@ $card-border-width: 1px;
   }
 
   &__top-bar-container {
-    max-width: 712px;
+    max-width: 812px;
     display: flex;
-    grid-column-start: 2;
+    grid-column-start: 4;
     grid-column-end: 12;
   }
 
@@ -55,13 +55,34 @@ $card-border-width: 1px;
     margin-left: 10px;
   }
 
+  &__version-list__content {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    width: 70%;
+    align-items: baseline;
+    justify-content: flex-start;
+  }
+
   &__date {
     color: $grey-50;
     transition: color 0.2s linear;
   }
+  &__version {
+    @extend %p3;
+    color: $grey-50;
+  }
+
+  &__version_bold {
+    color: $grey-70;
+  }
 
   &__version-item {
-    min-width: 180px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    min-width: 195px;
     border-right: 1px solid $grey-30;
     box-sizing: border-box;
     cursor: pointer;
@@ -79,11 +100,16 @@ $card-border-width: 1px;
       .mill-intro__date,
       .mill-intro__version {
         text-decoration: underline;
+        color: $grey-70;
       }
 
       .mill-intro__date {
         color: $grey-70;
       }
+    }
+
+    &__dash {
+      border-right: 1px solid $grey-30;
     }
   }
 
