@@ -13,17 +13,17 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "10.0.12",
-    "@angular/common": "10.0.12",
-    "@angular/core": "10.0.12",
-    "@angular/forms": "10.0.12",
+    "@angular/animations": "^10.0.12",
+    "@angular/common": "^10.0.12",
+    "@angular/core": "^10.0.12",
+    "@angular/forms": "^10.0.12",
     "@mill/figma": "1.0.268202022307",
     "core-js": "3.6.5",
     "ngx-clipboard": "13.0.1",
     "simplebar-angular": "2.2.1",
     "text-mask-core": "5.1.2",
-    "tslib": "2.0.1",
-    "zone.js": "0.9.1"
+    "tslib": "^2.0.0",
+    "zone.js": "^0.10.2"
   },
   "devDependencies": {
     "@angular-devkit/build-angular": "0.1000.7",
