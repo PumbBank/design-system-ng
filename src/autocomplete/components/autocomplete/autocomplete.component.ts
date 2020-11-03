@@ -136,6 +136,7 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
     const optionRect: DOMRect = optionElement.getBoundingClientRect();
 
     optionListElement.scrollTo(0, optionListElement.scrollTop + optionRect.y - thisRect.y);
+    
   }
 
   ngOnDestroy(): void {

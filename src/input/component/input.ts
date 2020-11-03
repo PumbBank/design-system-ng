@@ -303,8 +303,8 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     }
   }
 
-  private updateIcon(isLoadingAutocomplite?: boolean): void {
-    if (this.icon && !isLoadingAutocomplite) {
+  private updateIcon(): void {
+    if (this.icon) {
       this.iconElement.classList.forEach((cl) => {
         if (cl.match(/icon_/)) {
           this.renderer.removeClass(this.iconElement, cl);
@@ -391,13 +391,14 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   }
 
   private setLoaderState(isLoading: boolean) {
-    this.updateIcon(isLoading);
     if (isLoading) {
       this.renderer.addClass(this.loaderWrap, 'loader-wrap');
       this.renderer.addClass(this.loader, 'loader');
+      this.renderer.setStyle(this.iconElement, 'display', 'none');
     } else {
       this.renderer.removeClass(this.loaderWrap, 'loader-wrap');
       this.renderer.removeClass(this.loader, 'loader');
+      this.renderer.removeStyle(this.iconElement, 'display');
     }
   }
 
