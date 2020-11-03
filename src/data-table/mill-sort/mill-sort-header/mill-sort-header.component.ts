@@ -1,4 +1,4 @@
-import { Component, Host, Inject, OnDestroy, OnInit, Optional } from '@angular/core';
+import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
 import { MillSortDirective, MillSortToken } from '../mill-sort.directive';
 import { MillColumnDefDirective, MillColumnToken } from '../../directives/mill-cells';
 

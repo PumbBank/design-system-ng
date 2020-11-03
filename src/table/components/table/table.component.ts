@@ -7,8 +7,8 @@ import {
   DataModelInterface,
   EmitInterface,
   FilterInterface,
-  PaginatorInterface,
-  SortInterface,
+  TablePaginatorInterface,
+  SortingInterface,
   TableStyleEnum,
   TableTypeEnum
 } from '../../table';
@@ -33,7 +33,7 @@ export class TableComponent implements OnInit, OnDestroy {
   public tableTypeEnum = TableTypeEnum;
   public groupCheckbox: CheckboxEnum;
   public selected: any[] = [];
-  public paginatorSettings: PaginatorInterface = {
+  public paginatorSettings: TablePaginatorInterface = {
     currentPage: 0,
     offset: 0,
     limit: 0,
@@ -43,7 +43,7 @@ export class TableComponent implements OnInit, OnDestroy {
   public fixedHeaderShadow: boolean = false;
   public counterLabel: string;
   public filterSettings: FilterInterface[] = [];
-  public sortSettings: SortInterface = {
+  public sortSettings: SortingInterface = {
     sortColumn: null,
     sortDirection: 'asc'
   };

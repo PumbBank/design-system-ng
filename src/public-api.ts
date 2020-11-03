@@ -5,6 +5,7 @@ export * from './badge/index';
 export * from './button/index';
 export * from './checkbox/index';
 export * from './chips/index';
+export * from './data-table/index';
 export * from './file-attach/index';
 export * from './hint/index';
 export * from './icons/index';

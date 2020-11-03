@@ -1,0 +1,92 @@
+@import "~@mill/figma/typography";
+@import "~@mill/figma/colors";
+
+:host {
+  box-sizing: border-box;
+  display: block;
+}
+
+.overview {
+  &__column {
+    &_offset {
+      margin-top: 40px !important;
+    }
+    @media screen and (max-width: 1340px) {
+      grid-column: span 12;
+    }
+
+    grid-column-start: 1;
+    grid-column-end: 15;
+  }
+}
+
+.changelog__content {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  padding-top: 48px;
+
+  &__delimiter {
+    width: 100%;
+    margin: 49px 0 0 0;
+    border-top: 1px solid #E1E1E8;
+  }
+
+  &:first-of-type {
+    padding-top: 0;
+  }
+}
+
+.changelog__version {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  &_title {
+    @extend %h5;
+    color: $grey-70;
+  }
+  &_description {
+    @extend %p1;
+    color: $grey-50;
+  }
+}
+
+.changelog__group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+
+  margin-top: 38px;
+
+  &_title {
+    @extend %h6;
+    color: $grey-70;
+  }
+
+  &_content {
+    border-left: 3px solid #E1E1E8;
+    padding-left: 24px;
+    margin-top: 24px;
+  }
+
+  &_content__text {
+    @extend %p1;
+    color: $grey-70;
+  }
+}
+
+.chip_active {
+  & > label {
+    background: #FEE4E6;
+    border: 1px solid #FC979D !important;
+
+    & > span {
+      color: $red-50;
+    }
+
+    &:hover {
+      background: #FEE4E6 !important;
+    }
+  }
+}

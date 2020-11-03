@@ -12,6 +12,7 @@ export interface CellDefInterface {
   template: TemplateRef<any>;
 }
 
+// @dynamic
 @Directive({selector: '[cellOutlet]'})
 export class MillCellOutletDirective {
   static outlet: MillCellOutletDirective;

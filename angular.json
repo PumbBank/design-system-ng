@@ -50,7 +50,11 @@
                 "input": "src/assets",
                 "output": "/"
               },
-              { "glob": "CHANGELOG.md", "input": ".", "output": "/" }
+              { "glob": "CHANGELOG.md", "input": ".", "output": "/" },
+              { "glob": "CHANGELOG_NG7.md", "input": ".", "output": "/" },
+              { "glob": "CHANGELOG_NG8.md", "input": ".", "output": "/" },
+              { "glob": "CHANGELOG_NG9.md", "input": ".", "output": "/" },
+              { "glob": "CHANGELOG_NG10.md", "input": ".", "output": "/" }
             ],
             "outputPath": "dist"
           }
