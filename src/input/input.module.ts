@@ -9,6 +9,7 @@ import { InputPhoneDirective } from './directives/input-phone.directive';
 import { InputCardDirective } from './directives/input-card.directive';
 import { IconsModule } from '../icons';
 import { InputIbanDirective } from './directives/input-iban.directive';
+import { DomService } from 'src/autocomplete/services/dom.service';
 
 @NgModule({
   declarations: [
@@ -34,7 +35,7 @@ import { InputIbanDirective } from './directives/input-iban.directive';
     InputCardDirective,
     InputIbanDirective,
   ],
-  providers: [FormGroupDirective]
+  providers: [FormGroupDirective, DomService]
 })
 export class InputModule {
 }
