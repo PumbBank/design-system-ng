@@ -83,7 +83,6 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
               break;
           }
         }
-
       });
   }
 
@@ -99,31 +98,26 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
 
     if (Array.isArray(dataSource)) {
       this.autocompleteOptions = dataSource.filter(option => option.toUpperCase().indexOf(inputText.toUpperCase()) + 1).sort();
-      this.loading.next(false);
     } else {
-
-      dataSource.getData(inputText)
-      .then((val: Array<string>) => {
-        this.autocompleteOptions = val.filter(option => option.toUpperCase().indexOf(inputText.toUpperCase()) + 1).sort();
-        this.numberOfPromicesComplete++;
-      })
-      .catch((e) => console.error(e))
-      .finally(() => {
-        if (this.numberOfPromices === this.numberOfPromicesComplete) {
-          this.loading.next(false);
-          this.numberOfPromicesComplete = 0;
-          this.numberOfPromices = 0;
+      setTimeout(() => {
+        if (this.autocompleteOptions.length === 0 && this.numberOfPromicesComplete === 0) {
+          this.loading.next(true);
         }
-      });
-
+      }, 300);
+      dataSource.getData(inputText)
+        .then((val: Array<string>) => {
+          this.autocompleteOptions = val.filter(option => option.toUpperCase().indexOf(inputText.toUpperCase()) + 1).sort();
+          this.numberOfPromicesComplete++;
+        })
+        .catch((e) => console.error(e))
+        .finally(() => {
+          if (this.numberOfPromices === this.numberOfPromicesComplete) {
+            this.loading.next(false);
+            this.numberOfPromicesComplete = 0;
+            this.numberOfPromices = 0;
+          }
+        });
     }
-
-    setTimeout(() => {
-      if (this.autocompleteOptions.length === 0 && this.numberOfPromicesComplete === 0) {
-        this.loading.next(true);
-      }
-    }, 300);
-
     this.active = true;
   }
 
@@ -136,7 +130,7 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
     const optionRect: DOMRect = optionElement.getBoundingClientRect();
 
     optionListElement.scrollTo(0, optionListElement.scrollTop + optionRect.y - thisRect.y);
-    
+
   }
 
   ngOnDestroy(): void {
