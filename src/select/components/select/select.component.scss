@@ -107,7 +107,7 @@
   box-sizing: border-box;
   min-height: 48px;
 
-  &:hover {
+  &:hover, &_focused {
     background: $grey-10;
     cursor: pointer;
 

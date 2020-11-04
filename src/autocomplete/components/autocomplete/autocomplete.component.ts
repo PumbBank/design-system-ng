@@ -122,7 +122,6 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
   }
 
   private scrollToOption(index: number): void {
-    this.optionsRefs.first.SimpleBar.getScrollElement()
     const optionListElement = this.optionsRefs.first.SimpleBar.getScrollElement();
     const optionElement = document.getElementsByClassName('autocomplete__option')[index];
 
