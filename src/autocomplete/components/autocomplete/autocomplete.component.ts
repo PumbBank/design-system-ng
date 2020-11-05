@@ -17,7 +17,6 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
   autocompleteOptions: Array<string> = [];
   active: boolean = false;
   private _unsubscriber$ = new Subject();
-  private _unsubscriberEvent$ = new Subject();
   optionIndexActive: number = 0;
 
   numberOfPromices: number = 0;
@@ -50,7 +49,7 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
       });
 
     fromEvent<KeyboardEvent>(this._elementRef.nativeElement.parentElement, 'keydown')
-      .pipe(takeUntil(this._unsubscriberEvent$))
+      .pipe(takeUntil(this._unsubscriber$))
       .subscribe((event: KeyboardEvent) => {
 
         if (this.active && this.autocompleteOptions.length > 0) {
@@ -135,7 +134,5 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
   ngOnDestroy(): void {
     this._unsubscriber$.next();
     this._unsubscriber$.complete();
-    this._unsubscriberEvent$.next();
-    this._unsubscriberEvent$.complete();
   }
 }
