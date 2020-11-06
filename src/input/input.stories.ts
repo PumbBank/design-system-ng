@@ -12,6 +12,8 @@ import { ButtonModule } from '../button/button.module';
 import { SelectModule } from '../select/select.module';
 import { MillHintModule } from '../hint/hint.module';
 import { TextAreaModule } from '../text-area/text-area.module';
+import { AutocompleteModule } from 'src/autocomplete/autocomplete.module';
+import { AutoCompleteDataService } from './examples/services/autocomplete-data.service';
 
 export default {
   title: 'Компоненти/Inputs',
@@ -30,12 +32,14 @@ export const component = () => ({
       InputModule,
       IconsModule,
       TextAreaModule,
-      MillHintModule
+      MillHintModule,
+      AutocompleteModule
     ],
     declarations: [
       InputOverviewComponent,
       NoticeComponent
-    ]
+    ],
+    providers: [AutoCompleteDataService]
   },
   props: {
     label: text('Label text', 'Label'),
