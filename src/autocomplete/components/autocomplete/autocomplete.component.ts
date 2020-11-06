@@ -55,7 +55,6 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
         if (this.active && this.autocompleteOptions.length > 0) {
           switch (event.key) {
             case KeyEnum.keyArrowDown:
-
               if (this.optionIndexActive < this.autocompleteOptions.length) {
                 this.optionIndexActive++;
                 this.scrollToOption(this.optionIndexActive - 1);
@@ -98,11 +97,13 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
     if (Array.isArray(dataSource)) {
       this.autocompleteOptions = dataSource.filter(option => option.toUpperCase().indexOf(inputText.toUpperCase()) + 1).sort();
     } else {
-      setTimeout(() => {
+
+      const timeoutId = setTimeout(() => {
         if (this.autocompleteOptions.length === 0 && this.numberOfPromicesComplete === 0) {
           this.loading.next(true);
         }
       }, 300);
+
       dataSource.getData(inputText)
         .then((val: Array<string>) => {
           this.autocompleteOptions = val.filter(option => option.toUpperCase().indexOf(inputText.toUpperCase()) + 1).sort();
@@ -111,6 +112,7 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
         .catch((e) => console.error(e))
         .finally(() => {
           if (this.numberOfPromices === this.numberOfPromicesComplete) {
+            clearTimeout(timeoutId);
             this.loading.next(false);
             this.numberOfPromicesComplete = 0;
             this.numberOfPromices = 0;
