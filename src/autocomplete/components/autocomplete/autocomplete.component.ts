@@ -103,7 +103,6 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
           this.loading.next(true);
         }
       }, 300);
-
       dataSource.getData(inputText)
         .then((val: Array<string>) => {
           this.autocompleteOptions = val.filter(option => option.toUpperCase().indexOf(inputText.toUpperCase()) + 1).sort();
