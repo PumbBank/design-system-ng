@@ -33,10 +33,9 @@ $card-border-width: 1px;
   }
 
   &__top-bar-container {
-    max-width: 812px;
     display: flex;
-    grid-column-start: 4;
-    grid-column-end: 12;
+    grid-column-start: 5;
+    grid-column-end: 11;
   }
 
   &__version-list {
