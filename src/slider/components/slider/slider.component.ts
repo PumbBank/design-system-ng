@@ -583,7 +583,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor,
 
   /** Get slider content width */
   private _getSliderContentWidth(): void {
-    this._sliderWidth = this._sliderContent.nativeElement.getBoundingClientRect().width;
+    this._sliderWidth = this._sliderContent.nativeElement.offsetWidth;
   }
 
   public getType(): SliderTypeEnum {
