@@ -2,7 +2,7 @@
   class="slider"
   [class.slider_disabled]="disabled">
   <div class="slider__wrapper">
-    <div class="slider__value">{{ minValue }}</div>
+    <div class="slider__value" *ngIf="!hideValues">{{ minValue }}</div>
 
     <div #sliderContent class="slider__content">
       <div class="slider__track-wrapper">
@@ -19,12 +19,13 @@
           (eventOutput)="onEvent($event)"
           [config]="sliderConfig"
           [thumbName]="item"
-          [value]="form.value">
+          [value]="form.value"
+          [thumbTooltip]="hideThumbTooltip"
+        >
         </slider-thumb>
       </ng-container>
     </div>
 
-    <div class="slider__value">{{ maxValue }}</div>
-
+    <div class="slider__value" *ngIf="!hideValues">{{ maxValue }}</div>
   </div>
 </div>

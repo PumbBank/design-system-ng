@@ -42,6 +42,9 @@ const GRAY_20 = '#E1E1E8';
 export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor, OnDestroy {
   private _destroyed$: Subject<void> = new Subject<void>();
 
+  @Input() public hideThumbTooltip: boolean;
+  @Input() public hideValues: boolean;
+
   /** Type of slider can be "basic", "double" or "step" */
   @Input() public type?: SliderTypeEnum = SliderTypeEnum.basic;
 
