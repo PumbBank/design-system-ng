@@ -29,7 +29,7 @@ const GRAY_20 = '#E1E1E8';
 @Component({
   selector: 'mill-slider',
   templateUrl: './slider.component.html',
-  styleUrls: ['./slider.scss'],
+  styleUrls: ['./slider.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -450,7 +450,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor,
     // Calculation of position as a percentage
     const result =
       this.sliderConfig.selectedThumb.value +
-      Math.round(this._moveCounter / Math.round(this._sliderWidth / 100));
+      Math.round(this._moveCounter / this._sliderWidth * 100);
 
     this._updateValue(result);
   }
