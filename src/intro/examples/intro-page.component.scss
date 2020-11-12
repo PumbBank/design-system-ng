@@ -27,12 +27,16 @@ $card-border-width: 1px;
   &__top-bar {
     width: 100%;
     border-bottom: 1px solid $grey-20;
+    display: flex;
+    justify-content: center;
     margin-bottom: 56px;
     padding-top: 10px;
     padding-bottom: 20px;
   }
 
   &__top-bar-container {
+    width: 90%;
+    max-width: 712px;
     display: flex;
     grid-column-start: 5;
     grid-column-end: 11;
