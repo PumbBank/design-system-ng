@@ -1,0 +1,78 @@
+<ng-container [ngTemplateOutlet]="calendarView"></ng-container>
+
+<ng-template #calendarView>
+  <div class="calendar" [class.calendar__active]="showCalendar" [ngClass]="['calendar_' + state, 'calendar_' + type]">
+    <div class="calendar-header">
+      <div class="calendar-header__arrow_left" *ngIf="calendarState.Days === state">
+        <mill-button view="hidden" size="small" icon="chevron-left" iconColor="grey" (click)="onPrevMonthClick()"></mill-button>
+      </div>
+      <div class="calendar-header-date">
+        <div class="calendar-header-date__box calendar-header-date__box_month" (click)="changeMonth()">
+          <span class="calendar-header-date__text">{{ valueMonthLocalized }}</span>
+          <div class="calendar-header-date__icon" (click)="restoreDaysView()"></div>
+        </div>
+      </div>
+      <div class="calendar-header-date__box calendar-header-date__box_year" (click)="changeYear()">
+        <span class="calendar-header-date__text">
+          {{ valueYear }}
+        </span>
+        <div class="calendar-header-date__icon" (click)="restoreDaysView()"></div>
+      </div>
+      <div class="calendar-header__arrow_right" *ngIf="calendarState.Days === state">
+        <mill-button view="hidden" size="small" icon="chevron-right" iconColor="grey" (click)="onNextMonthClick()"></mill-button>
+      </div>
+    </div>
+    <div class="calendar-body">
+      <ng-container [ngSwitch]="state">
+        <ng-container *ngSwitchCase="calendarState.Days" [ngTemplateOutlet]="calendarDays"></ng-container>
+        <ng-container *ngSwitchCase="calendarState.Months" [ngTemplateOutlet]="calendarMonths"></ng-container>
+        <ng-container *ngSwitchCase="calendarState.Years" [ngTemplateOutlet]="calendarYears"></ng-container>
+        <ng-container *ngSwitchDefault [ngTemplateOutlet]="calendarDays"></ng-container>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #calendarDays>
+  <div class="calendar-days">
+    <div class="calendar-days-week">
+      <div class="calendar-days-week__cell cell" *ngFor="let day of days">
+        {{ day }}
+      </div>
+    </div>
+    <div class="calendar-days-day">
+      <ng-container *ngFor="let month of currentMonthCalendar; first as prevMonth; last as nextMonth">
+        <div class="calendar-days-day__cell cell"
+             *ngFor="let dayOfMonth of month?.days"
+             [class.calendar-days-day__cell_off]="prevMonth || nextMonth"
+             [class.calendar-days-day__cell_current]="highlightCurrentDay(dayOfMonth?.day, month)"
+             [class.calendar-days-day__cell_active]="highlightSelectedDay(dayOfMonth?.day, month)"
+             (click)="selectDate(dayOfMonth)">
+          {{ dayOfMonth?.day }}
+        </div>
+      </ng-container>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #calendarMonths>
+  <div class="calendar-months">
+    <ng-container *ngFor="let month of months; index as index">
+      <div class="calendar-months__month" [class.calendar-months__month_active]="(index + 1) === valueMonth"
+           (click)="selectMonth(index)">
+        {{ month }}
+      </div>
+    </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #calendarYears>
+  <div class="calendar-years">
+    <ng-container *ngFor="let year of years">
+      <div class="calendar-years__year" [class.calendar-years__year_active]="year === valueYear"
+           (click)="selectYear(year)">
+        {{ year }}
+      </div>
+    </ng-container>
+  </div>
+</ng-template>

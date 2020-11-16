@@ -63,7 +63,8 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
   @Input() listSide: FileAttachListSide = FileAttachListSide.Left;
   @Input() inputView: FileAttachInputView = FileAttachInputView.Button;
   @Output() filesChanged: EventEmitter<FileAttach[]> = new EventEmitter<FileAttach[]>();
-  @Output() fileDeleted: EventEmitter<{index: number, file: FileAttach}> = new EventEmitter<{index: number, file: FileAttach}>();
+  @Output() fileDeleted: EventEmitter<{index: number, file: FileAttach}> =
+    new EventEmitter<{index: number, file: FileAttach}>();
   @ViewChild('fileInput', {static: true}) fileInput: ElementRef;
 
   constructor(private _cdr: ChangeDetectorRef) { }
@@ -121,7 +122,7 @@ export class FileAttachComponent implements OnChanges, AfterViewInit {
   removeFileClick(index: number): void {
     const file = this.files[index];
     this.files.splice(index, 1);
-    this.fileDeleted.emit({index, file})
+    this.fileDeleted.emit({index, file});
   }
 
   reAttachFileClick(index: number): void {

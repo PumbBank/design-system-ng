@@ -10,6 +10,7 @@ import { InputCardDirective } from './directives/input-card.directive';
 import { IconsModule } from '../icons';
 import { InputIbanDirective } from './directives/input-iban.directive';
 import { DomService } from 'src/autocomplete/services/dom.service';
+import { CalendarModule } from '../calendar';
 
 @NgModule({
   declarations: [
@@ -23,7 +24,8 @@ import { DomService } from 'src/autocomplete/services/dom.service';
     InputIbanDirective,
   ],
   imports: [
-    IconsModule
+    IconsModule,
+    CalendarModule
   ],
   exports: [
     InputTextDirective,

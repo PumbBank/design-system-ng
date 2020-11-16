@@ -1,4 +1,12 @@
-import { Directive, forwardRef, Renderer2, ElementRef, OnInit } from '@angular/core';
+import {
+  Directive,
+  forwardRef,
+  Renderer2,
+  ElementRef,
+  OnInit,
+  ComponentRef,
+  OnDestroy
+} from '@angular/core';
 import {
   NG_VALUE_ACCESSOR,
   ControlValueAccessor,
@@ -8,9 +16,13 @@ import {
   ValidationErrors,
   FormGroupDirective
 } from '@angular/forms';
+import { Subject } from 'rxjs';
+import { takeUntil } from 'rxjs/operators';
 import { createTextMaskInputElement } from 'text-mask-core';
 
 import { MillInput, CleanFunction } from '..';
+import { CalendarComponent } from '../../calendar';
+import { DomService } from '../../autocomplete/services/dom.service';
 
 type ISOString = string;
 
@@ -29,27 +41,55 @@ type ISOString = string;
     }
   ]
 })
-export class InputDateDirective extends MillInput implements ControlValueAccessor, OnInit, Validator {
+export class InputDateDirective extends MillInput implements ControlValueAccessor, OnInit, Validator, OnDestroy {
+  private _destroyed$: Subject<void> = new Subject<void>();
+  private _textMaskInput: any;
+  private _mask: Array<string | RegExp> = [/\d/, /\d/, '.', /\d/, /\d/, '.', /\d/, /\d/, /\d/, /\d/];
+  private _calendarComponentRef: ComponentRef<CalendarComponent>;
 
-  private textMaskInput: any;
-  private mask: Array<string | RegExp> = [/\d/, /\d/, '.', /\d/, /\d/, '.', /\d/, /\d/, /\d/, /\d/];
+  private static dateToISO(date: string): string {
+    if (!date) { return ''; }
+
+    const [day, month, year]: string[] = date.split('.');
+    if (/\d{2}/.test(day) && /\d{2}/.test(month) && /\d{4}/.test(year)) {
+      return `${year}-${month}-${day}T00:00:00.000Z`;
+    } else {
+      return '';
+    }
+  }
+  private static ISOToDate(iso: string): string {
+    if (iso) {
+      const [year, month, day]: string[] = iso.split('T')[0].split('-');
+      return `${day}.${month}.${year}`;
+    } else {
+      return '';
+    }
+  }
 
   constructor(
-    renderer: Renderer2,
-    public inputElementRef: ElementRef,
-    public parentForm: FormGroupDirective
+    private _renderer: Renderer2,
+    private _elementRef: ElementRef,
+    private _parentForm: FormGroupDirective,
+    private _domService: DomService
   ) {
-    super(inputElementRef.nativeElement, renderer, parentForm);
-    renderer.setStyle(this.wrapperElement, 'minWidth', '124px');
+    super(_elementRef.nativeElement, _renderer, _parentForm);
+    _renderer.setStyle(this.wrapperElement, 'minWidth', '124px');
+    this.registerOnUpdateIcon();
   }
 
   ngOnInit(): void {
-    this.textMaskInput = createTextMaskInputElement({
-      inputElement: this.inputElementRef.nativeElement,
-      mask: this.mask,
+    this._textMaskInput = createTextMaskInputElement({
+      inputElement: this._elementRef.nativeElement,
+      mask: this._mask,
       keepCharPositions: true,
       guide: false
     });
+  }
+
+  ngOnDestroy(): void {
+    this._destroyed$.next();
+    this._destroyed$.complete();
+    super.ngOnDestroy();
   }
 
   validate(control: AbstractControl): ValidationErrors {
@@ -87,38 +127,39 @@ export class InputDateDirective extends MillInput implements ControlValueAccesso
   }
 
   registerOnChange(fn: (s: string) => void): void {
-    super.registerOnChange((value: string) => fn(this.ddmmyyyToISO(value)));
+    super.registerOnChange((value: string) => fn(InputDateDirective.dateToISO(value)));
+  }
+
+  registerOnUpdateIcon(): void {
+    super.onUpdateIconCallback = () => {
+      this.addCalendar(this.wrapperElement);
+      this.iconClick.pipe(takeUntil(this._destroyed$)).subscribe(() => this.iconClickListener());
+    };
   }
 
   writeValue(value: ISOString): void {
-    super.writeValue(this.iSOToDdmmyy(value));
+    super.writeValue(InputDateDirective.ISOToDate(value));
   }
 
   protected cleanFunction: CleanFunction = function(inputValue: ISOString): string {
     this.input.value = inputValue;
-    this.textMaskInput.update();
+    this._textMaskInput.update();
+    this._calendarComponentRef?.instance?.calendarValue$.next(InputDateDirective.dateToISO(this.input.value));
     return this.input.value;
   };
 
-
-  private ddmmyyyToISO(ddmmyyyy: string): string {
-    if (!ddmmyyyy) { return ''; }
-
-    const [day, month, year]: string[] = ddmmyyyy.split('.');
-    if (/\d{2}/.test(day) && /\d{2}/.test(month) && /\d{4}/.test(year)) {
-      return `${year}-${month}-${day}T00:00:00.000Z`;
-    } else {
-      return '';
+  private addCalendar(wrapperElement: HTMLElement): void {
+    this._calendarComponentRef = this._domService.createComponent<CalendarComponent>(CalendarComponent);
+    if (this._calendarComponentRef) {
+      this._domService.attachComponent(this._calendarComponentRef, wrapperElement);
+      this._calendarComponentRef?.instance?.selectedDate
+        .pipe(takeUntil(this._destroyed$))
+        .subscribe((value: string) => this.writeValue(value));
     }
   }
 
-  private iSOToDdmmyy(iso: string): string {
-    if (iso) {
-      const [year, month, day]: string[] = iso.split('T')[0].split('-');
-      return `${day}.${month}.${year}`;
-    } else {
-      return '';
-    }
+  private iconClickListener(): void {
+    this._calendarComponentRef.instance.toggle();
   }
 
 }

@@ -21,3 +21,4 @@ export * from './switcher/index';
 export * from './table/index';
 export * from './tabs/index';
 export * from './utils/index';
+export * from './calendar/index';

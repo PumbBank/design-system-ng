@@ -14,6 +14,7 @@ import { MillHintModule } from '../hint/hint.module';
 import { TextAreaModule } from '../text-area/text-area.module';
 import { AutocompleteModule } from 'src/autocomplete/autocomplete.module';
 import { AutoCompleteDataService } from './examples/services/autocomplete-data.service';
+import { CalendarModule } from '../calendar';
 
 export default {
   title: 'Компоненти/Inputs',
@@ -32,6 +33,7 @@ export const component = () => ({
       InputModule,
       IconsModule,
       TextAreaModule,
+      CalendarModule,
       MillHintModule,
       AutocompleteModule
     ],
