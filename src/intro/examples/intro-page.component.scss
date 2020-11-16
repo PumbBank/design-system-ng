@@ -1,5 +1,6 @@
 @import "~@mill/figma/colors";
 @import "~@mill/figma/typography";
+@import "~src/assets/styles/mixins";
 
 $mill-header-size: 80px;
 $mill-title-image-size: 224px;
@@ -27,19 +28,19 @@ $card-border-width: 1px;
   &__top-bar {
     width: 100%;
     border-bottom: 1px solid $grey-20;
-    display: flex;
-    justify-content: center;
     margin-bottom: 56px;
     padding-top: 10px;
     padding-bottom: 20px;
   }
 
   &__top-bar-container {
-    width: 90%;
+    width: 100%;
+    min-width: 442px;
     max-width: 712px;
     display: flex;
-    grid-column-start: 5;
-    grid-column-end: 11;
+    grid-column-start: 2;
+    grid-column-end: 12;
+    justify-self: center;
   }
 
   &__version-list {
@@ -71,8 +72,10 @@ $card-border-width: 1px;
     color: $grey-50;
     transition: color 0.2s linear;
   }
+
   &__version {
     @extend %p3;
+
     color: $grey-50;
   }
 
@@ -81,13 +84,12 @@ $card-border-width: 1px;
   }
 
   &__version-item {
+    min-width: 165px;
+    border-right: 1px solid $grey-30;
+    box-sizing: border-box;
     display: flex;
     flex-direction: row;
     justify-content: space-between;
-
-    min-width: 195px;
-    border-right: 1px solid $grey-30;
-    box-sizing: border-box;
     cursor: pointer;
     margin-bottom: 5px;
     padding: 0 15px;
@@ -97,6 +99,10 @@ $card-border-width: 1px;
 
     &:nth-child(even) {
       border-right: none;
+    }
+
+    &:nth-child(odd) {
+      padding-left: 0;
     }
 
     &:hover {
@@ -113,6 +119,16 @@ $card-border-width: 1px;
 
     &__dash {
       border-right: 1px solid $grey-30;
+    }
+
+    @media screen and (max-width: 585px) {
+      &:nth-child(even) {
+        padding-left: 0;
+      }
+
+      &:nth-child(odd) {
+        border-right: none;
+      }
     }
   }
 
@@ -152,6 +168,11 @@ $card-border-width: 1px;
 
   &__title-text {
     padding-right: calc(#{$mill-title-image-indent} + #{$mill-title-image-size});
+
+    @media screen and (max-width: 585px) {
+      font-size: 45px;
+      line-height: 55px;
+    }
   }
 
   &__title-image {
@@ -344,6 +365,10 @@ $card-border-width: 1px;
     box-sizing: border-box;
     margin-bottom: 26px;
     padding-right: 24px;
+
+    @media screen and (max-device-width: 850px) {
+      width: 100%;
+    }
   }
 
   &__team-position,
@@ -363,10 +388,22 @@ $card-border-width: 1px;
 
   &__info {
     display: flex;
+
+    @media screen and (max-device-width: 850px) {
+      flex-wrap: wrap;
+    }
   }
 
   &__info-item {
     width: 25%;
+
+    @media screen and (max-device-width: 850px) {
+      width: 50%;
+      margin-bottom: 20px;
+      display: flex;
+      justify-content: center;
+      text-align: center;
+    }
   }
 
   &__info-link {
