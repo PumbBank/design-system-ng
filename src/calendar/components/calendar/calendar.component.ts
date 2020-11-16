@@ -15,7 +15,9 @@ import {
   CalendarMonth,
   CalendarState,
   CalendarType,
-  CalendarWeekday
+  CalendarWeekday,
+  rangeFormatter,
+  toISOString
 } from '../../calendar.model';
 
 const YEARS_SHIFT = 50;
@@ -29,15 +31,16 @@ const YEARS_SHIFT = 50;
 export class CalendarComponent {
   private _selectedMonth: number;
   private _selectedYear: number;
+  private _chosenDate: {start: string, end?: string};
 
-  public calendarValue$: BehaviorSubject<string> = new BehaviorSubject('');
+  public calendarValue$: BehaviorSubject<{start: string, end?: string}> = new BehaviorSubject({start: ''});
 
   @Input() type: CalendarType = CalendarType.Basic;
-  @Output() selectedDate: EventEmitter<string> = new EventEmitter<string>();
+  @Output() selectedDate: EventEmitter<{start: string, end?: string}>
+    = new EventEmitter<{start: string, end?: string}>();
 
   state: CalendarState = CalendarState.Days;
   currentMonthCalendar: CalendarMonth[];
-  chosenDate: string;
 
   // enums
   // tslint:disable-next-line:typedef
@@ -80,7 +83,15 @@ export class CalendarComponent {
   }
 
   get today(): string {
-    return CalendarComponent.toISOString(new Date());
+    return toISOString(new Date());
+  }
+
+  set chosenDate(value: {start: string, end?: string}) {
+    this._chosenDate = value;
+  }
+
+  get chosenDate(): {start: string, end?: string} {
+    return this._chosenDate;
   }
 
   private static buildYearsList(start?: number, end?: number): number[] {
@@ -107,6 +118,7 @@ export class CalendarComponent {
       const last = new Date(year, month + 1, 0).getDate();
       const monthCaption = new Date(year, month).toLocaleString(locale, {month: format});
       result.push({
+        year,
         month: month + 1,
         monthLocalized: monthCaption,
         days: (() => {
@@ -149,13 +161,6 @@ export class CalendarComponent {
     ];
   }
 
-  private static toISOString(date: Date) {
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    return `${year}-${month}-${day}T00:00:00.000Z`;
-  }
-
   @HostListener('document:click', ['$event.target'])
   public clickOutside(target: any): void {
     if (!this._element?.nativeElement?.contains(target) &&
@@ -165,41 +170,36 @@ export class CalendarComponent {
   }
 
   onInput(event: Event): void {
-    this.calendarValue$.next((event.target as HTMLInputElement).value);
+    this.calendarValue$.next({start: (event.target as HTMLInputElement).value});
   }
 
   onOpenCalendarClick(showCalendar: boolean): void {
     if (!this._showCalendar) {
       this.state = CalendarState.Days;
-      const selectedISO = this.calendarValue$.getValue();
-      const selected = selectedISO && new Date(selectedISO);
-      if (selected) {
-        this.chosenDate = selectedISO;
-        this._selectedMonth = selected.getMonth() + 1;
-        this._selectedYear = selected.getFullYear();
-      } else {
-        this.chosenDate = '';
-        this._selectedMonth = new Date().getMonth() + 1;
-        this._selectedYear = new Date().getFullYear();
-      }
+      this.setChosenDate();
       this.currentMonthCalendar = this.getMonthCalendar(this.valueMonth);
+      if (this.type === CalendarType.Range && this.chosenDate?.end) {
+        this.highlightRange();
+        this._cdr.markForCheck();
+      }
     }
     this._showCalendar = showCalendar;
     this._cdr.markForCheck();
   }
 
   onNextMonthClick(): void {
-    const prevMonth = this._selectedMonth;
-    this._selectedMonth = this._selectedMonth === 12 ? 1 : this._selectedMonth + 1;
-    this.currentMonthCalendar = this.getMonthCalendar(this.valueMonth, prevMonth);
-    this._cdr.markForCheck();
+    this.goToMonth('next');
   }
 
   onPrevMonthClick(): void {
-    const prevMonth = this._selectedMonth;
-    this._selectedMonth = this._selectedMonth === 1 ? 12 : this._selectedMonth - 1;
-    this.currentMonthCalendar = this.getMonthCalendar(this.valueMonth, prevMonth);
-    this._cdr.markForCheck();
+    this.goToMonth('prev');
+  }
+
+  getRangeFormatter(): string {
+    if (!this.chosenDate || !this.chosenDate?.end) {
+      return;
+    }
+    return rangeFormatter(new Date(this.chosenDate.start), new Date(this.chosenDate.end));
   }
 
   changeMonth(): void {
@@ -224,11 +224,33 @@ export class CalendarComponent {
     this._cdr.markForCheck();
   }
 
-  selectDate(weekday: CalendarWeekday): void {
-    const date = new Date(this._selectedYear, this._selectedMonth - 1, weekday.day);
-    this.chosenDate = CalendarComponent.toISOString(date);
-    if (this.type === CalendarType.Basic) {
-      this.selectDateConfirm();
+  selectDate(weekday: CalendarWeekday, month: CalendarMonth): void {
+    const date = new Date(month.year, month.month - 1, weekday.day);
+    switch (this.type) {
+      case CalendarType.Basic:
+        this.chosenDate = {start: toISOString(date)};
+        this.selectDateConfirm();
+        break;
+      case CalendarType.WithButton:
+        this.chosenDate = {start: toISOString(date)};
+        break;
+      case CalendarType.Range:
+        if (this.chosenDate.start && this.chosenDate.end) {
+          return;
+        }
+
+        if (this.chosenDate?.start) {
+          weekday.highlight = 'end';
+          if (this.chosenDate.end) {
+            this.currentMonthCalendar = this.getMonthCalendar(this.valueMonth);
+          }
+          this.chosenDate = {start: this.chosenDate.start, end: toISOString(date)};
+          this.highlightRange();
+        } else {
+          weekday.highlight = 'start';
+          this.chosenDate = {start: toISOString(date)};
+        }
+        break;
     }
   }
 
@@ -248,7 +270,11 @@ export class CalendarComponent {
     this.restoreDaysView();
   }
 
-  highlightCurrentDay(day: number, month: CalendarMonth): boolean {
+  highlightCurrentDay(weekday: CalendarWeekday, month: CalendarMonth): boolean {
+    if (weekday.highlight) {
+      return;
+    }
+    const day = weekday.day;
     const selected = new Date();
     return this.valueYear === selected?.getFullYear() &&
       month?.month === selected?.getMonth() + 1 &&
@@ -256,7 +282,10 @@ export class CalendarComponent {
   }
 
   highlightSelectedDay(day: number, month: CalendarMonth): boolean {
-    const selected = this.chosenDate && new Date(this.chosenDate);
+    if (this.type === CalendarType.Range) {
+      return false;
+    }
+    const selected = this.chosenDate?.start && new Date(this.chosenDate.start);
     if (!selected) {
       return;
     }
@@ -272,6 +301,12 @@ export class CalendarComponent {
 
   public toggle(): void {
     this.onOpenCalendarClick(!this._showCalendar);
+  }
+
+  clear(): void {
+    this.chosenDate = {start: '', end: ''};
+    this.currentMonthCalendar = Object.assign([], this.getMonthCalendar(this.valueMonth));
+    this.selectedDate.emit(this.chosenDate);
   }
 
   private getMonthCalendar(month: number, prev?: number): any[] {
@@ -306,5 +341,114 @@ export class CalendarComponent {
       months[currentMonthIdx],
       nextMonth
     ]);
+  }
+
+  private highlightRange(): void {
+    const dates = this.chosenDate;
+    const startDate = new Date(dates.start);
+    const endDate = new Date(dates.end);
+
+    const startDay = startDate.getDate();
+    const endDay = endDate.getDate();
+    const startMonth = startDate.getMonth() + 1;
+    const endMonth = endDate.getMonth() + 1;
+    const months = this.currentMonthCalendar;
+    const startIdx = months.findIndex(f => f.month === startMonth);
+    const endIdx = months.findIndex(f => f.month === endMonth);
+
+    if (startIdx === -1 && endIdx === -1) {
+      months.forEach(m => m.days.forEach(w => w.highlight = 'in-range'));
+      return;
+    }
+    if (startIdx !== endIdx) {
+      const _startIdx = startIdx === -1 ? 0 : startIdx;
+      const _endIdx = endIdx === -1 ? months.length - 1 : endIdx;
+      if (startIdx === -1) {
+        months.forEach((v: CalendarMonth, i: number) => {
+          if (i === _endIdx) {
+            if (v?.month === endMonth) {
+              (v.days.find(w => w.day === endDay) || {highlight: ''}).highlight = 'end';
+              v.days.filter(w => w.day < endDay).forEach(w => w.highlight = 'in-range');
+            }
+          }
+          if (i < _endIdx) {
+            v.days.forEach(w => w.highlight = 'in-range');
+          }
+        });
+        return;
+      }
+      if (endIdx === -1) {
+        months.forEach((v: CalendarMonth, i: number) => {
+          if (i === _startIdx) {
+            if (v?.month === startMonth) {
+              (v.days.find(w => w.day === startDay) || {highlight: ''}).highlight = 'start';
+              v.days.filter(w => w.day > startDay).forEach(w => w.highlight = 'in-range');
+            }
+          }
+          if (i > _startIdx) {
+            v.days.forEach(w => w.highlight = 'in-range');
+          }
+        });
+        return;
+      }
+
+      for (let idx = _startIdx; idx <= _endIdx; idx++) {
+        const current = months[idx];
+        if (current?.month === startMonth) {
+          (current.days.find(w => w.day === startDay) || {highlight: ''}).highlight = 'start';
+          current.days.filter(w => w.day > startDay).forEach(w => w.highlight = 'in-range');
+        }
+        if (current?.month > startMonth || current?.month < endMonth) {
+          current.days.forEach(w => w.highlight = 'in-range');
+        }
+        if (current?.month === endMonth) {
+          (current.days.find(w => w.day === endDay) || {highlight: ''}).highlight = 'end';
+          current.days.filter(w => w.day < endDay).forEach(w => w.highlight = 'in-range');
+        }
+      }
+    } else {
+      const monthIdx = startIdx > -1 ? startIdx : endIdx;
+      months[monthIdx].days.forEach(weekday => {
+        if (weekday.day < startDay || weekday.day > endDay) {
+          return;
+        }
+        weekday.highlight = weekday.day === startDay ? 'start' : weekday.highlight;
+        weekday.highlight = weekday.day === endDay ? 'end' : weekday.highlight;
+        if (weekday.day > startDay && weekday.day < endDay) {
+          weekday.highlight = 'in-range';
+        }
+      });
+    }
+  }
+
+  private setChosenDate(): void {
+    const selectedISO = this.calendarValue$.getValue();
+    const selected = selectedISO && new Date(selectedISO.start);
+    if (selectedISO?.start) {
+      this.chosenDate = {start: selectedISO.start, end: selectedISO.end};
+      this._selectedMonth = selected.getMonth() + 1;
+      this._selectedYear = selected.getFullYear();
+    } else {
+      this.chosenDate = {start: '', end: ''};
+      this._selectedMonth = new Date().getMonth() + 1;
+      this._selectedYear = new Date().getFullYear();
+    }
+  }
+
+  private goToMonth(direction: 'prev' | 'next'): void {
+    const prevMonth = this._selectedMonth;
+    switch (direction) {
+      case 'next':
+        this._selectedMonth = this._selectedMonth === 12 ? 1 : this._selectedMonth + 1;
+        break;
+      case 'prev':
+        this._selectedMonth = this._selectedMonth === 1 ? 12 : this._selectedMonth - 1;
+        break;
+    }
+    this.currentMonthCalendar = this.getMonthCalendar(this.valueMonth, prevMonth);
+    if (this.type === CalendarType.Range && this.chosenDate?.end) {
+      this.highlightRange();
+    }
+    this._cdr.markForCheck();
   }
 }

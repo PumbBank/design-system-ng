@@ -45,9 +45,12 @@
         <div class="calendar-days-day__cell cell"
              *ngFor="let dayOfMonth of month?.days"
              [class.calendar-days-day__cell_off]="prevMonth || nextMonth"
-             [class.calendar-days-day__cell_current]="highlightCurrentDay(dayOfMonth?.day, month)"
+             [class.calendar-days-day__cell_current]="highlightCurrentDay(dayOfMonth, month)"
              [class.calendar-days-day__cell_active]="highlightSelectedDay(dayOfMonth?.day, month)"
-             (click)="selectDate(dayOfMonth)">
+             [class.calendar-days-day__cell_in-range]="dayOfMonth?.highlight && chosenDate?.end"
+             [class.calendar-days-day__cell_start]="dayOfMonth?.highlight === 'start'"
+             [class.calendar-days-day__cell_end]="dayOfMonth?.highlight === 'end'"
+             (click)="selectDate(dayOfMonth, month)">
           {{ dayOfMonth?.day }}
         </div>
       </ng-container>
@@ -55,12 +58,22 @@
     <ng-container *ngIf="type === calendarType.WithButton">
       <div class="calendar__button">
         <mill-button view="filled" icon="check"
-                     [disabled]="!chosenDate"
+                     [disabled]="!chosenDate?.start"
                      (click)="selectDateConfirm()">
-          {{ chosenDate || today | date:'dd MMMM yyyy' }}
+          {{ chosenDate?.start || today | date:'dd MMMM yyyy' }}
         </mill-button>
       </div>
       <mill-button view="hidden" (click)="toggle()">Скасувати</mill-button>
+    </ng-container>
+    <ng-container *ngIf="type === calendarType.Range">
+      <div class="calendar__button">
+        <mill-button view="filled" icon="check"
+                     [disabled]="!chosenDate?.end"
+                     (click)="selectDateConfirm()">
+          {{ getRangeFormatter() || (today | date:'dd MMMM yyyy') }}
+        </mill-button>
+      </div>
+      <mill-button view="hidden" [disabled]="!chosenDate?.end" (click)="clear()">Очистити</mill-button>
     </ng-container>
   </div>
 </ng-template>

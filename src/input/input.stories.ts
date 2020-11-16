@@ -61,6 +61,7 @@ export const component = () => ({
     calendarType: radios('Calendar type', {
       basic: 'basic',
       'with-button': 'with-button',
+      range: 'range'
     }, 'basic')
   },
 

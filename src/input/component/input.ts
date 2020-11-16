@@ -9,7 +9,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { ValidationErrors, FormGroupDirective } from '@angular/forms';
-import { BehaviorSubject, Subject } from 'rxjs';
+import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
 import { takeUntil } from 'rxjs/operators';
 import { AutocompleteComponent } from '../../autocomplete/components/autocomplete/autocomplete.component';
@@ -28,8 +28,8 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   private dirty: boolean;
   private destroyed$: Subject<void> = new Subject<void>();
 
-  private messageSource$ = new BehaviorSubject('');
-  currentInputValue = this.messageSource$.asObservable();
+  private messageSource$: BehaviorSubject<string> = new BehaviorSubject('');
+  currentInputValue: Observable<string> = this.messageSource$.asObservable();
 
   constructor(
     public input: HTMLInputElement,
@@ -208,18 +208,22 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
       this.checkVisibilityCleanupIcon();
 
-      if (!!this.autocompleteDataSource) this.messageSource$.next(this.input.value);
+      if (!!this.autocompleteDataSource) {
+        this.messageSource$.next(this.input.value);
+      }
     });
   }
 
   private checkVisibilityCleanupIcon(): void {
     if (this.cleanup && this.input.value.length > 0) {
-      if (!this.wrapperElement.classList.contains('input__btnCleanup') && !this.input.classList.contains('input__input-cleanup')) {
+      if (!this.wrapperElement.classList.contains('input__btnCleanup')
+        && !this.input.classList.contains('input__input-cleanup')) {
         this.renderer.addClass(this.wrapperElement, 'input__btnCleanup');
         this.renderer.addClass(this.input, 'input__input-cleanup');
         this.setBtnCleanup();
       }
-    } else if (this.wrapperElement.classList.contains('input__btnCleanup') && this.input.classList.contains('input__input-cleanup')) {
+    } else if (this.wrapperElement.classList.contains('input__btnCleanup')
+      && this.input.classList.contains('input__input-cleanup')) {
       this.renderer.removeClass(this.wrapperElement, 'input__btnCleanup');
       this.renderer.removeClass(this.input, 'input__input-cleanup');
     }
@@ -252,7 +256,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     this.validationStateObserver.observe(this.input, { attributeFilter: ['class'], attributes: true });
   }
 
-  private onceErrorsUpdateText() {
+  private onceErrorsUpdateText(): () => void {
     let flag = false;
 
     return () => {
@@ -411,7 +415,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     this.renderer.appendChild(this.entranceElement, this.loaderWrap);
   }
 
-  private setLoaderState(isLoading: boolean) {
+  private setLoaderState(isLoading: boolean): void {
     if (isLoading) {
       this.renderer.addClass(this.loaderWrap, 'loader-wrap');
       this.renderer.addClass(this.loader, 'loader');
@@ -483,7 +487,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
       });
     this.domService.attachComponent(autocompleteComponentRef, this.wrapperElement);
 
-    (<AutocompleteComponent>autocompleteComponentRef.instance).loading.subscribe(
+    (autocompleteComponentRef.instance as AutocompleteComponent).loading.subscribe(
       (val) => this.setLoaderState(val)
     );
   }

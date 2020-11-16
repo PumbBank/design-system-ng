@@ -25,3 +25,4 @@ export * from './table/index';
 export * from './tabs/index';
 export * from './text-area/index';
 export * from './utils/index';
+export * from './calendar/index';

@@ -27,7 +27,6 @@
 
   &__active {
     opacity: 1;
-    pointer-events: unset;
   }
 
   &_months {
@@ -272,16 +271,16 @@
 
       &:after {
         background: rgba(250, 87, 96, 0.25);
-        width: 38px;
-        border-radius: 0;
+        width: 38px !important;
+        border-radius: 0 !important;
       }
 
       &:nth-of-type(7n + 1) {
 
         &:after {
-          border-top-left-radius: 14px;
-          border-bottom-left-radius: 14px;
-          width: 33px;
+          border-top-left-radius: 14px !important;
+          border-bottom-left-radius: 14px !important;
+          width: 33px !important;
           right: -5px;
         }
 
@@ -290,9 +289,9 @@
       &:nth-of-type(7n) {
 
         &:after {
-          border-top-right-radius: 14px;
-          border-bottom-right-radius: 14px;
-          width: 33px;
+          border-top-right-radius: 14px !important;
+          border-bottom-right-radius: 14px !important;
+          width: 33px !important;
           left: -5px;
         }
 
@@ -304,9 +303,9 @@
       color: $other-white;
 
       &:after {
-        border-top-left-radius: 14px;
-        border-bottom-left-radius: 14px;
-        width: 33px;
+        border-top-left-radius: 14px !important;
+        border-bottom-left-radius: 14px !important;
+        width: 33px !important;
         right: -5px;
       }
 
@@ -326,12 +325,12 @@
     }
 
     &_end {
-      color: $other-white;
+      color: $other-white !important;
 
       &:after {
-        border-top-right-radius: 14px;
-        border-bottom-right-radius: 14px;
-        width: 33px;
+        border-top-right-radius: 14px !important;
+        border-bottom-right-radius: 14px !important;
+        width: 33px !important;
         left: -5px;
       }
 
@@ -351,7 +350,7 @@
     }
 
 
-    &:not(&_off):not(&_active):nth-of-type(7n - 1), &:not(&_off):not(&_active):nth-of-type(7n) {
+    &:not(&_off):nth-of-type(7n - 1), &:not(&_off):nth-of-type(7n) {
       color: $red-40;
     }
 
@@ -364,7 +363,7 @@
     }
 
     &_active {
-      color: $other-white;
+      color: $other-white !important;
 
       &:after {
         border: 1px solid $red-50;

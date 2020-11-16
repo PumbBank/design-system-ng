@@ -49,6 +49,7 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
       this.active = false;
       this.loading.next(false);
     }
+
   }
 
   constructor(private _elementRef: ElementRef) { }
@@ -85,6 +86,7 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
         }
 
         if (this.active && this.autocompleteOptions.length > 0) {
+
           switch (event.key) {
             case KeyEnum.keyArrowDown:
               if (this.optionIndexActive < this.autocompleteOptions.length) {

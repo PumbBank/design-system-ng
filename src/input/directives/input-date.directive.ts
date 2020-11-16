@@ -24,7 +24,7 @@ import { takeUntil } from 'rxjs/operators';
 import { createTextMaskInputElement } from 'text-mask-core';
 
 import { MillInput, CleanFunction } from '..';
-import { CalendarComponent, CalendarType } from '../../calendar';
+import { CalendarComponent, CalendarType, extractDateFromRange, rangeFormatter, toISOString } from '../../calendar';
 import { DomService } from '../../autocomplete/services/dom.service';
 
 type ISOString = string;
@@ -96,6 +96,9 @@ export class InputDateDirective
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.calendarType?.previousValue && changes.calendarType?.currentValue) {
       this._calendarComponentRef.instance.type = changes.calendarType?.currentValue;
+      if (changes.calendarType?.currentValue === CalendarType.Range) {
+        this._textMaskInput = null;
+      }
     }
     super.ngOnChanges(changes);
   }
@@ -129,11 +132,9 @@ export class InputDateDirective
       return { errorMessage: message };
     }
 
-    const monthLength = [31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31];
-
-    // Adjust for leap years
-    if (year % 400 === 0 || (year % 100 !== 0 && year % 4 === 0)) {
-      monthLength[1] = 29;
+    const monthLength = [];
+    for (let i = 0; i < 12; i++) {
+      monthLength.push(new Date(year, i, 0).getDate());
     }
 
     // Check the range of the day
@@ -151,15 +152,31 @@ export class InputDateDirective
     };
   }
 
-  writeValue(value: ISOString): void {
-    super.writeValue(InputDateDirective.ISOToDate(value));
+  writeValue(value: {start: ISOString, end?: ISOString}): void {
+    if (this.calendarType === CalendarType.Range) {
+      super.writeValue(rangeFormatter(new Date(value.start), new Date(value.end)));
+    } else {
+      super.writeValue(InputDateDirective.ISOToDate(value.start));
+    }
   }
 
   protected cleanFunction: CleanFunction = function(inputValue: ISOString): string {
     this.input.value = inputValue;
-    this._textMaskInput?.update();
-    this._calendarComponentRef?.instance?.calendarValue$.next(InputDateDirective.dateToISO(this.input.value));
-    return this.input.value;
+    if (this.calendarType !== CalendarType.Range) {
+      this._textMaskInput?.update();
+      this._calendarComponentRef?.instance?.calendarValue$.next({
+        start: InputDateDirective.dateToISO(this.input?.value)
+      });
+    } else {
+      const range = extractDateFromRange(this.input?.value);
+      if (range) {
+        this._calendarComponentRef?.instance?.calendarValue$.next({
+          start: toISOString(range?.start),
+          end: toISOString(range?.end)
+        });
+      }
+    }
+    return this.input?.value;
   };
 
   private addCalendar(wrapperElement: HTMLElement): void {
@@ -169,7 +186,7 @@ export class InputDateDirective
       this._domService.attachComponent(this._calendarComponentRef, wrapperElement);
       this._calendarComponentRef?.instance?.selectedDate
         .pipe(takeUntil(this._destroyed$))
-        .subscribe((value: string) => this.writeValue(value));
+        .subscribe((value: {start: ISOString, end?: ISOString}) => this.writeValue(value));
     }
   }
 
