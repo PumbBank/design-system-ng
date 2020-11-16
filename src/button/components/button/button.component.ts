@@ -1,5 +1,14 @@
 import { ButtonVariety } from './button-variety';
-import { Component, Input, ViewChild, ElementRef, OnChanges, SimpleChanges } from '@angular/core';
+import {
+  AfterViewInit,
+  ChangeDetectionStrategy, ChangeDetectorRef,
+  Component,
+  ElementRef,
+  Input,
+  OnChanges,
+  SimpleChanges,
+  ViewChild
+} from '@angular/core';
 
 enum elementSize {
   small = 'small',
@@ -21,9 +30,10 @@ enum iconColor {
 @Component({
   selector: 'mill-button',
   templateUrl: './button.component.html',
-  styleUrls: ['./button.scss']
+  styleUrls: ['./button.scss'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class ButtonComponent implements OnChanges {
+export class ButtonComponent implements AfterViewInit, OnChanges {
 
   @Input() variety: ButtonVariety = ButtonVariety.BASIC;
 
@@ -59,6 +69,13 @@ export class ButtonComponent implements OnChanges {
     return this.getSizeClass(this.size);
   }
 
+  constructor(private _cdr: ChangeDetectorRef) {
+  }
+
+  ngAfterViewInit(): void {
+    this._cdr.markForCheck();
+  }
+
   ngOnChanges(changes: SimpleChanges): void {
     if (changes.variety) {
       this.onVarietyChange();
@@ -71,6 +88,7 @@ export class ButtonComponent implements OnChanges {
         this.varietyClass = 'hn-button_contained';
         break;
     }
+    this._cdr.markForCheck();
   }
 
   private getViewClass(view: elementView | string): string {

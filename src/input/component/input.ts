@@ -464,7 +464,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
     if (this.prefix === '+380') {
       this.renderer.addClass(this.input, 'input__input_prefixed');
-      
+
     } else {
       this.renderer.addClass(this.input, 'input__input_prefixed-international');
     }

@@ -37,13 +37,17 @@ export class CalendarComponent {
 
   state: CalendarState = CalendarState.Days;
   currentMonthCalendar: CalendarMonth[];
+  chosenDate: string;
 
   // enums
   // tslint:disable-next-line:typedef
   calendarState = CalendarState;
+  // tslint:disable-next-line:typedef
+  calendarType = CalendarType;
   days: string[] = CALENDAR_WEEKDAYS_UK;
   months: string[];
   years: number[];
+
 
   constructor(private _cdr: ChangeDetectorRef,
               private _element: ElementRef,
@@ -73,6 +77,10 @@ export class CalendarComponent {
   get valueMonthLocalized(): string {
     const month = this._selectedMonth ? this._selectedMonth - 1 : new Date().getMonth();
     return new Date(this.valueYear, month).toLocaleString('uk', {month: 'long'});
+  }
+
+  get today(): string {
+    return CalendarComponent.toISOString(new Date());
   }
 
   private static buildYearsList(start?: number, end?: number): number[] {
@@ -141,10 +149,17 @@ export class CalendarComponent {
     ];
   }
 
+  private static toISOString(date: Date) {
+    const year = date.getFullYear();
+    const month = (date.getMonth() + 1).toString().padStart(2, '0');
+    const day = date.getDate().toString().padStart(2, '0');
+    return `${year}-${month}-${day}T00:00:00.000Z`;
+  }
+
   @HostListener('document:click', ['$event.target'])
   public clickOutside(target: any): void {
     if (!this._element?.nativeElement?.contains(target) &&
-        !this._element?.nativeElement?.parentElement?.contains(target)) {
+        !this._element?.nativeElement?.parentElement?.contains(target) && target.isConnected) {
       this.showCalendar = false;
     }
   }
@@ -156,11 +171,14 @@ export class CalendarComponent {
   onOpenCalendarClick(showCalendar: boolean): void {
     if (!this._showCalendar) {
       this.state = CalendarState.Days;
-      const selected = this.calendarValue$.getValue() && new Date(this.calendarValue$.getValue());
+      const selectedISO = this.calendarValue$.getValue();
+      const selected = selectedISO && new Date(selectedISO);
       if (selected) {
+        this.chosenDate = selectedISO;
         this._selectedMonth = selected.getMonth() + 1;
         this._selectedYear = selected.getFullYear();
       } else {
+        this.chosenDate = '';
         this._selectedMonth = new Date().getMonth() + 1;
         this._selectedYear = new Date().getFullYear();
       }
@@ -208,10 +226,14 @@ export class CalendarComponent {
 
   selectDate(weekday: CalendarWeekday): void {
     const date = new Date(this._selectedYear, this._selectedMonth - 1, weekday.day);
-    const year = date.getFullYear();
-    const month = (date.getMonth() + 1).toString().padStart(2, '0');
-    const day = date.getDate().toString().padStart(2, '0');
-    this.selectedDate.emit(`${year}-${month}-${day}T00:00:00.000Z`);
+    this.chosenDate = CalendarComponent.toISOString(date);
+    if (this.type === CalendarType.Basic) {
+      this.selectDateConfirm();
+    }
+  }
+
+  selectDateConfirm(): void {
+    this.selectedDate.emit(this.chosenDate);
     this.showCalendar = false;
     this._cdr.markForCheck();
   }
@@ -234,7 +256,7 @@ export class CalendarComponent {
   }
 
   highlightSelectedDay(day: number, month: CalendarMonth): boolean {
-    const selected = this.calendarValue$.getValue() && new Date(this.calendarValue$.getValue());
+    const selected = this.chosenDate && new Date(this.chosenDate);
     if (!selected) {
       return;
     }

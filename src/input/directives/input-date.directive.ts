@@ -5,7 +5,10 @@ import {
   ElementRef,
   OnInit,
   ComponentRef,
-  OnDestroy
+  OnDestroy,
+  Input,
+  OnChanges,
+  SimpleChanges
 } from '@angular/core';
 import {
   NG_VALUE_ACCESSOR,
@@ -21,7 +24,7 @@ import { takeUntil } from 'rxjs/operators';
 import { createTextMaskInputElement } from 'text-mask-core';
 
 import { MillInput, CleanFunction } from '..';
-import { CalendarComponent } from '../../calendar';
+import { CalendarComponent, CalendarType } from '../../calendar';
 import { DomService } from '../../autocomplete/services/dom.service';
 
 type ISOString = string;
@@ -41,11 +44,15 @@ type ISOString = string;
     }
   ]
 })
-export class InputDateDirective extends MillInput implements ControlValueAccessor, OnInit, Validator, OnDestroy {
+export class InputDateDirective
+  extends MillInput
+  implements ControlValueAccessor, OnInit, OnChanges, Validator, OnDestroy {
   private _destroyed$: Subject<void> = new Subject<void>();
   private _textMaskInput: any;
   private _mask: Array<string | RegExp> = [/\d/, /\d/, '.', /\d/, /\d/, '.', /\d/, /\d/, /\d/, /\d/];
   private _calendarComponentRef: ComponentRef<CalendarComponent>;
+
+  @Input() calendarType: CalendarType;
 
   private static dateToISO(date: string): string {
     if (!date) { return ''; }
@@ -84,6 +91,13 @@ export class InputDateDirective extends MillInput implements ControlValueAccesso
       keepCharPositions: true,
       guide: false
     });
+  }
+
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.calendarType?.previousValue && changes.calendarType?.currentValue) {
+      this._calendarComponentRef.instance.type = changes.calendarType?.currentValue;
+    }
+    super.ngOnChanges(changes);
   }
 
   ngOnDestroy(): void {
@@ -143,13 +157,14 @@ export class InputDateDirective extends MillInput implements ControlValueAccesso
 
   protected cleanFunction: CleanFunction = function(inputValue: ISOString): string {
     this.input.value = inputValue;
-    this._textMaskInput.update();
+    this._textMaskInput?.update();
     this._calendarComponentRef?.instance?.calendarValue$.next(InputDateDirective.dateToISO(this.input.value));
     return this.input.value;
   };
 
   private addCalendar(wrapperElement: HTMLElement): void {
-    this._calendarComponentRef = this._domService.createComponent<CalendarComponent>(CalendarComponent);
+    this._calendarComponentRef = this._domService
+      .createComponent<CalendarComponent>(CalendarComponent, {type: this.calendarType});
     if (this._calendarComponentRef) {
       this._domService.attachComponent(this._calendarComponentRef, wrapperElement);
       this._calendarComponentRef?.instance?.selectedDate

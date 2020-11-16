@@ -52,6 +52,16 @@
         </div>
       </ng-container>
     </div>
+    <ng-container *ngIf="type === calendarType.WithButton">
+      <div class="calendar__button">
+        <mill-button view="filled" icon="check"
+                     [disabled]="!chosenDate"
+                     (click)="selectDateConfirm()">
+          {{ chosenDate || today | date:'dd MMMM yyyy' }}
+        </mill-button>
+      </div>
+      <mill-button view="hidden" (click)="toggle()">Скасувати</mill-button>
+    </ng-container>
   </div>
 </ng-template>
 

@@ -1,9 +1,13 @@
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CalendarComponent } from './components/calendar/calendar.component';
 import { FormGroupDirective } from '@angular/forms';
 import { IconsModule } from '../icons';
 import { ButtonModule } from '../button';
+import { registerLocaleData } from '@angular/common';
+import localeUk from '@angular/common/locales/uk';
+
+const LOCALE_UK = 'uk';
 
 @NgModule({
   declarations: [CalendarComponent],
@@ -13,9 +17,16 @@ import { ButtonModule } from '../button';
     IconsModule,
     ButtonModule
   ],
-  providers: [FormGroupDirective],
+  providers: [
+    FormGroupDirective,
+    {provide: LOCALE_ID, useValue: LOCALE_UK}
+  ],
   entryComponents: [
     CalendarComponent
   ]
 })
-export class CalendarModule { }
+export class CalendarModule {
+  constructor() {
+    registerLocaleData(localeUk, LOCALE_UK);
+  }
+}

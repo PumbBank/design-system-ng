@@ -2,8 +2,6 @@
 @import "~@mill/figma/icons";
 @import "~@mill/figma/typography";
 
-// TODO:improvement: let's review styles, we don't want use !important
-
 %icon_grey-50 {
   background: $grey-50;
 }
@@ -16,9 +14,9 @@
   position: absolute;
   overflow: auto;
   transition: opacity 0.299s ease-in-out;
+  opacity: 0;
   width: 300px;
   box-sizing: border-box;
-  visibility: hidden;
   z-index: 10;
   transform: translateY(-18px);
   background: $other-white;
@@ -28,10 +26,12 @@
   flex-direction: column;
 
   &__active {
-    visibility: visible;
+    opacity: 1;
+    pointer-events: unset;
   }
 
   &_months {
+
     .calendar-days {
       display: none;
     }
@@ -39,32 +39,35 @@
     .calendar-months {
       display: grid;
     }
+
   }
 
   &_years {
+
     .calendar-days {
       display: none;
     }
 
     .calendar-body {
-      position: relative;
       padding: 0 16px;
 
-      &::before,
-      &::after {
-        content: "";
+      position: relative;
+
+      &:before, &:after {
+        content: '';
         position: absolute;
         left: 0;
         right: 0;
+
         height: 64px;
       }
 
-      &::before {
+      &:before {
         top: 0;
         background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 68.23%, #FFFFFF 98.96%);
       }
 
-      &::after {
+      &:after {
         bottom: 0;
         background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 68.23%, #FFFFFF 98.96%);
         transform: rotate(180deg);
@@ -76,10 +79,12 @@
       display: flex;
       max-height: 264px;
     }
+
+
   }
 
-  &_months,
-  &_years {
+  &_months, &_years {
+
     .calendar-header {
       justify-content: center;
 
@@ -88,6 +93,7 @@
       }
 
       .calendar-header-date {
+
         &__box {
           margin: 0;
         }
@@ -99,29 +105,38 @@
         }
 
         &__box_month {
+
           .calendar-header-date__icon {
             display: none;
           }
+
         }
+
       }
+
     }
+
   }
 
-  &_with-button,
-  &_range {
+  &_with-button, &_range {
+
     .calendar-years {
       max-height: 340px;
       padding: 130px 0;
     }
+
   }
+
 }
 
 .calendar-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
+
   height: 56px;
   padding: 0 8px;
+
   box-sizing: border-box;
   border-bottom: 1px solid $grey-20;
 
@@ -150,12 +165,12 @@
     display: flex;
     align-items: center;
     margin: 0 8px;
+
     cursor: pointer;
   }
 
   &__text {
     @extend %s1;
-
     color: $grey-70;
     margin-right: 6px;
   }
@@ -171,11 +186,14 @@
 .calendar-body {
   padding: 16px 18px 16px 16px;
   min-height: 230px;
+
   flex: 1;
+
   display: flex;
   align-items: center;
   justify-content: center;
   flex-direction: column;
+
 }
 
 .calendar-days {
@@ -190,22 +208,29 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
     margin: 0 auto;
+
     position: relative;
+
     z-index: 0;
 
     @extend %overline;
 
-    &::after {
-      content: "";
+    &:after {
+      content: '';
       position: absolute;
       z-index: -1;
       width: 28px;
       height: 28px;
       border-radius: 100%;
+
       box-sizing: border-box;
     }
+
+
   }
+
 }
 
 .calendar-days-week {
@@ -217,6 +242,7 @@
   &__cell {
     color: $grey-40;
   }
+
 }
 
 .calendar-days-day {
@@ -226,12 +252,14 @@
   grid-template-rows: auto;
   justify-content: space-between;
   grid-row-gap: 8px;
+
   margin-top: 20px;
 
   &__cell {
     border-radius: 100%;
     color: $grey-60;
     cursor: pointer;
+
     box-sizing: border-box;
 
     &_off {
@@ -239,45 +267,51 @@
     }
 
     &_in-range {
+
       opacity: 1;
 
-      &::after {
+      &:after {
         background: rgba(250, 87, 96, 0.25);
-        width: 38px !important;
-        border-radius: 0 !important;
+        width: 38px;
+        border-radius: 0;
       }
 
       &:nth-of-type(7n + 1) {
-        &::after {
-          border-top-left-radius: 14px !important;
-          border-bottom-left-radius: 14px !important;
-          width: 33px !important;
+
+        &:after {
+          border-top-left-radius: 14px;
+          border-bottom-left-radius: 14px;
+          width: 33px;
           right: -5px;
         }
+
       }
 
       &:nth-of-type(7n) {
-        &::after {
-          border-top-right-radius: 14px !important;
-          border-bottom-right-radius: 14px !important;
-          width: 33px !important;
+
+        &:after {
+          border-top-right-radius: 14px;
+          border-bottom-right-radius: 14px;
+          width: 33px;
           left: -5px;
         }
+
       }
+
     }
 
     &_start {
       color: $other-white;
 
-      &::after {
-        border-top-left-radius: 14px !important;
-        border-bottom-left-radius: 14px !important;
-        width: 33px !important;
+      &:after {
+        border-top-left-radius: 14px;
+        border-bottom-left-radius: 14px;
+        width: 33px;
         right: -5px;
       }
 
-      &::before {
-        content: "";
+      &:before {
+        content: '';
         border: 1px solid $red-50;
         background: $red-50;
         position: absolute;
@@ -285,22 +319,24 @@
         width: 28px;
         height: 28px;
         border-radius: 100%;
+
         box-sizing: border-box;
       }
+
     }
 
     &_end {
-      color: $other-white !important;
+      color: $other-white;
 
-      &::after {
-        border-top-right-radius: 14px !important;
-        border-bottom-right-radius: 14px !important;
-        width: 33px !important;
+      &:after {
+        border-top-right-radius: 14px;
+        border-bottom-right-radius: 14px;
+        width: 33px;
         left: -5px;
       }
 
-      &::before {
-        content: "";
+      &:before {
+        content: '';
         border: 1px solid $red-50;
         background: $red-50;
         position: absolute;
@@ -308,25 +344,29 @@
         width: 28px;
         height: 28px;
         border-radius: 100%;
+
         box-sizing: border-box;
       }
+
     }
 
-    &:not(&_off):nth-of-type(7n - 1),
-    &:not(&_off):nth-of-type(7n) {
+
+    &:not(&_off):not(&_active):nth-of-type(7n - 1), &:not(&_off):not(&_active):nth-of-type(7n) {
       color: $red-40;
     }
 
     &_current {
-      &::after {
+
+      &:after {
         border: 1px solid $red-50;
       }
+
     }
 
     &_active {
-      color: $other-white !important;
+      color: $other-white;
 
-      &::after {
+      &:after {
         border: 1px solid $red-50;
         background: $red-50;
       }
@@ -334,11 +374,15 @@
     }
 
     &:not(&_active):hover:not(&_current):hover:not(&_in-range):hover {
-      &::after {
+
+      &:after {
         border: 1px solid $grey-30;
       }
+
     }
+
   }
+
 }
 
 .calendar-months {
@@ -357,9 +401,12 @@
     display: flex;
     align-items: center;
     justify-content: center;
+
     color: $grey-60;
+
     border-radius: 50px;
     box-sizing: border-box;
+
     cursor: pointer;
 
     @extend %overline;
@@ -372,33 +419,44 @@
     &:not(&_active):hover {
       border: 1px solid $grey-30;
     }
+
   }
+
 }
 
 .calendar-years {
   display: none;
   overflow-y: auto;
   flex-direction: column;
+
   height: 100%;
   width: 100%;
+
   align-items: center;
+
   padding: 88px 0;
+
   box-sizing: border-box;
 
   &::-webkit-scrollbar {
     display: none;
   }
 
+
   &__year {
     min-height: 48px;
     height: 48px;
     width: 178px;
+
     margin: 4px 0;
+
     border-radius: 50px;
     box-sizing: border-box;
+
     display: flex;
     align-items: center;
     justify-content: center;
+
     cursor: pointer;
 
     @extend %h6;
@@ -411,29 +469,16 @@
     &:not(&_active):hover {
       border: 1px solid $grey-30;
     }
+
   }
+
 }
 
 .calendar__button {
   margin-top: 12px;
   width: 100%;
-
-  .button__icon {
-    @extend .icon_24;
-    @extend .icon_check;
-  }
-}
-
-.calendar__reset {
-  display: inline-flex;
-  margin: 18px auto 0;
-  color: $grey-70;
-  cursor: pointer;
-
-  @extend %s2;
-
-  &_disabled {
-    pointer-events: none;
-    color: $grey-40;
-  }
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
 }

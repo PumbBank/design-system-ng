@@ -1,8 +1,13 @@
-import { Component, OnInit, Input } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit
+} from '@angular/core';
 import { FormControl, ValidationErrors, Validators } from '@angular/forms';
 import { IDataAutocomplete } from '../../../autocomplete/models/data-autocomplete';
 import { ValidatorService } from '../../../validators/validators-service';
 import { AutoCompleteDataService } from '../services/autocomplete-data.service';
+import { CalendarType } from '../../../calendar';
 
 export enum InputViews {
   labelPlaceholder = 'basic',
@@ -23,19 +28,18 @@ export class InputOverviewComponent implements OnInit {
   dateControl: FormControl = new FormControl('');
   dateControlWithCalendar: FormControl = new FormControl('');
   cardControl: FormControl = new FormControl('');
-  ibanControl: FormControl = new FormControl('', 
+  ibanControl: FormControl = new FormControl('',
   [
     ValidatorService.validIBAN,
     (v) => v.value.length > 32 || v.value.length < 15 ? { errorMessage: 'Від 15 до 32 символів' } : null
   ]);
-
   digitControl: FormControl = new FormControl('');
   validControl: FormControl = new FormControl('');
   errorControl: FormControl = new FormControl('', (v) =>
     !v.value ? { errorMessage: 'Текст повідомлення' } : null);
   infoControl: FormControl = new FormControl('');
   phoneControl: FormControl = new FormControl('');
-  internationalPhoneControl: FormControl = new FormControl('')
+  internationalPhoneControl: FormControl = new FormControl('');
   disabledControl: FormControl = new FormControl({ value: '', disabled: true });
 
   textAreaBasicControl: FormControl = new FormControl('');
@@ -86,6 +90,8 @@ export class InputOverviewComponent implements OnInit {
   }
 
   @Input() resizeTextarea: 'none' | 'both' | 'horizontal' | 'vertical' | 'inherit';
+
+  @Input() calendarType: CalendarType;
 
   constructor(private autoCompleteDataService: AutoCompleteDataService) { }
 

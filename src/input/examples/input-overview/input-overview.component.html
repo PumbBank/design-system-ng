@@ -73,6 +73,7 @@
       <div class="overview__label s1">Date with calendar</div>
       <div class="overview__container">
         <input millInput="date" type="text" icon="calendar"
+               [calendarType]="calendarType"
                [formControl]="dateControlWithCalendar"
                [caption]="hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>

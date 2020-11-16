@@ -57,7 +57,11 @@ export const component = () => ({
       both: 'both',
       horizontal: 'horizontal ',
       vertical: 'vertical '
-    }, 'none')
+    }, 'none'),
+    calendarType: radios('Calendar type', {
+      basic: 'basic',
+      'with-button': 'with-button',
+    }, 'basic')
   },
 
   template: `
@@ -65,7 +69,8 @@ export const component = () => ({
       [label]="label"
       [placeholder]="placeholder"
       [views]="views"
-      [resizeTextarea]="resizeTextarea">
+      [resizeTextarea]="resizeTextarea"
+      [calendarType]="calendarType">
     </input-overview>
 	`
 });
