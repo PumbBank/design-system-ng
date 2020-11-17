@@ -400,7 +400,11 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     this.renderer.appendChild(this.prefixElement, prefixTextContainer);
     this.renderer.addClass(this.prefixElement, 'input__prefix');
 
-    this.prefix === '+380' ? this.renderer.addClass(this.input, 'input__input_prefixed') : this.renderer.addClass(this.input, 'input__input_prefixed1');
+    if (this.prefix === '+380') {
+      this.renderer.addClass(this.input, 'input__input_prefixed');
+    } else {
+      this.renderer.setStyle(this.input, 'padding', '0 16px 0 0');
+    }
   }
 }
 
