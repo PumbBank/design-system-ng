@@ -218,6 +218,10 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     this.iconCleanupElement.addEventListener('click', () => {
 
       this.input.value = '';
+      if (!!this.autocompleteDataSource) {
+        this.messageSource$.next('');
+      }
+
       if (this.onChangeCallback) {
         this.onChangeCallback('');
       }
@@ -395,10 +399,13 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
       this.renderer.addClass(this.loaderWrap, 'loader-wrap');
       this.renderer.addClass(this.loader, 'loader');
       this.renderer.setStyle(this.iconElement, 'display', 'none');
+      this.renderer.setStyle(this.iconCleanupElement, 'display', 'none');
+
     } else {
       this.renderer.removeClass(this.loaderWrap, 'loader-wrap');
       this.renderer.removeClass(this.loader, 'loader');
       this.renderer.removeStyle(this.iconElement, 'display');
+      this.renderer.removeStyle(this.iconCleanupElement, 'display');
     }
   }
 
