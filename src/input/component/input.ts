@@ -437,7 +437,13 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     this.renderer.appendChild(prefixTextContainer, prefixTextContent);
     this.renderer.appendChild(this.prefixElement, prefixTextContainer);
     this.renderer.addClass(this.prefixElement, 'input__prefix');
-    this.renderer.addClass(this.input, 'input__input_prefixed');
+
+    if (this.prefix === '+380') {
+      this.renderer.addClass(this.input, 'input__input_prefixed');
+      
+    } else {
+      this.renderer.addClass(this.input, 'input__input_prefixed-international');
+    }
   }
 
   private setAutocomplete(): void {

@@ -22,7 +22,12 @@ export class InputOverviewComponent implements OnInit {
   nameControlWithIcon: FormControl = new FormControl('');
   dateControl: FormControl = new FormControl('');
   cardControl: FormControl = new FormControl('');
-  ibanControl: FormControl = new FormControl('', ValidatorService.validIBAN);
+  ibanControl: FormControl = new FormControl('', 
+  [
+    ValidatorService.validIBAN,
+    (v) => v.value.length > 32 || v.value.length < 15 ? { errorMessage: 'Від 15 до 32 символів' } : null
+  ]);
+
   digitControl: FormControl = new FormControl('');
   validControl: FormControl = new FormControl('');
   errorControl: FormControl = new FormControl('', (v) =>

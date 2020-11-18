@@ -33,10 +33,13 @@ export class InputIbanDirective extends MillInput implements ControlValueAccesso
   }
 
   ngOnInit(): void {
+    const reg = /[A-Z0-9_]/;
     this._textMaskInput = createTextMaskInputElement({
       inputElement: this.inputElementRef.nativeElement,
-      mask: [/[A-Z]/, /[A-Z]/,' ', /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, /\d/, ' ', /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/, /\d/],
-      keepCharPositions: true,
+      mask: [/[A-Z]/, /[A-Z]/, /\d/, /\d/, ' ', reg, reg, reg, reg, ' ',
+      reg, reg, reg, reg, ' ', reg, reg, reg, reg, ' ', reg, reg, reg, reg, ' ',
+      reg, reg, reg, reg, ' ', reg, reg, reg, reg, ' ', reg, reg, reg, reg],
+      keepCharPositions: false,
       guide: false
     });
   }

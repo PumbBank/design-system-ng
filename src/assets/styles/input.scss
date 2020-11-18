@@ -147,6 +147,10 @@
   &.input__input_prefixed {
     padding: 0 16px 0 4px;
   }
+
+  &.input__input_prefixed-international {
+    padding: 0 16px 0 0;
+  }
 }
 
 input::placeholder {
