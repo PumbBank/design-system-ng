@@ -19,6 +19,7 @@
   display: inline-block;
   width: 100%;
   min-width: 100px;
+  position: relative;
 
   &:not(&_disabled):hover {
     .input__body {
@@ -262,5 +263,50 @@ input::placeholder {
     @extend %p1;
     line-height: 23px !important;
     color: $grey-70;
+  }
+}
+
+// ------------------------------------------
+
+
+
+.loader-wrap {
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
+  position: relative;
+  margin: 0 10px 0 -4px;
+  min-width: 24px;
+}
+
+.loader {
+  &::before,
+  &::after {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    border: 2px solid transparent;
+    border-top-color: $red-50;
+    content: "";
+  }
+
+  &::before {
+    z-index: 100;
+    animation: spin 1s infinite;
+  }
+
+  &::after {
+    border: 2px solid #d0d0d9;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
   }
 }

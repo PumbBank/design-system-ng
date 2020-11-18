@@ -1,6 +1,8 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, ValidationErrors, Validators } from '@angular/forms';
+import { IDataAutocomplete } from 'src/autocomplete/models/data-autocomplete';
 import { ValidatorService } from '../../../validators/validators-service';
+import { AutoCompleteDataService } from '../services/autocomplete-data.service';
 
 export enum InputViews {
   labelPlaceholder = 'basic',
@@ -53,6 +55,7 @@ export class InputOverviewComponent implements OnInit {
 
   hideLabel: boolean;
   hidePlaceholder: boolean;
+  autocompleteDataSource: IDataAutocomplete;
 
   @Input() label: string;
   @Input() placeholder: string;
@@ -83,6 +86,8 @@ export class InputOverviewComponent implements OnInit {
 
   @Input() resizeTextarea: 'none' | 'both' | 'horizontal' | 'vertical' | 'inherit';
 
+  constructor(private autoCompleteDataService: AutoCompleteDataService) { }
+
   ngOnInit(): void {
     this.errorControl.markAsDirty();
 
@@ -90,6 +95,8 @@ export class InputOverviewComponent implements OnInit {
     this.textAreaErrorControl.markAsDirty();
 
     this.validControlErrors = this.validateTaxId();
+
+    this.autocompleteDataSource = this.autoCompleteDataService.getDataFromAPI();
   }
 
   validateTaxId(): ValidationErrors | null {

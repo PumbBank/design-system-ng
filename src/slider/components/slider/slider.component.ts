@@ -29,7 +29,7 @@ const GRAY_20 = '#E1E1E8';
 @Component({
   selector: 'mill-slider',
   templateUrl: './slider.component.html',
-  styleUrls: ['./slider.scss'],
+  styleUrls: ['./slider.component.scss'],
   providers: [
     {
       provide: NG_VALUE_ACCESSOR,
@@ -41,6 +41,9 @@ const GRAY_20 = '#E1E1E8';
 })
 export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor, OnDestroy {
   private _destroyed$: Subject<void> = new Subject<void>();
+
+  @Input() public hideThumbTooltip: boolean;
+  @Input() public hideValues: boolean;
 
   /** Type of slider can be "basic", "double" or "step" */
   @Input() public type?: SliderTypeEnum = SliderTypeEnum.basic;
@@ -447,7 +450,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor,
     // Calculation of position as a percentage
     const result =
       this.sliderConfig.selectedThumb.value +
-      Math.round(this._moveCounter / Math.round(this._sliderWidth / 100));
+      Math.round(this._moveCounter / this._sliderWidth * 100);
 
     this._updateValue(result);
   }
@@ -580,7 +583,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor,
 
   /** Get slider content width */
   private _getSliderContentWidth(): void {
-    this._sliderWidth = this._sliderContent.nativeElement.getBoundingClientRect().width;
+    this._sliderWidth = this._sliderContent.nativeElement.offsetWidth;
   }
 
   public getType(): SliderTypeEnum {

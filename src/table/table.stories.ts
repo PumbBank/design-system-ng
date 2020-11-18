@@ -26,6 +26,13 @@ export const component = () => ({
     dark: boolean('Dark style Header', false),
   },
   template: `
-    <table-overview [type]="types" [style]="styles" [selectInput]="control" [darkHeader]="dark" [fixedHeader]="fixed" [filter]="filter"></table-overview>
-    `
+    <table-overview
+      [type]="types"
+      [style]="styles"
+      [selectInput]="control"
+      [darkHeader]="dark"
+      [fixedHeader]="fixed"
+      [filter]="filter">
+    </table-overview>
+  `
 });

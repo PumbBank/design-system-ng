@@ -6,7 +6,7 @@
        [class.thumb_hidden]="isHidden()"
   >
 		<div class="thumb__circle"></div>
-		<div class="thumb__tooltip">
+		<div class="thumb__tooltip" *ngIf="!thumbTooltip">
 			<span>{{ value }}</span>
 		</div>
 	</div>

@@ -10,6 +10,8 @@ type SliderConfigInterfaceType = SliderConfigInterface;
 export class SliderThumbComponent {
   @HostBinding('tabIndex') tabIndex: number = 0;
 
+  @Input() thumbTooltip: boolean;
+
   /** Thumb name (min or max value) */
   @Input() thumbName: ThumbNameEnum;
 

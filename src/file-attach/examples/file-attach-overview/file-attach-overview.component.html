@@ -12,6 +12,17 @@
       <div class="overview__container">
         <mill-file-attach [listSide]="listSide"
                           [multiple]="multiple"
+                          [disabled]="disabled"
+                          [fileAcceptedTypes]="accepted"
+                          [addedFiles]="files"></mill-file-attach>
+      </div>
+    </div>
+    <div class="overview__column overview__column_offset">
+      <div class="overview__label s1">Drag’n’drop area</div>
+      <div class="overview__container">
+        <mill-file-attach inputView="drop-zone"
+                          [multiple]="multiple"
+                          [disabled]="disabled"
                           [fileAcceptedTypes]="accepted"
                           [addedFiles]="files"></mill-file-attach>
       </div>

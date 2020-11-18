@@ -22,10 +22,10 @@ export class SelectOptionDirective<K = any, P = any> implements OnDestroy, OnIni
 
   ngOnInit(): void {
     this.option = new MillSelectOption(this.key, this.value);
-    this.optionRegistrar.registeredOption(this.option);
+    this.optionRegistrar?.registeredOption(this.option);
   }
 
   ngOnDestroy(): void {
-    this.optionRegistrar.unregisteredOption(this.option);
+    this.optionRegistrar?.unregisteredOption(this.option);
   }
 }

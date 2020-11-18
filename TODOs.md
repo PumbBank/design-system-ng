@@ -2,3 +2,4 @@
 
 ### TODO:refactor styles
 Refactor assets/styles.scss file and fix priority of applying styles for icon css class
+

@@ -5,22 +5,25 @@ import { TableComponent } from './components/table/table.component';
 import { FilterInputComponent } from './components/filter-input/filter-input.component';
 import { BadgeModule } from '../badge';
 
+const components = [
+  TableComponent,
+  FilterInputComponent,
+];
 
 @NgModule({
-  declarations: [
-    TableComponent,
-    FilterInputComponent,
-  ],
-  exports: [
-    TableComponent,
-  ],
-  imports: [
-    CommonModule,
-    FormsModule,
-    ReactiveFormsModule,
-    BadgeModule
-  ],
+	declarations: [
+    ...components,
+	],
+	exports: [
+    ...components,
+	],
+	imports: [
+		CommonModule,
+		FormsModule,
+		ReactiveFormsModule,
+    BadgeModule,
+	]
 })
-export class TableModule {
-}
+
+export class TableModule { }
 

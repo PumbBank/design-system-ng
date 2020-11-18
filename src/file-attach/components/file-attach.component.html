@@ -1,7 +1,7 @@
 <div class="file-attach__container" [ngClass]="[containerSide]">
   <div [class.file-attach__container_flex]="listSide === 'bottom'"
        [class.file-attach__container_grid]="listSide !== 'bottom'">
-    <ng-template
+    <ng-container
       *ngFor="let file of files; index as index"
       [ngTemplateOutlet]="fileLabelWrap"
       [ngTemplateOutletContext]="{
@@ -9,9 +9,9 @@
         state: file?.isError ? 'error' : file?.isLoading ? 'loading' : '',
         index: index
       }"
-    ></ng-template>
+    ></ng-container>
   </div>
-  <mill-button view="ghost" icon="attach" (click)="chooseFileClick()">{{ actionCaption }}</mill-button>
+  <ng-container [ngTemplateOutlet]="inputView === 'button' ? buttonView : dropZoneView"></ng-container>
   <input #fileInput type="file" hidden
          [accept]="fileAcceptedTypes"
          [multiple]="multiple"
@@ -57,5 +57,38 @@
                    [ngTemplateOutlet]="fileLabelWithDelete"
                    [ngTemplateOutletContext]="{name: name, index: index}"></ng-template>
     </ng-container>
+  </div>
+</ng-template>
+
+<ng-template #buttonView>
+  <mill-button view="ghost" icon="attach"
+               [disabled]="disabled"
+               (click)="chooseFileClick()">{{ actionCaption }}</mill-button>
+</ng-template>
+
+<ng-template #dropZoneView>
+  <ng-container [ngTemplateOutlet]="disabled ? disabledDropZoneView : activeDropZoneView"></ng-container>
+</ng-template>
+
+<ng-template #activeDropZoneView>
+  <div class="file-attach__dropzone" mill-dropzone
+       [acceptedMimeTypes]="fileAcceptedTypes && fileAcceptedTypes.split(',')"
+       (uploadedFile)="onDroppedFileUploaded($event)"
+       (click)="chooseFileClick()">
+    <div class="file-attach__dropzone__primary_text">
+      <span>Оберіть файл</span>
+      <mill-icon class="file-attach__dropzone__primary_text_icon" name="upload"></mill-icon>
+    </div>
+    <span class="file-attach__dropzone__secondary_text">або перетягніть його сюди</span>
+  </div>
+</ng-template>
+
+<ng-template #disabledDropZoneView>
+  <div class="file-attach__dropzone disabled">
+    <div class="file-attach__dropzone__primary_text">
+      <span>Оберіть файл</span>
+      <mill-icon class="file-attach__dropzone__primary_text_icon" name="upload"></mill-icon>
+    </div>
+    <span class="file-attach__dropzone__secondary_text">або перетягніть його сюди</span>
   </div>
 </ng-template>

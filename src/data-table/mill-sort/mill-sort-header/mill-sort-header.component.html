@@ -1,0 +1,12 @@
+<div class="table-sort" (click)="onClick()">
+  <ng-content></ng-content>
+  <div
+    class="table-arrow"
+    [class.table-arrow_sorted]="sortDirection"
+    [class.table-arrow_rotate]="sortDirection === 'asc'"
+  >
+    <span class="table-arrow__icon"></span>
+  </div>
+</div>
+
+

@@ -1,0 +1,36 @@
+<div class="table-paginator">
+  <div class="table-paginator__count">
+    <div class="table-paginator__label">Рядків на сторінці:</div>
+    <div class="table-paginator__select">
+      <div class="table-paginator__head" (click)="menuState = !menuState">
+        <b>{{ pageSize }}</b
+        ><span class="table-arrow" [class.table-arrow_active]="menuState">
+          <span class="table-arrow__icon"></span>
+        </span>
+      </div>
+      <div class="table-menu" [class.table-menu_active]="menuState">
+        <div
+          *ngFor="let num of pageSizeOptions"
+          class="table-menu__option"
+          [class.table-menu__option_selected]="num === pageSize"
+          (click)="onMenuOptionClick(num)"
+        >
+          {{ num }}
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="table-paginator__controls">
+    <div class="table-paginator__label">{{ counterLabel }}</div>
+    <button
+      class="table-paginator__arrow table-paginator__prev"
+      [class.table-paginator__arrow_disabled]="!hasPreviousPage()"
+      (click)="previousPage()"
+    ></button>
+    <button
+      class="table-paginator__arrow table-paginator__next"
+      [class.table-paginator__arrow_disabled]="!hasNextPage()"
+      (click)="nextPage()"
+    ></button>
+  </div>
+</div>

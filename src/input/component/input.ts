@@ -3,6 +3,9 @@ import { ValidationErrors, FormGroupDirective } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
 import { takeUntil } from 'rxjs/operators';
+import { AutocompleteComponent } from 'src/autocomplete/components/autocomplete/autocomplete.component';
+import { DomService } from 'src/autocomplete/services/dom.service';
+import { IDataAutocomplete } from 'src/autocomplete/models/data-autocomplete';
 
 type ValidationErrorsType = ValidationErrors;
 
@@ -16,10 +19,14 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   private dirty: boolean;
   private destroyed$: Subject<void> = new Subject<void>();
 
+  private messageSource$ = new BehaviorSubject('');
+  currentInputValue = this.messageSource$.asObservable();
+
   constructor(
     public input: HTMLInputElement,
     public renderer: Renderer2,
-    public parentForm: FormGroupDirective
+    public parentForm: FormGroupDirective,
+    public domService?: DomService
   ) {
     super();
     this.createDom();
@@ -40,6 +47,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   @Input() prefix: string;
   @Input() icon: string;
   @Input() cleanup: boolean = false;
+  @Input() autocompleteDataSource: IDataAutocomplete | Array<string>;
 
   wrapperElement: HTMLElement;
   captionElement: HTMLElement;
@@ -52,6 +60,9 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   msgTextElement: HTMLElement;
   iconElement: HTMLElement;
   iconCleanupElement: HTMLElement;
+
+  loaderWrap: HTMLElement;
+  loader: HTMLElement;
 
   value: BehaviorSubject<string> = new BehaviorSubject<string>(null);
   validationStateObserver: MutationObserver;
@@ -76,6 +87,10 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     }
     if (changes.prefix) {
       this.setPrefix();
+    }
+    if (changes.autocompleteDataSource) {
+      this.setAutocomplete();
+      this.setLoader();
     }
   }
 
@@ -181,6 +196,8 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
       }
 
       this.checkVisibilityCleanupIcon();
+
+      if (!!this.autocompleteDataSource) this.messageSource$.next(this.input.value);
     });
   }
 
@@ -364,6 +381,27 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     this.watchClickCleanupInput();
   }
 
+  private setLoader(): void {
+
+    this.loaderWrap = this.renderer.createElement('div');
+    this.loader = this.renderer.createElement('div');
+    this.renderer.appendChild(this.loaderWrap, this.loader);
+
+    this.renderer.appendChild(this.entranceElement, this.loaderWrap);
+  }
+
+  private setLoaderState(isLoading: boolean) {
+    if (isLoading) {
+      this.renderer.addClass(this.loaderWrap, 'loader-wrap');
+      this.renderer.addClass(this.loader, 'loader');
+      this.renderer.setStyle(this.iconElement, 'display', 'none');
+    } else {
+      this.renderer.removeClass(this.loaderWrap, 'loader-wrap');
+      this.renderer.removeClass(this.loader, 'loader');
+      this.renderer.removeStyle(this.iconElement, 'display');
+    }
+  }
+
   private errorsUpdateText(): void {
     if ((this.errors && this.dirty) || (this.errors && this.parentForm?.submitted)) {
       this.msgTextElement.innerText =
@@ -406,6 +444,24 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     } else {
       this.renderer.addClass(this.input, 'input__input_prefixed-international');
     }
+  }
+
+  private setAutocomplete(): void {
+    const setInputValueFn = (val: string) => {
+      this.input.value = val;
+    };
+
+    const autocompleteComponentRef = this.domService.createComponent(AutocompleteComponent,
+      {
+        dataSource: this.autocompleteDataSource,
+        currentInputValue: this.currentInputValue,
+        callbackFnSetInputValue: setInputValueFn
+      });
+    this.domService.attachComponent(autocompleteComponentRef, this.wrapperElement);
+
+    (<AutocompleteComponent>autocompleteComponentRef.instance).loading.subscribe(
+      (val) => this.setLoaderState(val)
+    );
   }
 }
 

@@ -1,0 +1,136 @@
+@import "../../../node_modules/@mill/figma/colors";
+@import "../../../node_modules/@mill/figma/typography";
+@import "../../../node_modules/@mill/figma/icons";
+
+.table-paginator {
+  @extend %p2;
+
+  height: 56px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  &__count {
+    display: flex;
+    align-items: center;
+  }
+
+  &__controls {
+    display: flex;
+    align-items: center;
+
+    .table-paginator__arrow {
+      @extend .icon_24;
+
+      display: inline-block;
+      background: $grey-50;
+
+      margin-left: 12px;
+
+      transition: 0.3s ease;
+
+      cursor: pointer;
+
+      &_disabled {
+        background: $grey-30;
+      }
+
+      &:hover:not(&_disabled) {
+        background: $grey-60;
+      }
+
+    }
+
+    .table-paginator__arrow + .table-paginator__arrow {
+      margin: 0 4px 0 16px;
+    }
+
+    .table-paginator__prev {
+      @extend .icon_chevron-left;
+    }
+
+    .table-paginator__next {
+      @extend .icon_chevron-right;
+    }
+  }
+
+  &__select {
+    position: relative;
+  }
+
+  &__head {
+    display: flex;
+    align-items: center;
+    padding: 0 8px;
+
+    cursor: pointer;
+
+    .table-arrow {
+      margin: 0 0 0 4px;
+
+      width: 16px;
+
+      &__icon {
+        transform: rotate(180deg);
+        transition: 0.3s ease;
+      }
+
+      &_active {
+        .table-arrow__icon {
+          transform: rotate(0deg);
+          background: $grey-70;
+        }
+      }
+    }
+  }
+
+  &__label {
+    color: $grey-50;
+  }
+}
+
+.table-menu {
+  width: 60px;
+  padding: 8px 0;
+
+  position: absolute;
+  bottom: calc(100% + 4px);
+  left: -8px;
+
+  background: #fff;
+
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 2px 7px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.2);
+
+  opacity: 0;
+  visibility: hidden;
+  transition: 0.3s ease;
+
+  z-index: 1;
+
+  &_active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  &__option {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    height: 32px;
+
+    color: $grey-60;
+    @extend %p2;
+
+    cursor: pointer;
+
+    &_selected {
+      background: $grey-10;
+    }
+
+    &:hover {
+      background: $grey-10;
+    }
+  }
+}

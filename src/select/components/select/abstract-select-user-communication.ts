@@ -3,6 +3,7 @@ import { MillSelectOption } from '../../select-option';
 import { AbstractSelectSearch } from './abstract-select-search';
 import { ViewChild, ViewChildren, ElementRef, QueryList, ContentChild, Input } from '@angular/core';
 import { HintComponent } from '../../../hint/components/hint/hint.component';
+import { SimplebarAngularComponent } from 'simplebar-angular'
 
 export abstract class AbstractSelectUserCommunication<K = any, P = any> extends AbstractSelectSearch<K, P> {
   focusedOptionIndex: number = -1;
@@ -12,7 +13,7 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
   parentOffsetWidth: number;
 
   @ViewChildren('optionElement') optionsRefs: QueryList<ElementRef>;
-  @ViewChild('selectBodyElement', {static: false}) bodyRef: ElementRef;
+  @ViewChildren('selectBodyElement') bodyRef: QueryList<SimplebarAngularComponent>;
   @ViewChild('searchInput', {static: false}) searchInputRef: ElementRef;
   @ContentChild(HintComponent, {static: false}) hintComponent: HintComponent;
   
@@ -154,7 +155,7 @@ export abstract class AbstractSelectUserCommunication<K = any, P = any> extends 
   }
 
   private scrollToOption(index: number): void {
-    const optionListElement = this.bodyRef.nativeElement;
+    const optionListElement = this.bodyRef.first.SimpleBar.getScrollElement();;
     const optionElement = this.optionsRefs.toArray()[index].nativeElement;
 
     const thisRect: DOMRect = optionListElement.getBoundingClientRect();

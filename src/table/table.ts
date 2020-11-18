@@ -19,22 +19,22 @@ export interface FilterInterface {
   fieldName: string;
 }
 
-export interface PaginatorInterface {
+export interface TablePaginatorInterface {
   currentPage: number;
   offset: number;
   limit: number;
   pages: number;
 }
 
-export interface SortInterface {
+export interface SortingInterface {
   sortDirection: string;
   sortColumn: any;
 }
 
 export interface EmitInterface {
   filter: FilterInterface[];
-  sort: SortInterface;
-  paginator: PaginatorInterface;
+  sort: SortingInterface;
+  paginator: TablePaginatorInterface;
 }
 
 export enum RadioEnum {

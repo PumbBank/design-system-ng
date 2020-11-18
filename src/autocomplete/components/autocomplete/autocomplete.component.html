@@ -1,0 +1,11 @@
+<ngx-simplebar #options [options]="autocompleteOptions" class="autocomplete__list" [class.autocomplete__list_active]="active">
+    <ng-container *ngFor="let option of autocompleteOptions; index as i">
+      <div class="autocomplete__option" [class.autocomplete__option_active]="(i + 1) === optionIndexActive"
+        (click)="optionClick(option)">
+        <div class="autocomplete__text">
+          {{ option }}
+        </div>
+      </div>
+
+    </ng-container>
+</ngx-simplebar>
