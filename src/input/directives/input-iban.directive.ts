@@ -38,7 +38,7 @@ export class InputIbanDirective extends MillInput implements ControlValueAccesso
       inputElement: this.inputElementRef.nativeElement,
       mask: [/[A-Z]/, /[A-Z]/, /\d/, /\d/, ' ', reg, reg, reg, reg, ' ',
       reg, reg, reg, reg, ' ', reg, reg, reg, reg, ' ', reg, reg, reg, reg, ' ',
-      reg, reg, reg, reg, ' ', reg, reg, reg, reg, ' ', reg],
+      reg, reg, reg, reg, ' ', reg, reg, reg, reg, ' ', reg, reg, reg, reg],
       keepCharPositions: false,
       guide: false
     });
