@@ -110,6 +110,7 @@ body {
   position: fixed;
   bottom: 0;
   left: 50%;
+  z-index: 1;
   width: 376px;
   animation: copy-color-popup-appearance 4.9s linear forwards;
   background-color: $grey-80;

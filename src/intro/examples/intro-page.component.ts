@@ -10,7 +10,7 @@ import { HttpClient } from '@angular/common/http';
 })
 
 export class IntroGuidelineComponent {
-  builds: {version: string, lib: string, date: string}[]
+  builds: {version: string, lib: string, date: string}[];
 
   constructor(private _http: HttpClient, private _clipboardService: ClipboardService) {
     this._http.get('/CHANGELOG.md', {responseType: 'text'}).toPromise().then((response: string) => {
