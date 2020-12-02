@@ -12,9 +12,9 @@ import { ValidationErrors, FormGroupDirective } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
 import { takeUntil } from 'rxjs/operators';
-import { AutocompleteComponent } from 'src/autocomplete/components/autocomplete/autocomplete.component';
-import { DomService } from 'src/autocomplete/services/dom.service';
-import { IDataAutocomplete } from 'src/autocomplete/models/data-autocomplete';
+import { AutocompleteComponent } from '../../autocomplete/components/autocomplete/autocomplete.component';
+import { DomService } from '../../autocomplete/services/dom.service';
+import { IDataAutocomplete } from '../../autocomplete/models/data-autocomplete';
 
 type ValidationErrorsType = ValidationErrors;
 

@@ -12,7 +12,7 @@ import { ButtonModule } from '../button/button.module';
 import { SelectModule } from '../select/select.module';
 import { MillHintModule } from '../hint/hint.module';
 import { TextAreaModule } from '../text-area/text-area.module';
-import { AutocompleteModule } from 'src/autocomplete/autocomplete.module';
+import { AutocompleteModule } from '../autocomplete/autocomplete.module';
 import { AutoCompleteDataService } from './examples/services/autocomplete-data.service';
 import { CalendarModule } from '../calendar';
 

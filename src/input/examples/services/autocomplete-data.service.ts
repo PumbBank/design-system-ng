@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { IDataAutocomplete } from 'src/autocomplete/models/data-autocomplete';
+import { IDataAutocomplete } from '../../../autocomplete/models/data-autocomplete';
 
 @Injectable()
 export class AutoCompleteDataService {
