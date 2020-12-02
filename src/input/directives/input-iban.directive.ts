@@ -36,10 +36,10 @@ export class InputIbanDirective extends MillInput implements ControlValueAccesso
     const reg = /[A-Z0-9_]/;
     this._textMaskInput = createTextMaskInputElement({
       inputElement: this.inputElementRef.nativeElement,
-      mask: [/[A-Z]/, /[A-Z]/, /\d/, /\d/, ' ', reg, reg, reg, reg, ' ',
+      mask: [/[A-Z_]/, /[A-Z_]/, /[0-9_]/, /[0-9_]/, ' ', reg, reg, reg, reg, ' ',
       reg, reg, reg, reg, ' ', reg, reg, reg, reg, ' ', reg, reg, reg, reg, ' ',
       reg, reg, reg, reg, ' ', reg, reg, reg, reg, ' ', reg, reg, reg, reg],
-      keepCharPositions: false,
+      keepCharPositions: true,
       guide: false
     });
   }
@@ -53,7 +53,7 @@ export class InputIbanDirective extends MillInput implements ControlValueAccesso
   }
 
   protected cleanFunction: CleanFunction = function(inputValue: string): string {
-    this.input.value = inputValue;
+    this.input.value = inputValue.toUpperCase();
     this._textMaskInput.update();
     return this.input.value;
   };
