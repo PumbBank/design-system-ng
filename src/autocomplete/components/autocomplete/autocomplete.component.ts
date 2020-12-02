@@ -19,9 +19,9 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
   private _unsubscriber$ = new Subject();
   optionIndexActive: number = 0;
 
-  numberOfPromices: number = 0;
-  numberOfPromicesComplete: number = 0;
-
+  promiceId: number = 0;
+  promiceCompleteId: number = 0;
+  getOptionsFromDataSource: any;
   @Input() dataSource: IDataAutocomplete | Array<string>;
   @Input() currentInputValue: Observable<string>;
   @Input() callbackFnSetInputValue: Function;
@@ -35,24 +35,44 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
       this.active = false;
       this.loading.next(false);
     }
+
   }
 
   constructor(private _elementRef: ElementRef) { }
 
   ngOnInit(): void {
+    this.getOptionsFromDataSource = this.cachedFn();
     this.currentInputValue
       .pipe(
         takeUntil(this._unsubscriber$),
         debounceTime(300))
       .subscribe((inputText) => {
-        if (inputText.length > 0) this.setAutocompliteItems(inputText, this.dataSource);
+        if (inputText.length > 0) {
+          this.setAutocompliteItems(inputText, this.dataSource);
+        }
+        else {
+          this.resetLoadingDataFromService();
+        }
       });
 
     fromEvent<KeyboardEvent>(this._elementRef.nativeElement.parentElement, 'keydown')
       .pipe(takeUntil(this._unsubscriber$))
       .subscribe((event: KeyboardEvent) => {
 
+        switch (event.key) {
+          case KeyEnum.esc:
+            this.resetLoadingDataFromService();
+            break;
+          case KeyEnum.tab:
+            this.resetLoadingDataFromService();
+            break;
+
+          default:
+            break;
+        }
+
         if (this.active && this.autocompleteOptions.length > 0) {
+
           switch (event.key) {
             case KeyEnum.keyArrowDown:
               if (this.optionIndexActive < this.autocompleteOptions.length) {
@@ -90,35 +110,58 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
     this.loading.next(false);
   }
 
-  private setAutocompliteItems(inputText: string, dataSource: IDataAutocomplete | Array<string>): void {
-    this.autocompleteOptions = [];
-    this.numberOfPromices++;
+  private async setAutocompliteItems(inputText: string, dataSource: IDataAutocomplete | Array<string>): Promise<void> {
 
     if (Array.isArray(dataSource)) {
-      this.autocompleteOptions = dataSource.filter(option => option.toUpperCase().indexOf(inputText.toUpperCase()) + 1).sort();
+      this.autocompleteOptions = dataSource
+        .filter(option => option.toUpperCase().indexOf(inputText.toUpperCase()) === 0)
+        .sort();
+      this.active = true;
     } else {
-
-      const timeoutId = setTimeout(() => {
-        if (this.autocompleteOptions.length === 0 && this.numberOfPromicesComplete === 0) {
-          this.loading.next(true);
-        }
-      }, 300);
-      dataSource.getData(inputText)
-        .then((val: Array<string>) => {
-          this.autocompleteOptions = val.filter(option => option.toUpperCase().indexOf(inputText.toUpperCase()) + 1).sort();
-          this.numberOfPromicesComplete++;
-        })
-        .catch((e) => console.error(e))
-        .finally(() => {
-          if (this.numberOfPromices === this.numberOfPromicesComplete) {
-            clearTimeout(timeoutId);
-            this.loading.next(false);
-            this.numberOfPromicesComplete = 0;
-            this.numberOfPromices = 0;
-          }
-        });
+      this.autocompleteOptions = (await this.getOptionsFromDataSource(inputText, dataSource));
     }
-    this.active = true;
+
+  }
+
+  private cachedFn(): Function {
+    let answers: { answer: Array<string> } | any;
+    return async (inputText: string, dataSource: IDataAutocomplete) => {
+      const inputTextUpperCase = inputText.toUpperCase();
+      if (!answers) {
+        answers = {}
+      } else if (!!answers[inputTextUpperCase]) {
+        this.active = true;
+        return answers[inputTextUpperCase];
+      }
+
+      const data: Array<string> = (await this.getDataFromService(inputText, dataSource)) as Array<string>;
+
+      if (data.length > 0) return answers[inputTextUpperCase] = data;
+      else return [];
+    }
+  }
+
+  private getDataFromService(inputText: string, dataSource: IDataAutocomplete) {
+    const timeoutId = setTimeout(() => {
+        this.loading.next(true);
+      
+    }, 300);
+    this.promiceId++;
+    return dataSource.getData(inputText)
+      .then((val: Array<string>) => {
+        this.promiceCompleteId++;
+        if (this.promiceId !== 0) this.active = true;
+        return val;
+      })
+      .catch((e) => console.error(e))
+      .finally(() => {
+        if (this.promiceId === this.promiceCompleteId) {
+          clearTimeout(timeoutId);
+          this.loading.next(false);
+          this.promiceCompleteId = 0;
+          this.promiceId = 0;
+        }
+      });
   }
 
   private scrollToOption(index: number): void {
@@ -130,6 +173,14 @@ export class AutocompleteComponent implements OnInit, OnDestroy {
 
     optionListElement.scrollTo(0, optionListElement.scrollTop + optionRect.y - thisRect.y);
 
+  }
+
+  private resetLoadingDataFromService() {
+    this.active = false;
+    this.loading.next(false);
+    this.promiceCompleteId = 0;
+    this.promiceId = 0;
+    this.autocompleteOptions = [];
   }
 
   ngOnDestroy(): void {

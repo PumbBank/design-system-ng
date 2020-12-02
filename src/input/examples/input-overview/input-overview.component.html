@@ -28,7 +28,7 @@
       <div class="overview__container">
         <input millInput="text" [formControl]="nameControl" [errors]="nameControl.errors"
           [caption]="hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder"
-          [autocompleteDataSource]="autocompleteDataSource" icon="user">
+          [autocompleteDataSource]="autocompleteDataSource" icon="search" [cleanup]="true">
       </div>
     </div>
     <div class="overview__column grid-item-4">
@@ -50,8 +50,8 @@
       <div class="overview__label s1">International phone number</div>
       <div class="overview__container overview__container_row">
         <input millInput="phone" [international]="true" type="tel" icon="phone" inputmode="tel" prefix="+"
-          [formControl]="InternationalPhoneControl" caption="Phone number" [caption]="hideLabel ? '' : label"
-          [placeholder]="hidePlaceholder ? '' : '000000000000000'">
+               [formControl]="internationalPhoneControl" caption="Phone number" [caption]="hideLabel ? '' : label"
+               [placeholder]="hidePlaceholder ? '' : '000000000000000'">
       </div>
     </div>
     <div class="overview__column grid-item-4" style="grid-column: span 12;">
@@ -67,6 +67,14 @@
       <div class="overview__container">
         <input millInput="date" [formControl]="dateControl" [errors]="dateControl.errors"
           [caption]="hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Date with calendar</div>
+      <div class="overview__container">
+        <input millInput="date" type="text" icon="calendar"
+               [formControl]="dateControlWithCalendar"
+               [caption]="hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>
     </div>
     <div class="overview__column grid-item-4">

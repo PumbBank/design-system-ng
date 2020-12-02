@@ -21,6 +21,7 @@ export class InputOverviewComponent implements OnInit {
   nameControl: FormControl = new FormControl('');
   nameControlWithIcon: FormControl = new FormControl('');
   dateControl: FormControl = new FormControl('');
+  dateControlWithCalendar: FormControl = new FormControl('');
   cardControl: FormControl = new FormControl('');
   ibanControl: FormControl = new FormControl('', 
   [
@@ -34,7 +35,7 @@ export class InputOverviewComponent implements OnInit {
     !v.value ? { errorMessage: 'Текст повідомлення' } : null);
   infoControl: FormControl = new FormControl('');
   phoneControl: FormControl = new FormControl('');
-  InternationalPhoneControl: FormControl = new FormControl('')
+  internationalPhoneControl: FormControl = new FormControl('')
   disabledControl: FormControl = new FormControl({ value: '', disabled: true });
 
   textAreaBasicControl: FormControl = new FormControl('');

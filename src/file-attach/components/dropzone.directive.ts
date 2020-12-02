@@ -12,11 +12,11 @@ import {
   selector: '[mill-dropzone]'
 })
 export class DropzoneDirective {
+  private readonly _host: HTMLElement;
+
   private static getFileType(filename: string): string {
     return filename && filename.substr(filename.lastIndexOf('.') + 1) || '';
   }
-
-  private readonly _host: HTMLElement;
 
   /**
    * array: accepted file mime types (ex: Image/Jpeg)
@@ -29,7 +29,7 @@ export class DropzoneDirective {
     this._host = elRef.nativeElement;
   }
 
-  @HostListener('drop', ['$event']) onDrop(e: DragEvent) {
+  @HostListener('drop', ['$event']) onDrop(e: DragEvent): void {
     e.preventDefault();
     const file = e.dataTransfer.files[0];
     if (!this.isFileAllowed(file)) {
@@ -40,29 +40,29 @@ export class DropzoneDirective {
     this.uploadedFile.emit(e.dataTransfer.files[0]);
   }
 
-  @HostListener('dragover', ['$event']) onDragOver(e: DragEvent) {
+  @HostListener('dragover', ['$event']) onDragOver(e: DragEvent): void {
     e.preventDefault();
   }
 
-  @HostListener('dragenter', ['$event']) onDragEnter(e: DragEvent) {
+  @HostListener('dragenter', ['$event']) onDragEnter(e: DragEvent): void {
     e.preventDefault();
     this._renderer.removeClass(this._host, 'disabled-dropzone');
     this._renderer.removeClass(this._host, 'dropzone-area');
     this._renderer.addClass(this._host, 'active-dropzone');
   }
 
-  @HostListener('body:dragenter', ['$event']) onBodyDragEnter(e: DragEvent) {
+  @HostListener('body:dragenter', ['$event']) onBodyDragEnter(e: DragEvent): void {
     e.preventDefault();
     this._renderer.addClass(this._host, 'dropzone-area');
   }
 
-  @HostListener('dragleave', ['$event']) onDragLeave(e: DragEvent) {
+  @HostListener('dragleave', ['$event']) onDragLeave(e: DragEvent): void {
     e.preventDefault();
     this._renderer.removeClass(this._host, 'active-dropzone');
     this._renderer.removeClass(this._host, 'disabled-dropzone');
   }
 
-  @HostListener('body:dragleave', ['$event']) onBodyDragLeave(e: DragEvent) {
+  @HostListener('body:dragleave', ['$event']) onBodyDragLeave(e: DragEvent): void {
     const target = e.target as HTMLElement;
     e.preventDefault();
     if (!(target === this._host || this._host.contains(target))) {
@@ -82,7 +82,7 @@ export class DropzoneDirective {
     }
 
     if (this.acceptedMimeTypes && this.acceptedMimeTypes.length > 0) {
-      const allowedTypes = this.acceptedMimeTypes.map((type) => type.toLowerCase());
+      const allowedTypes = this.acceptedMimeTypes.map((type: string) => type.toLowerCase());
       return allowedTypes.includes(type.toLowerCase());
     }
 

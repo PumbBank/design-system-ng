@@ -1,5 +1,7 @@
 export enum KeyEnum {
   keyArrowUp = 'ArrowUp',
   keyArrowDown = 'ArrowDown',
-  enter = 'Enter'
+  enter = 'Enter',
+  esc = 'Escape',
+  tab = 'Tab'
 }

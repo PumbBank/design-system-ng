@@ -1,4 +1,13 @@
-import { Renderer2, OnChanges, SimpleChanges, Input, OnDestroy, AfterContentInit } from '@angular/core';
+import {
+  Renderer2,
+  OnChanges,
+  SimpleChanges,
+  Input,
+  OnDestroy,
+  AfterContentInit,
+  Output,
+  EventEmitter
+} from '@angular/core';
 import { ValidationErrors, FormGroupDirective } from '@angular/forms';
 import { BehaviorSubject, Subject } from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
@@ -48,6 +57,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   @Input() icon: string;
   @Input() cleanup: boolean = false;
   @Input() autocompleteDataSource: IDataAutocomplete | Array<string>;
+  @Output() iconClick: EventEmitter<void> = new EventEmitter<void>();
 
   wrapperElement: HTMLElement;
   captionElement: HTMLElement;
@@ -70,6 +80,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
   onChangeCallback: (cleanValue: string) => void;
   onTouchedCallback: () => void;
+  onUpdateIconCallback: () => void;
 
   ngOnChanges(changes: SimpleChanges): void {
     // if (changes.errors || changes.valid) {
@@ -218,6 +229,10 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     this.iconCleanupElement.addEventListener('click', () => {
 
       this.input.value = '';
+      if (!!this.autocompleteDataSource) {
+        this.messageSource$.next('');
+      }
+
       if (this.onChangeCallback) {
         this.onChangeCallback('');
       }
@@ -310,11 +325,17 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
           this.renderer.removeClass(this.iconElement, cl);
         }
       });
+      this.iconElement.addEventListener('click', () => this.iconClick.emit());
 
       this.renderer.addClass(this.iconElement, 'icon_' + this.icon);
       this.renderer.appendChild(this.entranceElement, this.iconElement);
     } else {
       this.renderer.removeChild(this.entranceElement, this.iconElement);
+      this.iconElement.removeEventListener('click', () => this.iconClick.emit());
+    }
+
+    if (this.onUpdateIconCallback) {
+      this.onUpdateIconCallback();
     }
   }
 
@@ -395,10 +416,13 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
       this.renderer.addClass(this.loaderWrap, 'loader-wrap');
       this.renderer.addClass(this.loader, 'loader');
       this.renderer.setStyle(this.iconElement, 'display', 'none');
+      this.renderer.setStyle(this.iconCleanupElement, 'display', 'none');
+
     } else {
       this.renderer.removeClass(this.loaderWrap, 'loader-wrap');
       this.renderer.removeClass(this.loader, 'loader');
       this.renderer.removeStyle(this.iconElement, 'display');
+      this.renderer.removeStyle(this.iconCleanupElement, 'display');
     }
   }
 

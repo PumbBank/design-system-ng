@@ -1,0 +1,439 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/icons";
+@import "~@mill/figma/typography";
+
+// TODO:improvement: let's review styles, we don't want use !important
+
+%icon_grey-50 {
+  background: $grey-50;
+}
+
+%icon_grey-30 {
+  background: $grey-30;
+}
+
+.calendar {
+  position: absolute;
+  overflow: auto;
+  transition: opacity 0.299s ease-in-out;
+  width: 300px;
+  box-sizing: border-box;
+  visibility: hidden;
+  z-index: 10;
+  transform: translateY(-18px);
+  background: $other-white;
+  border-radius: 8px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 2px 7px rgba(0, 0, 0, 0.05), 0 1px 2px rgba(0, 0, 0, 0.2);
+  display: flex;
+  flex-direction: column;
+
+  &__active {
+    visibility: visible;
+  }
+
+  &_months {
+    .calendar-days {
+      display: none;
+    }
+
+    .calendar-months {
+      display: grid;
+    }
+  }
+
+  &_years {
+    .calendar-days {
+      display: none;
+    }
+
+    .calendar-body {
+      position: relative;
+      padding: 0 16px;
+
+      &::before,
+      &::after {
+        content: "";
+        position: absolute;
+        left: 0;
+        right: 0;
+        height: 64px;
+      }
+
+      &::before {
+        top: 0;
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 68.23%, #FFFFFF 98.96%);
+      }
+
+      &::after {
+        bottom: 0;
+        background: linear-gradient(0deg, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.8) 68.23%, #FFFFFF 98.96%);
+        transform: rotate(180deg);
+      }
+
+    }
+
+    .calendar-years {
+      display: flex;
+      max-height: 264px;
+    }
+  }
+
+  &_months,
+  &_years {
+    .calendar-header {
+      justify-content: center;
+
+      &__arrow {
+        display: none;
+      }
+
+      .calendar-header-date {
+        &__box {
+          margin: 0;
+        }
+
+        &__box_year {
+          .calendar-header-date__icon {
+            transform: rotate(180deg);
+          }
+        }
+
+        &__box_month {
+          .calendar-header-date__icon {
+            display: none;
+          }
+        }
+      }
+    }
+  }
+
+  &_with-button,
+  &_range {
+    .calendar-years {
+      max-height: 340px;
+      padding: 130px 0;
+    }
+  }
+}
+
+.calendar-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 56px;
+  padding: 0 8px;
+  box-sizing: border-box;
+  border-bottom: 1px solid $grey-20;
+
+  &__arrow {
+    @extend %icon_grey-50;
+    @extend .icon_24;
+
+    cursor: pointer;
+
+    &_left {
+      @extend .icon_chevron-left;
+    }
+
+    &_right {
+      @extend .icon_chevron-right;
+    }
+
+  }
+
+}
+
+.calendar-header-date {
+  display: flex;
+
+  &__box {
+    display: flex;
+    align-items: center;
+    margin: 0 8px;
+    cursor: pointer;
+  }
+
+  &__text {
+    @extend %s1;
+
+    color: $grey-70;
+    margin-right: 6px;
+  }
+
+  &__icon {
+    @extend %icon_grey-30;
+    @extend .icon_12;
+    @extend .icon_small-arrow-down;
+  }
+
+}
+
+.calendar-body {
+  padding: 16px 18px 16px 16px;
+  min-height: 230px;
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.calendar-days {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  .cell {
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 0 auto;
+    position: relative;
+    z-index: 0;
+
+    @extend %overline;
+
+    &::after {
+      content: "";
+      position: absolute;
+      z-index: -1;
+      width: 28px;
+      height: 28px;
+      border-radius: 100%;
+      box-sizing: border-box;
+    }
+  }
+}
+
+.calendar-days-week {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  justify-content: space-between;
+
+  &__cell {
+    color: $grey-40;
+  }
+}
+
+.calendar-days-day {
+  width: 100%;
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  grid-template-rows: auto;
+  justify-content: space-between;
+  grid-row-gap: 8px;
+  margin-top: 20px;
+
+  &__cell {
+    border-radius: 100%;
+    color: $grey-60;
+    cursor: pointer;
+    box-sizing: border-box;
+
+    &_off {
+      opacity: 0.35;
+    }
+
+    &_in-range {
+      opacity: 1;
+
+      &::after {
+        background: rgba(250, 87, 96, 0.25);
+        width: 38px !important;
+        border-radius: 0 !important;
+      }
+
+      &:nth-of-type(7n + 1) {
+        &::after {
+          border-top-left-radius: 14px !important;
+          border-bottom-left-radius: 14px !important;
+          width: 33px !important;
+          right: -5px;
+        }
+      }
+
+      &:nth-of-type(7n) {
+        &::after {
+          border-top-right-radius: 14px !important;
+          border-bottom-right-radius: 14px !important;
+          width: 33px !important;
+          left: -5px;
+        }
+      }
+    }
+
+    &_start {
+      color: $other-white;
+
+      &::after {
+        border-top-left-radius: 14px !important;
+        border-bottom-left-radius: 14px !important;
+        width: 33px !important;
+        right: -5px;
+      }
+
+      &::before {
+        content: "";
+        border: 1px solid $red-50;
+        background: $red-50;
+        position: absolute;
+        z-index: -1;
+        width: 28px;
+        height: 28px;
+        border-radius: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    &_end {
+      color: $other-white !important;
+
+      &::after {
+        border-top-right-radius: 14px !important;
+        border-bottom-right-radius: 14px !important;
+        width: 33px !important;
+        left: -5px;
+      }
+
+      &::before {
+        content: "";
+        border: 1px solid $red-50;
+        background: $red-50;
+        position: absolute;
+        z-index: -1;
+        width: 28px;
+        height: 28px;
+        border-radius: 100%;
+        box-sizing: border-box;
+      }
+    }
+
+    &:not(&_off):nth-of-type(7n - 1),
+    &:not(&_off):nth-of-type(7n) {
+      color: $red-40;
+    }
+
+    &_current {
+      &::after {
+        border: 1px solid $red-50;
+      }
+    }
+
+    &_active {
+      color: $other-white !important;
+
+      &::after {
+        border: 1px solid $red-50;
+        background: $red-50;
+      }
+
+    }
+
+    &:not(&_active):hover:not(&_current):hover:not(&_in-range):hover {
+      &::after {
+        border: 1px solid $grey-30;
+      }
+    }
+  }
+}
+
+.calendar-months {
+  display: none;
+  width: 100%;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: repeat(4, 28px);
+  grid-column-gap: 8px;
+  grid-row-gap: 12px;
+  justify-content: space-between;
+  align-items: center;
+  margin: auto 0;
+
+  &__month {
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: $grey-60;
+    border-radius: 50px;
+    box-sizing: border-box;
+    cursor: pointer;
+
+    @extend %overline;
+
+    &_active {
+      background: $red-50;
+      color: $other-white;
+    }
+
+    &:not(&_active):hover {
+      border: 1px solid $grey-30;
+    }
+  }
+}
+
+.calendar-years {
+  display: none;
+  overflow-y: auto;
+  flex-direction: column;
+  height: 100%;
+  width: 100%;
+  align-items: center;
+  padding: 88px 0;
+  box-sizing: border-box;
+
+  &::-webkit-scrollbar {
+    display: none;
+  }
+
+  &__year {
+    min-height: 48px;
+    height: 48px;
+    width: 178px;
+    margin: 4px 0;
+    border-radius: 50px;
+    box-sizing: border-box;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    cursor: pointer;
+
+    @extend %h6;
+
+    &_active {
+      background: $red-50;
+      color: $other-white;
+    }
+
+    &:not(&_active):hover {
+      border: 1px solid $grey-30;
+    }
+  }
+}
+
+.calendar__button {
+  margin-top: 12px;
+  width: 100%;
+
+  .button__icon {
+    @extend .icon_24;
+    @extend .icon_check;
+  }
+}
+
+.calendar__reset {
+  display: inline-flex;
+  margin: 18px auto 0;
+  color: $grey-70;
+  cursor: pointer;
+
+  @extend %s2;
+
+  &_disabled {
+    pointer-events: none;
+    color: $grey-40;
+  }
+}

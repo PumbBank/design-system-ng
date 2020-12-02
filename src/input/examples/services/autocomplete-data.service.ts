@@ -12,13 +12,15 @@ export class AutoCompleteDataService {
 
           setTimeout(() => {
             const autocompleteOptions =
-              ['Mike', 'Matt', 'Nancy', 'Adam', 'Jenny', 'Nancy', 'Carl', 'Nancy11', 'Carl11', 'Nancy22', 'Carl22'];
+              ['Mike', 'Matt', 'Nancy', 'Adam', 'Jenny', 'Nancy', 'Carl', 'Nancy11', 'Carl11', 'Nancy22', 'Carl22']
+                .filter(option => option.toUpperCase().indexOf(inputValue.toUpperCase()) === 0)
+                .sort();
             resolve(autocompleteOptions);
           }, 2000);
 
         });
       }
-    }
+    };
 
 
   }
