@@ -1,6 +1,6 @@
 import { Component, OnInit, Input } from '@angular/core';
 import { FormControl, ValidationErrors, Validators } from '@angular/forms';
-import { IDataAutocomplete } from 'src/autocomplete/models/data-autocomplete';
+import { IDataAutocomplete } from '../../../autocomplete/models/data-autocomplete';
 import { ValidatorService } from '../../../validators/validators-service';
 import { AutoCompleteDataService } from '../services/autocomplete-data.service';
 
