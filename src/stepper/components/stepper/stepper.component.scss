@@ -29,6 +29,12 @@
     justify-content: space-between;
   }
 
+  &_simple {
+    .stepper-item {
+      min-width: auto;
+    }
+  }
+
   &-item {
     display: flex;
     align-items: center;
@@ -67,6 +73,12 @@
       }
     }
 
+    &:hover {
+      .stepper-item__circle {
+        background: $grey-60;
+      }
+    }
+
     &__wrapper {
       display: flex;
       align-items: center;
@@ -100,12 +112,6 @@
 
       text-align: center;
       white-space: nowrap;
-    }
-
-    &_simple {
-      .stepper-item {
-        min-width: auto;
-      }
     }
 
     &_active {
@@ -175,12 +181,6 @@
         .stepper-item__circle {
           background: $red-40;
         }
-      }
-    }
-
-    &:hover {
-      .stepper-item__circle {
-        background: $grey-60;
       }
     }
   }
