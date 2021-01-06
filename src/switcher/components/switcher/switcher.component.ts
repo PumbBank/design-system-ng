@@ -55,7 +55,7 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
 
   /** Active state for switcher */
   @Input()
-  public set active(value: boolean) {
+  public set active(value: boolean | null) {
     this._active = value;
     this._cdr.markForCheck();
   }

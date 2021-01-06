@@ -7,8 +7,8 @@ export abstract class TabItemBase {
   @Input() public id: string;
   @Input() public label: string;
   @Input() public icon: string;
-  @Input() public position: number;
-  @Input() public selected: boolean;
+  @Input() public set position(value: number) {}
+  @Input() public get selected(): boolean {return null}
   public labelElement: ElementRef;
   public inView: boolean;
 }

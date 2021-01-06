@@ -1,4 +1,5 @@
 import { boolean, withKnobs } from '@storybook/addon-knobs';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { TabsModule } from './tabs.module';
 import { TabPageComponent } from './examples/tabs-page/tabs-page.component';
 import { IconsModule } from '../icons';
@@ -15,7 +16,7 @@ export default {
 export const component = () => ({
   moduleMetadata: {
     declarations: [TabPageComponent],
-    imports: [TabsModule, IconsModule]
+    imports: [TabsModule, IconsModule, BrowserAnimationsModule]
   },
   props: {
     disable: boolean('disabled', false),
