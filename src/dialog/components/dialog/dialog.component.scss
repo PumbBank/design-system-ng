@@ -1,0 +1,36 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+
+:host {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #FFFFFF;
+  border-radius: 16px;
+  z-index: 999;
+  padding: 21px 24px;
+
+  font-family: 'Gilroy', sans-serif;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.4px;
+  color: #4D4D5C;
+
+  mill-dialog-title {
+    font-weight: bold;
+    font-size: 20px;
+  }
+
+  mill-dialog-actions {
+    margin-top: 9px;
+    bottom: 0;
+    position: absolute;
+    padding: 24px;
+    right: 0;
+    mill-button {
+      margin-left: 10px;
+    }
+  }
+}

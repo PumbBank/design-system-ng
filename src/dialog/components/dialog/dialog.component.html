@@ -1,0 +1,9 @@
+<mill-dialog-title *ngIf="data.title">{{data.title}}</mill-dialog-title>
+<mill-dialog-content>
+ <p>{{data.text}}</p>
+</mill-dialog-content>
+
+<mill-dialog-actions>
+  <mill-button *ngIf="config.buttons.cancel.text" view="ghost" size="large" (click)="cancelAction()">{{config.buttons.cancel.text}}</mill-button>
+  <mill-button *ngIf="config.buttons.apply.text" view="filled" size="large" (click)="applyAction()">{{config.buttons.apply.text}}</mill-button>
+</mill-dialog-actions>
