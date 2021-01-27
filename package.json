@@ -17,7 +17,7 @@
     "@angular/common": "^10.0.12",
     "@angular/core": "^10.0.12",
     "@angular/forms": "^10.0.12",
-    "@mill/figma": "1.0.20102020191727",
+    "@mill/figma": "1.0.268202022307",
     "core-js": "3.6.5",
     "ngx-clipboard": "13.0.1",
     "simplebar-angular": "2.2.1",
