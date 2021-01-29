@@ -1,25 +1,29 @@
 export const CALENDAR_WEEKDAYS_UK = ['пн', 'вт', 'ср', 'чт', 'пт', 'сб', 'нд'];
+export const YEARS_SHIFT = 50;
 
 export enum CalendarType {
-    Basic = 'basic',
-    WithButton = 'with-button',
-    Range = 'range'
+  Basic = 'basic',
+  WithButton = 'with-button',
+  Range = 'range'
 }
-
 export enum CalendarState {
-    NotSelected = 'not-selected',
-    Days = 'days',
-    Months = 'months',
-    Years = 'years'
+  NotSelected = 'not-selected',
+  Days = 'days',
+  Months = 'months',
+  Years = 'years'
+}
+export enum CalendarFormat {
+  Long = 'long',
+  Short = 'short'
 }
 
+export type DateRange = {start: string, end?: string};
 export type CalendarWeekday = {
   day: number;
   weekday: number;
   weekdayLocalized: string;
   highlight?: 'start' | 'end' | 'in-range';
 };
-
 export type CalendarMonth = {
   year: number;
   month: number;
@@ -94,12 +98,101 @@ export function extractDateFromRange(value: string, locale: string = 'uk'): {sta
   return {start: startDate, end: endDate};
 }
 
-export function toISOString(date: Date): string {
+export function toISOString(date: Date | string): string {
   if (!date) {
     return;
+  }
+  if (!(date instanceof Date)) {
+    return date;
   }
   const year = date.getFullYear();
   const month = (date.getMonth() + 1).toString().padStart(2, '0');
   const day = date.getDate().toString().padStart(2, '0');
   return `${year}-${month}-${day}T00:00:00.000Z`;
+}
+
+export function buildYearsList(start?: number, end?: number): number[] {
+  const year = new Date().getFullYear();
+  start = start ?? year - YEARS_SHIFT;
+  end = end ?? year + YEARS_SHIFT;
+  return Array.from(Array(end - start - 1), (_, i) => (i + start));
+}
+
+export function buildMonthsList(locale: string = 'uk',
+                                format: CalendarFormat = CalendarFormat.Long): string[] {
+  const result = [];
+  const year = new Date().getFullYear();
+  for (let month = 0; month < 12; month++) {
+    result.push(new Date(year, month).toLocaleString(locale, {month: format}));
+  }
+  return result;
+}
+
+export function buildCalendar(year: number,
+                              locale: string = 'uk',
+                              format: CalendarFormat = CalendarFormat.Short): CalendarMonth[] {
+  const result = [];
+  for (let month = 0; month < 12; month++) {
+    const last = new Date(year, month + 1, 0).getDate();
+    const monthCaption = new Date(year, month).toLocaleString(locale, {month: format});
+    result.push({
+      year,
+      month: month + 1,
+      monthLocalized: monthCaption,
+      days: (() => {
+        const resultDays = [];
+        for (let j = 1; j <= last; j++) {
+          const weekday = new Date(year, month, j).getDay();
+          resultDays.push({
+            day: j,
+            weekday: weekday === 0 ? 7 : weekday,
+            weekdayLocalized: new Date(year, month, j).toLocaleDateString(locale, {weekday: format})
+          });
+        }
+        return resultDays;
+      })()
+    });
+  }
+  return result;
+}
+
+export function buildQuarter(months: CalendarMonth[]): CalendarMonth[] {
+  const current = months[1];
+  const firstDay = current.days[0];
+  const lastDay = current.days[current.days.length - 1];
+  const diffDaysPrevMonth = 1 - firstDay.weekday;
+  const diffDaysLastMonth = 7 - lastDay.weekday;
+  if (diffDaysPrevMonth === 0) {
+    months[0].days = [];
+  } else {
+    months[0].days = months[0].days.slice(diffDaysPrevMonth);
+  }
+  if (diffDaysLastMonth === 7) {
+    months[2].days = [];
+  } else {
+    months[2].days = months[2].days.slice(0, diffDaysLastMonth);
+  }
+  return [
+    months[0],
+    current,
+    months[2],
+  ];
+}
+
+export function isDateInRange(start: Date, end: Date, check: Date): boolean {
+  start.setHours(0, 0, 0, 0);
+  end.setHours(0, 0, 0, 0);
+  check.setHours(0, 0, 0, 0);
+  return check >= start && check <= end;
+}
+
+export function swapDates(start: string | Date, end: string | Date): {start: string, end: string} {
+  const startDate = start instanceof Date ? start : new Date(start);
+  const endDate = end instanceof Date ? end : new Date(end);
+  const from = {day: startDate.getDate(), month: startDate.getMonth(), year: startDate.getFullYear()};
+  const to = {day: endDate.getDate(), month: endDate.getMonth(), year: endDate.getFullYear()};
+  if (from.year > to.year || from.month > to.month || from.day > to.day) {
+    return {start: toISOString(endDate), end: toISOString(startDate)};
+  }
+  return {start: toISOString(startDate), end: toISOString(endDate)};
 }
