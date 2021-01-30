@@ -20,7 +20,7 @@
     "@mill/figma": "1.0.268202022307",
     "core-js": "3.6.5",
     "ngx-clipboard": "13.0.1",
-    "simplebar-angular": "2.2.1",
+    "simplebar-angular": "2.3.0",
     "text-mask-core": "5.1.2",
     "tslib": "^2.0.0",
     "zone.js": "^0.10.2"

@@ -1,15 +1,14 @@
 import {
   AfterContentInit,
   Component,
-  ContentChildren, EventEmitter,
-  Input,
-  OnInit, Output,
+  ContentChildren,
+  Input, OnDestroy,
+  OnInit,
   QueryList,
   ViewChild,
   ViewEncapsulation
 } from '@angular/core';
-import { SelectService } from '../../services/select.service';
-import {Observable, isObservable, of, Subscription} from 'rxjs';
+import { Observable, isObservable, of, Subscription, Subject } from 'rxjs';
 import { DataTableSource, isDataSource } from '../../data-table-source';
 import {
   MillBaseRow,
@@ -28,12 +27,14 @@ import { MillCellOutletDirective, MillColumnDefDirective } from '../../directive
   styleUrls: ['./data-table.component.scss'],
   encapsulation: ViewEncapsulation.None
 })
-export class DataTableComponent<T> implements OnInit, AfterContentInit {
+export class DataTableComponent<T> implements OnInit, AfterContentInit, OnDestroy {
 
   static tableIndex: number = 0;
   public index: number;
 
   private _data: T[] = [];
+
+  private unsubscribe: Subject<void> = new Subject<void>();
 
   @Input() get dataSource(): Observable<T[]> | T[] | DataTableSource<T> {
     return this._dataSource;
@@ -55,13 +56,9 @@ export class DataTableComponent<T> implements OnInit, AfterContentInit {
     }
   }
 
-  private renderSubscription: Subscription;
-
   private _dataSource: Observable<T[]> | T[] | DataTableSource<T>;
 
-  @Input() dataColumns: string[];
-
-  @Output() selectedRows: EventEmitter<any[]> = new EventEmitter<any[]>();
+  private renderSubscription: Subscription;
 
   @ViewChild(MillRowsHolderDirective, {static: true}) public rowsHolder: MillRowsHolderDirective;
   @ViewChild(MillHeaderHolderDirective, {static: true}) public headerHolder: MillHeaderHolderDirective;
@@ -70,26 +67,26 @@ export class DataTableComponent<T> implements OnInit, AfterContentInit {
   @ContentChildren(MillRowDirective, {descendants: true}) public rows: QueryList<MillRowDirective>;
   @ContentChildren(MillHeaderRowDirective, {descendants: true}) public header: QueryList<MillHeaderRowDirective>;
 
-  // @ContentChildren(MillSelectDef) public select: QueryList<MillSelectDef>;
-
-  private _rows: MillRowDirective[];
   private _renderRows: RowsInterface[] = [];
   private _columnsNames: Map<string, MillColumnDefDirective> = new Map<string, MillColumnDefDirective>();
 
-  constructor(private selectService: SelectService) {
+  constructor() {
     this.index = DataTableComponent.tableIndex++;
   }
 
   public ngOnInit(): void {
-    // this.selectService.selectedIndex.subscribe(i => {
-    //   if (i) {
-    //     console.log(i);
-    //     // this.selectedRows.emit(this._renderRows.find(row => (row.rowIndex + 1) === i).data)
-    //   }
-    // })
+  }
+
+  public ngOnDestroy(): void {
+    this.unsubscribe.next();
+    this.unsubscribe.complete();
   }
 
   public ngAfterContentInit(): void {
+    this.init();
+  }
+
+  private init(): void {
     this.cacheColumns();
     this.renderHeaderRow();
     this.observeDataSource();
@@ -113,7 +110,7 @@ export class DataTableComponent<T> implements OnInit, AfterContentInit {
     });
   }
 
-  private  cacheColumns(): void {
+  private cacheColumns(): void {
     this._columnsNames.clear();
     this.columns.forEach(c => {
       this._columnsNames.set(c.name, c);

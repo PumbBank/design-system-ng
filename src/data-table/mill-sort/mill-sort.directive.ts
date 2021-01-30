@@ -1,4 +1,4 @@
-import { Directive, EventEmitter, Input, OnInit, Output } from '@angular/core';
+import { Directive, EventEmitter, OnInit, Output } from '@angular/core';
 import { MillSortHeaderComponent } from './mill-sort-header/mill-sort-header.component';
 import { Subject } from 'rxjs';
 

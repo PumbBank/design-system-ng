@@ -49,9 +49,9 @@ export class ButtonComponent implements AfterViewInit, OnChanges {
 
   @Input() icon: string;
 
-  @ViewChild('content', { static: false }) content: ElementRef;
+  @ViewChild('content', { static: true }) content: ElementRef;
 
-  varietyClass: string;
+  varietyClass: string = '';
 
   public get buttonOnlyIcon(): boolean {
     return !!this.icon && !(this.content && this.content.nativeElement.textContent);

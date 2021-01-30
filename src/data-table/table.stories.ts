@@ -5,7 +5,7 @@ import { IconsModule } from '../icons';
 import { BadgeModule } from '../badge';
 
 export default {
-  title: 'Компоненти|Data tables',
+  title: 'Компоненти/Data tables 2',
   parameters: {
     options: { showPanel: true },
   },
