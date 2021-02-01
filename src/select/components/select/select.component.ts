@@ -9,7 +9,6 @@ import { FormGroupDirective } from '@angular/forms';
     `
       :host { display: contents; }
       .input__input { display: inline-block; min-width: 160px; }
-      .select { display: inline-block; }
       .input__enterence { min-width: 207px; }
       .option_focused { background: #f5f5fa; }
       .select__header { display: block; }
