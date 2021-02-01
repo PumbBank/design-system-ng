@@ -1,32 +1,28 @@
 import { withKnobs } from '@storybook/addon-knobs';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ButtonModule } from '../button/button.module';
 import { IconsModule } from '../icons/icons.module';
-import {DialogOverviewComponent} from './examples/dialog-page.component';
+import { DialogContentComponent } from './examples/dialog-content/dialog-content.component';
+import { DialogOverviewComponent } from './examples/dialog-overview.component';
 import { DialogModule } from './dialog.module';
-import { CommonModule } from '@angular/common';
-import { ButtonModule } from '../button';
+import { DialogService } from './services/dialog-service';
 
 export default {
   title: 'Компоненти/Dialog',
   parameters: {
     options: { showPanel: false },
+    layout: 'fullscreen',
   },
   decorators: [withKnobs]
 };
 
 export const component = () => ({
   moduleMetadata: {
-    declarations: [
-      DialogOverviewComponent,
-    ],
-    imports: [
-      ReactiveFormsModule,
-      IconsModule,
-      DialogModule,
-      CommonModule,
-      ButtonModule,
-    ]
+    declarations: [DialogOverviewComponent, DialogContentComponent],
+    imports: [DialogModule, IconsModule, ButtonModule],
+    providers: [DialogService],
+    entryComponents: [DialogContentComponent]
   },
-  props: {},
-  template: `<mill-dialog-overview></mill-dialog-overview>`
+  template: `
+	  <dialog-overview></dialog-overview>
+    `
 });

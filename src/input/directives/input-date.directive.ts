@@ -25,7 +25,7 @@ import { createTextMaskInputElement } from 'text-mask-core';
 
 import { MillInput, CleanFunction } from '..';
 import { CalendarComponent, CalendarType, extractDateFromRange, rangeFormatter, toISOString } from '../../calendar';
-import { DomService } from '../../autocomplete/services/dom.service';
+import { DomService } from '../../utils/services/dom.service';
 
 type ISOString = string;
 

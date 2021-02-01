@@ -13,7 +13,7 @@ import {BehaviorSubject, Observable, Subject} from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
 import { takeUntil } from 'rxjs/operators';
 import { AutocompleteComponent } from '../../autocomplete/components/autocomplete/autocomplete.component';
-import { DomService } from '../../autocomplete/services/dom.service';
+import { DomService } from '../../utils/services/dom.service';
 import { IDataAutocomplete } from '../../autocomplete/models/data-autocomplete';
 
 type ValidationErrorsType = ValidationErrors;

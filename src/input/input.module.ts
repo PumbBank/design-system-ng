@@ -9,7 +9,7 @@ import { InputPhoneDirective } from './directives/input-phone.directive';
 import { InputCardDirective } from './directives/input-card.directive';
 import { IconsModule } from '../icons';
 import { InputIbanDirective } from './directives/input-iban.directive';
-import { DomService } from '../autocomplete/services/dom.service';
+import { DomService } from '../utils/services/dom.service';
 import { CalendarModule } from '../calendar';
 
 @NgModule({

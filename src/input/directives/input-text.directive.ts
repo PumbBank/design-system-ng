@@ -1,6 +1,6 @@
 import { Directive, Renderer2, ElementRef, forwardRef, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
 import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormGroupDirective } from '@angular/forms';
-import { DomService } from '../../autocomplete/services/dom.service';
+import { DomService } from '../../utils/services/dom.service';
 import { createTextMaskInputElement } from 'text-mask-core';
 
 import { MillInput, CleanFunction } from '../component/input';

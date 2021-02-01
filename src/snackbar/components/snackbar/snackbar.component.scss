@@ -1,0 +1,76 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+
+.snackbar-container {
+  pointer-events: none;
+  height: inherit;
+  width: inherit;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 24px;
+  box-sizing: border-box;
+  height: 100%;
+}
+
+.snackbar {
+  padding: 16px;
+  background: $grey-80;
+  border-radius: 12px;
+  pointer-events: auto;
+  max-width: 376px;
+  box-shadow: 0px 8px 30px 0px rgba(0, 0, 0, 0.2), 0px 0px 15px 0px rgba(0, 0, 0, 0.12);
+  & .snackbar__body {
+    display: flex;
+    align-items: flex-start;
+    & .body__icon-wrapper {
+      padding: 0 8px;
+
+      & mill-icon {
+        color: $grey-30;
+      }
+    }
+
+    & .body__icon-wrapper_filled {
+      padding: 8px;
+      background: $grey-70;
+      border-radius: 50%;
+
+      & mill-icon {
+        color: $grey-30;
+      }
+    }
+
+    & .body__text {
+      margin-left: 12px;
+      color: #f5f5fa;
+    }
+  }
+
+  & .snackbar__footer {
+    display: flex;
+    justify-content: flex-end;
+    margin-top: 16px;
+    & mill-button:not(:first-child) {
+      margin-left: 24px;
+      & button {
+        & span {
+          color: #f5f5fa;
+        }
+      }
+    }
+  }
+}
+
+::ng-deep mill-button {
+  & button {
+    & span {
+      color: #f5f5fa;
+    }
+  }
+  & .button_hidden:hover {
+    & span {
+      color: $grey-70;
+    }
+  }
+}

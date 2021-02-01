@@ -1,39 +1,19 @@
-import { Component, HostBinding, Inject, OnInit, TemplateRef, ViewChild } from '@angular/core';
-import { MILL_DIALOG_DATA, MillDialog, MillDialogConfig } from '../../dialog.service';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 
 @Component({
   selector: 'mill-dialog',
   templateUrl: './dialog.component.html',
-  styleUrls: ['dialog.component.scss'],
+  styleUrls: ['./dialog.component.scss']
 })
-export class DialogComponent implements OnInit {
-  @HostBinding('style.minWidth.px') minWidth: number;
-  @HostBinding('style.minHeight.px') minHeight: number;
+export class DialogComponent {
+  @Input() backgropClose: boolean = false;
+  @Input() active: boolean = false;
+  @Output() activeChange: EventEmitter<boolean> = new EventEmitter<boolean>();
 
-  @ViewChild(MillDialog) millDialog: MillDialog;
-  @ViewChild('template') _template: TemplateRef<any>;
-  @ViewChild('millRef') millRef: TemplateRef<any>;
-
-  constructor(
-    @Inject(MILL_DIALOG_DATA) public data: any,
-    @Inject(MillDialogConfig) public config: any,
-    private dialogService: MillDialog,
-              ) {
-  }
-
-  ngOnInit(): void {
-    this.minWidth = this.config.minWidth;
-    this.minHeight = this.config.minHeight;
-  }
-
-  applyAction(): void {
-    this.config.buttons.apply.action(this);
-    this.dialogService.close();
-  }
-
-  cancelAction(): void {
-    this.config.buttons.cancel.action(this);
-    this.dialogService.close();
+  backdropClick(): void {
+    if (this.backgropClose) {
+      this.active = false;
+      this.activeChange.emit(false);
+    }
   }
 }
-

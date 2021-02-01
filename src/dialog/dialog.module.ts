@@ -1,45 +1,44 @@
+
 import { CommonModule } from '@angular/common';
 import { NgModule } from '@angular/core';
-import { IconsModule } from '../icons';
-import { BadgeModule } from '../badge';
-import { SimplebarAngularModule } from 'simplebar-angular';
-import {DialogComponent} from './components/dialog/dialog.component';
-import {
-  MillDialogActionsDirective, MillDialogCloseDirective, MillDialogContentDirective,
-  MillDialogTitleDirective,
-  MillTemplateRefDirective
-} from './directives/dialog.directive';
-import { PortalOverlayComponent } from './components/portal-overlay/portal-overlay.component';
-import {MillDialog} from './dialog.service';
-import { ButtonModule } from '../button';
+import { DialogComponent } from './components/dialog/dialog.component';
+import { DialogHeaderComponent } from './components/dialog-header/dialog-header.component';
+import { DialogBodyComponent } from './components/dialog-body/dialog-body.component';
+import { DialogPortal } from './components/dialog-portal/dialog-portal.component';
+import { OverlayComponent } from './components/overlay/overlay.component';
+import { DialogFooterComponent } from './components/dialog-footer/dialog-footer.component';
+import { DialogService } from './services/dialog-service';
+
 
 @NgModule({
   imports: [
-    CommonModule,
-    IconsModule,
-    BadgeModule,
-    SimplebarAngularModule,
-    ButtonModule,
+    CommonModule
   ],
   declarations: [
     DialogComponent,
-    MillDialogCloseDirective,
-    MillDialogActionsDirective,
-    MillDialogTitleDirective,
-    MillTemplateRefDirective,
-    MillDialogContentDirective,
-    PortalOverlayComponent,
+    DialogHeaderComponent,
+    DialogBodyComponent,
+    DialogFooterComponent,
+    DialogPortal,
+    OverlayComponent
+  ],
+  entryComponents: [
+    OverlayComponent
   ],
   exports: [
     DialogComponent,
+    DialogHeaderComponent,
+    DialogBodyComponent,
+    DialogFooterComponent,
+    DialogPortal
   ],
-  providers: [
-    MillDialog,
-  ],
-  entryComponents: [
-    DialogComponent,
-    PortalOverlayComponent,
-  ],
+  providers: []
 })
-
-export class DialogModule { }
+export class DialogModule {
+  static forRoot() {
+    return {
+      ngModule: DialogModule,
+      providers: [DialogService],
+    }
+  }
+}

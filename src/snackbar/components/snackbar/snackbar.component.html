@@ -1,0 +1,28 @@
+<div class="snackbar-container" [style.justifyContent]="justifyContent" [style.alignItems]="alignItems">
+  <div class="snackbar" @slideInOut *ngIf="snackbarType === 'alert'">
+    <div class="snackbar__body">
+      <div class="body__icon-wrapper_filled">
+        <mill-icon size="24" name="check">
+        </mill-icon>
+      </div>
+      <span class="body__text p2">{{snackbarData.data.message}}</span>
+    </div>
+    <div class="snackbar__footer">
+      <ng-container *ngFor="let action of snackbarData.data.config.buttons">
+        <mill-button [view]="action.buttonView" size="small" (click)="onClick(action.action)">
+          {{action.buttonText}}</mill-button>
+      </ng-container>
+    </div>
+  </div>
+
+  <div class="snackbar" @slideInOut *ngIf="snackbarType === 'notification'">
+    <div class="snackbar__body">
+      <div class="body__icon-wrapper">
+        <mill-icon size="24" name="check">
+        </mill-icon>
+      </div>
+      <span class="body__text p2">{{snackbarData.data.message}}</span>
+    </div>
+  </div>
+
+</div>

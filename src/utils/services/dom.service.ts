@@ -35,4 +35,9 @@ export class DomService {
 
     return;
   }
+
+  destroyComponent<T>(componentRef: ComponentRef<T>) {
+    this.appRef.detachView(componentRef.hostView);
+    componentRef.destroy();
+  }
 }

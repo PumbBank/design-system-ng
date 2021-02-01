@@ -1,5 +1,6 @@
 import { ButtonVariety } from './button-variety';
 import {
+  AfterViewChecked,
   AfterViewInit,
   ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
@@ -9,18 +10,8 @@ import {
   SimpleChanges,
   ViewChild
 } from '@angular/core';
+import { ButtonSize, ButtonView } from '../../models/button-parameters.model';
 
-enum elementSize {
-  small = 'small',
-  medium = 'medium',
-  large = 'large'
-}
-
-enum elementView {
-  filled = 'filled',
-  ghost = 'ghost',
-  hidden = 'hidden'
-}
 
 enum iconColor {
   primary = 'primary',
@@ -40,8 +31,8 @@ export class ButtonComponent implements AfterViewInit, OnChanges {
   /* START: HTML attributes: */
   @Input() type: 'button' | 'reset' | 'submit' = 'button';
   @Input() form: string;
-  @Input() size: elementSize = elementSize.medium;
-  @Input() view: elementView = elementView.filled;
+  @Input() size: ButtonSize = ButtonSize.medium;
+  @Input() view: ButtonView = ButtonView.filled;
   @Input() iconColor: iconColor = iconColor.primary;
   @Input() disabled: boolean;
   @Input() autofocus: boolean;
@@ -74,6 +65,7 @@ export class ButtonComponent implements AfterViewInit, OnChanges {
 
   ngAfterViewInit(): void {
     this._cdr.markForCheck();
+    this._cdr.detectChanges();
   }
 
   ngOnChanges(changes: SimpleChanges): void {
@@ -91,32 +83,32 @@ export class ButtonComponent implements AfterViewInit, OnChanges {
     this._cdr.markForCheck();
   }
 
-  private getViewClass(view: elementView | string): string {
+  private getViewClass(view: ButtonView | string): string {
     let viewClass = 'button_filled';
     switch (view) {
-      case elementView.filled:
+      case ButtonView.filled:
         viewClass = 'button_filled';
         break;
-      case elementView.ghost:
+      case ButtonView.ghost:
         viewClass = 'button_ghost';
         break;
-      case elementView.hidden:
+      case ButtonView.hidden:
         viewClass = 'button_hidden';
         break;
     }
     return viewClass;
   }
 
-  private getSizeClass(size: elementSize | string): string {
+  private getSizeClass(size: ButtonSize | string): string {
     let viewClass = 'button_medium';
     switch (size) {
-      case elementSize.small:
+      case ButtonSize.small:
         viewClass = 'button_small';
         break;
-      case elementSize.medium:
+      case ButtonSize.medium:
         viewClass = 'button_medium';
         break;
-      case elementSize.large:
+      case ButtonSize.large:
         viewClass = 'button_large';
         break;
     }

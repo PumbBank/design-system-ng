@@ -14,7 +14,7 @@ export class BoldPipe implements PipeTransform {
   }
 
   replace(str: string, regex: string) {
-    return `${str.substring(0, regex.length)}<b>${str.substring(regex.length)}</b>`;
+    return `${str.substring(0, regex.length)}<span class="s1">${str.substring(regex.length)}</span>`;
   }
 
   sanitize(str: string) {
