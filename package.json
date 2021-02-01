@@ -1,6 +1,6 @@
 {
   "name": "@mill/ng",
-  "version": "0.10.38",
+  "version": "0.10.39",
   "scripts": {
     "start": "start-storybook -p 6006 -s ./.storybook/favicon && npm run lint",
     "ng-high-memory": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng",
@@ -13,10 +13,10 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "^10.0.12",
-    "@angular/common": "^10.0.12",
-    "@angular/core": "^10.0.12",
-    "@angular/forms": "^10.0.12",
+    "@angular/animations": "^10.2.4",
+    "@angular/common": "^10.2.4",
+    "@angular/core": "^10.2.4",
+    "@angular/forms": "^10.2.4",
     "@mill/figma": "1.0.268202022307",
     "core-js": "3.6.5",
     "ngx-clipboard": "13.0.1",
@@ -26,13 +26,13 @@
     "zone.js": "^0.10.2"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "0.1000.7",
-    "@angular-devkit/build-ng-packagr": "0.1000.7",
-    "@angular/cli": "10.0.5",
-    "@angular/compiler": "10.0.12",
-    "@angular/compiler-cli": "10.0.12",
-    "@angular/platform-browser": "10.0.12",
-    "@angular/platform-browser-dynamic": "10.0.12",
+    "@angular-devkit/build-angular": "0.1002.1",
+    "@angular-devkit/build-ng-packagr": "0.1002.1",
+    "@angular/cli": "10.2.1",
+    "@angular/compiler": "10.2.4",
+    "@angular/compiler-cli": "10.2.4",
+    "@angular/platform-browser": "10.2.4",
+    "@angular/platform-browser-dynamic": "10.2.4",
     "@babel/core": "7.11.1",
     "@storybook/addon-actions": "6.1.14",
     "@storybook/addon-docs": "6.1.14",
