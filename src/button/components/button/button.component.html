@@ -8,7 +8,7 @@
   [attr.autofocus]="autofocus">
 
 
-  <span *ngIf="!showText" class="button__text" #content>
+  <span [hidden]="!showText" class="button__text" #content>
     <ng-content></ng-content>
   </span>
   <div class="button__icon icon icon_24" *ngIf="icon" [ngClass]="['icon_' + icon, iconColor + '-color']"></div>

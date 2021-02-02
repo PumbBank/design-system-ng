@@ -40,7 +40,7 @@ export class ButtonComponent implements AfterViewInit, OnChanges {
 
   @Input() icon: string;
 
-  @ViewChild('content', { static: true }) content: ElementRef;
+  @ViewChild('content', { static: false }) content: ElementRef;
 
   varietyClass: string = '';
 
