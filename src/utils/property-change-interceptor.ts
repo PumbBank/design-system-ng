@@ -1,3 +1,5 @@
+import { AbstractControl } from "@angular/forms";
+
 export function propertyChangeInterceptor(object: {}, p: string, set?: (value: any) => void, get?: () => void): void {
   const propertyDescriptor = Object.getOwnPropertyDescriptor(object, p);
   const interceptorPropertyDescriptor: PropertyDescriptor = {};
@@ -38,4 +40,12 @@ export function propertyChangeInterceptor(object: {}, p: string, set?: (value: a
 
 
   Object.defineProperty(object, p, interceptorPropertyDescriptor);
+}
+
+export function propertyChangeInterceptorDirty(control: AbstractControl, func: () => void) {
+  const origFunc = control.markAsDirty;
+  control.markAsDirty = function () {
+    origFunc.apply(this, arguments);
+    func();
+  }
 }

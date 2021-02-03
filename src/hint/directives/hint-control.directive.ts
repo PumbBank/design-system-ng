@@ -2,8 +2,7 @@ import { Subject } from 'rxjs';
 import { Directive, OnDestroy, OnInit, Optional } from '@angular/core';
 import { AbstractControl, NgModel, FormControlDirective, FormControlName, FormGroupDirective } from '@angular/forms';
 import { HintComponent } from '..';
-import { propertyChangeInterceptor, ErrorMessageHelper } from '../../utils';
-import { SelectComponent } from '../../select/components/select/select.component';
+import { propertyChangeInterceptor, ErrorMessageHelper, propertyChangeInterceptorDirty } from '../../utils';
 import { takeUntil } from 'rxjs/operators';
 
 
@@ -48,7 +47,8 @@ export class HintControlDirective implements OnInit, OnDestroy {
         this.matchStatuses();
       });
 
-    propertyChangeInterceptor(this.control, 'touched', () => { this.matchStatuses(); });
+      propertyChangeInterceptorDirty(this.control, () => { this.matchStatuses(); });
+    // propertyChangeInterceptor(this.control, 'touched', () => { this.matchStatuses(); });
   }
 
   public ngOnDestroy(): void {

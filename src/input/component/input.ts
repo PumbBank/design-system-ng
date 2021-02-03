@@ -245,27 +245,15 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   }
 
   private watchValidationChangesByClassName(): void {
-    const s = this.onceErrorsUpdateText();
     this.validationStateObserver = new MutationObserver(() => {
 
       this.updateValidationState(this.input.classList.contains('ng-invalid'));
       this.updateDirtyState(this.input.classList.contains('ng-dirty'));
-      s();
+      this.errorsUpdateText();
     });
 
     this.validationStateObserver.observe(this.input, { attributeFilter: ['class'], attributes: true });
   }
-
-  private onceErrorsUpdateText(): () => void {
-    let flag = false;
-
-    return () => {
-      if (!flag) { this.errorsUpdateText(); }
-
-      flag = true;
-    };
-  }
-
 
   private watchValidationMessageChanges(): void {
     this.messagePresentationObserver = new MutationObserver(() => {
