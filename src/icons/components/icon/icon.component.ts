@@ -1,20 +1,22 @@
-import { Component, HostBinding, Input } from '@angular/core';
+import { ChangeDetectionStrategy, Component, HostBinding, Input } from '@angular/core';
 
 @Component({
   selector: 'mill-icon',
   templateUrl: './icon.component.html',
-  styles: [':host {display: flex;}']
+  styles: [':host {display: flex;}'],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class IconComponent {
   @Input() public size: '12' | '24' | '36' = '24';
   @Input() public name: string;
+  @Input() public color: string = 'currentColor';
 
   public get iconSize(): string {
     return `icon_${this.size}`;
   }
 
   public get iconName(): string {
-    return this.name ? `icon_${this.name}` : null;
+    return this.name ? `icon_${this.name}` : '';
   }
 
   @HostBinding('style.width') get iconWidth(): string {

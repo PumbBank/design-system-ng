@@ -21,7 +21,7 @@ export const component = () => ({
   props: {
     username: text('Username', `ФОП Константинопольский Константин Константинович`),
     additional: text('Additional info', 'Information text asd ad ad sad a da'),
-    avatar: text('A vatar', 'https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg')
+    avatar: text('Avatar', 'https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg')
   },
   template: `
       <mill-sidebar logo="/assets/images/logoplace.png" >
@@ -30,17 +30,12 @@ export const component = () => ({
           [avatar]="avatar"
           [additional]="additional">
           <mill-user-info-action icon="settings"></mill-user-info-action>
-          <mill-user-info-action icon="mail" [disabled]="true"></mill-user-info-action>
+          <mill-user-info-action badge="badge" icon="mail" ></mill-user-info-action>
           <mill-user-info-action icon="exit"></mill-user-info-action>
         </user-info>
         <mill-nav-title>Nav title</mill-nav-title>
 
-        <mill-nav-item icon="mail">
-          Messagenrs
-          <mill-nav-item >Telegram</mill-nav-item>
-          <mill-nav-item>Viber</mill-nav-item>
-          <mill-nav-item>iMessage</mill-nav-item>
-        </mill-nav-item>
+        <ng-container [ngTemplateOutlet]="childNav"></ng-container>
 
         <mill-nav-item icon="mail">Menu item</mill-nav-item>
         <mill-nav-item icon="calendar" active="true">Menu item</mill-nav-item>
@@ -66,5 +61,11 @@ export const component = () => ({
           </div>
 
         </nav-content>
-      </mill-sidebar>`,
+      </mill-sidebar>
+    <ng-template #childNav>
+      <mill-nav-item icon="mail">
+        Messengers
+        <mill-nav-item *ngFor="let name of ['Telegram', 'Viber', 'iMessage']">{{ name }}</mill-nav-item>
+      </mill-nav-item>
+    </ng-template>`,
 });
