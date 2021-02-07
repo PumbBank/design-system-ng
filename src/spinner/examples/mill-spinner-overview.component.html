@@ -10,24 +10,54 @@
 
   <div class="overview__content grid">
     <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Default spinner</div>
+      <div class="overview__label s1">small</div>
       <div class="overview__container">
-        <mill-spinner></mill-spinner>
+        <mill-spinner [size]="'small'"></mill-spinner>
+      </div>
+    </div>
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">medium</div>
+      <div class="overview__container">
+        <mill-spinner [size]="'medium'"></mill-spinner>
+      </div>
+    </div>
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">big</div>
+      <div class="overview__container">
+        <mill-spinner [size]="'big'"></mill-spinner>
       </div>
     </div>
   </div>
 
   <div class="overview__content grid">
     <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Default spinner with label</div>
+      <div class="overview__label s1">small with label and description</div>
       <div class="overview__container">
-        <mill-spinner>{{label}}</mill-spinner>
+        <mill-spinner [size]="'small'" description="Ми намагаємося щосили, залишилось зовсім трохи" label="Завантажується..."></mill-spinner>
+      </div>
+    </div>
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">medium with label and description</div>
+      <div class="overview__container">
+        <mill-spinner [size]="'medium'" description="Ми намагаємося щосили, залишилося приблизно 37 сек." label="Завантажується... 65%"></mill-spinner>
+      </div>
+    </div>
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">big with label and description</div>
+      <div class="overview__container">
+        <mill-spinner [size]="'big'" description="Ми намагаємося щосили, опрацьовано 13/45 документів" label="Завантажується... 13%"></mill-spinner>
+      </div>
+    </div>
+
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">big with label through the ng-content</div>
+      <div class="overview__container">
+        <mill-spinner [size]="'big'">Завантажується... 13%</mill-spinner>
       </div>
     </div>
   </div>
-
 </div>
-
-
-
-
