@@ -7,7 +7,7 @@ import {
   OnInit,
   HostBinding,
   AfterContentInit,
-  ContentChild, ChangeDetectionStrategy, ChangeDetectorRef
+  ContentChild
 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { SidebarController } from '../../services/sidebar-cotroller.service';
@@ -18,7 +18,9 @@ import { NavContentComponent } from '../nav-content/nav-content.component';
   selector: 'mill-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  providers: [
+    SidebarController
+  ],
 })
 
 export class SidebarComponent extends ComponentWithUnsubscriber implements OnInit, OnChanges, AfterContentInit {
@@ -36,8 +38,7 @@ export class SidebarComponent extends ComponentWithUnsubscriber implements OnIni
   @Input() version: string = 'v3.4.2';
 
   constructor(
-    private _sidebarController: SidebarController,
-    private _cdr: ChangeDetectorRef
+    public sidebarController: SidebarController
   ) { super(); }
 
   ngAfterContentInit(): void {
@@ -52,7 +53,7 @@ export class SidebarComponent extends ComponentWithUnsubscriber implements OnIni
 
   ngOnChanges(changes: SimpleChanges): void {
     // if (changes.collapsed) {
-    //   this._sidebarController.collapsed$;
+    //   this.sidebarController.collapsed$;
     // }
   }
 
@@ -61,16 +62,15 @@ export class SidebarComponent extends ComponentWithUnsubscriber implements OnIni
   }
 
   collapsedToggle(): boolean {
-    return this._sidebarController.collapsedToggle();
+    return this.sidebarController.collapsedToggle();
   }
 
   private bindCollapsedWithController(): void {
-    this.collapsed = this._sidebarController.collapsed$.value;
-    this._sidebarController.collapsed$
+    this.collapsed = this.sidebarController.collapsed$.value;
+    this.sidebarController.collapsed$
       .pipe(takeUntil(this.unsubscriber$))
       .subscribe((collapsed: boolean) => {
         this.collapsed = collapsed;
-        this._cdr.detectChanges();
         this.collapsedChange.emit(collapsed);
       });
   }

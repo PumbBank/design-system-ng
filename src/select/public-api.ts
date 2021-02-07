@@ -6,3 +6,4 @@ export * from './select.module';
 
 export * from './directives/option/select-option.directive';
 export * from './components/select/select.component';
+export * from './components/select/abstract-select-user-communication';

@@ -9,7 +9,6 @@ import { IconsModule } from '../icons/icons.module';
 import { BadgeModule } from '../badge/badge.module';
 import { NavContentHeadComponent } from './components/nav-content-head/nav-content-head.component';
 import { NavContentComponent } from './components/nav-content/nav-content.component';
-import { SidebarController } from './services/sidebar-cotroller.service';
 
 @NgModule({
   imports: [
@@ -34,9 +33,6 @@ import { SidebarController } from './services/sidebar-cotroller.service';
     SidebarComponent,
     NavContentComponent,
     NavContentHeadComponent
-  ],
-  providers: [
-    SidebarController
   ]
 })
 export class SidebarModule {

@@ -1,16 +1,16 @@
 import {
-  AfterContentInit, AfterViewInit,
-  ChangeDetectionStrategy, ChangeDetectorRef,
   Component,
-  ContentChildren,
   Input,
-  OnInit,
-  QueryList
+  Optional,
+  ContentChildren,
+  QueryList,
+  AfterContentInit,
+  OnInit
 } from '@angular/core';
 import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubscriber';
 import { SidebarController } from '../../services/sidebar-cotroller.service';
 import { takeUntil } from 'rxjs/operators';
-import { animate, state, style, transition, trigger } from '@angular/animations';
+import { trigger, transition, style, animate, state } from '@angular/animations';
 
 @Component({
   selector: 'mill-nav-item',
@@ -28,10 +28,9 @@ import { animate, state, style, transition, trigger } from '@angular/animations'
       transition('in => out', animate('299ms ease-in-out')),
       transition('out => in', animate('299ms ease-in-out'))
     ])
-  ],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  ]
 })
-export class NavItemComponent extends ComponentWithUnsubscriber implements OnInit, AfterContentInit, AfterViewInit {
+export class NavItemComponent extends ComponentWithUnsubscriber implements OnInit, AfterContentInit {
   private _active: boolean | string;
 
   @ContentChildren(NavItemComponent) componentContent: QueryList<NavItemComponent>;
@@ -40,11 +39,7 @@ export class NavItemComponent extends ComponentWithUnsubscriber implements OnIni
     return this.componentContent && this.componentContent.length > 1;
   }
 
-  get collapsed$(): boolean {
-    return this._sidebarController?.collapsed$?.value;
-  }
-
-  isSubItem: boolean = false;
+  isSubitem: boolean = false;
 
   collapsed: boolean;
   expanded: boolean;
@@ -61,8 +56,7 @@ export class NavItemComponent extends ComponentWithUnsubscriber implements OnIni
   }
 
   constructor(
-    private _sidebarController: SidebarController,
-    private _cdr: ChangeDetectorRef
+    @Optional() public sidebarController: SidebarController
   ) { super(); }
 
   ngOnInit(): void {
@@ -70,11 +64,7 @@ export class NavItemComponent extends ComponentWithUnsubscriber implements OnIni
   }
 
   ngAfterContentInit(): void {
-    this.markChildMenuItemsAsSubItem();
-  }
-
-  ngAfterViewInit(): void {
-    this._cdr.markForCheck();
+    this.markChildMenuItemsAsSubitem();
   }
 
   expand(): void {
@@ -83,24 +73,22 @@ export class NavItemComponent extends ComponentWithUnsubscriber implements OnIni
   }
 
   private bindCollapsedWithController(): void {
-    if (!this._sidebarController) { return; }
+    if (!this.sidebarController) { return; }
 
-    this.collapsed = this._sidebarController.collapsed$.value;
-    this._sidebarController.collapsed$
+    this.collapsed = this.sidebarController.collapsed$.value;
+    this.sidebarController.collapsed$
       .pipe(takeUntil(this.unsubscriber$))
       .subscribe((collapsed: boolean) => {
         this.collapsed = collapsed;
-        this._cdr.markForCheck();
       });
   }
 
 
-  private markChildMenuItemsAsSubItem(): void {
+  private markChildMenuItemsAsSubitem(): void {
     this.componentContent
       .filter(item => item !== this)
       .forEach(item => {
-        item.isSubItem = true;
+        item.isSubitem = true;
       });
-    this._cdr.markForCheck();
   }
 }

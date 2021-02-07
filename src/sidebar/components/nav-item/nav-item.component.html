@@ -1,10 +1,10 @@
 <div class="nav-item" [class.nav-item_active]="active" [class.nav-item_collapsed]="collapsed" (click)="expand()">
 
   <div class="nav-item__icon nav-item__icon_hover">
-    <mill-icon [size]="isSubItem ? '12' : '24'" [name]="isSubItem ? 'dot' : icon"></mill-icon>
+    <mill-icon [size]="isSubitem ? 12 : 24" [name]="isSubitem ? 'dot' : icon"></mill-icon>
   </div>
 
-  <div class="nav-item__text" [class.nav-item__text-sub-item]="isSubItem">
+  <div class="nav-item__text" [class.nav-item__text-sub-item]="isSubitem">
     <ng-content></ng-content>
   </div>
 
