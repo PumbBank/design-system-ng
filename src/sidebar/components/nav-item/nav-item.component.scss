@@ -9,14 +9,14 @@
   flex-direction: row;
   align-items: center;
   width: 256px;
-
   transition: width 299ms ease, border-radius 299ms ease;
+
   &.nav-item_collapsed {
     border-radius: 24px;
     width: 48px;
 
     .nav-item__text {
-      width: 0px;
+      width: 0;
       opacity: 0;
       overflow: hidden;
     }
@@ -55,10 +55,13 @@
 .nav-item__text {
   @extend %p1;
 
-  transition: width 299ms ease, opacity 299ms ease;
   width: 176px;
-  white-space: nowrap;
   color: $grey-30;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: width 299ms ease, opacity 299ms ease;
+  white-space: nowrap;
+
   &-sub-item {
     color: $grey-50;
   }

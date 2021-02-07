@@ -1,5 +1,9 @@
-<div class="nav-item" [class.nav-item_active]="active" [class.nav-item_collapsed]="collapsed" (click)="expand()">
-
+<div
+  class="nav-item"
+  [class.nav-item_active]="active"
+  [class.nav-item_collapsed]="collapsed"
+  (click)="expand()"
+>
   <div class="nav-item__icon nav-item__icon_hover">
     <mill-icon [size]="isSubitem ? 12 : 24" [name]="isSubitem ? 'dot' : icon"></mill-icon>
   </div>
