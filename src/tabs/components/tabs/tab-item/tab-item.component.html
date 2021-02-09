@@ -1,5 +1,5 @@
 <div class="tab-body" [@tabAnimation]="{value: tabPosition}">
-  <div *ngIf="tabPosition === 'center'" @contentAnimation>
+  <div class="tab-body__content" *ngIf="tabPosition === 'center'" @contentAnimation>
     <ng-content></ng-content>
   </div>
 </div>

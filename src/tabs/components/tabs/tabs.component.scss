@@ -15,6 +15,10 @@
   left: 0;
   overflow: hidden;
   width: 100%;
+
+  &__content {
+    width: 100%;
+  }
 }
 
 .tab-content {
