@@ -257,6 +257,8 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
       this.positionPx = 0;
     }
 
+    this._onChange(this.active);
+    this.statusChange.emit(this.active);
   }
 
   /** Check position while moving */

@@ -142,10 +142,8 @@ export class StepperComponent implements AfterViewInit, OnDestroy {
       if (this.isFormControl(step.validity)) {
         step.validity.valueChanges
           .pipe(takeUntil(this.destroy$))
-          .subscribe(value => {
-            if (value) {
-              step.state = StepperStateEnum.valid;
-            }
+          .subscribe(() => {
+            step.validity.valid ? step.state = StepperStateEnum.valid : step.state = StepperStateEnum.error;
         });
       }
     });
