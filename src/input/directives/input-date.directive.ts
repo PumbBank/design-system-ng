@@ -51,6 +51,7 @@ export class InputDateDirective
   private _textMaskInput: any;
   private _mask: Array<string | RegExp> = [/\d/, /\d/, '.', /\d/, /\d/, '.', /\d/, /\d/, /\d/, /\d/];
   private _calendarComponentRef: ComponentRef<CalendarComponent>;
+  private _onChangeCallback: (_: any) => void = () => {};
 
   @Input() calendarType: CalendarType;
 
@@ -114,6 +115,10 @@ export class InputDateDirective
       return null;
     }
 
+    if (typeof control.value !== 'string') {
+      return null;
+    }
+
     const message = 'Невірний фортмат дати';
 
     if (!/^\d{4}\-\d{1,2}\-\d{1,2}$/.test(control.value.split('T')[0])) {
@@ -142,6 +147,7 @@ export class InputDateDirective
   }
 
   registerOnChange(fn: (s: string) => void): void {
+    this._onChangeCallback = fn;
     super.registerOnChange((value: string) => fn(InputDateDirective.dateToISO(value)));
   }
 
@@ -152,7 +158,13 @@ export class InputDateDirective
     };
   }
 
-  writeValue(value: {start: ISOString, end?: ISOString}): void {
+  writeValue(input: {start: ISOString, end?: ISOString} | string): void {
+    let value;
+    if (typeof input === 'string') {
+      value = {start: input};
+    } else {
+      value = input;
+    }
     if (this.calendarType === CalendarType.Range) {
       super.writeValue(rangeFormatter(new Date(value.start), new Date(value.end)));
     } else {
@@ -186,7 +198,10 @@ export class InputDateDirective
       this._domService.attachComponent(this._calendarComponentRef, wrapperElement);
       this._calendarComponentRef?.instance?.selectedDate
         .pipe(takeUntil(this._destroyed$))
-        .subscribe((value: {start: ISOString, end?: ISOString}) => this.writeValue(value));
+        .subscribe((value: {start: ISOString, end?: ISOString}) => {
+          this.writeValue(value);
+          this._onChangeCallback(value);
+        });
     }
   }
 

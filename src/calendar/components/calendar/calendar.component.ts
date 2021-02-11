@@ -25,12 +25,24 @@ import {
   isDateInRange,
   swapDates, DateRange, YEARS_SHIFT
 } from '../../calendar.model';
+import { animate, style, transition, trigger } from '@angular/animations';
 
 @Component({
   selector: 'mill-calendar',
   templateUrl: './calendar.component.html',
   styleUrls: ['./calendar.component.scss'],
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  animations: [
+    trigger('flyInOut', [
+      transition(':enter', [
+        style({ opacity: 0 }),
+        animate('100ms', style({ opacity: 1 })),
+      ]),
+      transition(':leave', [
+        animate('100ms', style({ opacity: 0 }))
+      ])
+    ])
+  ]
 })
 export class CalendarComponent {
   private _selectedMonth: number;

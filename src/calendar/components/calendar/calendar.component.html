@@ -1,7 +1,7 @@
 <ng-container [ngTemplateOutlet]="calendarView"></ng-container>
 
 <ng-template #calendarView>
-  <div class="calendar" [class.calendar__active]="showCalendar" [ngClass]="['calendar_' + state, 'calendar_' + type]">
+  <div class="calendar calendar__active" @flyInOut *ngIf="showCalendar" [ngClass]="['calendar_' + state, 'calendar_' + type]">
     <div class="calendar-header">
       <div class="calendar-header__arrow_left" *ngIf="calendarState.Days === state">
         <mill-button view="hidden" size="small" icon="chevron-left" iconColor="grey" (click)="onPrevMonthClick()"></mill-button>

@@ -15,6 +15,7 @@ import { TextAreaModule } from '../text-area/text-area.module';
 import { AutocompleteModule } from '../autocomplete/autocomplete.module';
 import { AutoCompleteDataService } from './examples/services/autocomplete-data.service';
 import { CalendarModule } from '../calendar';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 export default {
   title: 'Компоненти/Inputs',
@@ -28,6 +29,7 @@ export default {
 export const component = () => ({
   moduleMetadata: {
     imports: [
+      BrowserAnimationsModule,
       ReactiveFormsModule,
       CommonModule,
       InputModule,
