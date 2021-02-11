@@ -159,7 +159,11 @@ export class SwitcherComponent implements OnInit, OnChanges, ControlValueAccesso
 
   /** Set switcher max position in px */
   public setMaxPosition(switcherCircleWidth: number): void {
-    this._maxPositionPx = this._switcherWidth - switcherCircleWidth;
+    if (switcherCircleWidth) {
+      this._maxPositionPx = this._switcherWidth - switcherCircleWidth;
+    } else {
+      this._maxPositionPx = 16;
+    }
     this._checkPosition();
   }
 
