@@ -108,7 +108,9 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
   ngAfterContentInit(): void {
     this.errorsUpdateText();
-    if (this.cleanup) this.checkVisibilityCleanupIcon();
+    if (this.cleanup) {
+      this.checkVisibilityCleanupIcon();
+    }
   }
 
   ngOnDestroy(): void {
@@ -208,7 +210,9 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
         this.onChangeCallback(cleanValue);
       }
 
-      if (this.cleanup) this.checkVisibilityCleanupIcon();
+      if (this.cleanup) {
+        this.checkVisibilityCleanupIcon();
+      }
 
       if (!!this.autocompleteDataSource) {
         this.messageSource$.next(this.input.value);
@@ -252,7 +256,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
       this.updateValidationState(this.input.classList.contains('ng-invalid'));
       this.updateDirtyState(this.input.classList.contains('ng-dirty'));
-      // this.errorsUpdateText(); для теста валидации, возможно придется вернуть
+      this.errorsUpdateText();
     });
 
     this.validationStateObserver.observe(this.input, { attributeFilter: ['class'], attributes: true });
