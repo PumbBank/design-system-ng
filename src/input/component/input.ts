@@ -58,6 +58,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   @Input() cleanup: boolean = false;
   @Input() autocompleteDataSource: IDataAutocomplete | Array<string>;
   @Output() iconClick: EventEmitter<void> = new EventEmitter<void>();
+  @Output() cleanupClick: EventEmitter<void> = new EventEmitter<void>();
 
   wrapperElement: HTMLElement;
   captionElement: HTMLElement;
@@ -107,6 +108,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
   ngAfterContentInit(): void {
     this.errorsUpdateText();
+    if (this.cleanup) this.checkVisibilityCleanupIcon();
   }
 
   ngOnDestroy(): void {
@@ -206,7 +208,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
         this.onChangeCallback(cleanValue);
       }
 
-      this.checkVisibilityCleanupIcon();
+      if (this.cleanup) this.checkVisibilityCleanupIcon();
 
       if (!!this.autocompleteDataSource) {
         this.messageSource$.next(this.input.value);
@@ -215,7 +217,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   }
 
   private checkVisibilityCleanupIcon(): void {
-    if (this.cleanup && this.input.value.length > 0) {
+    if (this.input.value.length > 0) {
       if (!this.wrapperElement.classList.contains('input__btnCleanup')
         && !this.input.classList.contains('input__input-cleanup')) {
         this.renderer.addClass(this.wrapperElement, 'input__btnCleanup');
@@ -233,6 +235,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     this.iconCleanupElement.addEventListener('click', () => {
 
       this.input.value = '';
+      this.cleanupClick.next();
       if (!!this.autocompleteDataSource) {
         this.messageSource$.next('');
       }
@@ -249,7 +252,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
       this.updateValidationState(this.input.classList.contains('ng-invalid'));
       this.updateDirtyState(this.input.classList.contains('ng-dirty'));
-      this.errorsUpdateText();
+      // this.errorsUpdateText(); для теста валидации, возможно придется вернуть
     });
 
     this.validationStateObserver.observe(this.input, { attributeFilter: ['class'], attributes: true });

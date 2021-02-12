@@ -166,9 +166,10 @@ export class InputDateDirective
       value = input;
     }
     if (this.calendarType === CalendarType.Range) {
-      super.writeValue(rangeFormatter(new Date(value.start), new Date(value.end)));
+      super.writeValue(rangeFormatter(new Date(!!value && value.start), new Date(!!value && value.end)));
     } else {
-      super.writeValue(InputDateDirective.ISOToDate(value.start));
+      const dateToISO = InputDateDirective.dateToISO(!!value && value.start); // if date format dd.mm.yyyy
+      super.writeValue(InputDateDirective.ISOToDate(!dateToISO ? !!value && value.start : dateToISO));
     }
   }
 
