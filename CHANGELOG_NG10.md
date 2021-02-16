@@ -31,3 +31,6 @@ Calendar, Switcher, Icons fixes. Випуск версії 0.10.50
 
 #### 12 ЛЮТОГО
 Date directive for ngModel, display validation, cleanup button. Випуск версії 0.10.54
+
+#### 16 ЛЮТОГО
+Випуск версії 0.10.56
