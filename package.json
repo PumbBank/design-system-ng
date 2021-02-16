@@ -1,6 +1,6 @@
 {
   "name": "@mill/ng",
-  "version": "0.10.55",
+  "version": "0.10.56",
   "scripts": {
     "start": "start-storybook -p 6006 -s ./.storybook/favicon && npm run lint",
     "ng-high-memory": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng",

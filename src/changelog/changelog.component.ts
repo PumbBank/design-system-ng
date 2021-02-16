@@ -12,13 +12,13 @@ import { HttpClient } from '@angular/common/http';
 type ChangelogContent = {
   title: string;
   body: string;
-}
+};
 
 type VersionedChangelog = {
   version: string;
   description: string;
   content: ChangelogContent[];
-}
+};
 
 @Component({
   selector: 'mill-changelog',
@@ -29,10 +29,21 @@ type VersionedChangelog = {
 })
 
 export class ChangelogComponent implements OnInit {
+  activeVersion: string;
+
+  @ViewChild('chipAll', {static: true}) chipAll: ChipComponent;
+  @ViewChild('chipV7', {static: true}) chipV7: ChipComponent;
+  @ViewChild('chipV8', {static: true}) chipV8: ChipComponent;
+  @ViewChild('chipV9', {static: true}) chipV9: ChipComponent;
+  @ViewChild('chipV10', {static: true}) chipV10: ChipComponent;
+
+  private _changeLogMap: Map<string, VersionedChangelog> = new Map();
+
   static parseGroups(lines: string[]): any[] {
     const isTitle = (text: string) => text.indexOf('###') > -1;
     const result = [];
-    let title = '', content = [];
+    let title = '';
+    let content = [];
 
     for (let i = 0; i < lines.length; i++) {
       if (isTitle(lines[i])) {
@@ -51,17 +62,8 @@ export class ChangelogComponent implements OnInit {
     return result;
   }
 
-  private _changeLogMap: Map<string, VersionedChangelog> = new Map();
-  activeVersion: string;
-
-  @ViewChild('chipAll', {static: true}) chipAll: ChipComponent;
-  @ViewChild('chipV7', {static: true}) chipV7: ChipComponent;
-  @ViewChild('chipV8', {static: true}) chipV8: ChipComponent;
-  @ViewChild('chipV9', {static: true}) chipV9: ChipComponent;
-  @ViewChild('chipV10', {static: true}) chipV10: ChipComponent;
-
   constructor(private _http: HttpClient,
-              private _cdr:ChangeDetectorRef) {
+              private _cdr: ChangeDetectorRef) {
     this.getChangeLogs();
   }
 
@@ -86,7 +88,7 @@ export class ChangelogComponent implements OnInit {
     return [...this._changeLogMap.entries()].map(m => m[1]);
   }
 
-  private updateClass(chip: ChipComponent, isActive: boolean) {
+  private updateClass(chip: ChipComponent, isActive: boolean): void {
     chip.hostClass = isActive ? 'mill-chip chip_active' : 'mill-chip';
   }
 
