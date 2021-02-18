@@ -16,8 +16,7 @@ import {
   NG_VALIDATORS,
   Validator,
   AbstractControl,
-  ValidationErrors,
-  FormGroupDirective
+  ValidationErrors
 } from '@angular/forms';
 import { Subject } from 'rxjs';
 import { takeUntil } from 'rxjs/operators';
@@ -77,10 +76,9 @@ export class InputDateDirective
   constructor(
     private _renderer: Renderer2,
     private _elementRef: ElementRef,
-    private _parentForm: FormGroupDirective,
     private _domService: DomService
   ) {
-    super(_elementRef.nativeElement, _renderer, _parentForm);
+    super(_elementRef.nativeElement, _renderer);
     _renderer.setStyle(this.wrapperElement, 'minWidth', '124px');
     this.registerOnUpdateIcon();
   }

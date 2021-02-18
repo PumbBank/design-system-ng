@@ -1,5 +1,5 @@
 import { Component, OnInit, ElementRef, ViewChild, AfterViewInit } from '@angular/core';
-import { FormControl, ValidationErrors, Validators, FormGroup } from '@angular/forms';
+import { FormControl, ValidationErrors, Validators, FormGroup, FormArray } from '@angular/forms';
 
 @Component({
   selector: 'input-form',
@@ -44,7 +44,9 @@ export class InputFormComponent implements OnInit, AfterViewInit {
   }
 
   onFormSubmit(): void {
+    this.formGr.controls.name.markAsDirty();
     if (!this.formGr.valid) {
+      this.markControlsAsDirty(this.formGr);
       this.scrollToError();
     }
   }
@@ -62,5 +64,18 @@ export class InputFormComponent implements OnInit, AfterViewInit {
     if (el) {
       el.scrollIntoView({ behavior: 'smooth', block: 'center' });
     }
+  }
+
+  private markControlsAsDirty(formGroup: FormGroup | FormArray) {
+
+    Object.keys(formGroup.controls).forEach(field => {
+      const control = formGroup.get(field);
+      if (control instanceof FormControl) {
+        control.markAsDirty();
+      } else if (control instanceof FormGroup || control instanceof FormArray) {
+        this.markControlsAsDirty(control);
+      }
+    });
+
   }
 }

@@ -9,7 +9,7 @@ import {
   EventEmitter
 } from '@angular/core';
 import { ValidationErrors, FormGroupDirective } from '@angular/forms';
-import {BehaviorSubject, Observable, Subject} from 'rxjs';
+import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
 import { takeUntil } from 'rxjs/operators';
 import { AutocompleteComponent } from '../../autocomplete/components/autocomplete/autocomplete.component';
@@ -26,6 +26,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
   private invalid: boolean;
   private dirty: boolean;
+  private focused = false;
   private destroyed$: Subject<void> = new Subject<void>();
 
   private messageSource$: BehaviorSubject<string> = new BehaviorSubject('');
@@ -34,7 +35,6 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   constructor(
     public input: HTMLInputElement,
     public renderer: Renderer2,
-    public parentForm: FormGroupDirective,
     public domService?: DomService
   ) {
     super();
@@ -44,8 +44,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     this.watchValidationChangesByClassName();
     this.errorsUpdateText();
     this.watchValidationMessageChanges();
-
-    this.watchFormSubmit();
+    this.watchWrapperMouseMove();
   }
 
   protected cleanFunction: CleanFunction = DEFAULT_CLEAN_FUNCTION;
@@ -84,9 +83,9 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   onUpdateIconCallback: () => void;
 
   ngOnChanges(changes: SimpleChanges): void {
-    // if (changes.errors || changes.valid) {
-    //   this.errorsUpdateText();
-    // }
+    if (changes.errors || changes.valid) {
+      this.errorsUpdateText();
+    }
 
     if (changes.valid) {
       this.errorsUpdateText();
@@ -108,9 +107,6 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
   ngAfterContentInit(): void {
     this.errorsUpdateText();
-    if (this.cleanup) {
-      this.checkVisibilityCleanupIcon();
-    }
   }
 
   ngOnDestroy(): void {
@@ -188,20 +184,9 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     this.dirty = dirty;
   }
 
-  private watchFormSubmit(): void {
-    if (this.parentForm) {
-      this.parentForm?.ngSubmit
-        .pipe(takeUntil(this.destroyed$))
-        .subscribe(() => {
-          this.errorsUpdateText();
-        });
-    }
-  }
-
   private watchInputValueChanges(): void {
     this.input.addEventListener('input', () => {
       const cleanValue = this.cleanFunction(this.input.value);
-
       if (this.input.value !== cleanValue) {
         this.input.value = cleanValue;
       }
@@ -247,7 +232,13 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
       if (this.onChangeCallback) {
         this.onChangeCallback('');
       }
-      this.checkVisibilityCleanupIcon();
+      if (this.cleanup) this.checkVisibilityCleanupIcon();
+    });
+  }
+
+  private watchWrapperMouseMove(): void {
+    this.wrapperElement.addEventListener('mouseenter', (e) => {
+      if (this.cleanup) this.checkVisibilityCleanupIcon();
     });
   }
 
@@ -275,7 +266,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
   private updateMsgTextStyles(): void {
 
-    if ((this.dirty && this.invalid) || (this.invalid && this.parentForm?.submitted)) {
+    if ((this.dirty ) && this.invalid) {
       this.renderer.removeClass(this.wrapperElement, 'input_valid');
       this.renderer.addClass(this.wrapperElement, 'input_error');
 
@@ -304,7 +295,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   }
 
   private updateMessagePresentation(): void {
-    if ((this.errors && this.dirty) || (this.errors && this.parentForm?.submitted)) {
+    if (this.errors && this.dirty) {
       this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
     } else if ((this.errors && !this.invalid)) {
       this.renderer.appendChild(this.footerElement, this.msgWrapperElement);
@@ -351,7 +342,12 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
       if (this.onTouchedCallback) {
         this.onTouchedCallback();
       }
+      this.focused = false;
       this.errorsUpdateText();
+    });
+
+    this.input.addEventListener('focus', () => {
+      this.focused = true;
     });
   }
 
@@ -426,10 +422,10 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   }
 
   private errorsUpdateText(): void {
-    if ((this.errors && this.dirty) || (this.errors && this.parentForm?.submitted)) {
+    if (!this.focused) {
+    if (this.errors && this.dirty) {
       this.msgTextElement.innerText =
-        (this.errors && this.dirty) ||
-          (this.errors && this.parentForm?.submitted)
+        (this.errors && this.dirty)
           ? ErrorMessageHelper.getMessage(this.errors)
           : '';
     } else if ((this.errors && !this.invalid)) {
@@ -440,7 +436,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
       // this.msgTextElement.innerText = '123';
     }
     this.updateMessagePresentation();
-    this.updateMsgTextStyles();
+    this.updateMsgTextStyles();}
   }
 
   private captionUpdateText(): void {

@@ -1,8 +1,8 @@
 import { Subject } from 'rxjs';
 import { Directive, OnDestroy, OnInit, Optional } from '@angular/core';
-import { AbstractControl, NgModel, FormControlDirective, FormControlName, FormGroupDirective } from '@angular/forms';
+import { AbstractControl, NgModel, FormControlDirective, FormControlName } from '@angular/forms';
 import { HintComponent } from '..';
-import { propertyChangeInterceptor, ErrorMessageHelper, propertyChangeInterceptorDirty } from '../../utils';
+import { ErrorMessageHelper, propertyChangeInterceptorDirty } from '../../utils';
 import { takeUntil } from 'rxjs/operators';
 
 
@@ -15,7 +15,6 @@ export class HintControlDirective implements OnInit, OnDestroy {
 
   constructor(
     private hint: HintComponent,
-    public parentForm: FormGroupDirective,
     @Optional() private ngModel: NgModel,
     @Optional() private formControlDirective: FormControlDirective,
     @Optional() private formControlNameDirective: FormControlName
@@ -24,12 +23,6 @@ export class HintControlDirective implements OnInit, OnDestroy {
   }
 
   ngOnInit(): void {
-    if (this.parentForm) {
-      this.parentForm?.ngSubmit.pipe(takeUntil(this._destroyed$)).subscribe(() => {
-        this.matchStatuses();
-      });
-    }
-
 
     if (this.ngModel) {
       this.control = this.ngModel.control;
@@ -58,7 +51,7 @@ export class HintControlDirective implements OnInit, OnDestroy {
 
   private matchStatuses(): void {
 
-    if ((!this.control.valid && this.control.dirty) || (!this.control.valid && this.parentForm.submitted)) {
+    if (!this.control.valid && this.control.dirty) {
       this.hint.icon = 'warning';
       this.hint.color = 'error';
       this.hint.show = true;

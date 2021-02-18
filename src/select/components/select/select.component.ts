@@ -1,6 +1,5 @@
 import { Component, Input, OnInit, ElementRef } from '@angular/core';
 import { AbstractSelectUserCommunication } from './abstract-select-user-communication';
-import { FormGroupDirective } from '@angular/forms';
 
 @Component({
   selector: 'mill-select',
@@ -40,16 +39,11 @@ export class SelectComponent<K = any, P = any>
     return this.element.nativeElement.classList.contains('ng-invalid');
   }
 
-  get submitted(): boolean {
-    return this.parentForm?.submitted || false;
-  }
-
   get selectMinWidth(): string {
     return this.multiple ? '200px' : '100px';
   }
 
-  constructor(private element: ElementRef,
-    public parentForm: FormGroupDirective) {
+  constructor(private element: ElementRef) {
     super();
   }
 

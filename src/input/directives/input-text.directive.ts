@@ -1,5 +1,5 @@
 import { Directive, Renderer2, ElementRef, forwardRef, OnInit, Input, OnChanges, SimpleChanges } from '@angular/core';
-import { NG_VALUE_ACCESSOR, ControlValueAccessor, FormGroupDirective } from '@angular/forms';
+import { NG_VALUE_ACCESSOR, ControlValueAccessor } from '@angular/forms';
 import { DomService } from '../../utils/services/dom.service';
 import { createTextMaskInputElement } from 'text-mask-core';
 
@@ -24,10 +24,9 @@ export class InputTextDirective extends MillInput implements ControlValueAccesso
   constructor(
     renderer: Renderer2,
     public inputElementRef: ElementRef,
-    public parentForm: FormGroupDirective,
     public domService: DomService
   ) {
-    super(inputElementRef.nativeElement, renderer, parentForm, domService);
+    super(inputElementRef.nativeElement, renderer, domService);
   }
 
   ngOnInit(): void {
