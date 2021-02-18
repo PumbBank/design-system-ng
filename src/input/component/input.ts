@@ -8,7 +8,7 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import {FormGroupDirective, ValidationErrors} from '@angular/forms';
+import { ValidationErrors} from '@angular/forms';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
 import { AutocompleteComponent } from '../../autocomplete/components/autocomplete/autocomplete.component';
@@ -34,7 +34,6 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   constructor(
     public input: HTMLInputElement,
     public renderer: Renderer2,
-    public parentForm?: FormGroupDirective,
     public domService?: DomService
   ) {
     super();
@@ -246,13 +245,17 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
       if (this.onChangeCallback) {
         this.onChangeCallback('');
       }
-      if (this.cleanup) this.checkVisibilityCleanupIcon();
+      if (this.cleanup) {
+        this.checkVisibilityCleanupIcon();
+      }
     });
   }
 
   private watchWrapperMouseMove(): void {
     this.wrapperElement.addEventListener('mouseenter', (e) => {
-      if (this.cleanup) this.checkVisibilityCleanupIcon();
+      if (this.cleanup) {
+        this.checkVisibilityCleanupIcon();
+      }
     });
   }
 
@@ -437,20 +440,23 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
   private errorsUpdateText(): void {
     if (!this.focused) {
-    if (this.errors && this.dirty) {
-      this.msgTextElement.innerText =
-        (this.errors && this.dirty)
+      if (this.errors && this.dirty) {
+        this.msgTextElement.innerText =
+          (this.errors && this.dirty)
+            ? ErrorMessageHelper.getMessage(this.errors)
+            : '';
+      } else if ((this.errors && !this.invalid)) {
+        this.msgTextElement.innerText = (this.errors && !this.invalid)
           ? ErrorMessageHelper.getMessage(this.errors)
           : '';
-    } else if ((this.errors && !this.invalid)) {
-      this.msgTextElement.innerText = (this.errors && !this.invalid) ? ErrorMessageHelper.getMessage(this.errors) : '';
-    } else if (!!this.valid && this.valid !== 'true' && this.valid !== true) {
-      this.msgTextElement.innerText = this.valid as string;
-    } else {
-      // this.msgTextElement.innerText = '123';
+      } else if (!!this.valid && this.valid !== 'true' && this.valid !== true) {
+        this.msgTextElement.innerText = this.valid as string;
+      } else {
+        // this.msgTextElement.innerText = '123';
+      }
+      this.updateMessagePresentation();
+      this.updateMsgTextStyles();
     }
-    this.updateMessagePresentation();
-    this.updateMsgTextStyles();}
   }
 
   private captionUpdateText(): void {

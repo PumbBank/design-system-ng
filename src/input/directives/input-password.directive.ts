@@ -30,10 +30,9 @@ export class InputPasswordDirective extends MillInput implements ControlValueAcc
     private _cdr: ChangeDetectorRef,
     renderer: Renderer2,
     public inputElementRef: ElementRef,
-    public parentForm: FormGroupDirective,
     public domService: DomService
   ) {
-    super(inputElementRef.nativeElement, renderer, parentForm, domService);
+    super(inputElementRef.nativeElement, renderer, domService);
     this.inputElementRef.nativeElement.type = 'password';
     this.registerOnUpdateIcon();
   }
