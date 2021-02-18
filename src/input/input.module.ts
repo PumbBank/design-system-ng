@@ -11,6 +11,7 @@ import { IconsModule } from '../icons';
 import { InputIbanDirective } from './directives/input-iban.directive';
 import { DomService } from '../utils/services/dom.service';
 import { CalendarModule } from '../calendar';
+import { InputPasswordDirective } from './directives/input-password.directive';
 
 @NgModule({
   declarations: [
@@ -22,6 +23,7 @@ import { CalendarModule } from '../calendar';
     InputPhoneDirective,
     InputCardDirective,
     InputIbanDirective,
+    InputPasswordDirective
   ],
   imports: [
     IconsModule,
@@ -36,6 +38,7 @@ import { CalendarModule } from '../calendar';
     InputPhoneDirective,
     InputCardDirective,
     InputIbanDirective,
+    InputPasswordDirective
   ],
   providers: [FormGroupDirective, DomService]
 })

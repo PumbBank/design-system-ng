@@ -176,6 +176,20 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
     }
   }
 
+  protected changeIcon(icon: string): void {
+    if (icon) {
+      this.icon = icon;
+      this.iconElement.classList.forEach((cl) => {
+        if (cl.match(/icon_/)) {
+          this.renderer.removeClass(this.iconElement, cl);
+        }
+      });
+      this.renderer.addClass(this.iconElement, 'icon_' + icon);
+      this.renderer.removeChild(this.entranceElement, this.iconElement);
+      this.renderer.appendChild(this.entranceElement, this.iconElement);
+    }
+  }
+
   private updateValidationState(invalid: boolean = false): void {
     this.invalid = invalid;
   }

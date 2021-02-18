@@ -17,6 +17,13 @@
       </div>
     </div>
     <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Password</div>
+      <div class="overview__container">
+        <input icon="lock-pass" millInput="password" [formControl]="passwordControl" [errors]="passwordControl?.errors"
+               [caption]="hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
       <div class="overview__label s1">With icon</div>
       <div class="overview__container">
         <input icon="user" millInput="text" [formControl]="nameControlWithIcon" [errors]="nameControlWithIcon.errors"

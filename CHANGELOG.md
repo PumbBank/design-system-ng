@@ -34,3 +34,6 @@ Date directive for ngModel, display validation, cleanup button. Випуск в�
 
 #### 16 ЛЮТОГО
 Випуск версії 0.10.56
+
+#### 18 ЛЮТОГО
+Password Input. Фікси для sidebar cdr та InputComponent, додана badge иконка. Випуск версії 0.10.57

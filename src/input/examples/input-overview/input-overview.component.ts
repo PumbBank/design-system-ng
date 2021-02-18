@@ -16,6 +16,8 @@ export enum InputViews {
   simple = 'simple ',
 }
 
+const PASSWORD_RE = /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)[a-zA-Z\d]{8,}$/;
+
 @Component({
   selector: 'input-overview',
   templateUrl: './input-overview.component.html',
@@ -25,6 +27,7 @@ export enum InputViews {
 export class InputOverviewComponent implements OnInit {
   nameControl: FormControl = new FormControl('');
   nameControlWithIcon: FormControl = new FormControl('');
+  passwordControl: FormControl = new FormControl('', Validators.pattern(PASSWORD_RE));
   dateControl: FormControl = new FormControl('');
   dateControlWithCalendar: FormControl = new FormControl('');
   cardControl: FormControl = new FormControl('');

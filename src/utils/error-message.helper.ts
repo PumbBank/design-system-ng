@@ -4,12 +4,12 @@ const errorMessages: {
   [validatorType: string]: (...args: any) => string;
 } = {
   required: () => 'Обов\'язкове поле',
-  min: (min: number) => `Минимально значение ${min}`,
-  max: (max: number) => `Максимально значение ${max}`,
-  email: () => `Указан неверный формат для Email`,
-  minlength: (minlength: number) => `Минимально кол-во знаков ${minlength}`,
-  maxlength: (maxlength: number) => `Максимально кол-во знаков ${maxlength}`,
-  pattern: () => `Данные не соответствуют шаблону`,
+  min: (min: number) => `Мінімальне значення ${min}`,
+  max: (max: number) => `Максимальне значення ${max}`,
+  email: () => `Введено недійсний формат для Email`,
+  minlength: (minlength: number) => `Мінімальна кіл-сть знаків ${minlength}`,
+  maxlength: (maxlength: number) => `Максимальна кіл-сть знаків ${maxlength}`,
+  pattern: () => `Дані не відповідають шаблону`,
   default: (errors: ValidationErrors) => JSON.stringify(errors)
 };
 
