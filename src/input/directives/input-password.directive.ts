@@ -2,7 +2,7 @@ import {
   ChangeDetectorRef,
   Directive,
   ElementRef,
-  forwardRef,
+  forwardRef, OnChanges,
   OnDestroy,
   Renderer2,
   SimpleChanges
@@ -23,7 +23,7 @@ import { takeUntil } from 'rxjs/operators';
     }
   ]
 })
-export class InputPasswordDirective extends MillInput implements ControlValueAccessor, OnDestroy {
+export class InputPasswordDirective extends MillInput implements ControlValueAccessor, OnDestroy, OnChanges {
   private _destroyed$: Subject<void> = new Subject<void>();
 
   constructor(

@@ -8,10 +8,9 @@ import {
   Output,
   EventEmitter
 } from '@angular/core';
-import { ValidationErrors, FormGroupDirective } from '@angular/forms';
+import {FormGroupDirective, ValidationErrors} from '@angular/forms';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
-import { takeUntil } from 'rxjs/operators';
 import { AutocompleteComponent } from '../../autocomplete/components/autocomplete/autocomplete.component';
 import { DomService } from '../../utils/services/dom.service';
 import { IDataAutocomplete } from '../../autocomplete/models/data-autocomplete';
@@ -26,7 +25,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
   private invalid: boolean;
   private dirty: boolean;
-  private focused = false;
+  private focused: boolean = false;
   private destroyed$: Subject<void> = new Subject<void>();
 
   private messageSource$: BehaviorSubject<string> = new BehaviorSubject('');
@@ -35,6 +34,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
   constructor(
     public input: HTMLInputElement,
     public renderer: Renderer2,
+    public parentForm?: FormGroupDirective,
     public domService?: DomService
   ) {
     super();
