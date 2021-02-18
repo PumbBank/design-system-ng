@@ -7,20 +7,18 @@ import {
   OnInit,
   HostBinding,
   AfterContentInit,
-  ContentChild
+  ContentChild, ChangeDetectionStrategy, ChangeDetectorRef
 } from '@angular/core';
 import { takeUntil } from 'rxjs/operators';
 import { SidebarController } from '../../services/sidebar-cotroller.service';
-import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubscriber';
+import { ComponentWithUnsubscriber } from '../../../utils';
 import { NavContentComponent } from '../nav-content/nav-content.component';
 
 @Component({
   selector: 'mill-sidebar',
   templateUrl: './sidebar.component.html',
   styleUrls: ['./sidebar.component.scss'],
-  providers: [
-    SidebarController
-  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 
 export class SidebarComponent extends ComponentWithUnsubscriber implements OnInit, OnChanges, AfterContentInit {
@@ -38,7 +36,8 @@ export class SidebarComponent extends ComponentWithUnsubscriber implements OnIni
   @Input() version: string = 'v3.4.2';
 
   constructor(
-    public sidebarController: SidebarController
+    private _sidebarController: SidebarController,
+    private _cdr: ChangeDetectorRef
   ) { super(); }
 
   ngAfterContentInit(): void {
@@ -62,15 +61,16 @@ export class SidebarComponent extends ComponentWithUnsubscriber implements OnIni
   }
 
   collapsedToggle(): boolean {
-    return this.sidebarController.collapsedToggle();
+    return this._sidebarController.collapsedToggle();
   }
 
   private bindCollapsedWithController(): void {
-    this.collapsed = this.sidebarController.collapsed$.value;
-    this.sidebarController.collapsed$
+    this.collapsed = this._sidebarController.collapsed$.value;
+    this._sidebarController.collapsed$
       .pipe(takeUntil(this.unsubscriber$))
       .subscribe((collapsed: boolean) => {
         this.collapsed = collapsed;
+        this._cdr.detectChanges();
         this.collapsedChange.emit(collapsed);
       });
   }

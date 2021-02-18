@@ -5,10 +5,11 @@ import { UserInfoActionComponent } from './components/user-info-action/user-info
 import { NavItemComponent } from './components/nav-item/nav-item.component';
 import { NavTitleComponent } from './components/nav-title/nav-title.component';
 import { SidebarComponent } from './components/sidebar/sidebar.component';
-import { IconsModule } from '../icons/icons.module';
-import { BadgeModule } from '../badge/badge.module';
+import { IconsModule } from '../icons';
+import { BadgeModule } from '../badge';
 import { NavContentHeadComponent } from './components/nav-content-head/nav-content-head.component';
 import { NavContentComponent } from './components/nav-content/nav-content.component';
+import { SidebarController } from './services/sidebar-cotroller.service';
 
 @NgModule({
   imports: [
@@ -33,6 +34,9 @@ import { NavContentComponent } from './components/nav-content/nav-content.compon
     SidebarComponent,
     NavContentComponent,
     NavContentHeadComponent
+  ],
+  providers: [
+    SidebarController
   ]
 })
 export class SidebarModule {

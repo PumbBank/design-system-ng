@@ -5,15 +5,15 @@
   (click)="expand()"
 >
   <div class="nav-item__icon nav-item__icon_hover">
-    <mill-icon [size]="isSubitem ? 12 : 24" [name]="isSubitem ? 'dot' : icon"></mill-icon>
+    <mill-icon [size]="isSubItem ? 12 : 24" [name]="isSubItem ? 'dot' : icon"></mill-icon>
   </div>
 
-  <div class="nav-item__text" [class.nav-item__text-sub-item]="isSubitem">
+  <div class="nav-item__text" [class.nav-item__text-sub-item]="isSubItem">
     <ng-content></ng-content>
   </div>
 
-  <mill-icon *ngIf="withSubitems && !collapsed" class="nav-item__icon" size="12"
-    [name]="'small-arrow-down'" [class.nav-item__icon_expanded]="expanded"></mill-icon>
+  <mill-icon *ngIf="withSubItems && !collapsed" class="nav-item__icon" size="12"
+             [name]="'small-arrow-down'" [class.nav-item__icon_expanded]="expanded"></mill-icon>
 </div>
 
 <div class="content" [@slideInOut]="!expanded ? 'out' : 'in'">

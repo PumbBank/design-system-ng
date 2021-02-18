@@ -1,13 +1,12 @@
 import {
   Component,
   Input,
-  Optional,
   ContentChildren,
   QueryList,
   AfterContentInit,
-  OnInit
+  OnInit, ChangeDetectionStrategy, AfterViewInit, ChangeDetectorRef
 } from '@angular/core';
-import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubscriber';
+import { ComponentWithUnsubscriber } from '../../../utils';
 import { SidebarController } from '../../services/sidebar-cotroller.service';
 import { takeUntil } from 'rxjs/operators';
 import { trigger, transition, style, animate, state } from '@angular/animations';
@@ -28,25 +27,18 @@ import { trigger, transition, style, animate, state } from '@angular/animations'
       transition('in => out', animate('299ms ease-in-out')),
       transition('out => in', animate('299ms ease-in-out'))
     ])
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
+
 })
-export class NavItemComponent extends ComponentWithUnsubscriber implements OnInit, AfterContentInit {
+export class NavItemComponent extends ComponentWithUnsubscriber implements OnInit, AfterContentInit, AfterViewInit {
   private _active: boolean | string;
 
-  @ContentChildren(NavItemComponent) componentContent: QueryList<NavItemComponent>;
-
-  get withSubitems(): boolean {
-    return this.componentContent && this.componentContent.length > 1;
-  }
-
-  isSubitem: boolean = false;
-
+  isSubItem: boolean = false;
   collapsed: boolean;
   expanded: boolean;
-  helpMenuOpen: string;
 
   @Input() icon: string;
-
   @Input()
   public set active(value: boolean | string) {
     this._active = value === 'true' || value === true;
@@ -55,8 +47,15 @@ export class NavItemComponent extends ComponentWithUnsubscriber implements OnIni
     return this._active;
   }
 
+  get withSubItems(): boolean {
+    return this.componentContent && this.componentContent.length > 1;
+  }
+
+  @ContentChildren(NavItemComponent) componentContent: QueryList<NavItemComponent>;
+
   constructor(
-    @Optional() public sidebarController: SidebarController
+    private _sidebarController: SidebarController,
+    private _cdr: ChangeDetectorRef
   ) { super(); }
 
   ngOnInit(): void {
@@ -64,31 +63,36 @@ export class NavItemComponent extends ComponentWithUnsubscriber implements OnIni
   }
 
   ngAfterContentInit(): void {
-    this.markChildMenuItemsAsSubitem();
+    this.markChildMenuItemsAsSubItem();
+  }
+
+  ngAfterViewInit(): void {
+    this._cdr.markForCheck();
   }
 
   expand(): void {
-    if (!this.withSubitems) { return; }
+    if (!this.withSubItems) { return; }
     this.expanded = !this.expanded;
   }
 
   private bindCollapsedWithController(): void {
-    if (!this.sidebarController) { return; }
+    if (!this._sidebarController) { return; }
 
-    this.collapsed = this.sidebarController.collapsed$.value;
-    this.sidebarController.collapsed$
+    this.collapsed = this._sidebarController.collapsed$.value;
+    this._sidebarController.collapsed$
       .pipe(takeUntil(this.unsubscriber$))
       .subscribe((collapsed: boolean) => {
         this.collapsed = collapsed;
+        this._cdr.markForCheck();
       });
   }
 
-
-  private markChildMenuItemsAsSubitem(): void {
+  private markChildMenuItemsAsSubItem(): void {
     this.componentContent
       .filter(item => item !== this)
       .forEach(item => {
-        item.isSubitem = true;
+        item.isSubItem = true;
       });
+    this._cdr.markForCheck();
   }
 }

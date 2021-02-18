@@ -24,7 +24,7 @@ export const component = () => ({
   props: {
     username: text('Username', `ФОП Константинопольский Константин Константинович`),
     additional: text('Additional info', 'Information text asd ad ad sad a da'),
-    avatar: text('A vatar', 'https://interactive-examples.mdn.mozilla.net/media/examples/grapefruit-slice-332-332.jpg')
+    avatar: text('Avatar', 'https://developer.mozilla.org/static/img/favicon144.png')
   },
   template: `<app-sidebar-overview></app-sidebar-overview>`,
 });

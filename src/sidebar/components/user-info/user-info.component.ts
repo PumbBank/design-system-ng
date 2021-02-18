@@ -1,7 +1,15 @@
-import { Component, Input, OnInit, SimpleChanges, OnChanges, Optional, HostBinding } from '@angular/core';
+import {
+  Component,
+  Input,
+  OnInit,
+  SimpleChanges,
+  OnChanges,
+  HostBinding,
+  ChangeDetectionStrategy, ChangeDetectorRef
+} from '@angular/core';
 import { SafeStyle, DomSanitizer } from '@angular/platform-browser';
-import { SidebarController } from '../../../sidebar/services/sidebar-cotroller.service';
-import { ComponentWithUnsubscriber } from '../../../utils/component-with-unsubscriber';
+import { SidebarController } from '../../services/sidebar-cotroller.service';
+import { ComponentWithUnsubscriber } from '../../../utils';
 import { takeUntil } from 'rxjs/operators';
 import { trigger, state, style, animate, transition } from '@angular/animations';
 
@@ -17,7 +25,8 @@ import { trigger, state, style, animate, transition } from '@angular/animations'
         animate('299ms ease')
       ])
     ])
-  ]
+  ],
+  changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class UserInfoComponent extends ComponentWithUnsubscriber implements OnInit, OnChanges {
   avatarStyle: SafeStyle;
@@ -32,8 +41,9 @@ export class UserInfoComponent extends ComponentWithUnsubscriber implements OnIn
   collapsed: boolean;
 
   constructor(
-    private sanitizer: DomSanitizer,
-    @Optional() public sidebarController: SidebarController
+    private _sidebarController: SidebarController,
+    private _sanitizer: DomSanitizer,
+    private _cdr: ChangeDetectorRef
   ) { super(); }
 
   ngOnInit(): void {
@@ -48,18 +58,19 @@ export class UserInfoComponent extends ComponentWithUnsubscriber implements OnIn
   }
 
   private updateAvatarStyle(): void {
-    this.avatarStyle = this.sanitizer
+    this.avatarStyle = this._sanitizer
       .bypassSecurityTrustStyle(`background-image: url('${this.avatar}')`);
   }
 
   private bindCollapsedWithController(): void {
-    if (!this.sidebarController) { return; }
+    if (!this._sidebarController) { return; }
 
-    this.collapsed = this.sidebarController.collapsed$.value;
-    this.sidebarController.collapsed$
+    this.collapsed = this._sidebarController.collapsed$.value;
+    this._sidebarController.collapsed$
       .pipe(takeUntil(this.unsubscriber$))
       .subscribe((collapsed: boolean) => {
         this.collapsed = collapsed;
+        this._cdr.markForCheck();
       });
   }
 }
