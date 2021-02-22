@@ -81,6 +81,18 @@
       <div class="overview__container">
         <input millInput="date" type="text" icon="calendar"
                [calendarType]="calendarType"
+               [calendarStartView]="calendarStartView"
+               [formControl]="dateControlWithCalendar"
+               [caption]="hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
+      </div>
+    </div>
+    <div class="overview__column grid-item-4">
+      <div class="overview__label s1">Date with calendar (Filtered)</div>
+      <div class="overview__container">
+        <input millInput="date" type="text" icon="calendar"
+               [calendarType]="calendarType"
+               [calendarStartView]="calendarStartView"
+               [calendarFilter]="calendarFilter"
                [formControl]="dateControlWithCalendar"
                [caption]="hideLabel ? '' : label" [placeholder]="hidePlaceholder ? '' : placeholder">
       </div>

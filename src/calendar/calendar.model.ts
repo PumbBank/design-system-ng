@@ -7,7 +7,6 @@ export enum CalendarType {
   Range = 'range'
 }
 export enum CalendarState {
-  NotSelected = 'not-selected',
   Days = 'days',
   Months = 'months',
   Years = 'years'
@@ -23,6 +22,7 @@ export type CalendarWeekday = {
   weekday: number;
   weekdayLocalized: string;
   highlight?: 'start' | 'end' | 'in-range';
+  inactive?: boolean
 };
 export type CalendarMonth = {
   year: number;

@@ -45,6 +45,7 @@
         <div class="calendar-days-day__cell cell"
              *ngFor="let dayOfMonth of month?.days"
              [class.calendar-days-day__cell_off]="prevMonth || nextMonth"
+             [class.calendar-days-day__cell_disable]="filter && !filter(getFilterDate(month.month - 1, dayOfMonth?.day))"
              [class.calendar-days-day__cell_current]="highlightCurrentDay(dayOfMonth, month)"
              [class.calendar-days-day__cell_active]="highlightSelectedDay(dayOfMonth?.day, month)"
              [class.calendar-days-day__cell_in-range]="dayOfMonth?.highlight && chosenDate?.end"

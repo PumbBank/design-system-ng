@@ -64,7 +64,12 @@ export const component = () => ({
       basic: 'basic',
       'with-button': 'with-button',
       range: 'range'
-    }, 'basic')
+    }, 'basic'),
+    calendarStartView: radios('Calendar view', {
+      days: 'days',
+      months: 'months',
+      years: 'years'
+    }, 'days')
   },
 
   template: `
@@ -73,7 +78,8 @@ export const component = () => ({
       [placeholder]="placeholder"
       [views]="views"
       [resizeTextarea]="resizeTextarea"
-      [calendarType]="calendarType">
+      [calendarType]="calendarType"
+      [calendarStartView]="calendarStartView">
     </input-overview>
 	`
 });

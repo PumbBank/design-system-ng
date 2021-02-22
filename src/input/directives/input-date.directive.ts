@@ -23,7 +23,14 @@ import { takeUntil } from 'rxjs/operators';
 import { createTextMaskInputElement } from 'text-mask-core';
 
 import { MillInput, CleanFunction } from '..';
-import { CalendarComponent, CalendarType, extractDateFromRange, rangeFormatter, toISOString } from '../../calendar';
+import {
+  CalendarComponent,
+  CalendarState,
+  CalendarType,
+  extractDateFromRange,
+  rangeFormatter,
+  toISOString
+} from '../../calendar';
 import { DomService } from '../../utils/services/dom.service';
 
 type ISOString = string;
@@ -53,6 +60,8 @@ export class InputDateDirective
   private _onChangeCallback: (_: any) => void = () => {};
 
   @Input() calendarType: CalendarType;
+  @Input() calendarStartView: CalendarState;
+  @Input() calendarFilter: Function;
 
   private static dateToISO(date: string): string {
     if (!date) { return ''; }
@@ -205,6 +214,10 @@ export class InputDateDirective
   }
 
   private iconClickListener(): void {
+    if (!this._calendarComponentRef.instance.showCalendar) {
+      this._calendarComponentRef.instance.state = this.calendarStartView;
+      this._calendarComponentRef.instance.filter = this.calendarFilter;
+    }
     this._calendarComponentRef.instance.toggle();
   }
 

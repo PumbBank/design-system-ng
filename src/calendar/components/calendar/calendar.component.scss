@@ -265,6 +265,12 @@
       opacity: 0.35;
     }
 
+    &_disable {
+      opacity: 0.35;
+      pointer-events: none;
+      cursor: default;
+    }
+
     &_in-range {
 
       opacity: 1;

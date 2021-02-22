@@ -8,7 +8,6 @@ import {
   Input,
   Output
 } from '@angular/core';
-import { FormGroupDirective } from '@angular/forms';
 import { BehaviorSubject } from 'rxjs';
 import {
   CALENDAR_WEEKDAYS_UK,
@@ -58,7 +57,6 @@ export class CalendarComponent {
 
   public calendarValue$: BehaviorSubject<DateRange> = new BehaviorSubject({start: ''});
 
-  state: CalendarState = CalendarState.Days;
   currentMonthCalendar: CalendarMonth[];
   days: string[] = CALENDAR_WEEKDAYS_UK;
   months: string[];
@@ -67,12 +65,13 @@ export class CalendarComponent {
   scrollToYear: boolean = false;
 
   @Input() type: CalendarType = CalendarType.Basic;
+  @Input() state: CalendarState = CalendarState.Days;
+  @Input() filter: Function;
   @Output() selectedDate: EventEmitter<DateRange> = new EventEmitter<DateRange>();
 
 
   constructor(private _cdr: ChangeDetectorRef,
-              private _element: ElementRef,
-              public parentForm: FormGroupDirective) {
+              private _element: ElementRef) {
     this.months = buildMonthsList();
     this.years = buildYearsList();
   }
@@ -128,7 +127,6 @@ export class CalendarComponent {
 
   onOpenCalendarClick(showCalendar: boolean): void {
     if (!this._showCalendar) {
-      this.state = CalendarState.Days;
       this.setChosenDate();
       this.currentMonthCalendar = this.getMonthCalendar(this.valueMonth);
       if (this.type === CalendarType.Range && this.chosenDate?.end) {
@@ -263,6 +261,10 @@ export class CalendarComponent {
     this.chosenDate = {start: '', end: ''};
     this.currentMonthCalendar = Object.assign([], this.getMonthCalendar(this.valueMonth));
     this.selectedDate.emit(this.chosenDate);
+  }
+
+  getFilterDate(month: number, date: number): Date {
+    return new Date(this._selectedYear, month, date);
   }
 
   private getMonthCalendar(month: number, prev?: number): any[] {

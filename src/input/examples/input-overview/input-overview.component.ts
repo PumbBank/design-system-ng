@@ -7,7 +7,7 @@ import { FormControl, ValidationErrors, Validators } from '@angular/forms';
 import { IDataAutocomplete } from '../../../autocomplete/models/data-autocomplete';
 import { ValidatorService } from '../../../validators/validators-service';
 import { AutoCompleteDataService } from '../services/autocomplete-data.service';
-import { CalendarType } from '../../../calendar';
+import { CalendarState, CalendarType } from '../../../calendar';
 
 export enum InputViews {
   labelPlaceholder = 'basic',
@@ -96,6 +96,8 @@ export class InputOverviewComponent implements OnInit {
 
   @Input() calendarType: CalendarType;
 
+  @Input() calendarStartView: CalendarState;
+
   constructor(private autoCompleteDataService: AutoCompleteDataService) { }
 
   ngOnInit(): void {
@@ -111,5 +113,11 @@ export class InputOverviewComponent implements OnInit {
 
   validateTaxId(): ValidationErrors | null {
     return { errorMessage: 'Info alert' };
+  }
+
+  calendarFilter(date: Date): boolean {
+    const day = date.getDay();
+    // Prevent Saturday and Sunday from being selected.
+    return day !== 0 && day !== 6;
   }
 }
