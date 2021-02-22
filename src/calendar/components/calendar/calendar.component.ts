@@ -64,6 +64,8 @@ export class CalendarComponent {
   months: string[];
   years: number[];
 
+  scrollToYear: boolean = false;
+
   @Input() type: CalendarType = CalendarType.Basic;
   @Output() selectedDate: EventEmitter<DateRange> = new EventEmitter<DateRange>();
 
@@ -163,6 +165,7 @@ export class CalendarComponent {
   }
 
   changeYear(): void {
+    this.scrollToYear = true;
     if (CalendarState.Years === this.state) {
       this.restoreDaysView();
       return;
@@ -173,6 +176,10 @@ export class CalendarComponent {
     }
     this.state = CalendarState.Years;
     this._cdr.markForCheck();
+    setTimeout(() => {
+      this.scrollToYear = false;
+      this._cdr.markForCheck();
+    }, 500);
   }
 
   selectDate(weekday: CalendarWeekday, month: CalendarMonth): void {

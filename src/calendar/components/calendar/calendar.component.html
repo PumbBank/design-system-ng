@@ -93,6 +93,7 @@
   <div class="calendar-years">
     <ng-container *ngFor="let year of years">
       <div class="calendar-years__year" [class.calendar-years__year_active]="year === valueYear"
+           [class.calendar-years__year_active_snap]="scrollToYear && year === valueYear"
            (click)="selectYear(year)">
         {{ year }}
       </div>

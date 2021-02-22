@@ -427,6 +427,7 @@
   display: none;
   overflow-y: auto;
   flex-direction: column;
+  scroll-snap-type: y mandatory;
 
   height: 100%;
   width: 100%;
@@ -463,6 +464,9 @@
     &_active {
       background: $red-50;
       color: $other-white;
+      &_snap {
+        scroll-snap-align: center;
+      }
     }
 
     &:not(&_active):hover {
