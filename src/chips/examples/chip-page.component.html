@@ -9,128 +9,138 @@
     </div>
   </div>
 
-
   <div class="overview__content grid">
-
-
-    <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Default active chip</div>
+    <div class="overview__column overview__column_offset grid-item-12">
+      <div class="overview__label s1">Outlined active chips</div>
       <div class="overview__container">
         <mill-chip-list>
-          <mill-chip>{{label}} 1</mill-chip>
-          <mill-chip>{{label}} 2</mill-chip>
-          <mill-chip>{{label}} 3</mill-chip>
-          <mill-chip>{{label}} 4</mill-chip>
+          <mill-chip view="outlined" state="active-primary">Primary</mill-chip>
+          <mill-chip view="outlined" icon="check" state="active-primary">Primary</mill-chip>
+          <mill-chip view="outlined" icon="check" state="active-secondary">Secondary</mill-chip>
         </mill-chip-list>
       </div>
     </div>
-
-
-
-
-
-    <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Default active chips with close button</div>
+    <div class="overview__column overview__column_offset grid-item-12">
+      <div class="overview__label s1">Filled active chips</div>
       <div class="overview__container">
         <mill-chip-list>
-          <mill-chip>
-            {{label}} 5
-            <mill-icon size="12" name="close" millChipRemove></mill-icon>
-          </mill-chip>
-          <mill-chip>
-            {{label}} 6
-            <mill-icon size="12" name="close" millChipRemove></mill-icon>
-          </mill-chip>
+          <mill-chip view="filled" state="active-primary">Primary</mill-chip>
+          <mill-chip view="filled" icon="check" state="active-primary">Primary</mill-chip>
+          <mill-chip view="filled" state="active-secondary">Secondary</mill-chip>
         </mill-chip-list>
       </div>
     </div>
-
-
-
-
-
-    <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Default active chips with default clear button and close button</div>
+    <div class="overview__column overview__column_offset grid-item-12">
+      <div class="overview__label s1">Outlined basic chips</div>
       <div class="overview__container">
         <mill-chip-list>
-          <mill-chip-clear>Очистити</mill-chip-clear>
-          <mill-chip>
-            {{label}} 7
-            <mill-icon size="12" name="close" millChipRemove></mill-icon>
-          </mill-chip>
-          <mill-chip>
-            {{label}} 8
+          <mill-chip view="outlined">Chip label</mill-chip>
+          <mill-chip view="outlined" icon="calendar">Chip label</mill-chip>
+          <mill-chip view="outlined" icon="calendar">
+            Chip label
             <mill-icon size="12" name="close" millChipRemove></mill-icon>
           </mill-chip>
         </mill-chip-list>
       </div>
     </div>
-
-
-
-    <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Default active chips with default clear button and close button in the end</div>
+    <div class="overview__column overview__column_offset grid-item-12">
+      <div class="overview__label s1">Filled basic chips</div>
       <div class="overview__container">
         <mill-chip-list>
-          <mill-chip>
-            {{label}} 9
+          <mill-chip view="filled">Chip label</mill-chip>
+          <mill-chip view="filled" icon="calendar">Chip label</mill-chip>
+          <mill-chip view="filled" icon="calendar">
+            Chip label
             <mill-icon size="12" name="close" millChipRemove></mill-icon>
           </mill-chip>
-          <mill-chip>
-            {{label}} 10
-            <mill-icon size="12" name="close" millChipRemove></mill-icon>
-          </mill-chip>
-          <mill-chip-clear>Очистити</mill-chip-clear>
         </mill-chip-list>
       </div>
     </div>
-
-
-
-    <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Default active chips with close icon and chip click action</div>
+    <div class="overview__column overview__column_offset grid-item-12">
+      <div class="overview__label s1">Basic chips with error</div>
       <div class="overview__container">
-
         <mill-chip-list>
-          <mill-chip-clear>
-            Очистити
-          </mill-chip-clear>
-          <mill-chip (removed)="someMethod($event, 2)">
-            {{label}} 11
+          <mill-chip view="outlined" state="basic-with-error">
+            Chip label
             <mill-icon size="12" name="close" millChipRemove></mill-icon>
           </mill-chip>
-          <mill-chip (removed)="someMethod($event, 2)">
-            {{label}} 12
+          <mill-chip view="outlined" state="basic-with-error" icon="calendar">
+            Chip label
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+          <mill-chip view="filled" state="basic-with-error">
+            Chip label
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+          <mill-chip view="filled" state="basic-with-error" icon="calendar">
+            Chip label
             <mill-icon size="12" name="close" millChipRemove></mill-icon>
           </mill-chip>
         </mill-chip-list>
-
       </div>
     </div>
-
-    <div class="overview__column grid-item-4">
-      <div class="overview__label s1">Disabled active chips with close icon</div>
+    <div class="overview__column overview__column_offset grid-item-12">
+      <div class="overview__label s1">Disabled chips (Active)</div>
       <div class="overview__container">
-
         <mill-chip-list>
-          <mill-chip-clear [disabled]="true">
-            Очистити
-          </mill-chip-clear>
-          <mill-chip (removed)="someMethod($event, 2)" [disabled]="true">
-            {{label}} 13
-            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          <mill-chip view="outlined" state="active-primary" disabled="true">
+            Active outlined
           </mill-chip>
-          <mill-chip (removed)="someMethod($event, 2)" [disabled]="true">
-            {{label}} 14
-            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          <mill-chip view="outlined" state="active-primary" icon="check" disabled="true">
+            Active outlined with icon
           </mill-chip>
         </mill-chip-list>
-
+        <mill-chip-list>
+          <mill-chip view="filled" state="active-primary" disabled="true">
+            Active filled
+          </mill-chip>
+          <mill-chip view="filled" state="active-primary" icon="check" disabled="true">
+            Active filled with icon
+          </mill-chip>
+          <mill-chip view="filled" state="active-secondary" disabled="true">
+            Active filled (secondary)
+          </mill-chip>
+        </mill-chip-list>
       </div>
-    </div>
 
   </div>
+    <div class="overview__column overview__column_offset grid-item-12">
+      <div class="overview__label s1">Disabled chips (Basic)</div>
+      <div class="overview__container">
+        <mill-chip-list>
+          <mill-chip view="outlined" disabled="true">
+            Outlined
+          </mill-chip>
+          <mill-chip view="outlined" disabled="true">
+            Outlined
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+          <mill-chip view="outlined" icon="calendar" disabled="true">
+            Outlined
+          </mill-chip>
+          <mill-chip view="outlined" icon="calendar" disabled="true">
+            Outlined
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+        </mill-chip-list>
+        <mill-chip-list>
+          <mill-chip view="filled" disabled="true">
+            Filled
+          </mill-chip>
+          <mill-chip view="filled" disabled="true">
+            Filled
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+          <mill-chip view="filled" icon="calendar" disabled="true">
+            Filled
+          </mill-chip>
+          <mill-chip view="filled" icon="calendar" disabled="true">
+            Filled
+            <mill-icon size="12" name="close" millChipRemove></mill-icon>
+          </mill-chip>
+        </mill-chip-list>
+      </div>
+
+    </div>
 </div>
-
-
-
+</div>

@@ -5,8 +5,11 @@ import {
   HostBinding,
   HostListener,
   Input,
-  Output
+  OnChanges,
+  Output,
+  SimpleChanges
 } from '@angular/core';
+import { ChipState, ChipView } from '../../models/chip-parameters.model';
 
 @Component({
   selector: 'mill-chip',
@@ -14,12 +17,17 @@ import {
   styleUrls: ['./chip.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
-export class ChipComponent {
+export class ChipComponent implements OnChanges {
+  applyIcon: boolean
+
   @HostBinding('class') public hostClass: string = 'mill-chip';
 
-  @Output() removed: EventEmitter<any> = new EventEmitter<any>();
   @Input() disabled: boolean = false;
+  @Input() view: ChipView = ChipView.outlined;
+  @Input() state: ChipState = ChipState.Basic;
+  @Input() icon: string;
 
+  @Output() removed: EventEmitter<any> = new EventEmitter<any>();
   @Output() action: EventEmitter<any> = new EventEmitter<any>();
 
   @HostListener('click', ['$event']) _click(event: MouseEvent): void {
@@ -29,6 +37,15 @@ export class ChipComponent {
   }
 
   constructor() {
+  }
+
+  public ngOnChanges(changes: SimpleChanges): void {
+    if (changes?.icon?.currentValue) {
+      this.applyIcon = true;
+    }
+    if (changes?.view?.currentValue === ChipView.filled && this.state === ChipState.ActiveSecondary) {
+      this.applyIcon = false;
+    }
   }
 
   click(): void {

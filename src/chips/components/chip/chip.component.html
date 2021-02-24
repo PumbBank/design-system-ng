@@ -1,6 +1,10 @@
-<label class="mill-chip__item" [ngClass]="disabled ? 'disabled' : 'enabled'">
-    <span>
-      <ng-content></ng-content>
-    </span>
+<label class="mill-chip__item"
+       [ngClass]="[disabled ? 'disabled' : 'enabled', view, state]"
+       [class.has-icon]="applyIcon">
+
+  <span *ngIf="applyIcon" class="icon icon_24 mill-chip__item__start-icon" [ngClass]="['icon_' + icon, state]"></span>
+  <span>
+    <ng-content></ng-content>
+  </span>
 </label>
 
