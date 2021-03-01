@@ -4,11 +4,10 @@ import {
   SimpleChanges,
   Input,
   OnDestroy,
-  AfterContentInit,
   Output,
   EventEmitter
 } from '@angular/core';
-import { ValidationErrors} from '@angular/forms';
+import { ValidationErrors } from '@angular/forms';
 import { BehaviorSubject, Observable, Subject } from 'rxjs';
 import { RequirebleComponent, ErrorMessageHelper } from '../../utils';
 import { AutocompleteComponent } from '../../autocomplete/components/autocomplete/autocomplete.component';
@@ -21,7 +20,7 @@ export type CleanFunction = (inputValue: any) => string;
 
 const DEFAULT_CLEAN_FUNCTION = (inputValue: any): string => inputValue;
 
-export class MillInput extends RequirebleComponent implements AfterContentInit, OnChanges, OnDestroy {
+export class MillInput extends RequirebleComponent implements OnChanges, OnDestroy {
 
   private invalid: boolean;
   private dirty: boolean;
@@ -102,10 +101,6 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
       this.setAutocomplete();
       this.setLoader();
     }
-  }
-
-  ngAfterContentInit(): void {
-    this.errorsUpdateText();
   }
 
   ngOnDestroy(): void {
@@ -283,7 +278,7 @@ export class MillInput extends RequirebleComponent implements AfterContentInit, 
 
   private updateMsgTextStyles(): void {
 
-    if ((this.dirty ) && this.invalid) {
+    if (this.dirty && this.invalid) {
       this.renderer.removeClass(this.wrapperElement, 'input_valid');
       this.renderer.addClass(this.wrapperElement, 'input_error');
 
