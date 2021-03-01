@@ -1,58 +1,63 @@
-import { ComponentFactory, ComponentFactoryResolver, ComponentRef, Injectable, InjectionToken, Injector, OnDestroy } from '@angular/core';
+import { ComponentRef, Injectable, Injector, OnDestroy } from '@angular/core';
 import { DomService } from '../../utils/services/dom.service';
 import { SnackBarOverlayComponent } from '../components/snackbar-overlay/snackbar-overlay.component';
-import { SnackbarWrapperComponent } from '../components/snackbar-wrapper/snackbar-wrapper.component';
 import { SnackBarConfig } from '../models/snackbar-config.model';
-
-export const SNACK_BAR_DATA: InjectionToken<any> = new InjectionToken<any>('SNACK_BAR_DATA');
+import { ISnackbarConroller } from '../models/snackbar-controller.model';
+import { SnackbarRef, SNACK_BAR_CONTROLLER, SNACK_BAR_DATA } from '../shared/snackbar';
 
 @Injectable()
 export class SnackBarService implements OnDestroy {
   private snackBarComponentRef: ComponentRef<any>;
-  private componentFactory: ComponentFactory<SnackbarWrapperComponent>;
-  
+  private controller: ISnackbarConroller;
 
   constructor(
-    private domService: DomService,
-    private componentFactoryResolver: ComponentFactoryResolver,
-    private injector: Injector
+    private domService: DomService
   ) { }
-
 
   open(message: string, config: SnackBarConfig): void {
 
-    this.close();
-    this.componentFactory = this.componentFactoryResolver.resolveComponentFactory(SnackbarWrapperComponent);
-
+    if (!!this.controller) {
+      this.controller.close();
+    }
+    const snackbarRef = new SnackbarRef();
+    this.controller = this.createDialogController(snackbarRef);
     const data = {
       data: {
         message: message,
         config: config
       }
-    }
+    };
 
     const providers = [
+      { provide: SNACK_BAR_CONTROLLER, useValue: this.controller },
       { provide: SNACK_BAR_DATA, useValue: data },
-    ]
+    ];
 
     const inject = Injector.create({
-      parent: this.injector,
       providers: providers
     });
 
-    this.snackBarComponentRef = this.domService.createComponent<SnackBarOverlayComponent>(SnackBarOverlayComponent);
+    this.snackBarComponentRef = this.domService.createComponent<SnackBarOverlayComponent>(SnackBarOverlayComponent, null, inject);
     this.domService.attachComponent(this.snackBarComponentRef, document.body);
-
-    const componentRef = this.snackBarComponentRef.instance.viewContainerRef.createComponent(
-      this.componentFactory, null, inject
-    );
   }
 
   ngOnDestroy(): void {
-    this.close();
+    this.controller.close();
+  }
+
+  private createDialogController(snackbarRef: SnackbarRef): ISnackbarConroller {
+    return {
+      close: () => {
+        this.close();
+        snackbarRef.close();
+      },
+      onClose: snackbarRef.onClose
+    }
   }
 
   close(): void {
-    if (this.snackBarComponentRef) this.domService.destroyComponent<any>(this.snackBarComponentRef);
+    if (this.snackBarComponentRef) {
+      this.domService.destroyComponent<any>(this.snackBarComponentRef);
+    }
   }
 }

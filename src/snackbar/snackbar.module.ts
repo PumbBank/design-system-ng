@@ -5,12 +5,11 @@ import { DomService } from '../utils/services/dom.service';
 import { IconsModule } from '../icons';
 import { ButtonModule } from '../button';
 import { SnackBarOverlayComponent } from './components/snackbar-overlay/snackbar-overlay.component';
-import { SnackbarWrapperComponent } from './components/snackbar-wrapper/snackbar-wrapper.component';
 import { SnackBarService } from './services/snackbar.service';
 
 @NgModule({
-  declarations: [SnackBarComponent, SnackBarOverlayComponent, SnackbarWrapperComponent],
-  entryComponents: [SnackbarWrapperComponent, SnackBarOverlayComponent],
+  declarations: [SnackBarComponent, SnackBarOverlayComponent],
+  entryComponents: [SnackBarOverlayComponent],
   exports: [SnackBarOverlayComponent],
   imports: [
     CommonModule,

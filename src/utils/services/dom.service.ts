@@ -16,10 +16,10 @@ export class DomService {
     private injector: Injector
   ) { }
 
-  createComponent<T>(component: any, componentProps?: object): ComponentRef<T> {
+  createComponent<T>(component: any, componentProps?: object, injector?: Injector): ComponentRef<T> {
     const componentRef = this.componentFactoryResolver
       .resolveComponentFactory(component)
-      .create(this.injector);
+      .create(injector || this.injector);
     if (componentProps && typeof componentRef.instance === 'object') {
       Object.assign(componentRef.instance as object, componentProps);
     }

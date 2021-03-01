@@ -1,27 +1,12 @@
-import { animate, style, transition, trigger } from '@angular/animations';
 import { Component, Inject, OnInit } from '@angular/core';
-import { SnackBarService, SNACK_BAR_DATA } from '../../services/snackbar.service';
 import { HorizontalPosition, SnackBarConfig, VerticalPosition } from '../../models/snackbar-config.model';
+import { SNACK_BAR_CONTROLLER, SNACK_BAR_DATA } from '../../shared/snackbar';
+import { ISnackbarConroller } from '../../models/snackbar-controller.model';
 
 @Component({
   selector: 'snackbar',
   templateUrl: './snackbar.component.html',
-  styleUrls: ['./snackbar.component.scss'],
-  animations: [
-    trigger('slideInOut', [
-      transition(
-        ':enter', [
-        style({ transform: 'translateY(100px)', opacity: 0 }),
-        animate('0.2s', style({ opacity: 1, transform: 'translateY(0)' })),
-      ]
-      ),
-      transition(
-        ':leave', [
-        animate('0.2s', style({ opacity: 0, transform: 'translateY(100px)' })),
-      ]
-      )
-    ])
-  ]
+  styleUrls: ['./snackbar.component.scss']
 })
 
 export class SnackBarComponent implements OnInit {
@@ -31,7 +16,8 @@ export class SnackBarComponent implements OnInit {
   snackbarType: 'alert' | 'notification' | undefined;
 
   constructor(
-    @Inject(SNACK_BAR_DATA) public snackbarData: any
+    @Inject(SNACK_BAR_DATA) public snackbarData: any,
+    @Inject(SNACK_BAR_CONTROLLER) public snc: ISnackbarConroller
   ) { }
 
   ngOnInit(): void {    
@@ -43,15 +29,16 @@ export class SnackBarComponent implements OnInit {
     if (config.duration > 0) {
 
       this.timeoutId = setTimeout(() => {
-        this.snackbarType = undefined;
+        this.snc.close();
       }, config.duration);
     }
   }
 
   onClick(fn: Function): void {
-    this.snackbarType = undefined;
+    
     fn();
     clearTimeout(this.timeoutId);
+    this.snc.close();
   }
 
   private setHorizontalPosition(val: HorizontalPosition): void {
