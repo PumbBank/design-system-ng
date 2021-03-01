@@ -6,6 +6,7 @@ import { IconsModule } from '../icons';
 import { ButtonModule } from '../button';
 import { SnackBarOverlayComponent } from './components/snackbar-overlay/snackbar-overlay.component';
 import { SnackBarService } from './services/snackbar.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [SnackBarComponent, SnackBarOverlayComponent],
@@ -15,6 +16,7 @@ import { SnackBarService } from './services/snackbar.service';
     CommonModule,
     IconsModule,
     ButtonModule,
+    BrowserAnimationsModule
   ],
   providers: [
     DomService,

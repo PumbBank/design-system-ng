@@ -4,7 +4,7 @@ import { HorizontalPosition, SnackBarConfig, VerticalPosition } from '../../mode
 import { SnackBarService } from '../../services/snackbar.service';
 
 const ALERT_TEXT = `Lorem Ipsum is simply dummy text of the
- printing and typesetting industry. Lorem Ipsum has been the industry's standard`
+ printing and typesetting industry. Lorem Ipsum has been the industry's standard`;
 
 @Component({
   selector: 'snackbar-overview',
