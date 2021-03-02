@@ -41,7 +41,8 @@
             "scripts": [],
             "styles": [
               "src/assets/styles/_styles.scss",
-              "node_modules/@mill/figma/gilroy/gilroy.css"
+              "node_modules/@mill/figma/gilroy/gilroy.css",
+              "node_modules/@mill/figma/roboto-mono/roboto-mono.css"
             ],
             "assets": [
               "src/assets",

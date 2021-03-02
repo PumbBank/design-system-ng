@@ -1,6 +1,6 @@
 {
   "name": "@mill/ng",
-  "version": "0.10.59",
+  "version": "0.10.60",
   "scripts": {
     "start": "start-storybook -p 6006 -s ./.storybook/favicon && npm run lint",
     "ng-high-memory": "node --max_old_space_size=8192 ./node_modules/@angular/cli/bin/ng",
@@ -17,7 +17,7 @@
     "@angular/common": "^10.2.4",
     "@angular/core": "^10.2.4",
     "@angular/forms": "^10.2.4",
-    "@mill/figma": "1.0.268202022307",
+    "@mill/figma": "1.0.232021214913",
     "core-js": "3.6.5",
     "ngx-clipboard": "13.0.1",
     "simplebar-angular": "2.3.0",
