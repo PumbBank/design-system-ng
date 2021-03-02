@@ -5,12 +5,12 @@
         <mill-icon size="24" name="check">
         </mill-icon>
       </div>
-      <span class="body__text p2">{{snackbarData.data.message}}</span>
+      <span class="body__text p2">{{ snackbarData?.data?.message }}</span>
     </div>
     <div class="snackbar__footer">
       <ng-container *ngFor="let action of snackbarData.data.config.buttons">
-        <mill-button [view]="action.buttonView" size="small" (click)="onClick(action.action)">
-          {{action.buttonText}}</mill-button>
+        <mill-button class="snackbar__cta" [view]="action?.buttonView" size="small" (click)="onClick(action.action)">
+          {{ action?.buttonText }}</mill-button>
       </ng-container>
     </div>
   </div>
@@ -21,7 +21,7 @@
         <mill-icon size="24" name="check">
         </mill-icon>
       </div>
-      <span class="body__text p2">{{snackbarData.data.message}}</span>
+      <span class="body__text p2">{{ snackbarData?.data?.message }}</span>
     </div>
   </div>
 

@@ -20,7 +20,7 @@ export class SnackBarComponent implements OnInit {
     @Inject(SNACK_BAR_CONTROLLER) public snc: ISnackbarConroller
   ) { }
 
-  ngOnInit(): void {    
+  ngOnInit(): void {
     const config = (this.snackbarData.data.config as SnackBarConfig);
     this.snackbarType = config.type;
     this.setHorizontalPosition(config.horizontalPosition);
@@ -35,8 +35,9 @@ export class SnackBarComponent implements OnInit {
   }
 
   onClick(fn: Function): void {
-    
-    fn();
+    if (typeof fn === 'function') {
+      fn();
+    }
     clearTimeout(this.timeoutId);
     this.snc.close();
   }

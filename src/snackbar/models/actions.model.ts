@@ -1,7 +1,7 @@
-import { ButtonView } from "../../button/models/button-parameters.model";
+import { ButtonView } from "../../button";
 
 export interface ISnackBarBtn {
   buttonText: string;
   buttonView: ButtonView;
-  action: Function;
+  action?: Function;
 }

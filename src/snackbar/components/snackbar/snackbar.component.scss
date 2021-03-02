@@ -3,7 +3,6 @@
 
 .snackbar-container {
   pointer-events: none;
-  height: inherit;
   width: inherit;
   display: flex;
   align-items: center;
@@ -19,7 +18,7 @@
   border-radius: 12px;
   pointer-events: auto;
   max-width: 376px;
-  box-shadow: 0px 8px 30px 0px rgba(0, 0, 0, 0.2), 0px 0px 15px 0px rgba(0, 0, 0, 0.12);
+  box-shadow: 0 8px 30px 0 rgba(0, 0, 0, 0.2), 0 0 15px 0 rgba(0, 0, 0, 0.12);
   & .snackbar__body {
     display: flex;
     align-items: flex-start;
@@ -62,15 +61,16 @@
   }
 }
 
-::ng-deep mill-button {
-  & button {
-    & span {
+::ng-deep .snackbar__cta {
+  & > button {
+    & > span {
       color: #f5f5fa;
     }
-  }
-  & .button_hidden:hover {
-    & span {
-      color: $grey-70;
+
+    &.button_hidden {
+      &:hover {
+        background: $grey-70 !important;
+      }
     }
   }
 }

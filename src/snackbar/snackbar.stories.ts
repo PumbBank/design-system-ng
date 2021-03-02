@@ -1,3 +1,4 @@
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { withKnobs } from '@storybook/addon-knobs';
 import { ButtonModule } from '../button';
 import { IconsModule } from '../icons';
@@ -16,7 +17,12 @@ export default {
 export const component = () => ({
   moduleMetadata: {
     declarations: [SnackBarOverviewComponent],
-    imports: [SnackbarModule, IconsModule, ButtonModule]
+    imports: [
+      BrowserAnimationsModule,
+      SnackbarModule,
+      IconsModule,
+      ButtonModule
+    ]
   },
   template: `
 	  <snackbar-overview></snackbar-overview>
