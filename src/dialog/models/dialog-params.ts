@@ -3,7 +3,7 @@ import { Observable } from 'rxjs';
 
 export interface DialogConroller {
 	close: Function;
-	onClose: Observable<void>;
+	onClose: Observable<any>;
 }
 
 export interface OpenDialogParams {
