@@ -1,8 +1,8 @@
 import { InjectionToken, ComponentRef } from '@angular/core';
 import { Subject } from 'rxjs';
-import { DialogConroller, OpenDialogParams } from '../models/dialog-params';
+import { DialogController, OpenDialogParams } from '../models/dialog-params';
 
-export const DIALOG_CONTROLLER = new InjectionToken<DialogConroller>('DIALOG_CONTROLLER');
+export const DIALOG_CONTROLLER = new InjectionToken<DialogController>('DIALOG_CONTROLLER');
 export const DIALOG_DATA = new InjectionToken<any>('DIALOG_DATA');
 export const DIALOG_SERVICE_CONTROLLER = new InjectionToken<DialogServiceController>('DIALOG_SERVICE_CONTROLLER');
 

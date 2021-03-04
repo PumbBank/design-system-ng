@@ -1,7 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { HorizontalPosition, SnackBarConfig, VerticalPosition } from '../../models/snackbar-config.model';
 import { SNACK_BAR_CONTROLLER, SNACK_BAR_DATA } from '../../shared/snackbar';
-import { ISnackbarConroller } from '../../models/snackbar-controller.model';
+import { ISnackbarController } from '../../models/snackbar-controller.model';
 
 @Component({
   selector: 'snackbar',
@@ -17,7 +17,7 @@ export class SnackBarComponent implements OnInit {
 
   constructor(
     @Inject(SNACK_BAR_DATA) public snackbarData: any,
-    @Inject(SNACK_BAR_CONTROLLER) public snc: ISnackbarConroller
+    @Inject(SNACK_BAR_CONTROLLER) public snc: ISnackbarController
   ) { }
 
   ngOnInit(): void {

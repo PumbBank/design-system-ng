@@ -523,7 +523,7 @@ export class SliderComponent implements OnInit, OnChanges, ControlValueAccessor,
   }
 
   /** Set array of numbers for slider with step type */
-  private _setRangeArray(): Promise<any> {
+  private _setRangeArray(): Promise<void> {
     this._rangeFirstArray = [];
     this._rangeSecondArray = [];
 

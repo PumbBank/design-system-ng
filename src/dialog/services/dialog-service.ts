@@ -1,9 +1,9 @@
-import { DIALOG_SERVICE_CONTROLLER, DialogServiceController, DIALOG_DATA } from './../shared/dialog';
+import { DIALOG_SERVICE_CONTROLLER, DialogServiceController, DIALOG_DATA } from '../shared/dialog';
 import { Injectable, ViewContainerRef, ComponentFactoryResolver, ComponentRef, Injector } from '@angular/core';
 import { OverlayComponent } from '../components/overlay/overlay.component';
 import { DIALOG_CONTROLLER, DialogRef } from '../shared/dialog';
 import { getInjectorFromSource } from '../utils/injector-from-source';
-import { DialogConroller, OpenDialogParams } from '../models/dialog-params';
+import { DialogController, OpenDialogParams } from '../models/dialog-params';
 
 
 @Injectable()
@@ -27,7 +27,7 @@ export class DialogService {
     this.injector = viewContainerRef.injector;
   }
 
-  openDialog<T = any>(component: T, params: OpenDialogParams = {}): DialogConroller {
+  openDialog<T = any>(component: T, params: OpenDialogParams = {}): DialogController {
     this.createOverlayIfNotExist();
 
     const dialogRef = new DialogRef(params);
@@ -59,7 +59,7 @@ export class DialogService {
     this.removeOverlayIfNeed();
   }
 
-  private createDialogController(dialogRef: DialogRef): DialogConroller {
+  private createDialogController(dialogRef: DialogRef): DialogController {
     return {
       close: (...args: any[]) => { this.closeDialog(dialogRef, ...args) },
       onClose: dialogRef.onClose
