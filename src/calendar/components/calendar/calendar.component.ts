@@ -81,7 +81,7 @@ export class CalendarComponent {
   }
 
   set showCalendar(value: boolean) {
-    this.onOpenCalendarClick(value);
+    this._showCalendar = value;
   }
 
   get valueMonth(): number {
@@ -111,6 +111,10 @@ export class CalendarComponent {
 
   @HostListener('document:click', ['$event.target'])
   public clickOutside(target: any): void {
+    if (target?.classList?.contains('icon_calendar')) {
+      return;
+    }
+
     if (!this._element?.nativeElement?.contains(target) &&
       !this._element?.nativeElement?.parentElement?.contains(target) && target.isConnected) {
       this.showCalendar = false;
@@ -118,7 +122,11 @@ export class CalendarComponent {
   }
 
   public toggle(): void {
-    this.onOpenCalendarClick(!this._showCalendar);
+    this.showCalendar = !this.showCalendar;
+    this.onOpenCalendarClick(this.showCalendar);
+    if (!this.showCalendar) {
+      this.destroy();
+    }
   }
 
   onInput(event: Event): void {
@@ -126,7 +134,7 @@ export class CalendarComponent {
   }
 
   onOpenCalendarClick(showCalendar: boolean): void {
-    if (!this._showCalendar) {
+    if (showCalendar) {
       this.setChosenDate();
       this.currentMonthCalendar = this.getMonthCalendar(this.valueMonth);
       if (this.type === CalendarType.Range && this.chosenDate?.end) {
@@ -134,7 +142,6 @@ export class CalendarComponent {
         this._cdr.markForCheck();
       }
     }
-    this._showCalendar = showCalendar;
     this._cdr.markForCheck();
   }
 
@@ -382,5 +389,9 @@ export class CalendarComponent {
       this.highlightRange();
     }
     this._cdr.markForCheck();
+  }
+
+  private destroy(): void {
+    this.currentMonthCalendar = null;
   }
 }
