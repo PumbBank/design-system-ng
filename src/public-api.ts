@@ -27,3 +27,4 @@ export * from './text-area/index';
 export * from './utils/index';
 export * from './calendar/index';
 export * from './snackbar/index';
+export * from './tooltip/index';
