@@ -13,7 +13,7 @@ import {
   ViewChild,
   ElementRef
 } from '@angular/core';
-import { ComponentWithUnsubscriber } from 'src/utils';
+import { ComponentWithUnsubscriber } from '../../../utils';
 import { NavContentHeadComponent } from '../nav-content-head/nav-content-head.component';
 import { takeUntil } from 'rxjs/operators';
 import { SidebarController } from '../../services/sidebar-cotroller.service';
@@ -32,7 +32,7 @@ export class NavContentComponent extends ComponentWithUnsubscriber implements Af
   @HostListener('scroll', ['$event'])
     onScrollw(e) {
       this.onScroll(e);
-        
+
     }
 
   @Output() scrollNavContent: EventEmitter<{scrollEvent: Event, contentHead: NavContentHeadComponent}> =
