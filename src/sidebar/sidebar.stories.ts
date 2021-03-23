@@ -2,6 +2,7 @@ import { withKnobs, text } from '@storybook/addon-knobs';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { SidebarModule } from './sidebar.module';
 import { SitebarOverviewComponent } from './examples/sidebar-page.component';
+import { ButtonModule } from '../button/button.module';
 
 export default {
   title: 'Компоненти/Sidebars',
@@ -16,7 +17,8 @@ export const component = () => ({
   moduleMetadata: {
     imports: [
       BrowserAnimationsModule,
-      SidebarModule
+      SidebarModule,
+      ButtonModule
     ],declarations: [
       SitebarOverviewComponent
     ],

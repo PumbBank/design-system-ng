@@ -1,0 +1,30 @@
+.content-head {
+	display: grid;
+	grid-template-columns: 6fr 1fr;
+	height: 100%;
+}
+
+.content-head__text-head {
+	display: flex;
+	align-items: center;
+	padding-left: 40px;
+	color: whitesmoke;
+}
+
+.content-head__toolbar {
+	display: flex;
+	align-items: center;
+	justify-content: flex-end;
+}
+
+@media (max-width: 767px) {
+	.content-head {
+		grid-template-rows: repeat(2, 1fr);
+		grid-template-columns: none;
+	}
+
+	.content-head__text-head {
+		padding-left: 0;
+		order: 1;
+	}
+}

@@ -1,7 +1,8 @@
-<div class="host" [class.sidebar_collapsed]="collapsed">
+<div class="sidebar" [class.sidebar_collapsed]="collapsed">
   <div class="sidebar__header">
-    <div class="sidebar__burger" (click)="collapsedToggle()">
-      <mill-icon class="sidebar__burger-icon" size="24" name="burger">
+    <div #burger class="sidebar__burger" (click)="collapsedToggle()">
+      <mill-icon class="sidebar__burger-icon" [class.sidebar__burger-icon-collapsed]="!collapsed"
+      size="24" [name]="(!isWidthTabletPhone && 'burger') || isWidthTabletPhone && collapsed ? 'burger' : 'close'">
       </mill-icon>
     </div>
     <div class="sidebar__logo">
@@ -26,4 +27,6 @@
   </div>
 </div>
 
-<ng-content select="nav-content"></ng-content>
+<!-- <div class="nav-content" [class.nav-content_collapsed]="!collapsed"> -->
+<ng-content select="nav-content" ></ng-content>
+<!-- </div> -->

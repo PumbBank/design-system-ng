@@ -1,6 +1,6 @@
-<div class="content__head" style="
-  height: 104px;" *ngIf="!isContentHead"></div>
-  <ng-content select="nav-content-head"></ng-content>
-<div class="content__place">
+<div style="min-height: 104px;" *ngIf="!isContentHead"></div>
+<ng-content select="nav-content-head"></ng-content>
+
+<div class="content__place" (scroll)="onScroll($event)" #contenPlace>
   <ng-content></ng-content>
 </div>
