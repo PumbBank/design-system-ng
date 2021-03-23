@@ -1,4 +1,4 @@
-import { ComponentRef, Injectable, Injector, OnDestroy } from '@angular/core';
+import { ComponentRef, Injectable, Injector } from '@angular/core';
 import { DomService } from '../../utils/services/dom.service';
 import { SnackBarOverlayComponent } from '../components/snackbar-overlay/snackbar-overlay.component';
 import { SnackBarConfig } from '../models/snackbar-config.model';
@@ -6,7 +6,7 @@ import { ISnackbarController } from '../models/snackbar-controller.model';
 import { SnackbarRef, SNACK_BAR_CONTROLLER, SNACK_BAR_DATA } from '../shared/snackbar';
 
 @Injectable()
-export class SnackBarService implements OnDestroy {
+export class SnackBarService {
   private snackBarComponentRef: ComponentRef<any>;
   private controller: ISnackbarController;
 
@@ -39,10 +39,6 @@ export class SnackBarService implements OnDestroy {
 
     this.snackBarComponentRef = this.domService.createComponent<SnackBarOverlayComponent>(SnackBarOverlayComponent, null, inject);
     this.domService.attachComponent(this.snackBarComponentRef, document.body);
-  }
-
-  ngOnDestroy(): void {
-    this.controller.close();
   }
 
   private createDialogController(snackbarRef: SnackbarRef): ISnackbarController {

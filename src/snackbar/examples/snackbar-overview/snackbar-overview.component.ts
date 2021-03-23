@@ -24,7 +24,7 @@ export class SnackBarOverviewComponent {
       {
         buttonText: 'ok',
         buttonView: ButtonView.ghost,
-        action: () => console.log('dsdaaaaaaa')
+        action: () => console.log('Button click!')
       }
     ];
 
