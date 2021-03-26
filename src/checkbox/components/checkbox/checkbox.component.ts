@@ -36,7 +36,7 @@ export class CheckboxChange {
 @Component({
   selector: 'mill-checkbox',
   templateUrl: 'checkbox.component.html',
-  styleUrls: ['./checkbox.scss']
+  styleUrls: ['./checkbox.component.scss']
 })
 
 export class CheckboxComponent implements AfterViewInit {

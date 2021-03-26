@@ -1,14 +1,14 @@
 import { Component, Inject, OnDestroy, OnInit } from '@angular/core';
-import { MillSortDirective, MillSortToken } from '../mill-sort.directive';
-import { MillColumnDefDirective, MillColumnToken } from '../../directives/mill-cells';
+import { SortDirective, MillSortToken } from '../sort.directive';
+import { MillColumnDefDirective, MillColumnToken } from '../../directives/cells';
 
 @Component({
   selector: '[mill-sort-header]',
   exportAs: 'millSortHeader',
-  templateUrl: './mill-sort-header.component.html',
-  styleUrls: ['./mill-sort-header.component.scss']
+  templateUrl: './sort-header.component.html',
+  styleUrls: ['./sort-header.component.scss']
 })
-export class MillSortHeaderComponent implements OnInit, OnDestroy {
+export class SortHeaderComponent implements OnInit, OnDestroy {
 
   public sortDirection: 'asc' | 'desc' | null = null;
 
@@ -16,7 +16,7 @@ export class MillSortHeaderComponent implements OnInit, OnDestroy {
 
   constructor(
     @Inject(MillColumnToken) public columnDef: MillColumnDefDirective,
-    @Inject(MillSortToken) public _sort: MillSortDirective,
+    @Inject(MillSortToken) public _sort: SortDirective,
   ) {
     this.id = columnDef.name;
 

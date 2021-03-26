@@ -1,7 +1,7 @@
 import { AfterViewInit, Component, Input, OnInit, ViewChild } from '@angular/core';
 import { DataTableSource } from '../../data-table-source';
-import { MillSortDirective } from '../../mill-sort/mill-sort.directive';
-import { MillPaginatorComponent } from '../../mill-paginator/mill-paginator.component';
+import { SortDirective } from '../../mill-sort/sort.directive';
+import { PaginatorComponent } from '../../mill-paginator/paginator.component';
 
 const DATA: any[] = [
   {
@@ -97,8 +97,8 @@ export class DataTableOverviewComponent implements OnInit, AfterViewInit{
 
   public dataSource: DataTableSource<any>;
 
-  @ViewChild(MillSortDirective) sort: MillSortDirective;
-  @ViewChild(MillPaginatorComponent) paginator: MillPaginatorComponent;
+  @ViewChild(SortDirective) sort: SortDirective;
+  @ViewChild(PaginatorComponent) paginator: PaginatorComponent;
 
   constructor() {
     this.dataSource = new DataTableSource<any>(DATA);

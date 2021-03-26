@@ -15,7 +15,7 @@ export class RadioChange {
 @Component({
   selector: 'mill-radio',
   templateUrl: 'radio.component.html',
-  styleUrls: ['./radio.scss']
+  styleUrls: ['./radio.component.scss']
 })
 
 export class RadioComponent {

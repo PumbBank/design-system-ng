@@ -12,10 +12,10 @@ const DEFAULT_PAGE_SIZE = 10;
 
 @Component({
   selector: 'mill-paginator',
-  templateUrl: './mill-paginator.component.html',
-  styleUrls: ['./mill-paginator.component.scss']
+  templateUrl: './paginator.component.html',
+  styleUrls: ['./paginator.component.scss']
 })
-export class MillPaginatorComponent implements OnInit {
+export class PaginatorComponent implements OnInit {
   public init: Subject<void> = new Subject<void>();
 
   public menuState: boolean;

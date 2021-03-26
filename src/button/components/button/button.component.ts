@@ -21,7 +21,7 @@ enum iconColor {
 @Component({
   selector: 'mill-button',
   templateUrl: './button.component.html',
-  styleUrls: ['./button.scss'],
+  styleUrls: ['./button.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class ButtonComponent implements AfterViewInit, OnChanges {

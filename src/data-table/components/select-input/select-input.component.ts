@@ -1,6 +1,6 @@
 import { Component, Inject, Input, OnInit } from '@angular/core';
 import { SelectService } from '../../services/select.service';
-import { MillRowDirective, MillRowToken } from '../../directives/mill-rows';
+import { MillRowDirective, MillRowToken } from '../../directives/rows';
 
 
 @Component({

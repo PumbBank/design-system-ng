@@ -1,5 +1,5 @@
 import { Directive, ElementRef, Input, TemplateRef, ViewContainerRef } from '@angular/core';
-import { MillColumnDefDirective } from './mill-cells';
+import { MillColumnDefDirective } from './cells';
 
 
 export interface RowsInterface {

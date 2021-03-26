@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, OnInit, Output } from '@angular/core';
-import { MillSortHeaderComponent } from './mill-sort-header/mill-sort-header.component';
+import { SortHeaderComponent } from './mill-sort-header/sort-header.component';
 import { Subject } from 'rxjs';
 
 export abstract class MillSortToken {}
@@ -12,13 +12,13 @@ export interface SortInterface {
 @Directive({
   selector: '[mill-sort]',
   providers: [{
-    provide: MillSortToken, useExisting: MillSortDirective
+    provide: MillSortToken, useExisting: SortDirective
   }]
 })
-export class MillSortDirective implements OnInit {
+export class SortDirective implements OnInit {
   public init: Subject<void> = new Subject<void>();
 
-  public sortItems: Map<string, MillSortHeaderComponent> = new Map<string, MillSortHeaderComponent>();
+  public sortItems: Map<string, SortHeaderComponent> = new Map<string, SortHeaderComponent>();
   public sortDirection: 'asc' | 'desc' | null = null;
 
   public activeSortItem: string;
@@ -31,15 +31,15 @@ export class MillSortDirective implements OnInit {
     this.init.next();
   }
 
-  register(sortItem: MillSortHeaderComponent): void {
+  register(sortItem: SortHeaderComponent): void {
     this.sortItems.set(sortItem.id, sortItem);
   }
 
-  deregister(sortItem: MillSortHeaderComponent): void {
+  deregister(sortItem: SortHeaderComponent): void {
     this.sortItems.delete(sortItem.id);
   }
 
-  sort(sortItem: MillSortHeaderComponent): void {
+  sort(sortItem: SortHeaderComponent): void {
     if (this.activeSortItem === sortItem.id) {
       if (this.sortDirection === 'desc') {
         this.sortDirection = null;

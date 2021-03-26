@@ -1,14 +1,14 @@
 import {BehaviorSubject} from 'rxjs';
-import { MillSortDirective } from './mill-sort/mill-sort.directive';
-import { MillPaginatorComponent } from './mill-paginator/mill-paginator.component';
+import { SortDirective } from './mill-sort/sort.directive';
+import { PaginatorComponent } from './mill-paginator/paginator.component';
 
 export class DataTableSource<T> {
 
   private _data: BehaviorSubject<T[]>;
   private _renderData: BehaviorSubject<T[]> = new BehaviorSubject<T[]>([]);
 
-  private _sort: MillSortDirective;
-  private _paginator: MillPaginatorComponent;
+  private _sort: SortDirective;
+  private _paginator: PaginatorComponent;
 
   get data(): T[] {
     return this._data.getValue();
@@ -18,10 +18,10 @@ export class DataTableSource<T> {
     this.updateData();
   }
 
-  get sort(): MillSortDirective | null {
+  get sort(): SortDirective | null {
     return this._sort;
   }
-  set sort(sort: MillSortDirective | null) {
+  set sort(sort: SortDirective | null) {
     if (sort) {
       this._sort = sort;
       this._sort.sortChange.subscribe(() => {
@@ -30,10 +30,10 @@ export class DataTableSource<T> {
     }
   }
 
-  get paginator(): MillPaginatorComponent | null {
+  get paginator(): PaginatorComponent | null {
     return this._paginator;
   }
-  set paginator(paginator: MillPaginatorComponent | null) {
+  set paginator(paginator: PaginatorComponent | null) {
     if (paginator) {
       this._paginator = paginator;
 
@@ -64,7 +64,7 @@ export class DataTableSource<T> {
     return this.sortData(data.slice(), this.sort);
   }
 
-  private sortData(data: T[], sort: MillSortDirective): T[] {
+  private sortData(data: T[], sort: SortDirective): T[] {
     const active = sort.activeSortItem;
     const direction = sort.sortDirection;
 

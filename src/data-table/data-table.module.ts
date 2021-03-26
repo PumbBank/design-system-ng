@@ -5,7 +5,7 @@ import { BadgeModule } from '../badge';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { DataTableRowComponent } from './components/data-table-row/data-table-row.component';
 import { DataTableHeaderComponent } from './components/data-table-header/data-table-header.component';
-import { MillSortHeaderComponent } from './mill-sort/mill-sort-header/mill-sort-header.component';
+import { SortHeaderComponent } from './mill-sort/mill-sort-header/sort-header.component';
 import {
   MillCellDirective,
   MillCellDefDirective,
@@ -13,22 +13,22 @@ import {
   MillColumnDefDirective,
   MillHeaderCellDirective,
   MillHeaderCellDefDirective
-} from './directives/mill-cells';
+} from './directives/cells';
 import {
   MillHeaderHolderDirective,
   MillHeaderRowDirective,
   MillRowDirective,
   MillRowsHolderDirective
-} from './directives/mill-rows';
-import { MillSortDirective } from './mill-sort/mill-sort.directive';
-import { MillPaginatorComponent } from './mill-paginator/mill-paginator.component';
+} from './directives/rows';
+import { SortDirective } from './mill-sort/sort.directive';
+import { PaginatorComponent } from './mill-paginator/paginator.component';
 
 
 const components = [
   DataTableComponent,
   DataTableRowComponent,
   DataTableHeaderComponent,
-  MillSortHeaderComponent,
+  SortHeaderComponent,
 ];
 
 const cells = [
@@ -49,8 +49,8 @@ const rows = [
 ];
 
 const dataChanges = [
-  MillSortDirective,
-  MillPaginatorComponent
+  SortDirective,
+  PaginatorComponent
 ];
 
 @NgModule({

@@ -14,7 +14,7 @@ import { ChipState, ChipView } from '../../models/chip-parameters.model';
 @Component({
   selector: 'mill-chip',
   templateUrl: 'chip.component.html',
-  styleUrls: ['./chip.scss'],
+  styleUrls: ['./chip.component.scss'],
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class ChipComponent implements OnChanges {

@@ -18,8 +18,8 @@ import {
   MillRowsHolderDirective,
   RowOutletInterface,
   RowsInterface
-} from '../../directives/mill-rows';
-import { MillCellOutletDirective, MillColumnDefDirective } from '../../directives/mill-cells';
+} from '../../directives/rows';
+import { MillCellOutletDirective, MillColumnDefDirective } from '../../directives/cells';
 
 @Component({
   selector: 'data-table',
