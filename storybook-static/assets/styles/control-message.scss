@@ -1,0 +1,69 @@
+@import "~@mill/figma/icons";
+@import "~@mill/figma/typography";
+@import "~@mill/figma/colors";
+
+%icon_grey-70 {
+  background: $grey-70;
+}
+
+%icon_grey-40 {
+  background: $grey-40;
+}
+
+%icon_orange-50 {
+  background: $orange-50;
+}
+
+%icon_green-50 {
+  background: $green-50;
+}
+
+.control-message {
+  display: flex;
+  flex-direction: row;
+  align-items: baseline;
+  color: $grey-70;
+  height: 19px;
+}
+
+.control-message__icon {
+  @extend .icon_12;
+  @extend %icon_grey-70;
+
+  margin-right: 8px;
+  min-width: 12px;
+}
+
+.control-message__text {
+  @extend %p2;
+
+  overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+}
+
+.control-message_disabled {
+  color: $grey-40;
+
+  .control-message__icon {
+    @extend %icon_grey-40;
+  }
+}
+
+.control-message_error {
+  color: $orange-50;
+
+  .control-message__icon {
+    @extend %icon_orange-50;
+  }
+}
+
+.control-message_valid {
+  color: $green-50;
+
+  .control-message__icon {
+    @extend %icon_green-50;
+  }
+}

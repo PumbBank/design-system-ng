@@ -1,8 +1,8 @@
 import { action } from '@storybook/addon-actions';
 import { boolean, text, withKnobs } from '@storybook/addon-knobs';
 import { IconsModule } from '../icons/icons.module';
-import { ChipListComponent } from './components/mill-chip-list/chip-list.component';
-import { ChipClearComponent } from './components/mill-chip-clear/chip-clear.component';
+import { ChipListComponent } from './components/chip-list/chip-list.component';
+import { ChipClearComponent } from './components/chip-clear/chip-clear.component';
 import { ChipRemoveDirective } from './directives/chip-remove.directive';
 import { ChipComponent } from './components/chip/chip.component';
 import { ChipOverviewComponent } from './examples/chip-page.component';

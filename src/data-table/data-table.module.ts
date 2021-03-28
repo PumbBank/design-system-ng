@@ -5,7 +5,7 @@ import { BadgeModule } from '../badge';
 import { DataTableComponent } from './components/data-table/data-table.component';
 import { DataTableRowComponent } from './components/data-table-row/data-table-row.component';
 import { DataTableHeaderComponent } from './components/data-table-header/data-table-header.component';
-import { SortHeaderComponent } from './mill-sort/mill-sort-header/sort-header.component';
+import { SortHeaderComponent } from './sort/sort-header/sort-header.component';
 import {
   MillCellDirective,
   MillCellDefDirective,
@@ -20,8 +20,8 @@ import {
   MillRowDirective,
   MillRowsHolderDirective
 } from './directives/rows';
-import { SortDirective } from './mill-sort/sort.directive';
-import { PaginatorComponent } from './mill-paginator/paginator.component';
+import { SortDirective } from './sort/sort.directive';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 
 const components = [

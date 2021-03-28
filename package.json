@@ -1,4 +1,5 @@
 {
+  "homepage": "http://PumbBank.github.io/design-system-ng",
   "name": "@mill/ng",
   "version": "0.10.64",
   "scripts": {
@@ -10,7 +11,9 @@
     "build:clear": "rimraf dist && rimraf dist-package",
     "lint": "ng lint && npm run lint:styles",
     "lint:styles": "stylelint \"apps/**/*.scss\" && stylelint \"libs/**/*.scss\"",
-    "copyScss": "copyfiles --flat \"src/**/*.scss\" dist/styles"
+    "predeploy": "npm run build-storybook",
+    "deploy-storybook": "gh-pages -d storybook-static",
+    "build-storybook": "build-storybook"
   },
   "private": true,
   "dependencies": {
@@ -52,6 +55,7 @@
     "directory-tree": "^2.2.7",
     "eslint-plugin-sonarjs": "0.5.0",
     "fs-extra": "9.0.1",
+    "gh-pages": "3.1.0",
     "ng-packagr": "10.0.3",
     "rimraf": "3.0.2",
     "stylelint": "13.6.1",

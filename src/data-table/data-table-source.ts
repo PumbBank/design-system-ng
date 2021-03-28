@@ -1,6 +1,6 @@
 import {BehaviorSubject} from 'rxjs';
-import { SortDirective } from './mill-sort/sort.directive';
-import { PaginatorComponent } from './mill-paginator/paginator.component';
+import { SortDirective } from './sort/sort.directive';
+import { PaginatorComponent } from './paginator/paginator.component';
 
 export class DataTableSource<T> {
 

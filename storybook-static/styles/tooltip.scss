@@ -1,0 +1,200 @@
+@import "~@mill/figma/typography";
+@import "~@mill/figma/colors";
+
+@keyframes millTooltips-vert {
+  to {
+    opacity: .9;
+    transform: translate(-50%, 0);
+  }
+}
+
+@keyframes millTooltips-horz {
+  to {
+    opacity: .9;
+    transform: translate(0, -50%);
+  }
+}
+
+.tooltip {
+  position: relative;
+
+  &::before {
+    user-select: none;
+    pointer-events: none;
+    position: absolute;
+    display: none;
+    opacity: 0;
+    content: '';
+    border: 5px solid transparent;
+    z-index: 11;
+  }
+
+  &::after {
+    user-select: none;
+    pointer-events: none;
+    position: absolute;
+    display: none;
+    opacity: 0;
+    content: attr(millTooltip);
+    @extend %p2;
+    color: $other-white;
+    min-width: 3em;
+    max-width: 21em;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    padding: 6px 12px;
+    border-radius: 4px;
+    background: $grey-60;
+    z-index: 10;
+  }
+
+  &:hover {
+    &::before {
+      display: block;
+    }
+
+    &::after {
+      display: block;
+    }
+  }
+
+  &:not([flow]) {
+    &::before {
+      bottom: 100%;
+      border-bottom-width: 0;
+      border-top-color: $grey-60;
+      left: 5%;
+      transform: translate(-50%, -.5em);
+    }
+
+    &::after {
+      bottom: calc(100% + 5px);
+      left: 5%;
+      transform: translate(-50%, -.5em);
+    }
+
+    &:hover {
+      &::before {
+        animation: millTooltips-vert 300ms ease-out forwards;
+      }
+
+      &::after {
+        animation: millTooltips-vert 300ms ease-out forwards;
+      }
+    }
+  }
+}
+
+[millTooltip=''] {
+  &::before {
+    display: none !important;
+  }
+
+  &::after {
+    display: none !important;
+  }
+}
+
+.tooltip[flow^="up"] {
+  &::before {
+    bottom: 100%;
+    border-bottom-width: 0;
+    border-top-color: $grey-60;
+    left: 5%;
+    transform: translate(-50%, -.5em);
+  }
+
+  &::after {
+    bottom: calc(100% + 5px);
+    left: 5%;
+    transform: translate(-50%, -.5em);
+  }
+
+  &:hover {
+    &::before {
+      animation: millTooltips-vert 300ms ease-out forwards;
+    }
+
+    &::after {
+      animation: millTooltips-vert 300ms ease-out forwards;
+    }
+  }
+}
+
+.tooltip[flow^="down"] {
+  &::before {
+    top: 100%;
+    border-top-width: 0;
+    border-bottom-color: $grey-60;
+    left: 5%;
+    transform: translate(-50%, .5em);
+  }
+
+  &::after {
+    top: calc(100% + 5px);
+    left: 5%;
+    transform: translate(-50%, .5em);
+  }
+
+  &:hover {
+    &::before {
+      animation: millTooltips-vert 300ms ease-out forwards;
+    }
+
+    &::after {
+      animation: millTooltips-vert 300ms ease-out forwards;
+    }
+  }
+}
+
+.tooltip[flow^="left"] {
+  &::before {
+    top: 50%;
+    border-right-width: 0;
+    border-left-color: $grey-60;
+    left: calc(0em - 5px);
+    transform: translate(-.5em, -50%);
+  }
+
+  &::after {
+    top: 50%;
+    right: calc(100% + 5px);
+    transform: translate(-.5em, -50%);
+  }
+
+  &:hover {
+    &::before {
+      animation: millTooltips-horz 300ms ease-out forwards;
+    }
+
+    &::after {
+      animation: millTooltips-horz 300ms ease-out forwards;
+    }
+  }
+}
+
+.tooltip[flow^="right"] {
+  &::before {
+    top: 50%;
+    border-left-width: 0;
+    border-right-color: $grey-60;
+    right: calc(19em - 5px);
+    transform: translate(.5em, -50%);
+  }
+
+  &::after {
+    top: 50%;
+    left: calc(65px);
+    transform: translate(.5em, -50%);
+  }
+
+  &:hover {
+    &::before {
+      animation: millTooltips-horz 300ms ease-out forwards;
+    }
+
+    &::after {
+      animation: millTooltips-horz 300ms ease-out forwards;
+    }
+  }
+}

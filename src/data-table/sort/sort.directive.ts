@@ -1,5 +1,5 @@
 import { Directive, EventEmitter, OnInit, Output } from '@angular/core';
-import { SortHeaderComponent } from './mill-sort-header/sort-header.component';
+import { SortHeaderComponent } from './sort-header/sort-header.component';
 import { Subject } from 'rxjs';
 
 export abstract class MillSortToken {}
