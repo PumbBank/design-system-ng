@@ -1,0 +1,22 @@
+@import "~@mill/figma/typography";
+@import "~@mill/figma/colors";
+
+:host {
+  max-width: 100%;
+}
+
+.input_disabled {
+  & textarea {
+    resize: none !important;
+  }
+}
+
+.input__entrance-maxwidth {
+  max-width: -webkit-fill-available;
+}
+
+::-webkit-resizer {
+  background-image: url("../../../assets/images/corner.svg");
+  background-repeat: no-repeat;
+  background-position: bottom 2px right 2px;
+}

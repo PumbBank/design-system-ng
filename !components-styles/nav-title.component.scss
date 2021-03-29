@@ -1,0 +1,43 @@
+@import "~@mill/figma/typography";
+@import "~@mill/figma/typography";
+
+:host {
+  height: 40px;
+  margin: 0 64px;
+  @extend %overline;
+  color: $grey-50;
+  display: flex;
+  align-items: center;
+  white-space: nowrap;
+  background: transparent;
+  position: relative;
+  transition: all 299ms ease;
+  width: fit-content;
+  min-width: 16px;
+
+  &:before {
+    content: "";
+
+    transition: all 299ms ease;
+    width: 0px;
+    height: 0px;
+    top: calc(50%);
+    background: $grey-50;
+    position: absolute;
+    left: calc(50%);
+  }
+
+  &.nav-item_collapsed {
+    color: transparent;
+    height: 0px;
+    width: 16px;
+    margin: 20px 16px;
+
+    &:before {
+      width: 16px;
+      height: 2px;
+      top: calc(50% - 1px);
+      left: calc(50% - 8px);
+    }
+  }
+}

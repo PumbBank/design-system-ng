@@ -1,0 +1,200 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+@import "~@mill/figma/icons";
+
+/* stylelint-disable no-descending-specificity */
+%icon_white {
+  background: #ffffff;
+}
+
+%icon_grey-40 {
+  background: $grey-40;
+}
+
+%icon_red-50 {
+  background: $red-50;
+}
+
+%icon_grey-50 {
+  background: $grey-50;
+}
+
+.button {
+  box-sizing: border-box;
+  user-select: none;
+  display: inline-flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  text-decoration: none;
+  cursor: pointer;
+  background: transparent;
+  border: none;
+  outline: none;
+
+  &:disabled {
+    cursor: default;
+  }
+}
+
+.button_large {
+  @extend %s1;
+
+  height: 56px;
+  border-radius: 28px;
+  padding: 0 14px;
+  min-width: 140px;
+}
+
+.button_medium {
+  @extend %s2;
+
+  height: 40px;
+  border-radius: 20px;
+  padding: 0 14px;
+  min-width: 128px;
+}
+
+.button_small {
+  @extend %s2;
+
+  height: 32px;
+  border-radius: 16px;
+  padding: 0 6px;
+  min-width: 128px;
+}
+
+.button_filled {
+  background: $red-50;
+  color: $other-white;
+  transition: all 150ms ease;
+
+  .button__icon { @extend %icon_white; }
+
+  &:disabled {
+    background: $grey-20;
+    color: $grey-40;
+
+    .button__icon { @extend %icon_grey-40; }
+  }
+
+  &:not(:disabled) {
+    box-shadow: 0 2px 5px rgba(249, 31, 43, 0.35);
+  }
+
+  &:hover:not(:disabled) {
+    background: $red-40;
+    transform: translateY(-2px);
+    box-shadow: 0 3px 5px rgba(249, 31, 43, 0.25), 0 6px 12px rgba(249, 31, 43, 0.15);
+  }
+
+  &:active:not(:disabled) {
+    background: $red-60;
+    transform: translateY(0px);
+    box-shadow: 0 3px 5px rgba(249, 31, 43, 0.25), 0 6px 12px rgba(249, 31, 43, 0.15);
+  }
+}
+
+.button_ghost {
+  border: 2px solid $red-50;
+  color: $grey-70;
+
+  .button__icon { @extend %icon_red-50; }
+
+  &:hover:not(:disabled) {
+    background: $red-50;
+    color: $other-white;
+
+    .button__icon { @extend %icon_white; }
+  }
+
+  &:active:not(:disabled) {
+    border-color: $red-60;
+    background: $red-60;
+    color: $other-white;
+
+    .button__icon { @extend %icon_white; }
+  }
+
+  &:disabled {
+    border-color: $grey-30;
+    color: $grey-40;
+
+    .button__icon { @extend %icon_grey-40; }
+  }
+}
+
+.button_hidden {
+  color: $grey-70;
+
+  &:disabled {
+    color: $grey-40;
+
+    .button__icon {
+      background: $grey-40;
+    }
+  }
+
+  &:hover:not(:disabled) {
+    background: $grey-10;
+  }
+
+  &:active:not(:disabled) {
+    background: $grey-20;
+  }
+
+  .button__icon {
+    @extend %icon_red-50;
+
+    &.grey-color {
+      @extend %icon_grey-50;
+    }
+  }
+}
+
+.button_hidden.button_only-icon {
+  &:hover:not(:disabled) {
+    .button__icon {
+      background: $red-40;
+
+      &.grey-color {
+        background: $grey-60;
+      }
+    }
+  }
+}
+
+.button_with-icon {
+  justify-content: space-between;
+}
+
+.button_only-icon {
+  min-width: 0;
+  padding: 0 0;
+
+  &.button_large {
+    width: 56px;
+  }
+
+  &.button_medium {
+    width: 40px;
+  }
+
+  &.button_small {
+    width: 32px;
+  }
+
+  .button__icon {
+    margin: 0;
+  }
+
+}
+
+.button__text {
+  margin: 0 10px;
+}
+
+.button__icon {
+  margin: 0 6px;
+}
+/* stylelint-enable */

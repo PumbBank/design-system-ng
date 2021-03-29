@@ -1,0 +1,93 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+
+.nav-item {
+  height: 48px;
+  border-radius: 0 24px 24px 0;
+  cursor: pointer;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 256px;
+  transition: width 299ms ease, border-radius 299ms ease;
+
+  &.nav-item_collapsed {
+    border-radius: 24px;
+    width: 48px;
+
+    .nav-item__text {
+      width: 0;
+      opacity: 0;
+      overflow: hidden;
+    }
+
+    .nav-item__icon {
+      margin: 0 0 0 12px;
+    }
+  }
+
+  &:hover {
+    background: $grey-70;
+
+    .nav-item__icon_hover {
+      color: $grey-10;
+    }
+
+    .nav-item__text {
+      color: $grey-10;
+    }
+  }
+
+  &.nav-item_active {
+    background: $grey-60;
+
+    .nav-item__text {
+      @extend %s1;
+      color: $grey-10;
+    }
+
+    mill-icon {
+      color: $grey-10;
+    }
+  }
+}
+
+.nav-item__text {
+  @extend %p1;
+
+  width: 176px;
+  color: $grey-30;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  transition: width 299ms ease, opacity 299ms ease;
+  white-space: nowrap;
+
+  &-sub-item {
+    color: $grey-50;
+  }
+}
+
+.nav-item__icon {
+  transition: margin 299ms ease, transform 299ms ease;
+
+  margin: 0 16px 0 24px;
+  height: 24px;
+  width: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: $grey-50;
+}
+
+.nav-item__icon_expanded {
+  transform: rotate(180deg);
+}
+
+.content {
+  overflow: hidden;
+}
+
+.content__hidden {
+  max-height: 0;
+}
+

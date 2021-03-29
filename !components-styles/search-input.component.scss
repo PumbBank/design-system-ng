@@ -1,0 +1,177 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+@import "~@mill/figma/icons";
+
+
+:host {
+  width: 100%;
+  display: block;
+  min-width: 200px;
+}
+
+.search-input {
+  position: relative;
+  width: 100%;
+  height: 48px;
+  box-sizing: border-box;
+  border-radius: 50px;
+
+  &:after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    border: 1px solid $grey-50;
+    border-radius: inherit;
+    z-index: -1;
+
+    box-sizing: border-box;
+  }
+
+  &_active:not(&_disabled), &:hover:not(&_disabled) {
+    &:after {
+      border: 2px solid $grey-60;
+      top: 0;
+      left: 0;
+    }
+
+    input {
+      &::placeholder {
+        color: $grey-50;
+      }
+    }
+  }
+
+  &__label {
+    height: 100%;
+    box-sizing: border-box;
+    border-radius: 50px;
+    padding: 12px;
+    display: flex;
+    align-items: center;
+  }
+
+  input {
+    width: calc(100% - 64px);
+    height: 24px;
+    border: none;
+    background: transparent;
+    outline: none;
+    margin: 1px 12px 0;
+
+    padding: 0;
+
+    @extend %p1;
+
+    color: $grey-70;
+
+    line-height: 1;
+
+    &::placeholder {
+      color: $grey-40;
+
+      line-height: 1;
+    }
+  }
+
+  &__search-icon {
+    color: $red-50;
+  }
+
+  &__close-icon {
+    color: $grey-40;
+    cursor: pointer;
+  }
+
+  &__clock-icon {
+    color: $grey-30;
+  }
+
+
+  &_disabled {
+    pointer-events: none;
+
+    &:after {
+      border: 1px solid $grey-30;
+      top: -1px;
+      left: -1px;
+    }
+
+    input {
+      color: $grey-30;
+
+      &::placeholder {
+        color: $grey-30;
+      }
+    }
+
+    .search-input__search-icon, .search-input__close-icon {
+      color: $grey-30;
+    }
+  }
+
+}
+
+.option-list {
+  position: absolute;
+  top: 100%;
+  left: 0;
+
+  max-height: 192px;
+  min-width: 200px;
+  width: 100%;
+
+  box-shadow: 0 4px 10px rgba(0,0,0,0.03), 0 2px 7px rgba(0,0,0,0.05), 0 1px 2px rgba(0,0,0,0.2);
+  background: $other-white;
+  border-radius: 8px;
+
+  transform: translateY(4px);
+
+  z-index: 11;
+  overflow: hidden;
+}
+
+.option {
+  @extend %p1;
+
+  padding: 0 12px;
+
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  min-height: 48px;
+
+  cursor: pointer;
+
+  &_active {
+    background: $grey-10;
+  }
+
+  &_with-icon {
+    .option__text {
+      width: calc(100% - 64px);
+      padding: 0;
+      color: $grey-50;
+    }
+  }
+
+  &__text {
+    width: calc(100% - 48px);
+    margin: 0 12px;
+    overflow: hidden;
+    padding-left: 24px;
+    color: $grey-60;
+
+    white-space: nowrap;
+    text-overflow: ellipsis;
+  }
+
+  &:hover {
+    background: $grey-10;
+  }
+}
+
+
+

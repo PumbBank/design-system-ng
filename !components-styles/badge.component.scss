@@ -1,0 +1,61 @@
+@import "~@mill/figma/typography";
+@import "~@mill/figma/icons";
+
+.badge {
+  display: inline-flex;
+  align-items: center;
+  height: 24px;
+  border-radius: 24px;
+  padding: 0 8px;
+
+  &_red:not(&_filled):not(&_minimal) { background: $red-10; }
+  &_green:not(&_filled):not(&_minimal) { background: $green-10; }
+  &_orange:not(&_filled):not(&_minimal) { background: $orange-10; }
+  &_grey:not(&_filled):not(&_minimal) { background: $grey-10; }
+  &_blue:not(&_filled):not(&_minimal) { background: $blue-10; }
+
+  &_red:not(&_basic):not(&_minimal) { background: $red-50; }
+  &_green:not(&_basic):not(&_minimal) { background: $green-50; }
+  &_orange:not(&_basic):not(&_minimal) { background: $orange-50; }
+  &_grey:not(&_basic):not(&_minimal) { background: $grey-50; }
+  &_blue:not(&_basic):not(&_minimal) { background: $blue-50; }
+
+  &_black:not(&_minimal) { background: $main-primary-dark; }
+
+  &__icon {
+    margin-left: -2px;
+    margin-right: 4px;
+  }
+
+  &__text {
+    @extend %p3;
+
+    line-height: 1;
+  }
+
+  &__text,
+  &__icon {
+    .badge_filled & { color: $other-white; }
+    .badge_minimal & { color: $main-primary-dark; }
+    .badge_green.badge_basic & { color: $green-50; }
+    .badge_red.badge_basic & { color: $red-50; }
+    .badge_orange.badge_basic & { color: $orange-50; }
+    .badge_black.badge_basic & { color: $main-primary-light; }
+    .badge_grey.badge_basic & { color: $grey-50; }
+    .badge_blue.badge_basic & { color: $blue-50; }
+  }
+
+  &__circle {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    margin-right: 8px;
+
+    .badge_green & { background: $green-50; }
+    .badge_red & { background: $red-50; }
+    .badge_orange & { background: $orange-50; }
+    .badge_black & { background: $main-primary-dark; }
+    .badge_grey & { background: $grey-50; }
+    .badge_blue & { background: $blue-50; }
+  }
+}

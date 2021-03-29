@@ -1,0 +1,219 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+
+.file-attach {
+  &__container {
+    display: flex;
+    flex-direction: row;
+    align-items: baseline;
+    justify-content: flex-start;
+
+    &_flex {
+      display: flex;
+      flex-direction: column;
+    }
+
+    &_grid {
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    &_rtl {
+      flex-direction: row-reverse;
+    }
+
+    &_bottom {
+      flex-direction: column-reverse;
+    }
+
+    &_ltr & {
+      &_grid {
+        justify-content: flex-end;
+      }
+    }
+  }
+
+  &__item {
+    width: 264px;
+    background: #ffffff;
+    border-radius: 8px;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 4px 0 16px;
+
+    &:hover {
+      background: #f5f5fa;
+    }
+
+    &_ghost-view {
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 2px 7px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.2);
+    }
+
+    &_error-state {
+      padding: 0 4px 0 16px;
+      background: $orange-10;
+    }
+
+    &_loading-state {
+      padding: 11px 4px 9px 16px;
+    }
+
+    &_ltr {
+      margin: 0 8px 8px 0;
+    }
+
+    &_rtl {
+      margin: 0 0 8px 8px;
+    }
+
+    &_bottom {
+      margin: 8px 0 0 0;
+    }
+  }
+
+  &__content {
+    display: flex;
+    align-items: center;
+
+    &_flex_row_space {
+      flex-direction: row;
+      justify-content: space-between;
+    }
+
+    &_ml-8 {
+      margin-left: 8px;
+    }
+
+    &_ml-16 {
+      margin-left: 16px;
+    }
+  }
+
+  &__icon {
+    &_warning {
+      color: $orange-50;
+    }
+  }
+
+  &__label {
+    margin-left: 8px;
+
+    &_warning {
+      color: $orange-50;
+    }
+  }
+
+  &__loader-wrap {
+    width: 24px;
+    height: 24px;
+    border-radius: 100%;
+    position: relative;
+    margin: 0 8px 0 0;
+  }
+
+  &__loader {
+    &::before,
+    &::after {
+      position: absolute;
+      width: 20px;
+      height: 20px;
+      border-radius: 100%;
+      border: 2px solid transparent;
+      border-top-color: $red-50;
+      content: "";
+    }
+
+    &::before {
+      z-index: 100;
+      animation: spin 1s infinite;
+    }
+
+    &::after {
+      border: 2px solid #d0d0d9;
+    }
+  }
+
+  &__dropzone {
+    width: 284px;
+    height: 136px;
+    padding: 36px 16px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    border: 2px dashed $grey-40;
+    box-sizing: border-box;
+    border-radius: 16px;
+
+    &__primary_text {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      margin-bottom: 19px;
+
+      & > span {
+        @extend %s2;
+        color: $grey-70;
+        margin-right: 16px;
+      }
+
+      &_icon {
+        color: $red-50;
+      }
+    }
+
+    &__secondary_text {
+      @extend %p2;
+      color: $grey-50;
+    }
+
+    &:hover:not(.disabled) {
+      cursor: pointer;
+      background: $grey-10;
+
+      & .file-attach__dropzone__secondary_text {
+        color: $grey-70;
+      }
+    }
+
+  }
+}
+
+.file-attach__dropzone {
+  &.disabled {
+    border-color: $grey-20;
+
+    & > .file-attach__dropzone__primary_text {
+      & > span {
+        color: $grey-40;
+      }
+
+      &  > .file-attach__dropzone__primary_text_icon {
+        color: $grey-40;
+      }
+    }
+
+    & > .file-attach__dropzone__secondary_text {
+      color: $grey-40;
+    }
+  }
+  &.active-dropzone {
+    background: $red-10;
+    border-color: $red-50;
+  }
+}
+
+
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

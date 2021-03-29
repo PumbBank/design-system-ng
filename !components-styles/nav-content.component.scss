@@ -1,0 +1,53 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+
+:host {
+  width: 100%;
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  padding: 0 24px 0 0;
+  overflow: auto;
+}
+
+:host::-webkit-scrollbar {
+  width: 0;
+}
+
+.content__place {
+  background: #f5f5fa;
+  border-radius: 16px;
+  width: 100%;
+  flex: auto;
+  margin-bottom: 24px;
+  z-index: 5;
+}
+
+@media (max-width: 1023px) {
+  :host {
+    min-width: 100vw;
+    margin-left: 0;
+    transition: all 0.3s ease;
+    padding: 0;
+    &.nav-content_collapsed {
+      transform: translateX(282px);
+      opacity: 0.2;
+    }
+  }
+
+  .content__place {
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    height: fit-content;
+    margin-bottom: 0;
+  }
+  
+}
+
+@media (min-width: 768px) and (max-width: 1023px) {
+  :host {
+    padding: 0 24px 0 24px !important;
+    min-width: unset;
+  }
+}
+

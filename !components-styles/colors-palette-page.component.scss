@@ -1,0 +1,105 @@
+@import "~@mill/figma/colors";
+
+:host {
+  box-sizing: border-box;
+  display: block;
+  margin-top: 0;
+}
+
+.mill-color-palette {
+  &__container {
+    width: 100%;
+    justify-self: center;
+    max-width: 712px;
+    margin-top: 0;
+  }
+
+  &__item {
+    border-bottom: 1px solid $grey-20;
+    margin-top: 41px;
+    padding-bottom: 51px;
+
+    &:last-child {
+      border-bottom-color: transparent;
+    }
+  }
+
+  &__color-view {
+    width: 64px;
+    height: 64px;
+    border-radius: 50%;
+    transition:
+      border-radius 0.3s ease-in-out,
+      transform 0.3s ease-in-out;
+
+    &_bordered {
+      border: 1px solid $grey-30;
+    }
+
+    &_gradient-dark {
+      background: linear-gradient(107.54deg, $grey-70 0%, $grey-100 100%);
+    }
+
+    &_gradient-light {
+      background: linear-gradient(107.54deg, $grey-10 0%, $grey-20 100%);
+    }
+  }
+
+  &__color-item {
+    margin-top: 35px;
+
+    &:hover {
+      .mill-color-palette__color-view {
+        border-radius: 0 50% 50% 50%;
+        transform: rotate(45deg);
+      }
+    }
+  }
+
+  &__color-name {
+    margin-top: 10px;
+  }
+
+  &__color-sub-name {
+    margin-bottom: 7px;
+  }
+
+  &__color-code {
+    position: relative;
+    display: flex;
+    color: $main-primary-medium;
+  }
+
+  &__color-label {
+    text-transform: uppercase;
+  }
+
+  &__color-value {
+    cursor: pointer;
+    margin-left: 10px;
+    transition: color 0.3s ease-in-out;
+
+    &:hover {
+      color: $main-primary-dark;
+    }
+  }
+
+  &__preview {
+    position: absolute;
+    top: calc(100% + 8px);
+    white-space: nowrap;
+    height: 32px;
+    padding: 0 12px;
+    background: $grey-60;
+    color: $other-white;
+    opacity: 0;
+    visibility: hidden;
+    transition: 0.1s ease;
+    transform: translateY(8px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 4px;
+    z-index: 1;
+  }
+}

@@ -1,0 +1,223 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+
+%icon_red-50 {
+  color: $red-50;
+}
+
+%shadow-10 {
+  box-shadow:
+    0 4px 10px rgba(0, 0, 0, 0.03),
+    0 2px 7px rgba(0, 0, 0, 0.05),
+    0 1px 2px rgba(0, 0, 0, 0.2);
+}
+
+:host {
+  position: relative;
+  display: inline-block;
+  width: 100%;
+}
+
+.input-select__body {
+  align-items: flex-start !important;
+  justify-content: space-between;
+
+  &_error {
+    padding: 0;
+    border: 2px solid $orange-50 !important;
+    & .chevron__icon {
+      color: $orange-50 !important;
+    }
+  }
+
+  &_valid {
+    padding: 0;
+    border: 2px solid $green-50 !important;
+    & .chevron__icon {
+      color: $green-50 !important;
+    }
+  }
+
+  &_active {
+    padding: 0;
+    border: 2px solid #6d6d7a;
+  }
+}
+
+.input-select__enterence {
+  position: relative;
+  margin: -6px -6px -2px -6px;
+  flex-grow: 1;
+}
+
+.input-select__label {
+  @extend %p2;
+
+  color: $grey-70;
+  margin-bottom: 4px;
+  height: 19px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.input-select__input {
+  padding: 0 16px !important;
+}
+
+.select__isDisabled {
+  pointer-events: none;
+
+  & .input__body {
+    border-color: $grey-30;
+  }
+
+  & .input__label {
+    color: $grey-40 !important;
+  }
+}
+
+.option-list {
+  @extend %shadow-10;
+
+  position: absolute;
+  width: 100%;
+  height: 0;
+  max-height: 230px;
+  z-index: 10;
+  background: #ffffff;
+  border-radius: 8px;
+  opacity: 0;
+  overflow: auto;
+  transform: translateY(-19px);
+  transition: opacity 0.299s ease-in-out;
+}
+
+.option-list_active {
+  opacity: 1;
+  height: fit-content;
+}
+
+.option {
+  padding: 0 16px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  min-height: 48px;
+
+  &:hover, &_focused {
+    background: $grey-10;
+    cursor: pointer;
+
+    .checkbox {
+      &:not(.checkbox_disabled) {
+        border-color: $red-40;
+      }
+    }
+  }
+
+  &:not(:first-child) {
+    border-top: 1px solid $grey-20;
+  }
+}
+
+.option__text {
+  @extend %p1;
+
+  color: $grey-60;
+  margin-right: 12px;
+  white-space: nowrap;
+  overflow: hidden;
+
+  &_selected {
+    color: $grey-70;
+  }
+}
+
+.option__icon {
+  @extend %icon_red-50;
+}
+
+.chevron-down {
+  height: 44px;
+  color: $grey-40;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  margin-right: 10px;
+  transform: rotate(0);
+  transition: transform 299ms ease;
+
+  &_rotate180 {
+    transform: rotate(180deg);
+  }
+}
+
+::v-deep .simplebar-vertical .simplebar-scrollbar::before {
+  position: absolute;
+  content: "";
+  background: $grey-100;
+  border-radius: 50px;
+  left: 2px;
+  right: 2px;
+  top: 6px !important;
+  bottom: 6px !important;
+  opacity: 0;
+  -webkit-transition: opacity 0.2s linear;
+  transition: opacity 0.2s linear;
+  width: 4px;
+}
+
+::v-deep .simplebar-vertical .simplebar-visible::before {
+  opacity: 0.22 !important;
+  transition: opacity linear;
+}
+
+// chip не подтянулся  из stylesheets
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  padding: 6px 6px 2px 6px;
+  flex-grow: 1;
+  max-width: calc(100% - 50px);
+}
+
+.chip {
+  border: 1px solid $grey-30;
+  padding: 3px 12px;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 4px;
+  justify-content: space-between;
+  flex: 1;
+  max-width: calc(100% - 30px);
+  &_gap {
+    margin: 0 4px 4px 0;
+  }
+
+  & .chip__text {
+    @extend %p1;
+
+    color: #4d4d5c;
+    margin-right: 12px;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+  }
+
+  & .chip__icon {
+    color: $grey-40;
+    cursor: pointer;
+  }
+
+  &:hover {
+    border-color: transparent;
+    background: $grey-10;
+
+    & .chip__icon {
+      color: $grey-50;
+    }
+  }
+}

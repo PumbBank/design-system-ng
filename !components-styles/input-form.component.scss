@@ -1,0 +1,102 @@
+@import "~@mill/figma/colors";
+.overview {
+  &__column {
+    grid-column: span 6;
+  }
+  &__separator {
+    max-width: 712px;
+    height: 1px;
+    border: none;
+    background: $grey-20;
+
+    margin: 40px auto;
+  }
+}
+
+.form {
+  display: flex;
+  justify-content: center;
+
+  &__content {
+    max-width: 712px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.2), 0px 0px 4px rgba(0, 0, 0, 0.12);
+    border-radius: 8px;
+    margin-top: 40px;
+  }
+
+  &__info-message {
+    background: #f5f5fa;
+    border-radius: 8px;
+    padding: 10px;
+    display: flex;
+    margin-bottom: 16px;
+    & .icon-wrapper {
+      width: fit-content;
+      border-right: 1px solid $grey-30;
+      & mill-icon {
+        color: #93939e;
+        margin-right: 7px;
+      }
+    }
+
+    & .text-wrapper {
+      margin-left: 10px;
+    }
+  }
+
+  &__additional-data {
+    background: #f5f5fa;
+    padding: 24px 24px 40px 24px;
+    border-radius: 8px;
+    margin-top: 16px;
+
+    & .additional-data__inputs {
+      & .grid-item:nth-child(1) {
+        grid-column: span 12;
+      }
+
+      & .grid-item:nth-child(2),
+      .grid-item:nth-child(3) {
+        grid-column: span 3;
+      }
+
+      & .grid-item:nth-child(4) {
+        grid-column: span 6;
+      }
+    }
+
+    & .additional-data__head {
+      margin-bottom: 24px;
+    }
+  }
+
+  &__head {
+    min-height: 64px;
+    display: flex;
+    align-items: center;
+    padding: 0 24px;
+    border-bottom: 1px solid $grey-30;
+  }
+
+  &__body {
+    padding: 16px 24px 32px 24px
+  }
+
+  &__footer {
+    padding: 16px;
+    border-top: 1px solid #d0d0d9;
+    display: flex;
+    justify-content: flex-end;
+
+    & mill-button:last-child {
+      margin-left: 8px;
+    }
+  }
+}
+
+.form-overview__column {
+  display: flex;
+  flex-direction: column;
+  margin-top: 7px;
+  grid-column: span 6;
+}

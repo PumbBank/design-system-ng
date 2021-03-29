@@ -1,0 +1,49 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+@import "~@mill/figma/icons";
+
+.mill-chip__clear {
+  white-space: nowrap;
+  font-family: Gilroy, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  .enabled, .disabled {
+    color: $grey-70;
+    display: flex;
+    align-items: center;
+    left: 283px;
+    right: 519px;
+    top: 104px;
+    bottom: 114px;
+    border-radius: 8px;
+    margin: 4px;
+    padding: 6px 12px;
+    user-select: none;
+    letter-spacing: 0.25px;
+  }
+
+  .enabled {
+    cursor: pointer;
+    border: 1px solid $grey-30;
+
+    &:hover,
+    &:focus {
+      background: $main-primary-light;
+      outline: none;
+    }
+    &:active {
+      background: $grey-20;
+      outline: none;
+    }
+  }
+
+  .disabled {
+    cursor: not-allowed;
+    background: #FFFFFF;
+    color: $grey-40;
+    border: 1px solid $grey-40;
+  }
+}

@@ -1,0 +1,111 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/icons";
+@import "~@mill/figma/typography";
+
+.pin-input {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.pin-input__input::selection {
+  background: transparent !important;
+}
+
+.pin-input__ceil_focused {
+  border: 2px solid #6D6D7A;
+  line-height: 60px;
+  box-sizing: border-box;
+}
+
+.pin-input__input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.pin-input__enterence {
+  display: flex;
+  flex-direction: row;
+  position: relative;
+}
+
+.pin-input__ceil {
+  @extend %h5;
+  font-family: 'Courier New', Courier, monospace;
+
+  width: 40px;
+  height: 64px;
+  border-radius: 4px;
+  background: $grey-10;
+  line-height: 64px;
+  text-align: center;
+
+  &:not(:last-child) {
+    margin-right: 16px;
+  }
+}
+
+.pin-input__ceil_focused {
+  background: $grey-20;
+}
+
+.pin-input__title {
+  @extend %p1;
+
+  color: $grey-70;
+  margin-bottom: 24px;
+}
+
+.pin-input__input {
+  @extend %h5;
+  font-family: 'Courier New', Courier, monospace;
+  letter-spacing: 42px;
+  box-sizing: border-box;
+  padding-left: 12px;
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  border: none;
+  outline: none;
+  background: transparent;
+}
+
+
+.pin-input__footer {
+  height: 32px;
+  margin-top: 16px;
+}
+
+.pin-input__message {
+  @extend %p2;
+
+  color: $grey-70;
+  display: inline-flex;
+  height: 32px;
+  align-items: center;
+  background: $grey-10;
+  padding: 0 12px;
+  text-align: center;
+  border-radius: 8px;
+}
+
+.pin-input_error {
+  .pin-input__ceil {
+    background: transparentize($orange-50, 0.85);
+  }
+
+  // .pin-input__ceil_focused {
+  //     background: transparentize($orange-50, 0.7);
+  // }
+
+  .pin-input__message {
+    color: $orange-50;
+    background: transparentize($orange-50, 0.85);
+  }
+}
+
+.pin-input__ceil_disabled {
+  background: $grey-20;
+  cursor: default;
+}

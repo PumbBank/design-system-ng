@@ -1,0 +1,22 @@
+.overview {
+  &__column {
+    grid-column-start: 1;
+    grid-column-end: 13;
+
+    @media screen and (min-width: 1146px) {
+      grid-column: span 12;
+    }
+
+    &:last-of-type {
+      mill-tabs {
+        &:not(:last-of-type) {
+          margin-bottom: 24px;
+        }
+      }
+    }
+  }
+}
+
+.tab-preview {
+  margin-top: 24px;
+}

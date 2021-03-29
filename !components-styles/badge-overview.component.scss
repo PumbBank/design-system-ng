@@ -1,0 +1,41 @@
+@import "~@mill/figma/colors";
+
+mill-badge {
+  &:not(:first-of-type) {
+    margin-top: 16px;
+  }
+}
+
+mill-icon {
+  color: $grey-50;
+
+  &:not(:first-of-type) {
+    margin-top: 32px;
+  }
+}
+
+.icon-badge {
+  &_overview {
+    position: static;
+    flex-shrink: 0;
+
+    &:not(:first-of-type) {
+      margin-top: 16px;
+    }
+  }
+}
+
+.dark-bg {
+  background: linear-gradient(112.39deg, #3c3c4e 0%, #00000d 100%);
+}
+
+.overview {
+  &__column {
+    grid-column: span 6;
+
+    &:nth-of-type(2n - 1) {
+      grid-column-start: 1;
+      grid-column-end: 7;
+    }
+  }
+}

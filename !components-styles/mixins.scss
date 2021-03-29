@@ -1,0 +1,28 @@
+@mixin ctx-landscape {
+  @media (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin ctx-portrait {
+  @media (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin ctx-tablet {
+  @media screen
+  and (min-device-width: 641px)
+  and (max-device-width: 1366px)
+  and (hover: none) {
+    @content;
+  }
+}
+
+@mixin ctx-mobile {
+  @media screen
+  and (max-device-width: 640px)
+  and (hover: none) {
+    @content;
+  }
+}

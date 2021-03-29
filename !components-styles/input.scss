@@ -1,0 +1,312 @@
+@import "~@mill/figma/icons";
+@import "~@mill/figma/typography";
+@import "~@mill/figma/colors";
+
+%icon_grey-40 {
+  background: $grey-40;
+}
+
+%icon_orange-50 {
+  background: $orange-50 !important;
+}
+
+%icon_green-50 {
+  background: $green-50;
+}
+
+.input {
+  padding: 1px 0 2px 0;
+  display: inline-block;
+  width: 100%;
+  min-width: 100px;
+  position: relative;
+
+  &:not(&_disabled):hover {
+    .input__body {
+      padding: 0;
+      border: 2px solid $grey-60;
+    }
+
+    .input__placeholder {
+      color: $grey-50;
+    }
+
+    input::placeholder {
+      color: $grey-50;
+    }
+
+    textarea::placeholder {
+      color: $grey-50;
+    }
+
+    .input__icon {
+      background: $grey-50;
+    }
+
+    .chevron__icon {
+      color: $grey-50 !important;
+    }
+  }
+}
+
+.input__btnCleanup {
+  &:not(.input_disabled):hover {
+    .input__body {
+      & .icon_circle-close {
+        display: block;
+        background: $grey-40;
+      }
+
+      & .input__icon:not(.icon_circle-close) {
+        display: none;
+      }
+    }
+  }
+}
+
+.input__input-cleanup {
+  &:focus ~ .icon_circle-close {
+    display: block;
+    background: $grey-40;
+  }
+
+  &:focus ~ .input__icon:not(.icon_circle-close) {
+    display: none;
+  }
+}
+
+.input__label {
+  @extend %p2;
+
+  color: $grey-70;
+  margin-bottom: 3px;
+  height: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+}
+
+.icon.input__icon {
+  @extend .icon_24;
+  @extend %icon_grey-40;
+
+  margin: 0 10px 0 -4px;
+  min-width: 24px;
+}
+
+.icon__image {
+  min-height: 24px;
+  min-width: 24px;
+  margin: 0 10px 0 0;
+}
+
+.input__body {
+  border: 1px solid $grey-50;
+  border-radius: 8px;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 48px;
+  padding: 1px;
+  background: $other-white;
+
+  &:focus-within {
+    padding: 0;
+    border: 2px solid $grey-60;
+  }
+
+  .icon_circle-close {
+    display: none;
+    cursor: pointer;
+  }
+}
+
+.input__entrance {
+  position: relative;
+  flex-grow: 1;
+  min-height: 44px;
+  display: flex;
+  align-items: center;
+}
+
+.input__input {
+  @extend %p1;
+
+  position: relative;
+  z-index: 2;
+  border: none;
+  outline: none;
+  background: transparent;
+  height: 44px;
+  padding: 0 14px;
+  box-sizing: border-box;
+  width: 100%;
+  color: $grey-70;
+
+  &.input__input_prefixed {
+    padding: 0 16px 0 4px;
+  }
+
+  &.input__input_prefixed-international {
+    padding: 0 16px 0 0;
+  }
+}
+
+input::placeholder {
+  color: $grey-40;
+}
+
+.input__textarea {
+  @extend %p1;
+
+  position: relative;
+  z-index: 2;
+  border: none;
+  outline: none;
+  background: transparent;
+  padding: 10px 16px;
+  min-height: 44px;
+  color: $grey-70;
+  width: 100%;
+  min-width: -webkit-fill-available;
+  &::placeholder {
+    color: $grey-40;
+  }
+
+  // .input:not(.input_disabled):hover input::placeholder {
+  //   color: #93939e;
+  // }
+}
+
+.input__placeholder {
+  @extend %p1;
+
+  box-sizing: border-box;
+  position: absolute;
+  left: 0;
+  top: 0;
+  color: $grey-40;
+  padding: 10px 0 0 14px;
+  min-height: 46px;
+  width: calc(100% - 14px);
+  overflow: hidden;
+}
+
+.input__footer {
+  margin-top: 2px;
+  height: 19px;
+}
+
+.input__control-message {
+  overflow: hidden;
+  height: fit-content;
+  display: flex;
+  align-items: baseline;
+}
+
+.input_disabled {
+  .input__body {
+    border: 1px solid $grey-30;
+  }
+
+  .input__label {
+    color: $grey-40;
+  }
+
+  .input__control-message {
+    @extend .control-message_disabled;
+  }
+
+  .input__prefix > span {
+    color: $grey-40;
+  }
+
+  input::placeholder {
+    color: $grey-40;
+  }
+}
+
+.input_error {
+  .input__body {
+    padding: 0;
+    border: 2px solid $orange-50 !important;
+  }
+
+  .input__icon {
+    @extend %icon_orange-50;
+  }
+
+  .input__control-message {
+    @extend .control-message_error;
+  }
+}
+
+.input_valid {
+  .input__body {
+    padding: 0;
+    border: 2px solid $green-50 !important;
+  }
+
+  .icon.input__icon {
+    @extend %icon_green-50;
+  }
+
+  .input__control-message {
+    @extend .control-message_valid;
+  }
+}
+
+.input__prefix {
+  padding: 0 0 0 16px;
+  & > span {
+    @extend %p1;
+    line-height: 23px !important;
+    color: $grey-70;
+  }
+}
+
+// ------------------------------------------
+
+
+
+.loader-wrap {
+  width: 24px;
+  height: 24px;
+  border-radius: 100%;
+  position: relative;
+  margin: 0 10px 0 -4px;
+  min-width: 24px;
+}
+
+.loader {
+  &::before,
+  &::after {
+    position: absolute;
+    width: 20px;
+    height: 20px;
+    border-radius: 100%;
+    border: 2px solid transparent;
+    border-top-color: $red-50;
+    content: "";
+  }
+
+  &::before {
+    z-index: 100;
+    animation: spin 1s infinite;
+  }
+
+  &::after {
+    border: 2px solid #d0d0d9;
+  }
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}

@@ -1,0 +1,74 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+
+$border-color: $grey-60;
+
+// TODO: move $main-primary-light to '~@mill/figma/colors'
+$main-primary-light: #f5f5fa;
+
+%user-info {
+  border: 1px solid $border-color;
+  border-radius: 16px;
+  opacity: 1;
+  overflow: hidden;
+  display: block;
+}
+
+:host {
+  @extend %user-info;
+  display: block;
+}
+
+.user-info {
+  @extend %user-info;
+
+  &__body {
+    padding: 10px 16px;
+
+    &_with-avatar {
+      padding: 16px;
+      display: grid;
+      grid-template-columns: 48px 1fr;
+
+      .user-info__text {
+        min-height: 40px;
+      }
+    }
+  }
+
+  &__footer {
+    padding: 4px;
+    display: flex;
+    justify-content: center;
+    border-top: 1px solid $border-color;
+  }
+
+  &__text {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+
+    &_with-additional {
+      justify-content: start;
+    }
+  }
+
+  &__username {
+    @extend %s2;
+    color: $main-primary-light;
+  }
+
+  &__additional {
+    @extend %p3;
+    margin-top: 8px;
+    color: $grey-30;
+  }
+
+  &__avatar {
+    width: 40px;
+    height: 40px;
+    border-radius: 20px;
+    background-size: cover;
+    background-position: center;
+  }
+}

@@ -1,0 +1,282 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+@import "~@mill/figma/icons";
+
+:host.mill-chip {
+
+  white-space: nowrap;
+  font-family: Gilroy, sans-serif;
+  font-style: normal;
+  font-weight: 500;
+  font-size: 14px;
+  line-height: 20px;
+
+  .mill-chip__item__start-icon {
+    margin: 0 4px 0 0;
+    background: $grey-40;
+
+    &.active-primary {
+      background: $main-secondary-accent;
+    }
+
+    &.active-secondary {
+      background: $main-primary-medium;
+    }
+  }
+
+  ::v-deep .mill-chip__item mill-icon {
+    margin-left: 10px;
+    margin-right: -2px;
+
+    span {
+      background: $main-primary-medium !important;
+
+      &:hover::after,
+      &:focus::after {
+        content: " ";
+        outline: none;
+        display: block;
+        height: 100%;
+        width: 100%;
+        background: $grey-60;
+      }
+
+      &:active::after {
+        content: " ";
+        outline: none;
+        display: block;
+        height: 100%;
+        width: 100%;
+        background: $grey-60;
+      }
+    }
+  }
+
+  ::v-deep .filled mill-icon {
+    span {
+      &:hover::after,
+      &:focus::after {
+        background: $grey-70;
+      }
+
+      &:active::after {
+        background: $main-primary-dark;
+      }
+    }
+  }
+
+  ::v-deep .basic-with-error mill-icon {
+    span {
+      background: $main-error !important;
+
+      &:hover::after,
+      &:focus::after {
+        background: $orange-60;
+      }
+
+      &:active::after {
+        background: $orange-60;
+      }
+    }
+  }
+
+  span {
+    display: flex;
+    align-items: center;
+  }
+
+  .enabled, .disabled {
+    color: $grey-70;
+    display: flex;
+    align-items: center;
+    border-radius: 8px;
+    margin: 4px;
+    padding: 6px 12px;
+    user-select: none;
+    letter-spacing: 0.25px;
+  }
+
+  .has-icon {
+    padding: 4px 8px;
+  }
+
+  .outlined:not(.disabled) {
+    &.basic-with-error {
+      background: $other-white;
+      border: 1px solid $main-error;
+      color: $main-error;
+
+      & > .mill-chip__item__start-icon {
+        background: $main-error;
+      }
+    }
+
+    &.active-primary {
+      background: $red-10;
+      border: 1px solid $red-30;
+    }
+
+    &.active-secondary {
+      background: $main-primary-light;
+      border: 1px solid $grey-30;
+    }
+
+    &:hover,
+    &:focus {
+      background: $grey-10;
+      outline: none;
+
+      &.active-primary {
+        background: $red-20;
+      }
+
+      &.active-secondary {
+        background: $grey-20;
+      }
+    }
+
+    &:active {
+      background: $grey-20;
+      outline: none;
+
+      &.active-primary {
+        background: $red-30;
+        color: $red-60;
+
+        & > .mill-chip__item__start-icon {
+          background: $red-60;
+        }
+      }
+
+      &.active-secondary {
+        background: $grey-30;
+      }
+    }
+  }
+
+  .filled:not(.disabled) {
+    border: unset;
+    background: $grey-20;
+
+    &.basic-with-error {
+      background: $orange-10;
+      border: unset;
+      color: $main-error;
+
+      & > .mill-chip__item__start-icon {
+        background: $main-error;
+      }
+    }
+
+    & > .mill-chip__item__start-icon {
+      background: $main-primary-medium;
+    }
+
+    &.active-primary {
+      border: unset;
+      background: $red-10;
+
+      & > .mill-chip__item__start-icon {
+        background: $main-secondary-accent;
+      }
+    }
+
+    &.active-secondary {
+      border: unset;
+      background: $main-secondary-accent;
+    }
+
+    &:hover,
+    &:focus {
+      background: $grey-30;
+      outline: none;
+
+      &.active-primary {
+        background: $red-20;
+      }
+
+      &.active-secondary {
+        box-shadow: 0 6px 12px rgba(249, 31, 43, 0.15), 0 3px 5px rgba(249, 31, 43, 0.25);
+        background: $red-40;
+      }
+
+      &.basic-with-error {
+        background: $orange-20;
+      }
+    }
+
+    &:active {
+      background: $grey-40;
+      outline: none;
+
+      &.active-primary {
+        background: $red-30;
+        color: $red-60;
+      }
+
+      &.active-secondary {
+        background: $red-60;
+      }
+
+      &.basic-with-error {
+        background: $orange-30;
+      }
+    }
+
+    &:hover,
+    &:active {
+      & > .mill-chip__item__start-icon {
+        &.basic-with-error {
+          background: $orange-60;
+        }
+      }
+    }
+  }
+
+
+  .enabled {
+    cursor: pointer;
+    border: 1px solid $grey-30;
+
+    &.active-primary {
+      color: $main-secondary-accent;
+    }
+
+    &.active-secondary {
+      color: $main-secondary-accent;
+
+      &.filled {
+        color: $other-white;
+      }
+
+      &.outlined {
+        color: $main-primary-dark;
+      }
+    }
+  }
+
+  .disabled {
+    cursor: not-allowed;
+    color: $grey-40;
+
+    &.outlined {
+      background: $other-white;
+      border: 1px solid $grey-20;
+    }
+
+    &.filled {
+      background: $grey-10;
+      border: 1px solid $grey-20;
+
+      &.active-secondary {
+        background: $grey-20;
+        border: unset;
+        color: $grey-40;
+      }
+    }
+
+    & > .mill-chip__item__start-icon {
+      background: $grey-30;
+    }
+  }
+}

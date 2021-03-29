@@ -1,0 +1,14 @@
+@import "~@mill/figma/typography";
+@import "~@mill/figma/icons";
+
+:host {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  background: rgba(16, 16, 31, .42);
+  display: block;
+  pointer-events: auto;
+}

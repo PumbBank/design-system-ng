@@ -1,0 +1,233 @@
+@import "~@mill/figma/colors";
+@import "~@mill/figma/typography";
+@import "~@mill/figma/icons";
+
+:host {
+  width: 100%;
+  display: block;
+}
+
+/* stylelint-disable no-descending-specificity */
+.stepper {
+  width: 100%;
+  padding: 20px 0;
+  border-bottom: 1px solid $grey-20;
+  z-index: 2;
+  background: #ffffff;
+  position: relative;
+  overflow-x: hidden;
+
+  &__wrapper {
+    height: 100%;
+    flex-grow: 1;
+    transition: 0.2s ease;
+  }
+
+  &__list {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+
+  &_simple {
+    .stepper-item {
+      min-width: auto;
+    }
+  }
+
+  &-item {
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    flex: 1;
+    min-width: 168px;
+    position: relative;
+
+    &::before,
+    &::after {
+      content: "";
+      position: absolute;
+      top: 8px;
+      width: calc(50% - 12px);
+      height: 1px;
+      background: $grey-20;
+    }
+
+    &::before {
+      left: 0;
+    }
+
+    &::after {
+      right: 0;
+    }
+
+    &:first-of-type {
+      &::before {
+        display: none;
+      }
+    }
+
+    &:last-of-type {
+      &::after {
+        display: none;
+      }
+    }
+
+    &:hover {
+      .stepper-item__circle {
+        background: $grey-60;
+      }
+    }
+
+    &__wrapper {
+      display: flex;
+      align-items: center;
+      flex-direction: column;
+      cursor: pointer;
+    }
+
+    &__circle {
+      width: 16px;
+      height: 16px;
+      background: $grey-40;
+      border-radius: 50%;
+      position: relative;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      margin-bottom: 14px;
+
+      &::after {
+        content: "";
+        position: absolute;
+        width: 8px;
+        height: 8px;
+        background: #ffffff;
+        border-radius: 50%;
+      }
+    }
+
+    &__value {
+      @extend %p2;
+
+      text-align: center;
+      white-space: nowrap;
+    }
+
+    &_active {
+      .stepper-item__circle {
+        box-shadow: 0 3px 5px rgba(249, 31, 43, 0.25), 0 6px 12px rgba(249, 31, 43, 0.15);
+        background: $red-50;
+      }
+
+      .stepper-item__value {
+        @extend %s2;
+      }
+
+      &:hover {
+        .stepper-item__circle {
+          background: $red-40;
+        }
+      }
+    }
+
+    &_error {
+      .stepper-item__circle {
+        background: $orange-50;
+
+        &::before {
+          content: "";
+          position: absolute;
+
+          @extend .icon_12;
+          @extend .icon_warning-simple;
+
+          background: #ffffff;
+        }
+
+        &::after {
+          display: none;
+        }
+      }
+
+      &:hover {
+        .stepper-item__circle {
+          background: $orange-40;
+        }
+      }
+    }
+
+    &_valid {
+      .stepper-item__circle {
+        cursor: pointer;
+        background: $red-50;
+
+        &::before {
+          content: "";
+          position: absolute;
+
+          @extend .icon_12;
+          @extend .icon_ok;
+
+          background: #ffffff;
+        }
+
+        &::after {
+          display: none;
+        }
+      }
+
+      &:hover {
+        .stepper-item__circle {
+          background: $red-40;
+        }
+      }
+    }
+  }
+}
+/* stylelint-enable */
+
+.stepper-nav {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  margin: auto;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  outline: none;
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  background: #ffffff;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.03), 0 2px 7px rgba(0, 0, 0, 0.1), 0 0 2px rgba(0, 0, 0, 0.2);
+  transition: 0.2s ease;
+  cursor: pointer;
+
+  .icon {
+    background: $grey-50;
+    transition: 0.2s ease;
+  }
+
+  &:hover {
+    background: $grey-10;
+
+    .icon {
+      background: $grey-60;
+    }
+  }
+
+  &:active {
+    background: $grey-20;
+  }
+
+  &_left {
+    left: 16px;
+  }
+
+  &_right {
+    right: 16px;
+  }
+}

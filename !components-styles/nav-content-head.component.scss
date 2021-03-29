@@ -1,0 +1,15 @@
+:host {
+  height: 104px;
+  box-sizing: border-box;
+
+  width: 100%;
+  position: sticky;
+  top: 0;
+}
+
+@media (max-width: 767px) {
+  :host {
+    padding: 24px 16px 16px 16px;
+    height: 138px;
+  }
+}
