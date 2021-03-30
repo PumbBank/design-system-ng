@@ -1,0 +1,25 @@
+/* Resource: https://google-webfonts-helper.herokuapp.com/fonts/roboto-mono?subsets=cyrillic,latin */
+
+@font-face {
+  font-family: 'RobotoMono300';
+  src: url('roboto-mono-300.woff2') format('woff2'),
+  url('roboto-mono-300.woff') format('woff');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'RobotoMono400';
+  src: url('roboto-mono-400.woff2') format('woff2'),
+  url('roboto-mono-400.woff') format('woff');
+  font-style: normal;
+  font-weight: 400;
+}
+
+@font-face {
+  font-family: 'RobotoMono500';
+  src: url('roboto-mono-500.woff2') format('woff2'),
+  url('roboto-mono-500.woff') format('woff');
+  font-style: normal;
+  font-weight: 400;
+}

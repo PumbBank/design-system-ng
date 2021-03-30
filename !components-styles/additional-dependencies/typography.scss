@@ -1,0 +1,87 @@
+@import "variables";
+@import 'colors';
+
+%h1 {
+  font-family: $gilroy-700-bold, sans-serif;
+  font-size: 98px;
+  line-height: 96px;
+  letter-spacing: -1.5px; 
+}
+
+%h2 {
+  font-family: $gilroy-700-bold, sans-serif;
+  font-size: 60px;
+  line-height: 72px;
+  letter-spacing: -0.5px;
+}
+
+%h3 {
+  font-family: $gilroy-700-bold, sans-serif;
+  font-size: 48px;
+  line-height: 60px;
+  letter-spacing: 0;
+}
+
+%h4 {
+  font-family: $gilroy-700-bold, sans-serif;
+  font-size: 34px;
+  line-height: 36px;
+  letter-spacing: 0.25px;
+}
+
+%h5 {
+  font-family: $gilroy-700-bold, sans-serif;
+  font-size: 24px;
+  line-height: 32px;
+  letter-spacing: 0.35px;
+}
+
+%h6 {
+  font-family: $gilroy-700-bold, sans-serif;
+  font-size: 20px;
+  line-height: 24px;
+  letter-spacing: 0.4px;
+}
+
+%s1 {
+  font-family: $gilroy-600-semibold, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.18px;
+}
+
+%s2 {
+  font-family: $gilroy-600-semibold, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.18px;
+}
+
+%p1 {
+  font-family: $gilroy-500-medium, sans-serif;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: 0.25px;
+}
+
+%p2 {
+  font-family: $gilroy-500-medium, sans-serif;
+  font-size: 14px;
+  line-height: 20px;
+  letter-spacing: 0.25px;
+}
+
+%p3 {
+  font-family: $gilroy-500-medium, sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 0.25px;
+}
+
+%overline {
+  font-family: $gilroy-500-medium, sans-serif;
+  font-size: 12px;
+  line-height: 16px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+}

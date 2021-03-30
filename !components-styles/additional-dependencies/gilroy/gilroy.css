@@ -1,0 +1,159 @@
+@font-face {
+    font-family: 'Gilroy-Black';
+    src: url('Gilroy-Black.woff2') format('woff2'),
+    url('Gilroy-Black.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy-BlackItalic';
+    src: url('Gilroy-BlackItalic.woff2') format('woff2'),
+    url('Gilroy-BlackItalic.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gilroy-Bold';
+    src: url('Gilroy-Bold.woff2') format('woff2'),
+    url('Gilroy-Bold.woff') format('woff');
+    font-weight: 700;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy-BoldItalic';
+    src: url('Gilroy-BoldItalic.woff2') format('woff2'),
+    url('Gilroy-BoldItalic.woff') format('woff');
+    font-weight: 700;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gilroy-Extrabold';
+    src: url('Gilroy-Extrabold.woff2') format('woff2'),
+    url('Gilroy-Extrabold.woff') format('woff');
+    font-weight: 800;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy-ExtraboldItalic';
+    src: url('Gilroy-ExtraboldItalic.woff2') format('woff2'),
+    url('Gilroy-ExtraboldItalic.woff') format('woff');
+    font-weight: 800;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gilroy-Heavy';
+    src: url('Gilroy-Heavy.woff2') format('woff2'),
+    url('Gilroy-Heavy.woff') format('woff');
+    font-weight: 900;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy-HeavyItalic';
+    src: url('Gilroy-HeavyItalic.woff2') format('woff2'),
+    url('Gilroy-HeavyItalic.woff') format('woff');
+    font-weight: 900;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gilroy-Light';
+    src: url('Gilroy-Light.woff2') format('woff2'),
+    url('Gilroy-Light.woff') format('woff');
+    font-weight: 300;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy-LightItalic';
+    src: url('Gilroy-LightItalic.woff2') format('woff2'),
+    url('Gilroy-LightItalic.woff') format('woff');
+    font-weight: 300;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gilroy-Medium';
+    src: url('Gilroy-Medium.woff2') format('woff2'),
+    url('Gilroy-Medium.woff') format('woff');
+    font-weight: 500;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy-MediumItalic';
+    src: url('Gilroy-MediumItalic.woff2') format('woff2'),
+    url('Gilroy-MediumItalic.woff') format('woff');
+    font-weight: 500;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gilroy-Regular';
+    src: url('Gilroy-Regular.woff2') format('woff2'),
+    url('Gilroy-Regular.woff') format('woff');
+    font-weight: 400;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy-RegularItalic';
+    src: url('Gilroy-RegularItalic.woff2') format('woff2'),
+    url('Gilroy-RegularItalic.woff') format('woff');
+    font-weight: 400;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gilroy-Semibold';
+    src: url('Gilroy-Semibold.woff2') format('woff2'),
+    url('Gilroy-Semibold.woff') format('woff');
+    font-weight: 600;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy-SemiboldItalic';
+    src: url('Gilroy-SemiboldItalic.woff2') format('woff2'),
+    url('Gilroy-SemiboldItalic.woff') format('woff');
+    font-weight: 600;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gilroy-Thin';
+    src: url('Gilroy-Thin.woff2') format('woff2'),
+    url('Gilroy-Thin.woff') format('woff');
+    font-weight: 100;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy-ThinItalic';
+    src: url('Gilroy-ThinItalic.woff2') format('woff2'),
+    url('Gilroy-ThinItalic.woff') format('woff');
+    font-weight: 100;
+    font-style: italic;
+}
+
+@font-face {
+    font-family: 'Gilroy-UltraLight';
+    src: url('Gilroy-UltraLight.woff2') format('woff2'),
+    url('Gilroy-UltraLight.woff') format('woff');
+    font-weight: 200;
+    font-style: normal;
+}
+
+@font-face {
+    font-family: 'Gilroy-UltraLightItalic';
+    src: url('Gilroy-UltraLightItalic.woff2') format('woff2'),
+    url('Gilroy-UltraLightItalic.woff') format('woff');
+    font-weight: 200;
+    font-style: italic;
+}
